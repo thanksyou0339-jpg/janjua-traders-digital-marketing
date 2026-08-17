@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Janjua Traders Digital Marketing Platform">
+  <title>Janjua Traders | Digital Marketing Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="brand-shuffle" aria-label="Janjua Traders">
+      <span>JINDUA TRADING</span>
+      <span>DIGITAL MARKETING</span>
+      <span>JINDUA TRADING</span>
+    </div>
+    <p class="tagline">Digital Marketing Platform</p>
+    <p class="subtag">OLX • Markaz • Daraz • Future Partners</p>
+  </header>
+
+  <main class="container">
+    <section class="intro card">
+      <h1>اپنی چیز، اپنا لنک، اپنا کاروبار</h1>
+      <p>مختلف marketplace offers کو ایک جگہ منظم کریں، customer request لیں اور متعلقہ platform کے اگلے مرحلے تک آسانی سے پہنچائیں۔</p>
+    </section>
+
+    <section class="platform-grid">
+      <article class="platform card">
+        <div class="icon">OLX</div>
+        <h2>OLX Reselling</h2>
+        <p>OLX item کی معلومات رکھیں، Facebook پر share کریں اور customer کی request لیں۔</p>
+        <button onclick="openOrder('OLX')">OLX Order / Request</button>
+        <button class="secondary" onclick="shareFacebook('OLX')">Facebook پر Share</button>
+      </article>
+
+      <article class="platform card">
+        <div class="icon">M</div>
+        <h2>Markaz</h2>
+        <p>Markaz product کا اپنا link استعمال کریں اور customer کو متعلقہ registration/order flow کی طرف لے جائیں۔</p>
+        <button onclick="openOrder('Markaz')">Markaz Registration / Order</button>
+        <button class="secondary" onclick="shareFacebook('Markaz')">Facebook پر Share</button>
+      </article>
+
+      <article class="platform card">
+        <div class="icon">D</div>
+        <h2>Daraz</h2>
+        <p>Daraz product link محفوظ کریں اور customer کو متعلقہ Daraz flow تک پہنچائیں۔</p>
+        <button onclick="openOrder('Daraz')">Daraz Order</button>
+        <button class="secondary" onclick="shareFacebook('Daraz')">Facebook پر Share</button>
+      </article>
+
+      <article class="platform card future">
+        <div class="icon">+</div>
+        <h2>Future Platform</h2>
+        <p>بعد میں نیا marketplace یا supplier شامل کرنے کے لیے تیار جگہ۔</p>
+        <button onclick="openOrder('Future Platform')">Coming Soon</button>
+      </article>
+    </section>
+
+    <section class="card workflow">
+      <h2>Customer Request</h2>
+      <p class="muted">Customer کی ابتدائی request یہاں لی جائے گی۔</p>
+      <form id="orderForm">
+        <label>Platform
+          <select id="platform" required>
+            <option value="OLX">OLX</option>
+            <option value="Markaz">Markaz</option>
+            <option value="Daraz">Daraz</option>
+            <option value="Future Platform">Future Platform</option>
+          </select>
+        </label>
+        <label>Customer Name
+          <input id="customerName" type="text" placeholder="نام" required>
+        </label>
+        <label>Mobile / WhatsApp
+          <input id="customerPhone" type="tel" placeholder="03XXXXXXXXX" required>
+        </label>
+        <label>Product / Item
+          <input id="productName" type="text" placeholder="چیز کا نام" required>
+        </label>
+        <label>Product Link
+          <input id="productLink" type="url" placeholder="https://..." required>
+        </label>
+        <label>Message
+          <textarea id="message" rows="3" placeholder="اضافی معلومات"></textarea>
+        </label>
+        <button type="submit">Request Submit کریں</button>
+      </form>
+      <div id="result" class="result hidden"></div>
+    </section>
+
+    <section class="card setup">
+      <h2>Integration Note</h2>
+      <p>OLX، Markaz یا Daraz میں خودکار order submission کے لیے متعلقہ platform کی official API یا approved integration درکار ہوگی۔ اس پہلے frontend ورژن میں کوئی جعلی direct submission نہیں رکھا گیا۔</p>
+    </section>
+  </main>
+
+  <footer><strong>Janjua Traders</strong> — Digital Marketing Platform</footer>
+  <script src="script.js"></script>
+</body>
+</html>
