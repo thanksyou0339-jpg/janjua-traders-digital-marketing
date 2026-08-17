@@ -396,3 +396,162 @@ function createProductLink(data) {
 // ------------------------------------------
 // END
 // ------------------------------------------
+/* =========================================
+   JANJUA TRADERS - PRODUCT LINK SYSTEM
+   ========================================= */
+
+function createProductLink(
+    platform,
+    productName,
+    price,
+    deliveryCharges,
+    imageUrl,
+    extraCharges = ""
+) {
+
+    const website =
+        "https://thankyou0339-jpg.github.io/janjua-traders-digital-marketing/";
+
+    const params = new URLSearchParams();
+
+    params.set("platform", platform);
+    params.set("product", productName);
+    params.set("price", price);
+    params.set("delivery", deliveryCharges);
+    params.set("image", imageUrl);
+    params.set("extras", extraCharges);
+
+    return website + "?" + params.toString();
+}
+
+
+/* =========================================
+   LOAD PRODUCT FROM LINK
+   ========================================= */
+
+function loadProductLink() {
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const platform =
+        params.get("platform");
+
+    const product =
+        params.get("product");
+
+    const price =
+        params.get("price");
+
+    const delivery =
+        params.get("delivery");
+
+    const image =
+        params.get("image");
+
+    const extras =
+        params.get("extras");
+
+
+    /* اگر Product Link موجود نہیں */
+    if (!platform && !product) {
+        return;
+    }
+
+
+    /* Platform */
+    const platformBox =
+        document.getElementById("platform");
+
+    if (platformBox && platform) {
+        platformBox.value = platform;
+    }
+
+
+    /* Product Name */
+    const productBox =
+        document.getElementById("productName");
+
+    if (productBox && product) {
+        productBox.value = product;
+    }
+
+
+    /* Product Image */
+    const productImage =
+        document.getElementById("productImage");
+
+    if (productImage && image) {
+
+        productImage.src =
+            decodeURIComponent(image);
+
+        productImage.style.display =
+            "block";
+    }
+
+
+    /* Product Title */
+    const productTitle =
+        document.getElementById("productTitle");
+
+    if (productTitle && product) {
+        productTitle.textContent =
+            decodeURIComponent(product);
+    }
+
+
+    /* Price */
+    const priceBox =
+        document.getElementById("productPrice");
+
+    if (priceBox && price) {
+        priceBox.textContent =
+            "Rs. " + decodeURIComponent(price);
+    }
+
+
+    /* Delivery */
+    const deliveryBox =
+        document.getElementById("deliveryCharge");
+
+    if (deliveryBox && delivery) {
+        deliveryBox.textContent =
+            "Delivery Charges: Rs. " +
+            decodeURIComponent(delivery);
+    }
+
+
+    /* Extra Charges */
+    const extraBox =
+        document.getElementById("extraCharges");
+
+    if (extraBox && extras) {
+        extraBox.textContent =
+            decodeURIComponent(extras);
+    }
+
+
+    /* Product Link محفوظ کریں */
+    const linkBox =
+        document.getElementById("productLink");
+
+    if (linkBox) {
+        linkBox.value =
+            window.location.href;
+    }
+}
+
+
+/* =========================================
+   START PRODUCT LINK SYSTEM
+   ========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadProductLink();
+
+    }
+);
