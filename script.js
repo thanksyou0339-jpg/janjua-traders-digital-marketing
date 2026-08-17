@@ -1,5 +1,6 @@
 // ==========================================
 // JANJUA TRADERS - DIGITAL MARKETING SYSTEM
+// FINAL COMPLETE VERSION
 // ==========================================
 
 
@@ -9,15 +10,16 @@
 
 const params = new URLSearchParams(window.location.search);
 
-const platform = params.get("platform") || "Markaz";
+const platform =
+    params.get("platform") || "Markaz";
 
 const title =
     params.get("title") ||
+    params.get("product") ||
     "آپ کا Product";
 
 const image =
-    params.get("image") ||
-    "";
+    params.get("image") || "";
 
 const description =
     params.get("description") ||
@@ -31,6 +33,7 @@ const delivery =
 
 const extra =
     params.get("extra") ||
+    params.get("extras") ||
     "Product کی قیمت اور delivery charges آرڈر سے پہلے چیک کریں۔";
 
 
@@ -57,82 +60,106 @@ const priceElement =
     document.getElementById("productPrice");
 
 const deliveryElement =
-    document.getElementById("deliveryPrice");
+    document.getElementById("deliveryPrice") ||
+    document.getElementById("deliveryCharge");
 
 const totalElement =
     document.getElementById("totalPrice");
 
 const extraElement =
-    document.getElementById("extraInfo");
+    document.getElementById("extraInfo") ||
+    document.getElementById("extraCharges");
 
 
+// ------------------------------------------
 // Platform
+// ------------------------------------------
 
 if (platformElement) {
     platformElement.textContent = platform;
 }
 
 
-// Product title
+// ------------------------------------------
+// Product Title
+// ------------------------------------------
 
 if (titleElement) {
     titleElement.textContent = title;
 }
 
 
-// Product description
+// ------------------------------------------
+// Product Description
+// ------------------------------------------
 
 if (descriptionElement) {
     descriptionElement.textContent = description;
 }
 
 
-// Product image
+// ------------------------------------------
+// Product Image
+// ------------------------------------------
 
 if (imageElement && image) {
 
     imageElement.src = image;
-
     imageElement.style.display = "block";
 
     if (noImageElement) {
         noImageElement.style.display = "none";
     }
-
 }
 
 
-// Product price
+// ------------------------------------------
+// Product Price
+// ------------------------------------------
 
 if (priceElement) {
+
     priceElement.textContent =
-        "Rs. " + price.toLocaleString("en-PK");
+        "Rs. " +
+        price.toLocaleString("en-PK");
 }
 
 
+// ------------------------------------------
 // Delivery
+// ------------------------------------------
 
 if (deliveryElement) {
+
     deliveryElement.textContent =
-        "Rs. " + delivery.toLocaleString("en-PK");
+        "Rs. " +
+        delivery.toLocaleString("en-PK");
 }
 
 
+// ------------------------------------------
 // Total
+// ------------------------------------------
 
 const total =
     price + delivery;
 
 if (totalElement) {
+
     totalElement.textContent =
-        "Rs. " + total.toLocaleString("en-PK");
+        "Rs. " +
+        total.toLocaleString("en-PK");
 }
 
 
-// Extra information
+// ------------------------------------------
+// Extra Information
+// ------------------------------------------
 
 if (extraElement) {
-    extraElement.textContent = extra;
+
+    extraElement.textContent =
+        extra;
 }
 
 
@@ -149,9 +176,10 @@ if (platformInput) {
         ["OLX", "Markaz", "Daraz"];
 
     if (allowedPlatforms.includes(platform)) {
-        platformInput.value = platform;
-    }
 
+        platformInput.value =
+            platform;
+    }
 }
 
 
@@ -161,6 +189,7 @@ if (platformInput) {
 
 const quantityInput =
     document.getElementById("quantity");
+
 
 function updateTotal() {
 
@@ -178,9 +207,7 @@ function updateTotal() {
         totalElement.textContent =
             "Rs. " +
             finalTotal.toLocaleString("en-PK");
-
     }
-
 }
 
 
@@ -190,7 +217,6 @@ if (quantityInput) {
         "input",
         updateTotal
     );
-
 }
 
 
@@ -215,27 +241,44 @@ if (orderForm) {
 
 
             const customerName =
-                document.getElementById("customerName")?.value.trim();
+                document
+                    .getElementById("customerName")
+                    ?.value.trim() || "";
+
 
             const customerPhone =
-                document.getElementById("customerPhone")?.value.trim();
+                document
+                    .getElementById("customerPhone")
+                    ?.value.trim() || "";
+
 
             const address =
-                document.getElementById("address")?.value.trim();
+                document
+                    .getElementById("address")
+                    ?.value.trim() || "";
+
 
             const quantity =
                 Number(
-                    document.getElementById("quantity")?.value
+                    document
+                        .getElementById("quantity")
+                        ?.value
                 ) || 1;
 
+
             const message =
-                document.getElementById("message")?.value.trim() || "";
+                document
+                    .getElementById("message")
+                    ?.value.trim() || "";
 
 
-            // Final amount
+            // --------------------------------
+            // FINAL AMOUNT
+            // --------------------------------
 
             const finalTotal =
-                (price * quantity) + delivery;
+                (price * quantity) +
+                delivery;
 
 
             // --------------------------------
@@ -266,14 +309,17 @@ if (orderForm) {
 
                 message: message,
 
+                productLink:
+                    window.location.href,
+
                 orderTime:
                     new Date().toISOString()
-
             };
 
 
-            // Save order temporarily
-            // in browser
+            // --------------------------------
+            // SAVE ORDER TEMPORARILY
+            // --------------------------------
 
             localStorage.setItem(
                 "janjua_last_order",
@@ -287,7 +333,10 @@ if (orderForm) {
 
             if (result) {
 
-                result.classList.remove("hidden");
+                result.classList.remove(
+                    "hidden"
+                );
+
 
                 result.innerHTML =
 
@@ -314,13 +363,10 @@ if (orderForm) {
                     "<br><br>" +
 
                     "آپ کی معلومات محفوظ ہو گئی ہیں۔";
-
             }
-
 
         }
     );
-
 }
 
 
@@ -332,226 +378,430 @@ function escapeHtml(value) {
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
-
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
 
 
-// ------------------------------------------
+// ==========================================
 // 7. CREATE PRODUCT LINK
-// ------------------------------------------
-//
-// Example:
-//
-// ?platform=Markaz
-// &title=Mobile Phone
-// &image=IMAGE_URL
-// &price=25000
-// &delivery=250
-// &description=New Mobile
-// &extra=Warranty available
-//
-// ------------------------------------------
+// ==========================================
 
 function createProductLink(data) {
 
-    const baseUrl =
-        window.location.origin +
-        window.location.pathname;
+    const website =
+        "https://thanksyou0339-jpg.github.io/janjua-traders-digital-marketing/";
 
 
     const query =
-        new URLSearchParams({
-
-            platform: data.platform,
-
-            title: data.title,
-
-            image: data.image,
-
-            price: data.price,
-
-            delivery: data.delivery,
-
-            description: data.description,
-
-            extra: data.extra
-
-        });
+        new URLSearchParams();
 
 
-    return baseUrl + "?" + query.toString();
+    query.set(
+        "platform",
+        data.platform || "Markaz"
+    );
 
+
+    query.set(
+        "title",
+        data.title ||
+        data.product ||
+        ""
+    );
+
+
+    query.set(
+        "product",
+        data.title ||
+        data.product ||
+        ""
+    );
+
+
+    query.set(
+        "image",
+        data.image || ""
+    );
+
+
+    query.set(
+        "price",
+        data.price || 0
+    );
+
+
+    query.set(
+        "delivery",
+        data.delivery || 0
+    );
+
+
+    query.set(
+        "description",
+        data.description || ""
+    );
+
+
+    query.set(
+        "extra",
+        data.extra ||
+        data.extras ||
+        ""
+    );
+
+
+    query.set(
+        "extras",
+        data.extra ||
+        data.extras ||
+        ""
+    );
+
+
+    return (
+        website +
+        "?" +
+        query.toString()
+    );
 }
 
 
-// ------------------------------------------
-// END
-// ------------------------------------------
-/* =========================================
-   JANJUA TRADERS - PRODUCT LINK SYSTEM
-   ========================================= */
-
-function createProductLink(
-    platform,
-    productName,
-    price,
-    deliveryCharges,
-    imageUrl,
-    extraCharges = ""
-) {
-
-    const website =
-        "https://thankyou0339-jpg.github.io/janjua-traders-digital-marketing/";
-
-    const params = new URLSearchParams();
-
-    params.set("platform", platform);
-    params.set("product", productName);
-    params.set("price", price);
-    params.set("delivery", deliveryCharges);
-    params.set("image", imageUrl);
-    params.set("extras", extraCharges);
-
-    return website + "?" + params.toString();
-}
-
-
-/* =========================================
-   LOAD PRODUCT FROM LINK
-   ========================================= */
+// ==========================================
+// 8. LOAD PRODUCT FROM LINK
+// ==========================================
 
 function loadProductLink() {
 
-    const params =
-        new URLSearchParams(window.location.search);
-
-    const platform =
-        params.get("platform");
-
-    const product =
-        params.get("product");
-
-    const price =
-        params.get("price");
-
-    const delivery =
-        params.get("delivery");
-
-    const image =
-        params.get("image");
-
-    const extras =
-        params.get("extras");
+    const linkParams =
+        new URLSearchParams(
+            window.location.search
+        );
 
 
-    /* اگر Product Link موجود نہیں */
-    if (!platform && !product) {
-        return;
-    }
+    const linkPlatform =
+        linkParams.get("platform") ||
+        "Markaz";
 
 
-    /* Platform */
+    const linkTitle =
+        linkParams.get("title") ||
+        linkParams.get("product") ||
+        "آپ کا Product";
+
+
+    const linkPrice =
+        Number(
+            linkParams.get("price")
+        ) || 0;
+
+
+    const linkDelivery =
+        Number(
+            linkParams.get("delivery")
+        ) || 0;
+
+
+    const linkImage =
+        linkParams.get("image") ||
+        "";
+
+
+    const linkDescription =
+        linkParams.get("description") ||
+        "اس product کی مکمل تفصیل یہاں نظر آئے گی۔";
+
+
+    const linkExtra =
+        linkParams.get("extra") ||
+        linkParams.get("extras") ||
+        "";
+
+
+
+    // --------------------------------------
+    // PLATFORM
+    // --------------------------------------
+
     const platformBox =
         document.getElementById("platform");
 
-    if (platformBox && platform) {
-        platformBox.value = platform;
+
+    if (platformBox) {
+
+        const allowedPlatforms =
+            ["OLX", "Markaz", "Daraz"];
+
+
+        if (
+            allowedPlatforms.includes(
+                linkPlatform
+            )
+        ) {
+
+            platformBox.value =
+                linkPlatform;
+        }
     }
 
 
-    /* Product Name */
-    const productBox =
+
+    // --------------------------------------
+    // PRODUCT NAME
+    // --------------------------------------
+
+    const productNameBox =
         document.getElementById("productName");
 
-    if (productBox && product) {
-        productBox.value = product;
+
+    if (
+        productNameBox &&
+        linkTitle
+    ) {
+
+        productNameBox.value =
+            linkTitle;
     }
 
 
-    /* Product Image */
-    const productImage =
-        document.getElementById("productImage");
 
-    if (productImage && image) {
+    // --------------------------------------
+    // PRODUCT TITLE
+    // --------------------------------------
 
-        productImage.src =
-            decodeURIComponent(image);
-
-        productImage.style.display =
-            "block";
-    }
-
-
-    /* Product Title */
-    const productTitle =
+    const productTitleBox =
         document.getElementById("productTitle");
 
-    if (productTitle && product) {
-        productTitle.textContent =
-            decodeURIComponent(product);
+
+    if (productTitleBox) {
+
+        productTitleBox.textContent =
+            linkTitle;
     }
 
 
-    /* Price */
-    const priceBox =
-        document.getElementById("productPrice");
 
-    if (priceBox && price) {
-        priceBox.textContent =
-            "Rs. " + decodeURIComponent(price);
+    // --------------------------------------
+    // PRODUCT IMAGE
+    // --------------------------------------
+
+    const productImageBox =
+        document.getElementById(
+            "productImage"
+        );
+
+
+    if (
+        productImageBox &&
+        linkImage
+    ) {
+
+        productImageBox.src =
+            linkImage;
+
+        productImageBox.style.display =
+            "block";
+
+
+        const noImageBox =
+            document.getElementById(
+                "noImage"
+            );
+
+
+        if (noImageBox) {
+
+            noImageBox.style.display =
+                "none";
+        }
     }
 
 
-    /* Delivery */
+
+    // --------------------------------------
+    // DESCRIPTION
+    // --------------------------------------
+
+    const descriptionBox =
+        document.getElementById(
+            "productDescription"
+        );
+
+
+    if (descriptionBox) {
+
+        descriptionBox.textContent =
+            linkDescription;
+    }
+
+
+
+    // --------------------------------------
+    // PRICE
+    // --------------------------------------
+
+    const productPriceBox =
+        document.getElementById(
+            "productPrice"
+        );
+
+
+    if (productPriceBox) {
+
+        productPriceBox.textContent =
+            "Rs. " +
+            linkPrice.toLocaleString(
+                "en-PK"
+            );
+    }
+
+
+
+    // --------------------------------------
+    // DELIVERY
+    // --------------------------------------
+
     const deliveryBox =
-        document.getElementById("deliveryCharge");
+        document.getElementById(
+            "deliveryPrice"
+        ) ||
+        document.getElementById(
+            "deliveryCharge"
+        );
 
-    if (deliveryBox && delivery) {
+
+    if (deliveryBox) {
+
         deliveryBox.textContent =
-            "Delivery Charges: Rs. " +
-            decodeURIComponent(delivery);
+            "Rs. " +
+            linkDelivery.toLocaleString(
+                "en-PK"
+            );
     }
 
 
-    /* Extra Charges */
+
+    // --------------------------------------
+    // TOTAL
+    // --------------------------------------
+
+    const totalBox =
+        document.getElementById(
+            "totalPrice"
+        );
+
+
+    if (totalBox) {
+
+        const linkTotal =
+            linkPrice +
+            linkDelivery;
+
+
+        totalBox.textContent =
+            "Rs. " +
+            linkTotal.toLocaleString(
+                "en-PK"
+            );
+    }
+
+
+
+    // --------------------------------------
+    // EXTRA INFORMATION
+    // --------------------------------------
+
     const extraBox =
-        document.getElementById("extraCharges");
+        document.getElementById(
+            "extraInfo"
+        ) ||
+        document.getElementById(
+            "extraCharges"
+        );
 
-    if (extraBox && extras) {
+
+    if (extraBox) {
+
         extraBox.textContent =
-            decodeURIComponent(extras);
+            linkExtra;
     }
 
 
-    /* Product Link محفوظ کریں */
+
+    // --------------------------------------
+    // PRODUCT LINK
+    // --------------------------------------
+
     const linkBox =
-        document.getElementById("productLink");
+        document.getElementById(
+            "productLink"
+        );
+
 
     if (linkBox) {
+
         linkBox.value =
             window.location.href;
     }
 }
 
 
-/* =========================================
-   START PRODUCT LINK SYSTEM
-   ========================================= */
+// ==========================================
+// 9. START PRODUCT LINK SYSTEM
+// ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
 
         loadProductLink();
 
+        updateTotal();
+
     }
 );
+
+
+// ==========================================
+// 10. FINAL SAFETY CHECK
+// ==========================================
+
+window.JanjuaTraders = {
+
+    createProductLink:
+        createProductLink,
+
+    loadProductLink:
+        loadProductLink,
+
+    updateTotal:
+        updateTotal
+
+};
+
+
+// ==========================================
+// END OF JANJUA TRADERS SCRIPT
+// ==========================================
