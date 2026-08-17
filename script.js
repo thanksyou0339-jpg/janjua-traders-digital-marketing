@@ -4,10 +4,20 @@ function openOrder(platform){
   document.getElementById("productName").focus();
 }
 function shareFacebook(platform){
-  const pageUrl=window.location.href;
-  const text=encodeURIComponent(`Janjua Traders Digital Marketing Platform - ${platform}`);
-  const shareUrl=`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}&quote=${text}`;
-  window.open(shareUrl,"_blank","noopener,noreferrer");
+    const pageUrl = "https://thankyou0339-jpg.github.io/janjua-traders-digital-marketing/";
+
+    const text = encodeURIComponent(
+        "Janjua Trader Digital Marketing Platform\n\n" +
+        "اپنی چیزیں آن لائن فروخت کرنے اور مختلف marketplace offers حاصل کرنے کے لیے ہماری ویب سائٹ وزٹ کریں۔\n\n" +
+        pageUrl
+    );
+
+    const shareUrl =
+        "https://www.facebook.com/sharer/sharer.php?u=" +
+        encodeURIComponent(pageUrl) +
+        "&quote=" + text;
+
+    window.open(shareUrl, "_blank", "noopener,noreferrer");
 }
 document.getElementById("orderForm").addEventListener("submit",function(event){
   event.preventDefault();
