@@ -1,325 +1,812 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Janjua Traders Digital Marketing Platform">
-  <title>Janjua Traders | Digital Marketing Platform</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style.css">
+<title>Janjua Traders - Digital Marketing</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#f3f6fb;
+    color:#171717;
+    font-family:Arial,"Noto Naskh Arabic",sans-serif;
+}
+
+.container{
+    width:min(920px,94%);
+    margin:auto;
+}
+
+header{
+    background:#ffffff;
+    padding:22px 16px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+.brand{
+    font-size:30px;
+    font-weight:800;
+    direction:ltr;
+}
+
+.tagline{
+    margin:8px 0 0;
+    font-size:18px;
+}
+
+.subtag{
+    margin:5px 0;
+    color:#555;
+}
+
+.card{
+    background:#ffffff;
+    border:1px solid #dce2ea;
+    border-radius:18px;
+    padding:22px;
+    margin:20px 0;
+    box-shadow:0 3px 14px rgba(0,0,0,.06);
+}
+
+.product-image-wrap{
+    text-align:center;
+    background:#f7f8fa;
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:18px;
+}
+
+.product-image{
+    max-width:100%;
+    max-height:430px;
+    object-fit:contain;
+    border-radius:12px;
+}
+
+.platform-badge{
+    display:inline-block;
+    background:#e8f1ff;
+    color:#1769c2;
+    padding:8px 18px;
+    border-radius:24px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+h1,
+h2{
+    margin-top:0;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin:16px 0 7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #cfd6df;
+    border-radius:11px;
+    background:#fff;
+    font-size:16px;
+    direction:auto;
+}
+
+textarea{
+    min-height:105px;
+    resize:vertical;
+}
+
+.hint{
+    font-size:14px;
+    color:#666;
+    margin:6px 0 0;
+}
+
+.choice-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.price-box{
+    background:#f7f9fc;
+    border-radius:14px;
+    padding:15px;
+    margin-top:18px;
+}
+
+.price-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:7px 0;
+}
+
+.price-row strong{
+    font-size:18px;
+}
+
+.submit-btn{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    background:#176fc4;
+    color:#fff;
+    font-size:20px;
+    font-weight:800;
+    padding:16px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+.submit-btn:disabled{
+    opacity:.65;
+    cursor:wait;
+}
+
+.result{
+    display:none;
+    padding:15px;
+    border-radius:12px;
+    margin-top:16px;
+    font-weight:700;
+    text-align:center;
+}
+
+.result.success{
+    display:block;
+    background:#dff7e5;
+    color:#176b2c;
+    border:1px solid #a9dfb5;
+}
+
+.result.error{
+    display:block;
+    background:#ffe5e5;
+    color:#9a1c1c;
+    border:1px solid #efaaaa;
+}
+
+.platform-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.platform{
+    background:#fff;
+    border:1px solid #dce2ea;
+    border-radius:15px;
+    padding:18px;
+    text-align:center;
+}
+
+.platform .icon{
+    font-weight:800;
+    font-size:22px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#555;
+}
+
+.required{
+    color:#b00020;
+}
+
+@media(max-width:650px){
+
+    .choice-grid,
+    .platform-grid{
+        grid-template-columns:1fr;
+    }
+
+    .brand{
+        font-size:25px;
+    }
+
+    .card{
+        padding:16px;
+    }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-  <header class="hero">
+<header>
 
-    <div class="brand-shuffle">
-      <span>JANJUA TRADERS</span>
-      <span>DIGITAL MARKETING</span>
-      <span>JANJUA TRADERS</span>
-    </div>
+<div class="brand">
+    JANJUA TRADERS
+</div>
 
-    <p class="tagline">Digital Marketing Platform</p>
-    <p class="subtag">OLX • Markaz • Daraz • Future Partners</p>
+<p class="tagline">
+    Digital Marketing Platform
+</p>
 
-  </header>
+<p class="subtag">
+    OLX • Markaz • Daraz
+</p>
 
+</header>
 
-  <main class="container">
 
-    <section class="card intro">
+<main class="container">
 
-      <h1>پروڈکٹ دیکھیں، تفصیل جانیں، پھر آرڈر کریں</h1>
 
-      <p>
-        Facebook یا Instagram پر جس product کا اشتہار دیا جائے،
-        اسی product کا مخصوص link customer کو یہاں لائے گا۔
-      </p>
+<!-- =====================================================
+     PRODUCT DISPLAY
+     ===================================================== -->
 
-    </section>
+<section class="card">
 
+<h1>
+    Product Details
+</h1>
 
-    <!-- PRODUCT PREVIEW -->
+<div class="product-image-wrap">
 
-    <section id="productView" class="card product-view">
+<img
+    id="productImage"
+    class="product-image"
+    src=""
+    alt="Product Image"
+>
 
-      <div class="product-image-wrap">
+<div
+    id="noImage"
+    style="display:none;padding:40px;color:#777;"
+>
+    Product Image
+</div>
 
-      <img id="productImage"
-     src="file_00000000ee44820880d5993065f8c4c9.png"
-     alt="Janjua Traders Redmi Note 13"
-     class="product-image">
+</div>
 
-        <div id="noImage" class="no-image">
-          Product Image
-        </div>
 
-      </div>
+<div style="text-align:center">
 
+<div
+    id="platformBadge"
+    class="platform-badge"
+>
+    Markaz
+</div>
 
-      <div class="product-info">
+</div>
 
-        <div class="platform-badge" id="platformBadge">
-          Markaz
-        </div>
 
+<h2 id="productTitle">
+    آپ کا Product
+</h2>
 
-        <h2 id="productTitle">
-          آپ کا Product
-        </h2>
 
+<p id="productDescription">
+    Product کی تفصیل یہاں نظر آئے گی۔
+</p>
 
-        <p id="productDescription">
-          Product کی تفصیل یہاں نظر آئے گی۔
-        </p>
 
+<div class="price-box">
 
-        <!-- PRICE INFORMATION -->
+<div class="price-row">
 
-        <div class="price-box">
+<span>
+    پروڈکٹ قیمت
+</span>
 
-          <div>
-            <span>پروڈکٹ قیمت</span>
-            <strong id="productPrice">Rs. 0</strong>
-          </div>
+<strong id="productPrice">
+    Rs. 0
+</strong>
 
+</div>
 
-          <div>
-            <span>Delivery charges</span>
-            <strong id="deliveryPrice">Rs. 0</strong>
-          </div>
 
+<div class="price-row">
 
-          <div class="total">
-            <span>کل قابلِ ادائیگی</span>
-            <strong id="totalPrice">Rs. 0</strong>
-          </div>
+<span>
+    Delivery Charges
+</span>
 
-        </div>
+<strong id="deliveryPrice">
+    Rs. 0
+</strong>
 
+</div>
 
-        <!-- EXTRA INFORMATION -->
 
-        <div class="extra-box">
+<div class="price-row">
 
-          <strong>اہم معلومات</strong>
+<span>
+    کل قابل ادائیگی
+</span>
 
-          <p id="extraInfo">
-            قیمت اور delivery charges آرڈر سے پہلے چیک کریں۔
-          </p>
+<strong id="totalPrice">
+    Rs. 0
+</strong>
 
-        </div>
+</div>
 
-      </div>
+</div>
 
-    </section>
+</section>
 
 
 
-    <!-- CUSTOMER ORDER FORM -->
+<!-- =====================================================
+     ORDER FORM
+     ===================================================== -->
 
-    <section class="card workflow">
+<section class="card">
+
+<h2>
+    Order / Customer Request
+</h2>
 
-      <h2>Order / Customer Request</h2>
 
-      <p class="muted">
-        اوپر product، تصویر اور قیمت کی تصدیق کے بعد اپنی معلومات درج کریں۔
-      </p>
+<!--
+IMPORTANT:
 
+YOUR_FORM_SUBMIT_EMAIL
 
-      <form id="orderForm">
+کی جگہ وہی Gmail address لکھیں
+جس سے FormSubmit کی activation ہوئی تھی۔
+-->
 
+<form
+    id="orderForm"
+    action="https://formsubmit.co/YOUR_FORM_SUBMIT_EMAIL"
+    method="POST"
+    novalidate
+>
 
-        <label>
-          Platform
 
-          <select id="platform" required>
+<!-- FORM SUBMIT SETTINGS -->
 
-            <option value="OLX">
-              OLX
-            </option>
+<input
+    type="hidden"
+    name="_subject"
+    value="New Janjua Traders Order"
+>
 
-            <option value="Markaz">
-              Markaz
-            </option>
+<input
+    type="hidden"
+    name="_template"
+    value="table"
+>
 
-            <option value="Daraz">
-              Daraz
-            </option>
+<input
+    type="hidden"
+    name="_captcha"
+    value="false"
+>
 
-          </select>
+<input
+    type="hidden"
+    name="_url"
+    id="formUrl"
+    value=""
+>
 
-        </label>
 
+<!-- ORDER INFORMATION -->
 
+<input
+    type="hidden"
+    name="Order_ID"
+    id="orderId"
+    value=""
+>
 
-        <label>
-          Customer Name
+<input
+    type="hidden"
+    name="Product"
+    id="formProduct"
+    value=""
+>
 
-          <input
-            id="customerName"
-            type="text"
-            placeholder="اپنا نام لکھیں"
-            required
-          >
+<input
+    type="hidden"
+    name="Product_Description"
+    id="formDescription"
+    value=""
+>
 
-        </label>
+<input
+    type="hidden"
+    name="Product_Price"
+    id="formProductPrice"
+    value=""
+>
 
+<input
+    type="hidden"
+    name="Delivery_Charges"
+    id="formDeliveryPrice"
+    value=""
+>
 
+<input
+    type="hidden"
+    name="Total_Amount"
+    id="formTotalPrice"
+    value=""
+>
 
-        <label>
-          Mobile / WhatsApp
+<input
+    type="hidden"
+    name="Product_Link"
+    id="formProductLink"
+    value=""
+>
 
-          <input
-            id="customerPhone"
-            type="tel"
-            placeholder="03XXXXXXXXX"
-            required
-          >
 
-        </label>
 
+<!-- CUSTOMER NAME -->
 
+<label for="customerName">
 
-        <label>
-          Delivery Address
+Customer Name
 
-          <textarea
-            id="address"
-            rows="3"
-            placeholder="مکمل پتہ لکھیں"
-            required
-          ></textarea>
+<span class="required">
+    *
+</span>
 
-        </label>
+</label>
 
+<input
+    id="customerName"
+    name="Customer_Name"
+    type="text"
+    placeholder="اپنا نام لکھیں"
+    required
+>
 
 
-        <label>
-          Quantity
 
-          <input
-            id="quantity"
-            type="number"
-            min="1"
-            value="1"
-            required
-          >
+<!-- MOBILE -->
 
-        </label>
+<label for="customerPhone">
 
+Mobile / WhatsApp
 
+<span class="required">
+    *
+</span>
 
-        <label>
-          Additional Message
+</label>
 
-          <textarea
-            id="message"
-            rows="3"
-            placeholder="کوئی اضافی معلومات (اختیاری)"
-          ></textarea>
+<input
+    id="customerPhone"
+    name="Mobile_WhatsApp"
+    type="tel"
+    inputmode="tel"
+    placeholder="03XXXXXXXXX"
+    required
+>
 
-        </label>
 
 
+<!-- ADDRESS -->
 
-        <button type="submit">
-          Order Final Submit کریں
-        </button>
+<label for="address">
 
+Delivery Address
 
-      </form>
+<span class="required">
+    *
+</span>
 
+</label>
 
-      <div id="result" class="result hidden"></div>
+<textarea
+    id="address"
+    name="Delivery_Address"
+    placeholder="مکمل ڈیلیوری ایڈریس لکھیں"
+    required
+></textarea>
 
-    </section>
 
 
+<!-- PLATFORM -->
 
-    <!-- THREE PLATFORMS -->
+<label for="platform">
 
-    <section class="card platform-grid">
+Platform
 
+</label>
 
-      <article class="platform">
+<select
+    id="platform"
+    name="Platform"
+>
 
-        <div class="icon">
-          OLX
-        </div>
+<option value="Markaz">
+    Markaz
+</option>
 
-        <h2>OLX</h2>
+<option value="OLX">
+    OLX
+</option>
 
-        <p>
-          OLX product کے لیے مخصوص campaign link استعمال کریں۔
-        </p>
+<option value="Daraz">
+    Daraz
+</option>
 
-      </article>
+</select>
 
 
 
-      <article class="platform">
+<!-- QUANTITY -->
 
-        <div class="icon">
-          M
-        </div>
+<label for="quantity">
 
-        <h2>Markaz</h2>
+Quantity
 
-        <p>
-          Markaz product کے لیے مخصوص campaign link استعمال کریں۔
-        </p>
+<span class="required">
+    *
+</span>
 
-      </article>
+</label>
 
+<input
+    id="quantity"
+    name="Quantity"
+    type="number"
+    min="1"
+    value="1"
+    required
+>
 
 
-      <article class="platform">
 
-        <div class="icon">
-          D
-        </div>
+<!-- =====================================================
+     COLOR + SIZE
+     ===================================================== -->
 
-        <h2>Daraz</h2>
+<div class="choice-grid">
 
-        <p>
-          Daraz product کے لیے مخصوص campaign link استعمال کریں۔
-        </p>
 
-      </article>
+<div>
 
+<label for="color">
 
-    </section>
+Color / رنگ
 
+</label>
 
+<input
+    id="color"
+    name="Color"
+    type="text"
+    placeholder="مثلاً White, Black, Green"
+>
 
-    <!-- INFORMATION -->
+<p class="hint">
 
-    <section class="card note">
+اگر Color درکار نہیں تو خالی چھوڑ دیں۔
 
-      <h2>Janjua Traders</h2>
+</p>
 
-      <p>
-        Customer کو Facebook یا Instagram کے product link سے
-        مخصوص product، تصویر، platform، قیمت اور delivery charges
-        دکھائے جائیں گے، اس کے بعد وہ order form submit کرے گا۔
-      </p>
+</div>
 
-    </section>
 
 
-  </main>
+<div>
 
+<label for="size">
 
-  <footer>
+Size / سائز
 
-    <strong>Janjua Traders</strong>
-    — Digital Marketing Platform
+</label>
 
-  </footer>
+<input
+    id="size"
+    name="Size"
+    type="text"
+    placeholder="مثلاً 42, L, XL"
+>
 
+<p class="hint">
 
-  <script src="script.js"></script>
+اگر Size درکار نہیں تو خالی چھوڑ دیں۔
+
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ADDITIONAL MESSAGE
+     =====================================================
+
+     یہ صرف اضافی ہدایت کے لیے ہے۔
+     Color یا Size یہاں نہیں لکھنا۔
+     ===================================================== -->
+
+<label for="message">
+
+Additional Message
+
+<span style="font-weight:400;color:#777;">
+    (اختیاری)
+</span>
+
+</label>
+
+<textarea
+    id="message"
+    name="Additional_Message"
+    rows="3"
+    placeholder="صرف دوسری اضافی ہدایات لکھیں؛ Color اور Size اوپر والے خانوں میں لکھیں۔"
+></textarea>
+
+
+
+<!-- SUBMIT -->
+
+<button
+    id="submitButton"
+    class="submit-btn"
+    type="submit"
+>
+
+Order Final Submit کریں
+
+</button>
+
+
+
+<!-- SUCCESS / ERROR MESSAGE -->
+
+<div
+    id="result"
+    class="result"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+</form>
+
+</section>
+
+
+
+<!-- =====================================================
+     PLATFORMS
+     ===================================================== -->
+
+<section class="card">
+
+<h2>
+    Three Platforms
+</h2>
+
+
+<div class="platform-grid">
+
+
+<article class="platform">
+
+<div class="icon">
+    OLX
+</div>
+
+<h3>
+    OLX
+</h3>
+
+<p>
+    OLX product کے لیے campaign link استعمال کریں۔
+</p>
+
+</article>
+
+
+
+<article class="platform">
+
+<div class="icon">
+    M
+</div>
+
+<h3>
+    Markaz
+</h3>
+
+<p>
+    Markaz کے ذریعے product order process کریں۔
+</p>
+
+</article>
+
+
+
+<article class="platform">
+
+<div class="icon">
+    D
+</div>
+
+<h3>
+    Daraz
+</h3>
+
+<p>
+    Daraz product details کو order workflow میں رکھیں۔
+</p>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+     ===================================================== -->
+
+<section class="card">
+
+<h2>
+    Janjua Traders
+</h2>
+
+<p>
+
+Customer جب order کرے گا تو مکمل order information،
+Color اور Size سمیت configured email پر بھیجی جائے گی۔
+
+</p>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+<strong>
+    Janjua Traders
+</strong>
+
+— Digital Marketing Platform
+
+</footer>
+
+
+
+<!-- =====================================================
+     SCRIPT
+     ===================================================== -->
+
+<script src="script.js"></script>
 
 </body>
 </html>
