@@ -1,37 +1,58 @@
 /* =========================================================
    JANJUA TRADERS
-   COMPLETE ORDER SCRIPT
-   COLOR + SIZE ORDER FORM
-   FORMSUBMIT EMAIL SYSTEM
+   COMPLETE ORDER SYSTEM
+   COLOR + SIZE
+   FORMSUBMIT AJAX EMAIL
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.querySelector("form");
-
-    if (!form) {
-        console.error("Order form not found.");
-        return;
-    }
+    "use strict";
 
     /* =====================================================
-       BASIC HELPERS
+       SETTINGS
        ===================================================== */
 
-    function clean(value) {
-        if (value === null || value === undefined) {
-            return "";
-        }
+    const ORDER_EMAIL = "thanksyou0339@gmail.com";
 
-        return String(value).replace(/\s+/g, " ").trim();
-    }
+    const FORM_SUBMIT_URL =
+        "https://formsubmit.co/ajax/" + ORDER_EMAIL;
 
-    function getElement(id) {
+    /*
+       آپ کی GitHub repository میں موجود product image
+       اگر HTML میں image source خالی ہو تو یہ استعمال ہوگی۔
+    */
+    const DEFAULT_PRODUCT_IMAGE =
+        "file_00000000ee44820880d5993065f8c4c9.png";
+
+
+    /* =====================================================
+       BASIC FUNCTIONS
+       ===================================================== */
+
+    function byId(id) {
         return document.getElementById(id);
     }
 
-    function getValue(id) {
-        const element = getElement(id);
+
+    function clean(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+
+    function valueOf(id) {
+
+        const element = byId(id);
 
         if (!element) {
             return "";
@@ -40,207 +61,219 @@ document.addEventListener("DOMContentLoaded", function () {
         return clean(element.value);
     }
 
-    function hiddenField(name, value) {
 
-        let field = form.querySelector(
-            'input[type="hidden"][name="' + name + '"]'
-        );
+    function textOf(id) {
 
-        if (!field) {
-            field = document.createElement("input");
-            field.type = "hidden";
-            field.name = name;
-            form.appendChild(field);
+        const element = byId(id);
+
+        if (!element) {
+            return "";
         }
 
-        field.value = clean(value);
+        return clean(element.textContent);
+    }
+
+
+    function numberFromText(value) {
+
+        const number =
+            clean(value).replace(/[^0-9.]/g, "");
+
+        return parseFloat(number) || 0;
+    }
+
+
+    function hiddenField(name, value) {
+
+        let field =
+            document.querySelector(
+                '#orderForm input[type="hidden"][name="' +
+                name +
+                '"]'
+            );
+
+        if (!field) {
+
+            field =
+                document.createElement("input");
+
+            field.type = "hidden";
+            field.name = name;
+
+            const form = byId("orderForm");
+
+            if (form) {
+                form.appendChild(field);
+            }
+        }
+
+        if (field) {
+            field.value = clean(value);
+        }
 
         return field;
     }
 
+
     /* =====================================================
-       REMOVE OLD ADDITIONAL MESSAGE
+       FIND FORM
        ===================================================== */
 
-    const oldMessage = getElement("message");
+    const form = byId("orderForm");
 
-    if (oldMessage) {
+    if (!form) {
 
-        const oldLabel = oldMessage.closest("label");
+        console.error(
+            "Janjua Traders: Order form not found."
+        );
 
-        if (oldLabel) {
-            oldLabel.remove();
+        return;
+    }
+
+
+    /* =====================================================
+       FORMSUBMIT CONFIGURATION
+       ===================================================== */
+
+    form.action = FORM_SUBMIT_URL;
+    form.method = "POST";
+
+
+    hiddenField(
+        "_subject",
+        "New Janjua Traders Order"
+    );
+
+    hiddenField(
+        "_template",
+        "table"
+    );
+
+    hiddenField(
+        "_captcha",
+        "false"
+    );
+
+    hiddenField(
+        "_ajax",
+        "true"
+    );
+
+
+    /* =====================================================
+       REMOVE ADDITIONAL MESSAGE
+       ===================================================== */
+
+    const additionalMessage =
+        byId("message");
+
+    if (additionalMessage) {
+
+        const parentLabel =
+            additionalMessage.closest("label");
+
+        if (parentLabel) {
+            parentLabel.remove();
         } else {
-            oldMessage.remove();
+            additionalMessage.remove();
         }
     }
 
-    /* =====================================================
-       REMOVE OLD COLOR / SIZE MESSAGE
-       ===================================================== */
 
-    document.querySelectorAll("p, div, span").forEach(function (element) {
+    /*
+       اگر Additional_Message نام کا hidden field
+       کہیں موجود ہو تو اسے بھی ختم کریں۔
+    */
 
-        const text = clean(element.textContent).toLowerCase();
+    const additionalFields =
+        form.querySelectorAll(
+            '[name="Additional_Message"]'
+        );
 
-        if (
-            text.includes("color یا size") ||
-            text.includes("color or size") ||
-            text.includes("size درکار نہیں") ||
-            text.includes("color درکار نہیں")
-        ) {
-
-            if (
-                element.id !== "productVariants" &&
-                !element.closest("#productVariants")
-            ) {
-                element.remove();
-            }
-        }
+    additionalFields.forEach(function (field) {
+        field.remove();
     });
 
+
     /* =====================================================
-       FIND A GOOD PLACE FOR COLOR + SIZE
+       COLOR + SIZE
        ===================================================== */
 
-    let variantBox = getElement("productVariants");
+    let colorInput =
+        byId("color");
 
-    if (!variantBox) {
+    let sizeInput =
+        byId("size");
 
-        variantBox = document.createElement("div");
 
-        variantBox.id = "productVariants";
+    /*
+       اگر موجودہ HTML میں Color/Size مل جائیں
+       تو انہیں ہی استعمال کریں۔
+    */
 
-        variantBox.style.marginTop = "20px";
-        variantBox.style.marginBottom = "20px";
-        variantBox.style.width = "100%";
 
-        const quantityField = getElement("quantity");
+    /* =====================================================
+       PRODUCT IMAGE
+       ===================================================== */
 
-        if (quantityField) {
+    const productImage =
+        byId("productImage");
 
-            const quantityLabel =
-                quantityField.closest("label");
+    const noImage =
+        byId("noImage");
 
-            if (quantityLabel && quantityLabel.parentNode) {
 
-                quantityLabel.parentNode.insertBefore(
-                    variantBox,
-                    quantityLabel.nextSibling
-                );
+    if (productImage) {
 
-            } else {
+        /*
+           اگر HTML میں image source خالی ہے
+           تو repository والی image لگائیں۔
+        */
 
-                form.appendChild(variantBox);
-            }
+        if (
+            !clean(productImage.getAttribute("src"))
+        ) {
 
-        } else {
-
-            form.appendChild(variantBox);
+            productImage.src =
+                DEFAULT_PRODUCT_IMAGE;
         }
+
+
+        productImage.onload =
+            function () {
+
+                productImage.style.display =
+                    "block";
+
+                if (noImage) {
+                    noImage.style.display =
+                        "none";
+                }
+            };
+
+
+        productImage.onerror =
+            function () {
+
+                /*
+                   Image نہ ملے تو broken image
+                   icon کے بجائے صاف message دکھائیں۔
+                */
+
+                productImage.style.display =
+                    "none";
+
+                if (noImage) {
+
+                    noImage.style.display =
+                        "block";
+
+                    noImage.textContent =
+                        "Product Image";
+                }
+            };
     }
 
-    /* =====================================================
-       CREATE COLOR + SIZE FIELDS
-       ===================================================== */
-
-    function createVariantFields() {
-
-        variantBox.innerHTML = "";
-
-        /* ---------- HEADING ---------- */
-
-        const heading =
-            document.createElement("div");
-
-        heading.textContent =
-            "Product Color & Size";
-
-        heading.style.fontWeight = "700";
-        heading.style.fontSize = "20px";
-        heading.style.marginBottom = "15px";
-
-        variantBox.appendChild(heading);
-
-        /* ---------- COLOR ---------- */
-
-        const colorLabel =
-            document.createElement("label");
-
-        colorLabel.setAttribute(
-            "for",
-            "productColor"
-        );
-
-        colorLabel.innerHTML = `
-            <span>Color / رنگ</span>
-        `;
-
-        const colorInput =
-            document.createElement("input");
-
-        colorInput.type = "text";
-        colorInput.id = "productColor";
-        colorInput.name = "Product_Color";
-        colorInput.placeholder =
-            "مثلاً White, Black, Blue, Green";
-        colorInput.autocomplete = "off";
-        colorInput.required = false;
-
-        colorLabel.appendChild(colorInput);
-
-        variantBox.appendChild(colorLabel);
-
-        /* ---------- SIZE ---------- */
-
-        const sizeLabel =
-            document.createElement("label");
-
-        sizeLabel.setAttribute(
-            "for",
-            "productSize"
-        );
-
-        sizeLabel.innerHTML = `
-            <span>Size / سائز</span>
-        `;
-
-        const sizeInput =
-            document.createElement("input");
-
-        sizeInput.type = "text";
-        sizeInput.id = "productSize";
-        sizeInput.name = "Product_Size";
-        sizeInput.placeholder =
-            "مثلاً 40, 41, 42, L, XL, XXL";
-        sizeInput.autocomplete = "off";
-        sizeInput.required = false;
-
-        sizeLabel.appendChild(sizeInput);
-
-        variantBox.appendChild(sizeLabel);
-
-        /* ---------- STYLING ---------- */
-
-        [colorInput, sizeInput].forEach(function (input) {
-
-            input.style.width = "100%";
-            input.style.boxSizing = "border-box";
-            input.style.padding = "14px";
-            input.style.marginTop = "7px";
-            input.style.marginBottom = "15px";
-            input.style.fontSize = "16px";
-        });
-
-        [colorLabel, sizeLabel].forEach(function (label) {
-
-            label.style.display = "block";
-            label.style.fontWeight = "600";
-            label.style.marginBottom = "8px";
-        });
-    }
-
-    createVariantFields();
 
     /* =====================================================
        PRODUCT INFORMATION
@@ -249,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function getProductName() {
 
         const element =
-            getElement("productTitle");
+            byId("productTitle");
 
         if (!element) {
             return "";
@@ -260,11 +293,12 @@ document.addEventListener("DOMContentLoaded", function () {
             element.textContent
         );
     }
+
 
     function getProductDescription() {
 
         const element =
-            getElement("productDescription");
+            byId("productDescription");
 
         if (!element) {
             return "";
@@ -276,47 +310,38 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+
     function getProductPrice() {
 
         const element =
-            getElement("productPrice");
+            byId("productPrice");
 
         if (!element) {
-            return "0";
+            return 0;
         }
 
-        const raw =
-            clean(
-                element.value ||
-                element.textContent
-            );
-
-        const number =
-            raw.replace(/[^0-9.]/g, "");
-
-        return number || "0";
+        return numberFromText(
+            element.value ||
+            element.textContent
+        );
     }
+
 
     function getDeliveryCharges() {
 
         const element =
-            getElement("deliveryPrice");
+            byId("deliveryPrice");
 
         if (!element) {
-            return "0";
+            return 0;
         }
 
-        const raw =
-            clean(
-                element.value ||
-                element.textContent
-            );
-
-        const number =
-            raw.replace(/[^0-9.]/g, "");
-
-        return number || "0";
+        return numberFromText(
+            element.value ||
+            element.textContent
+        );
     }
+
 
     /* =====================================================
        PLATFORM
@@ -324,17 +349,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getPlatform() {
 
-        const platformSelect =
-            form.querySelector(
-                'select[name="Platform"]'
-            );
-
-        if (platformSelect) {
-            return clean(platformSelect.value);
-        }
-
         const platform =
-            getElement("platform");
+            byId("platform");
 
         if (platform) {
 
@@ -347,138 +363,190 @@ document.addEventListener("DOMContentLoaded", function () {
         return "Markaz";
     }
 
+
     /* =====================================================
        PRODUCT LINK
        ===================================================== */
 
     function getProductLink() {
 
-        const hiddenLink =
+        const field =
             form.querySelector(
-                'input[name="Product_Link"]'
+                '[name="Product_Link"]'
             );
 
         if (
-            hiddenLink &&
-            clean(hiddenLink.value)
+            field &&
+            clean(field.value)
         ) {
-            return clean(hiddenLink.value);
-        }
 
-        const productLink =
-            getElement("productLink");
-
-        if (productLink) {
-
-            return clean(
-                productLink.href ||
-                productLink.value ||
-                productLink.textContent
-            );
+            return clean(field.value);
         }
 
         return window.location.href;
     }
 
+
     /* =====================================================
-       TOTAL AMOUNT
+       QUANTITY
+       ===================================================== */
+
+    function getQuantity() {
+
+        const quantity =
+            byId("quantity");
+
+        if (!quantity) {
+            return 1;
+        }
+
+        let number =
+            parseInt(
+                quantity.value,
+                10
+            );
+
+        if (
+            isNaN(number) ||
+            number < 1
+        ) {
+            number = 1;
+        }
+
+        quantity.value = number;
+
+        return number;
+    }
+
+
+    /* =====================================================
+       TOTAL
        ===================================================== */
 
     function calculateTotal() {
 
         const price =
-            parseFloat(
-                getProductPrice()
-            ) || 0;
+            getProductPrice();
 
         const delivery =
-            parseFloat(
-                getDeliveryCharges()
-            ) || 0;
-
-        const quantityElement =
-            getElement("quantity");
+            getDeliveryCharges();
 
         const quantity =
-            parseInt(
-                quantityElement
-                    ? quantityElement.value
-                    : "1",
-                10
-            ) || 1;
+            getQuantity();
+
+        /*
+           Product price × quantity
+           پھر delivery charges
+        */
 
         const total =
-            (price * quantity) + delivery;
+            (price * quantity) +
+            delivery;
+
+
+        /* HTML میں total update */
+
+        const totalElement =
+            byId("totalPrice");
+
+        if (totalElement) {
+
+            totalElement.textContent =
+                "Rs. " +
+                total.toLocaleString(
+                    "en-PK"
+                );
+        }
+
+
+        /* Email field */
 
         hiddenField(
             "Total_Amount",
-            "Rs. " + total
+            "Rs. " +
+            total.toLocaleString(
+                "en-PK"
+            )
         );
 
-        const totalDisplay =
-            getElement("totalAmount");
-
-        if (totalDisplay) {
-
-            totalDisplay.textContent =
-                "Rs. " + total;
-        }
 
         return total;
     }
 
+
     /* =====================================================
-       PREPARE ORDER FOR FORMSUBMIT
+       PREPARE ORDER DATA
        ===================================================== */
 
     function prepareOrder() {
 
-        const name =
-            getValue("customerName");
+        const customerName =
+            valueOf("customerName");
 
-        const phone =
-            getValue("customerPhone");
+        const customerPhone =
+            valueOf("customerPhone");
 
-        const address =
-            getValue("address");
-
-        const quantityElement =
-            getElement("quantity");
+        const deliveryAddress =
+            valueOf("address");
 
         const quantity =
-            quantityElement
-                ? clean(quantityElement.value)
-                : "1";
+            getQuantity();
 
         const color =
-            getValue("productColor");
+            colorInput
+                ? clean(colorInput.value)
+                : "";
 
         const size =
-            getValue("productSize");
+            sizeInput
+                ? clean(sizeInput.value)
+                : "";
+
 
         /* =================================================
-           CUSTOMER INFORMATION
+           ORDER ID
            ================================================= */
+
+        let orderId =
+            clean(
+                customerPhone
+            );
+
+        if (!orderId) {
+
+            orderId =
+                "JT-" +
+                Date.now();
+        }
+
 
         hiddenField(
             "Order_ID",
-            phone
+            orderId
         );
+
+
+        /* =================================================
+           CUSTOMER
+           ================================================= */
 
         hiddenField(
             "Customer_Name",
-            name
+            customerName
         );
+
 
         hiddenField(
             "Mobile_WhatsApp",
-            phone
+            customerPhone
         );
+
 
         hiddenField(
             "Delivery_Address",
-            address
+            deliveryAddress
         );
+
 
         /* =================================================
            PLATFORM
@@ -489,6 +557,7 @@ document.addEventListener("DOMContentLoaded", function () {
             getPlatform()
         );
 
+
         /* =================================================
            PRODUCT
            ================================================= */
@@ -498,28 +567,22 @@ document.addEventListener("DOMContentLoaded", function () {
             getProductName()
         );
 
+
         hiddenField(
             "Product_Description",
             getProductDescription()
         );
 
+
         /* =================================================
            COLOR
-           =================================================
-
-           اگر customer نے Color لکھا ہے
-           تو وہی Gmail میں جائے گا۔
-
-           اگر خالی چھوڑا ہے
-           تو صرف اسی صورت میں Not Required جائے گا۔
-        */
+           ================================================= */
 
         hiddenField(
             "Color",
-            color !== ""
-                ? color
-                : "Not Required"
+            color || "Not Required"
         );
+
 
         /* =================================================
            SIZE
@@ -527,10 +590,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         hiddenField(
             "Size",
-            size !== ""
-                ? size
-                : "Not Required"
+            size || "Not Required"
         );
+
 
         /* =================================================
            QUANTITY
@@ -541,19 +603,28 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity
         );
 
+
         /* =================================================
            PRICE
            ================================================= */
 
         hiddenField(
             "Product_Price",
-            "Rs. " + getProductPrice()
+            "Rs. " +
+            getProductPrice().toLocaleString(
+                "en-PK"
+            )
         );
+
 
         hiddenField(
             "Delivery_Charges",
-            "Rs. " + getDeliveryCharges()
+            "Rs. " +
+            getDeliveryCharges().toLocaleString(
+                "en-PK"
+            )
         );
+
 
         /* =================================================
            TOTAL
@@ -561,18 +632,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         calculateTotal();
 
-        /* =================================================
-           REMOVE ADDITIONAL MESSAGE COMPLETELY
-           ================================================= */
-
-        const additionalMessage =
-            form.querySelector(
-                '[name="Additional_Message"]'
-            );
-
-        if (additionalMessage) {
-            additionalMessage.remove();
-        }
 
         /* =================================================
            PRODUCT LINK
@@ -584,75 +643,147 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
+
     /* =====================================================
-       LIVE TOTAL UPDATE
+       SUCCESS / ERROR MESSAGE
+       ===================================================== */
+
+    let result =
+        byId("result");
+
+
+    if (!result) {
+
+        result =
+            document.createElement("div");
+
+        result.id = "result";
+        result.className = "result";
+        result.setAttribute(
+            "role",
+            "status"
+        );
+
+        result.setAttribute(
+            "aria-live",
+            "polite"
+        );
+
+        form.appendChild(result);
+    }
+
+
+    function showSuccess(message) {
+
+        result.className =
+            "result success";
+
+        result.textContent =
+            message;
+
+        result.style.display =
+            "block";
+    }
+
+
+    function showError(message) {
+
+        result.className =
+            "result error";
+
+        result.textContent =
+            message;
+
+        result.style.display =
+            "block";
+    }
+
+
+    function clearResult() {
+
+        result.className =
+            "result";
+
+        result.textContent = "";
+
+        result.style.display =
+            "none";
+    }
+
+
+    /* =====================================================
+       SUBMIT BUTTON
+       ===================================================== */
+
+    const submitButton =
+        byId("submitButton");
+
+
+    /* =====================================================
+       QUANTITY LIVE UPDATE
        ===================================================== */
 
     const quantity =
-        getElement("quantity");
+        byId("quantity");
 
     if (quantity) {
 
         quantity.addEventListener(
             "input",
             function () {
+
                 calculateTotal();
             }
         );
     }
 
+
     /* =====================================================
-       LIVE COLOR UPDATE
+       COLOR LIVE UPDATE
        ===================================================== */
 
-    const color =
-        getElement("productColor");
+    if (colorInput) {
 
-    if (color) {
-
-        color.addEventListener(
+        colorInput.addEventListener(
             "input",
             function () {
 
                 hiddenField(
                     "Color",
-                    clean(color.value) !== ""
-                        ? color.value
-                        : "Not Required"
+                    clean(colorInput.value) ||
+                    "Not Required"
                 );
             }
         );
     }
 
+
     /* =====================================================
-       LIVE SIZE UPDATE
+       SIZE LIVE UPDATE
        ===================================================== */
 
-    const size =
-        getElement("productSize");
+    if (sizeInput) {
 
-    if (size) {
-
-        size.addEventListener(
+        sizeInput.addEventListener(
             "input",
             function () {
 
                 hiddenField(
                     "Size",
-                    clean(size.value) !== ""
-                        ? size.value
-                        : "Not Required"
+                    clean(sizeInput.value) ||
+                    "Not Required"
                 );
             }
         );
     }
 
+
     /* =====================================================
-       PHONE -> ORDER ID
+       PHONE LIVE UPDATE
        ===================================================== */
 
     const phone =
-        getElement("customerPhone");
+        byId("customerPhone");
 
     if (phone) {
 
@@ -661,39 +792,241 @@ document.addEventListener("DOMContentLoaded", function () {
             function () {
 
                 hiddenField(
-                    "Order_ID",
+                    "Mobile_WhatsApp",
                     phone.value
                 );
 
                 hiddenField(
-                    "Mobile_WhatsApp",
-                    phone.value
+                    "Order_ID",
+                    clean(phone.value) ||
+                    "JT-" + Date.now()
                 );
             }
         );
     }
 
+
     /* =====================================================
-       FINAL FORM SUBMIT
+       FINAL AJAX SUBMIT
        ===================================================== */
 
     form.addEventListener(
         "submit",
-        function () {
+        async function (event) {
 
             /*
-               تمام معلومات Submit ہونے سے پہلے
-               hidden fields میں تیار کر دی جائیں گی۔
+               Browser کا normal FormSubmit redirect
+               روک دیا گیا ہے۔
             */
 
+            event.preventDefault();
+
+            clearResult();
+
+
+            /* ---------------------------------------------
+               Browser validation
+               --------------------------------------------- */
+
+            if (!form.checkValidity()) {
+
+                form.reportValidity();
+
+                showError(
+                    "براہِ کرم تمام ضروری معلومات مکمل کریں۔"
+                );
+
+                return;
+            }
+
+
+            /* ---------------------------------------------
+               Prepare all data
+               --------------------------------------------- */
+
             prepareOrder();
+
+
+            /* ---------------------------------------------
+               Button loading
+               --------------------------------------------- */
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.dataset.originalText =
+                    submitButton.textContent;
+
+                submitButton.textContent =
+                    "Order Submit ہو رہا ہے...";
+            }
+
+
+            try {
+
+                /* -----------------------------------------
+                   Send to FormSubmit
+                   ----------------------------------------- */
+
+                const formData =
+                    new FormData(form);
+
+
+                const response =
+                    await fetch(
+                        FORM_SUBMIT_URL,
+                        {
+                            method: "POST",
+                            body: formData,
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                let data = null;
+
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch (jsonError) {
+
+                    data = null;
+                }
+
+
+                /* -----------------------------------------
+                   SUCCESS
+                   ----------------------------------------- */
+
+                if (
+                    response.ok &&
+                    (
+                        !data ||
+                        data.success !== false
+                    )
+                ) {
+
+                    showSuccess(
+                        "✅ آپ کا Order کامیابی سے Submit ہو گیا ہے۔ ہماری ٹیم آپ سے جلد رابطہ کرے گی۔"
+                    );
+
+
+                    /*
+                       Customer fields clear کریں،
+                       مگر product information برقرار رہے۔
+                    */
+
+                    const name =
+                        byId("customerName");
+
+                    const customerPhone =
+                        byId("customerPhone");
+
+                    const address =
+                        byId("address");
+
+                    if (name) {
+                        name.value = "";
+                    }
+
+                    if (customerPhone) {
+                        customerPhone.value = "";
+                    }
+
+                    if (address) {
+                        address.value = "";
+                    }
+
+                    if (colorInput) {
+                        colorInput.value = "";
+                    }
+
+                    if (sizeInput) {
+                        sizeInput.value = "";
+                    }
+
+                    if (quantity) {
+                        quantity.value = 1;
+                    }
+
+
+                    calculateTotal();
+
+
+                    /*
+                       سبز message کو کچھ دیر screen پر رکھیں۔
+                    */
+
+                    window.scrollTo({
+                        top:
+                            result.getBoundingClientRect().top +
+                            window.scrollY -
+                            120,
+                        behavior: "smooth"
+                    });
+
+
+                } else {
+
+                    throw new Error(
+                        (
+                            data &&
+                            data.message
+                        ) ||
+                        "FormSubmit نے order قبول نہیں کیا۔"
+                    );
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Order submission error:",
+                    error
+                );
+
+
+                showError(
+                    "❌ Order Submit نہیں ہو سکا۔ براہِ کرم Internet connection چیک کرکے دوبارہ کوشش کریں۔"
+                );
+
+
+            } finally {
+
+                if (submitButton) {
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        submitButton.dataset.originalText ||
+                        "Order Final Submit کریں";
+                }
+            }
+
         }
     );
 
+
     /* =====================================================
-       INITIAL LOAD
+       INITIAL SETUP
        ===================================================== */
 
     prepareOrder();
+
+    calculateTotal();
+
+
+    console.log(
+        "Janjua Traders Order System Loaded Successfully."
+    );
 
 });
