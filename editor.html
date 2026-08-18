@@ -2,8 +2,11 @@
 <html lang="ur" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Janjua Traders - Product Editor</title>
 
@@ -16,129 +19,121 @@
 body{
     margin:0;
     background:#eef0f3;
-    color:#111;
-    font-family:Arial, "Noto Sans", sans-serif;
+    color:#111827;
+    font-family:Arial,"Noto Sans",sans-serif;
 }
 
 .header{
     background:#111827;
-    color:#fff;
-    padding:15px;
+    color:white;
+    padding:14px;
     text-align:center;
 }
 
 .header h1{
     margin:0;
-    font-size:22px;
+    font-size:21px;
 }
 
 .header p{
     margin:5px 0 0;
-    font-size:13px;
+    font-size:12px;
 }
 
 .container{
-    max-width:1150px;
+    max-width:1100px;
     margin:auto;
-    padding:14px;
+    padding:12px;
 }
 
 .panel{
-    background:#fff;
+    background:white;
     border-radius:14px;
-    padding:16px;
-    box-shadow:0 3px 14px rgba(0,0,0,.08);
+    padding:14px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 .section{
     border:1px solid #ddd;
-    border-radius:12px;
-    padding:13px;
-    margin-bottom:14px;
+    border-radius:11px;
+    padding:12px;
+    margin-bottom:12px;
 }
 
 .section-title{
-    font-size:17px;
+    font-size:16px;
     font-weight:bold;
-    margin-bottom:12px;
+    margin-bottom:10px;
 }
 
 .field{
-    margin-bottom:12px;
+    margin-bottom:11px;
 }
 
 label{
     display:block;
     font-weight:bold;
-    margin-bottom:6px;
+    font-size:14px;
+    margin-bottom:5px;
 }
 
 input,
 select{
     width:100%;
-    padding:11px;
-    border:1px solid #ccc;
+    padding:10px;
+    border:1px solid #cfd3d8;
     border-radius:8px;
-    font-size:15px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+    font-size:14px;
 }
 
 button{
     width:100%;
     border:0;
-    border-radius:9px;
-    padding:11px 10px;
-    margin-top:7px;
-    font-size:14px;
+    border-radius:8px;
+    padding:10px;
+    margin-top:6px;
+    font-size:13px;
     font-weight:bold;
     cursor:pointer;
 }
 
 .blue{
     background:#2563eb;
-    color:#fff;
+    color:white;
 }
 
 .green{
     background:#16a34a;
-    color:#fff;
+    color:white;
 }
 
 .dark{
     background:#374151;
-    color:#fff;
+    color:white;
 }
 
 .gold{
     background:#d4a017;
-    color:#fff;
+    color:white;
 }
 
-.red{
-    background:#dc2626;
-    color:#fff;
-}
-
-.star-buttons{
+.grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
 }
 
-.star-buttons button{
-    margin:0;
-    background:#fff;
-    color:#111;
-    border:1px solid #d4a017;
+.star-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
 }
 
-.star-buttons button:hover{
-    background:#fff7d6;
+.star-buttons button{
+    margin:0;
+    background:white;
+    color:#111;
+    border:1px solid #d4a017;
 }
 
 .side-buttons{
@@ -151,16 +146,37 @@ button{
     margin:0;
 }
 
+.slider-row{
+    display:grid;
+    grid-template-columns:1fr 60px;
+    gap:10px;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.slider-row input[type="range"]{
+    width:100%;
+    padding:0;
+}
+
+.size-value{
+    background:#f3f4f6;
+    border-radius:7px;
+    padding:8px;
+    text-align:center;
+    font-weight:bold;
+}
+
 .custom-row{
     display:grid;
-    grid-template-columns:1fr 120px;
-    gap:8px;
+    grid-template-columns:1fr 110px;
+    gap:7px;
 }
 
 .canvas-box{
     background:#dfe3e8;
-    border-radius:12px;
-    padding:10px;
+    border-radius:11px;
+    padding:8px;
     overflow:auto;
 }
 
@@ -173,23 +189,23 @@ canvas{
 }
 
 .status{
-    margin-top:10px;
-    padding:10px;
+    margin-top:8px;
     background:#f3f4f6;
-    border-radius:8px;
-    font-size:13px;
+    padding:9px;
+    border-radius:7px;
+    font-size:12px;
     text-align:center;
 }
 
 .link-box{
-    margin-top:7px;
-    padding:9px;
+    margin-top:6px;
     background:#f3f4f6;
+    padding:8px;
     border-radius:7px;
     direction:ltr;
     text-align:left;
     word-break:break-all;
-    font-size:12px;
+    font-size:11px;
 }
 
 @media(max-width:700px){
@@ -212,6 +228,7 @@ canvas{
 
 </head>
 
+
 <body>
 
 
@@ -230,7 +247,7 @@ canvas{
 
 
 <!-- =====================================================
-     IMAGE
+IMAGE
 ===================================================== -->
 
 <div class="section">
@@ -269,17 +286,11 @@ accept="image/*">
 
 <div class="grid">
 
-<div>
-
 <button
 class="dark"
 id="logoBigger">
 Logo بڑا کریں
 </button>
-
-</div>
-
-<div>
 
 <button
 class="dark"
@@ -292,11 +303,8 @@ Logo چھوٹا کریں
 </div>
 
 
-</div>
-
-
 <!-- =====================================================
-     PRODUCT INFORMATION
+PRODUCT
 ===================================================== -->
 
 <div class="section">
@@ -408,86 +416,131 @@ Price تصویر پر لگائیں
 
 </div>
 
-
 </div>
 
 
 <!-- =====================================================
-     STAR POINTS
+TEXT SIZE
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-3. Ready Star Points
+3. Text Size
+</div>
+
+
+<div class="slider-row">
+
+<input
+type="range"
+id="textSize"
+min="10"
+max="30"
+value="14">
+
+<div
+class="size-value"
+id="textSizeValue">
+14
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+STAR SIZE
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+4. Star Size
+</div>
+
+
+<div class="slider-row">
+
+<input
+type="range"
+id="starSize"
+min="12"
+max="35"
+value="18">
+
+<div
+class="size-value"
+id="starSizeValue">
+18
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+READY STARS
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+5. Ready Star Points
 </div>
 
 
 <div class="star-buttons">
 
-
-<button
-data-star="مضبوط چیز">
+<button data-star="مضبوط چیز">
 ⭐ مضبوط چیز
 </button>
 
-
-<button
-data-star="پائیدار">
+<button data-star="پائیدار">
 ⭐ پائیدار
 </button>
 
-
-<button
-data-star="بہترین کوالٹی">
+<button data-star="بہترین کوالٹی">
 ⭐ بہترین کوالٹی
 </button>
 
-
-<button
-data-star="کم قیمت">
+<button data-star="کم قیمت">
 ⭐ کم قیمت
 </button>
 
-
-<button
-data-star="Premium Quality">
+<button data-star="Premium Quality">
 ⭐ Premium Quality
 </button>
 
-
-<button
-data-star="بہترین انتخاب">
+<button data-star="بہترین انتخاب">
 ⭐ بہترین انتخاب
 </button>
 
-
-<button
-data-star="قابل اعتماد">
+<button data-star="قابل اعتماد">
 ⭐ قابل اعتماد
 </button>
 
-
-<button
-data-star="نئی پروڈکٹ">
+<button data-star="نئی پروڈکٹ">
 ⭐ نئی پروڈکٹ
 </button>
 
-
 </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     CUSTOM STAR
+CUSTOM STAR
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-4. اپنی عبارت کا Star بنائیں
+6. اپنی عبارت
 </div>
 
 
@@ -502,28 +555,26 @@ placeholder="مثلاً Original Product">
 <button
 class="gold"
 id="addCustomStar">
-⭐ Add Star
+⭐ Add
 </button>
 
 </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     STAR SIDE
+STAR SIDE
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-5. Stars کی Side
+7. Stars کی Side
 </div>
 
 
 <div class="side-buttons">
-
 
 <button
 class="dark"
@@ -531,62 +582,55 @@ id="starsRight">
 ➡️ تمام Stars دائیں
 </button>
 
-
 <button
 class="dark"
 id="starsLeft">
 ⬅️ تمام Stars بائیں
 </button>
 
-
 </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     STAR COLOR
+STAR COLOR
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-6. Star Color
+8. Star Color
 </div>
 
 
 <div class="grid">
 
-
 <button
 class="gold"
 id="goldStars">
-⭐ Gold Stars
+⭐ Gold
 </button>
-
 
 <button
 class="dark"
 id="blackStars">
-⭐ Black Stars
+⭐ Black
 </button>
 
-
 </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     PRODUCT LINK
+LINK
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-7. Product Link
+9. Product Link
 </div>
 
 
@@ -609,44 +653,46 @@ id="copyLink">
 Product Link Copy کریں
 </button>
 
-
 </div>
 
 
 <!-- =====================================================
-     CANVAS
+CANVAS
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-8. اصل تصویر
+10. اصل تصویر
 </div>
 
 
 <div class="canvas-box">
 
-<canvas id="canvas"></canvas>
+<canvas
+id="canvas">
+</canvas>
 
 </div>
 
 
-<div class="status" id="status">
+<div
+class="status"
+id="status">
 پہلے Product Image منتخب کریں۔
 </div>
-
 
 </div>
 
 
 <!-- =====================================================
-     DOWNLOAD
+DOWNLOAD
 ===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-9. Download
+11. Download
 </div>
 
 
@@ -663,7 +709,6 @@ id="downloadJPG">
 Download JPG
 </button>
 
-
 </div>
 
 
@@ -676,7 +721,7 @@ Download JPG
 
 
 /* =====================================================
-   BASIC VARIABLES
+BASIC
 ===================================================== */
 
 const canvas =
@@ -685,8 +730,6 @@ document.getElementById("canvas");
 const ctx =
 canvas.getContext("2d");
 
-const statusBox =
-document.getElementById("status");
 
 let mainImage = null;
 
@@ -708,20 +751,18 @@ let dragOffsetY = 0;
 
 
 /* =====================================================
-   FONT SIZES
+SIZE SETTINGS
 ===================================================== */
 
-const FONT_PRODUCT = 58;
+let textSize =
+14;
 
-const FONT_COUNTRY = 44;
-
-const FONT_PRICE = 52;
-
-const FONT_STAR = 42;
+let starSize =
+18;
 
 
 /* =====================================================
-   IMAGE LOAD
+IMAGE
 ===================================================== */
 
 document
@@ -737,8 +778,10 @@ function(){
         return;
     }
 
+
     const reader =
     new FileReader();
+
 
     reader.onload =
     function(e){
@@ -746,11 +789,17 @@ function(){
         const img =
         new Image();
 
+
         img.onload =
         function(){
 
             mainImage =
             img;
+
+
+            /*
+             * اصل تصویر کا اصل سائز
+             */
 
             canvas.width =
             img.naturalWidth;
@@ -758,19 +807,26 @@ function(){
             canvas.height =
             img.naturalHeight;
 
+
             elements = [];
 
-            statusBox.textContent =
-            "تصویر تیار ہے۔ اب Product / Country / Price یا Stars شامل کریں۔";
+
+            document
+            .getElementById("status")
+            .textContent =
+            "تصویر تیار ہے۔";
+
 
             draw();
 
         };
 
+
         img.src =
         e.target.result;
 
     };
+
 
     reader.readAsDataURL(file);
 
@@ -778,7 +834,7 @@ function(){
 
 
 /* =====================================================
-   LOGO LOAD
+LOGO
 ===================================================== */
 
 document
@@ -794,14 +850,17 @@ function(){
         return;
     }
 
+
     const reader =
     new FileReader();
+
 
     reader.onload =
     function(e){
 
         const img =
         new Image();
+
 
         img.onload =
         function(){
@@ -813,10 +872,12 @@ function(){
 
         };
 
+
         img.src =
         e.target.result;
 
     };
+
 
     reader.readAsDataURL(file);
 
@@ -824,7 +885,101 @@ function(){
 
 
 /* =====================================================
-   TEXT DIRECTION
+LOGO SIZE
+===================================================== */
+
+document
+.getElementById("logoBigger")
+.addEventListener(
+"click",
+function(){
+
+    logoScale *= 1.12;
+
+    draw();
+
+});
+
+
+document
+.getElementById("logoSmaller")
+.addEventListener(
+"click",
+function(){
+
+    logoScale *= .89;
+
+    draw();
+
+});
+
+
+/* =====================================================
+TEXT SIZE
+===================================================== */
+
+const textSlider =
+document.getElementById(
+    "textSize"
+);
+
+const textValue =
+document.getElementById(
+    "textSizeValue"
+);
+
+
+textSlider.addEventListener(
+"input",
+function(){
+
+    textSize =
+    Number(this.value);
+
+
+    textValue.textContent =
+    textSize;
+
+
+    draw();
+
+});
+
+
+/* =====================================================
+STAR SIZE
+===================================================== */
+
+const starSlider =
+document.getElementById(
+    "starSize"
+);
+
+const starValue =
+document.getElementById(
+    "starSizeValue"
+);
+
+
+starSlider.addEventListener(
+"input",
+function(){
+
+    starSize =
+    Number(this.value);
+
+
+    starValue.textContent =
+    starSize;
+
+
+    draw();
+
+});
+
+
+/* =====================================================
+RTL
 ===================================================== */
 
 function isRTL(text){
@@ -835,7 +990,7 @@ function isRTL(text){
 
 
 /* =====================================================
-   CREATE ELEMENT
+ADD ELEMENT
 ===================================================== */
 
 function addElement(
@@ -843,18 +998,27 @@ type,
 text
 ){
 
-    if(!mainImage || !text){
+    if(
+        !mainImage ||
+        !text
+    ){
+
         return;
+
     }
 
 
     const margin =
-    canvas.width * 0.07;
+    canvas.width * .06;
 
 
     let x;
 
-    if(starSide === "right"){
+
+    if(
+        starSide ===
+        "right"
+    ){
 
         x =
         canvas.width -
@@ -869,22 +1033,17 @@ text
 
 
     /*
-     * ہر نئی چیز اگلی لائن پر
+     * ہر نئی چیز نیچے سے
+     * اگلی مناسب لائن پر
      */
-
-    const sameType =
-    elements.filter(
-        e => e.type === type
-    );
-
 
     const y =
     canvas.height *
-    0.18
+    .16
     +
     elements.length *
     canvas.height *
-    0.10;
+    .085;
 
 
     elements.push({
@@ -908,7 +1067,7 @@ text
 
 
 /* =====================================================
-   PRODUCT BUTTON
+PRODUCT
 ===================================================== */
 
 document
@@ -919,7 +1078,9 @@ function(){
 
     const value =
     document
-    .getElementById("productName")
+    .getElementById(
+        "productName"
+    )
     .value
     .trim();
 
@@ -927,7 +1088,7 @@ function(){
     if(!value){
 
         alert(
-            "پہلے Product Name لکھیں۔"
+            "Product Name لکھیں۔"
         );
 
         return;
@@ -944,7 +1105,7 @@ function(){
 
 
 /* =====================================================
-   COUNTRY BUTTON
+COUNTRY
 ===================================================== */
 
 document
@@ -955,7 +1116,9 @@ function(){
 
     const value =
     document
-    .getElementById("country")
+    .getElementById(
+        "country"
+    )
     .value
     .trim();
 
@@ -963,7 +1126,7 @@ function(){
     if(!value){
 
         alert(
-            "پہلے Country منتخب کریں۔"
+            "Country منتخب کریں۔"
         );
 
         return;
@@ -973,14 +1136,15 @@ function(){
 
     addElement(
         "country",
-        "ملکِ تیاری: " + value
+        "ملکِ تیاری: " +
+        value
     );
 
 });
 
 
 /* =====================================================
-   PRICE BUTTON
+PRICE
 ===================================================== */
 
 document
@@ -991,7 +1155,9 @@ function(){
 
     const value =
     document
-    .getElementById("price")
+    .getElementById(
+        "price"
+    )
     .value
     .trim();
 
@@ -999,7 +1165,7 @@ function(){
     if(!value){
 
         alert(
-            "پہلے Price لکھیں۔"
+            "Price لکھیں۔"
         );
 
         return;
@@ -1009,14 +1175,15 @@ function(){
 
     addElement(
         "price",
-        "قیمت: " + value
+        "قیمت: " +
+        value
     );
 
 });
 
 
 /* =====================================================
-   READY STAR BUTTONS
+READY STARS
 ===================================================== */
 
 document
@@ -1041,7 +1208,7 @@ function(button){
 
 
 /* =====================================================
-   CUSTOM STAR
+CUSTOM STAR
 ===================================================== */
 
 document
@@ -1052,7 +1219,9 @@ function(){
 
     const input =
     document
-    .getElementById("customStar");
+    .getElementById(
+        "customStar"
+    );
 
 
     const value =
@@ -1062,7 +1231,7 @@ function(){
     if(!value){
 
         alert(
-            "اپنی عبارت پہلے لکھیں۔"
+            "عبارت لکھیں۔"
         );
 
         return;
@@ -1082,7 +1251,7 @@ function(){
 
 
 /* =====================================================
-   ENTER KEY CUSTOM STAR
+ENTER = ADD
 ===================================================== */
 
 document
@@ -1098,6 +1267,7 @@ function(event){
 
         event.preventDefault();
 
+
         document
         .getElementById(
             "addCustomStar"
@@ -1110,7 +1280,7 @@ function(event){
 
 
 /* =====================================================
-   RIGHT SIDE
+RIGHT
 ===================================================== */
 
 document
@@ -1134,10 +1304,11 @@ function(){
             element.side =
             "right";
 
+
             element.x =
             canvas.width -
             canvas.width *
-            0.07;
+            .06;
 
         }
 
@@ -1150,7 +1321,7 @@ function(){
 
 
 /* =====================================================
-   LEFT SIDE
+LEFT
 ===================================================== */
 
 document
@@ -1174,9 +1345,10 @@ function(){
             element.side =
             "left";
 
+
             element.x =
             canvas.width *
-            0.07;
+            .06;
 
         }
 
@@ -1189,7 +1361,7 @@ function(){
 
 
 /* =====================================================
-   GOLD STAR
+STAR COLOR
 ===================================================== */
 
 document
@@ -1201,14 +1373,11 @@ function(){
     starColor =
     "#D4A017";
 
+
     draw();
 
 });
 
-
-/* =====================================================
-   BLACK STAR
-===================================================== */
 
 document
 .getElementById("blackStars")
@@ -1219,37 +1388,6 @@ function(){
     starColor =
     "#111111";
 
-    draw();
-
-});
-
-
-/* =====================================================
-   LOGO SIZE
-===================================================== */
-
-document
-.getElementById("logoBigger")
-.addEventListener(
-"click",
-function(){
-
-    logoScale *=
-    1.15;
-
-    draw();
-
-});
-
-
-document
-.getElementById("logoSmaller")
-.addEventListener(
-"click",
-function(){
-
-    logoScale *=
-    0.87;
 
     draw();
 
@@ -1257,7 +1395,7 @@ function(){
 
 
 /* =====================================================
-   DRAW STAR
+DRAW STAR
 ===================================================== */
 
 function drawStar(
@@ -1270,11 +1408,13 @@ inner
     let rotation =
     -Math.PI / 2;
 
+
     const step =
     Math.PI / 5;
 
 
     ctx.beginPath();
+
 
     for(
         let i=0;
@@ -1331,7 +1471,7 @@ inner
 
 
 /* =====================================================
-   DRAW LOGO
+LOGO
 ===================================================== */
 
 function drawLogo(){
@@ -1341,13 +1481,13 @@ function drawLogo(){
     }
 
 
-    const baseWidth =
-    canvas.width *
-    0.18;
-
+    /*
+     * Logo پہلے سے بہتر بڑا
+     */
 
     const width =
-    baseWidth *
+    canvas.width *
+    .18 *
     logoScale;
 
 
@@ -1357,19 +1497,20 @@ function drawLogo(){
 
 
     const height =
-    width * ratio;
+    width *
+    ratio;
 
 
     const x =
     canvas.width -
     width -
     canvas.width *
-    0.025;
+    .025;
 
 
     const y =
     canvas.height *
-    0.025;
+    .025;
 
 
     ctx.drawImage(
@@ -1388,7 +1529,7 @@ function drawLogo(){
 
 
 /* =====================================================
-   DRAW ELEMENTS
+DRAW ELEMENTS
 ===================================================== */
 
 function drawElements(){
@@ -1397,7 +1538,9 @@ function drawElements(){
     function(element){
 
         const rtl =
-        isRTL(element.text);
+        isRTL(
+            element.text
+        );
 
 
         let fontSize;
@@ -1409,7 +1552,7 @@ function drawElements(){
         ){
 
             fontSize =
-            FONT_PRODUCT;
+            textSize * 1.25;
 
         }
         else if(
@@ -1418,7 +1561,7 @@ function drawElements(){
         ){
 
             fontSize =
-            FONT_COUNTRY;
+            textSize;
 
         }
         else if(
@@ -1427,16 +1570,21 @@ function drawElements(){
         ){
 
             fontSize =
-            FONT_PRICE;
+            textSize * 1.15;
 
         }
         else{
 
             fontSize =
-            FONT_STAR;
+            textSize;
 
         }
 
+
+        /*
+         * موبائل کے لیے واضح
+         * مگر بہت بڑا نہیں
+         */
 
         ctx.font =
         "bold " +
@@ -1448,40 +1596,17 @@ function drawElements(){
         "middle";
 
 
-        /*
-         * STAR
-         */
+        /* ================================================
+           STAR
+        ================================================= */
 
         if(
             element.type ===
             "star"
         ){
 
-            const starRadius =
-            Math.max(
-                27,
-                canvas.width *
-                0.025
-            );
-
-
-            let starX;
-
-
-            if(
-                element.side ===
-                "right"
-            ){
-
-                starX =
-                element.x;
-
-            }else{
-
-                starX =
-                element.x;
-
-            }
+            const radius =
+            starSize;
 
 
             ctx.save();
@@ -1492,33 +1617,33 @@ function drawElements(){
 
 
             ctx.shadowColor =
-            "rgba(0,0,0,.35)";
+            "rgba(0,0,0,.30)";
 
             ctx.shadowBlur =
-            8;
+            Math.max(
+                2,
+                starSize * .20
+            );
 
 
             drawStar(
 
-                starX,
+                element.x,
 
                 element.y,
 
-                starRadius,
+                radius,
 
-                starRadius * .45
+                radius * .45
 
             );
 
 
             ctx.fill();
 
+
             ctx.restore();
 
-
-            /*
-             * Star Text
-             */
 
             ctx.fillStyle =
             "#111";
@@ -1526,7 +1651,7 @@ function drawElements(){
 
             ctx.font =
             "bold " +
-            fontSize +
+            textSize +
             "px Arial";
 
 
@@ -1538,6 +1663,7 @@ function drawElements(){
                 ctx.textAlign =
                 "right";
 
+
                 ctx.direction =
                 rtl
                 ? "rtl"
@@ -1548,9 +1674,9 @@ function drawElements(){
 
                     element.text,
 
-                    starX -
-                    starRadius -
-                    22,
+                    element.x -
+                    radius -
+                    10,
 
                     element.y
 
@@ -1561,6 +1687,7 @@ function drawElements(){
                 ctx.textAlign =
                 "left";
 
+
                 ctx.direction =
                 rtl
                 ? "rtl"
@@ -1571,9 +1698,9 @@ function drawElements(){
 
                     element.text,
 
-                    starX +
-                    starRadius +
-                    22,
+                    element.x +
+                    radius +
+                    10,
 
                     element.y
 
@@ -1584,9 +1711,9 @@ function drawElements(){
         }
 
 
-        /*
-         * NORMAL TEXT
-         */
+        /* ================================================
+           NORMAL TEXT
+        ================================================= */
 
         else{
 
@@ -1606,10 +1733,10 @@ function drawElements(){
 
             ? canvas.width -
               canvas.width *
-              0.06
+              .06
 
             : canvas.width *
-              0.06;
+              .06;
 
 
             ctx.textAlign =
@@ -1643,7 +1770,7 @@ function drawElements(){
 
 
 /* =====================================================
-   MAIN DRAW
+DRAW
 ===================================================== */
 
 function draw(){
@@ -1671,7 +1798,7 @@ function draw(){
 
 
     /*
-     * اصل تصویر
+     * Original Image
      */
 
     ctx.drawImage(
@@ -1687,16 +1814,7 @@ function draw(){
     );
 
 
-    /*
-     * Logo
-     */
-
     drawLogo();
-
-
-    /*
-     * Text + Stars
-     */
 
     drawElements();
 
@@ -1704,7 +1822,7 @@ function draw(){
 
 
 /* =====================================================
-   LINK
+LINK
 ===================================================== */
 
 document
@@ -1726,7 +1844,7 @@ function(){
 
 
 /* =====================================================
-   COPY LINK
+COPY LINK
 ===================================================== */
 
 document
@@ -1740,7 +1858,8 @@ async function(){
     .getElementById(
         "productLink"
     )
-    .value.trim();
+    .value
+    .trim();
 
 
     if(!link){
@@ -1775,7 +1894,7 @@ async function(){
 
 
 /* =====================================================
-   FIND ELEMENT FOR DRAG
+FIND ELEMENT
 ===================================================== */
 
 function findElement(
@@ -1796,16 +1915,25 @@ y
         elements[i];
 
 
+        const hitWidth =
+        canvas.width *
+        .40;
+
+
         if(
+
             Math.abs(
                 x -
                 element.x
-            ) < canvas.width * .35
+            ) < hitWidth
+
             &&
+
             Math.abs(
                 y -
                 element.y
-            ) < 70
+            ) < 60
+
         ){
 
             return element;
@@ -1821,7 +1949,7 @@ y
 
 
 /* =====================================================
-   POINTER POSITION
+POINTER
 ===================================================== */
 
 function pointerPosition(
@@ -1847,6 +1975,7 @@ event
         canvas.width /
         rect.width,
 
+
         y:
         (point.clientY -
         rect.top)
@@ -1860,7 +1989,7 @@ event
 
 
 /* =====================================================
-   MOUSE DOWN
+MOUSE DOWN
 ===================================================== */
 
 canvas.addEventListener(
@@ -1868,7 +1997,9 @@ canvas.addEventListener(
 function(event){
 
     const point =
-    pointerPosition(event);
+    pointerPosition(
+        event
+    );
 
 
     draggingElement =
@@ -1886,6 +2017,7 @@ function(event){
         point.x -
         draggingElement.x;
 
+
         dragOffsetY =
         point.y -
         draggingElement.y;
@@ -1896,7 +2028,7 @@ function(event){
 
 
 /* =====================================================
-   MOUSE MOVE
+MOUSE MOVE
 ===================================================== */
 
 canvas.addEventListener(
@@ -1913,7 +2045,9 @@ function(event){
 
 
     const point =
-    pointerPosition(event);
+    pointerPosition(
+        event
+    );
 
 
     draggingElement.x =
@@ -1932,7 +2066,7 @@ function(event){
 
 
 /* =====================================================
-   MOUSE UP
+MOUSE UP
 ===================================================== */
 
 canvas.addEventListener(
@@ -1956,7 +2090,7 @@ function(){
 
 
 /* =====================================================
-   TOUCH START
+TOUCH START
 ===================================================== */
 
 canvas.addEventListener(
@@ -1964,7 +2098,9 @@ canvas.addEventListener(
 function(event){
 
     const point =
-    pointerPosition(event);
+    pointerPosition(
+        event
+    );
 
 
     draggingElement =
@@ -1982,6 +2118,7 @@ function(event){
         point.x -
         draggingElement.x;
 
+
         dragOffsetY =
         point.y -
         draggingElement.y;
@@ -1995,7 +2132,7 @@ function(event){
 
 
 /* =====================================================
-   TOUCH MOVE
+TOUCH MOVE
 ===================================================== */
 
 canvas.addEventListener(
@@ -2012,7 +2149,9 @@ function(event){
 
 
     const point =
-    pointerPosition(event);
+    pointerPosition(
+        event
+    );
 
 
     draggingElement.x =
@@ -2034,7 +2173,7 @@ function(event){
 
 
 /* =====================================================
-   TOUCH END
+TOUCH END
 ===================================================== */
 
 canvas.addEventListener(
@@ -2048,7 +2187,7 @@ function(){
 
 
 /* =====================================================
-   DOWNLOAD PNG
+PNG
 ===================================================== */
 
 document
@@ -2069,7 +2208,9 @@ function(){
 
 
     const link =
-    document.createElement("a");
+    document.createElement(
+        "a"
+    );
 
 
     link.download =
@@ -2088,7 +2229,7 @@ function(){
 
 
 /* =====================================================
-   DOWNLOAD JPG
+JPG
 ===================================================== */
 
 document
@@ -2108,45 +2249,42 @@ function(){
     }
 
 
-    const jpgCanvas =
+    const temp =
     document.createElement(
         "canvas"
     );
 
 
-    jpgCanvas.width =
+    temp.width =
     canvas.width;
 
-    jpgCanvas.height =
+
+    temp.height =
     canvas.height;
 
 
-    const jpgCtx =
-    jpgCanvas.getContext(
+    const tempCtx =
+    temp.getContext(
         "2d"
     );
 
 
-    /*
-     * سفید صرف JPG میں
-     */
-
-    jpgCtx.fillStyle =
+    tempCtx.fillStyle =
     "#ffffff";
 
 
-    jpgCtx.fillRect(
+    tempCtx.fillRect(
 
         0,
         0,
 
-        jpgCanvas.width,
-        jpgCanvas.height
+        temp.width,
+        temp.height
 
     );
 
 
-    jpgCtx.drawImage(
+    tempCtx.drawImage(
         canvas,
         0,
         0
@@ -2164,9 +2302,9 @@ function(){
 
 
     link.href =
-    jpgCanvas.toDataURL(
+    temp.toDataURL(
         "image/jpeg",
-        0.95
+        .95
     );
 
 
@@ -2176,13 +2314,12 @@ function(){
 
 
 /* =====================================================
-   INITIAL
+INITIAL
 ===================================================== */
 
 draw();
 
 </script>
-
 
 </body>
 
