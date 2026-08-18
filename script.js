@@ -1,24 +1,7 @@
 /* =========================================================
    JANJUA TRADERS
-   COMPLETE FINAL SCRIPT.JS
-
-   FEATURES:
-   - Correct Product Price
-   - Correct Delivery Charges
-   - Correct Total
-   - Customer Name
-   - Phone / WhatsApp
-   - Address
-   - Platform
-   - Product
-   - Quantity
-   - Color
-   - Size
-   - Product Link
-   - FormSubmit AJAX
-   - Gmail Order Submission
-   - Green Success Message
-   - No duplicate Color / Size fields
+   FINAL FIXED SCRIPT.JS
+   FormSubmit AJAX -> Gmail
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -30,13 +13,17 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-
     /* =====================================================
-       FIXED CURRENT PRODUCT PRICE
+       SETTINGS
        ===================================================== */
 
     const PRODUCT_PRICE = 42999;
     const DELIVERY_CHARGES = 250;
+
+    const FORM_SUBMIT_EMAIL = "thanksyou0339@gmail.com";
+
+    const FORM_SUBMIT_URL =
+        "https://formsubmit.co/ajax/" + FORM_SUBMIT_EMAIL;
 
 
     /* =====================================================
@@ -45,10 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function clean(value) {
 
-        if (
-            value === null ||
-            value === undefined
-        ) {
+        if (value === null || value === undefined) {
             return "";
         }
 
@@ -59,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function get(id) {
-
         return document.getElementById(id);
     }
 
@@ -79,9 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function setHidden(name, value) {
 
         let field = form.querySelector(
-            'input[type="hidden"][name="' +
-            name +
-            '"]'
+            'input[type="hidden"][name="' + name + '"]'
         );
 
         if (!field) {
@@ -95,19 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         field.value = clean(value);
+
+        return field;
     }
 
 
     function rupees(number) {
 
-        return "Rs. " +
-            Number(number).toLocaleString(
-                "en-PK",
-                {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }
-            );
+        return "Rs. " + Number(number).toLocaleString("en-PK", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
     }
 
 
@@ -117,31 +96,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function productName() {
 
-        const element =
-            get("productTitle");
+        const element = get("productTitle");
 
         if (!element) {
             return "Product";
         }
 
-        return clean(
-            element.textContent
-        ) || "Product";
+        return clean(element.textContent) || "Product";
     }
 
 
     function productDescription() {
 
-        const element =
-            get("productDescription");
+        const element = get("productDescription");
 
         if (!element) {
             return "";
         }
 
-        return clean(
-            element.textContent
-        );
+        return clean(element.textContent);
     }
 
 
@@ -151,45 +124,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function quantity() {
 
-        const element =
-            get("quantity");
+        const element = get("quantity");
 
         if (!element) {
             return 1;
         }
 
-        const number =
-            parseInt(
-                element.value,
-                10
-            );
+        let qty = parseInt(element.value, 10);
 
-        if (
-            isNaN(number) ||
-            number < 1
-        ) {
-            return 1;
+        if (isNaN(qty) || qty < 1) {
+            qty = 1;
         }
 
-        return number;
+        return qty;
     }
 
 
     /* =====================================================
-       TOTAL
+       PLATFORM
+       ===================================================== */
+
+    function platform() {
+
+        const element = get("platform");
+
+        if (!element) {
+            return "Markaz";
+        }
+
+        return clean(element.value) || "Markaz";
+    }
+
+
+    /* =====================================================
+       PRODUCT LINK
+       ===================================================== */
+
+    function productLink() {
+
+        const field = form.querySelector(
+            'input[name="Product_Link"]'
+        );
+
+        if (field && clean(field.value)) {
+            return clean(field.value);
+        }
+
+        return window.location.href;
+    }
+
+
+    /* =====================================================
+       TOTAL CALCULATION
        ===================================================== */
 
     function calculateTotal() {
 
-        const qty =
-            quantity();
+        const qty = quantity();
 
         const productTotal =
             PRODUCT_PRICE * qty;
 
         const total =
-            productTotal +
-            DELIVERY_CHARGES;
+            productTotal + DELIVERY_CHARGES;
 
 
         /* SCREEN */
@@ -224,19 +221,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* EMAIL DATA */
+        /* HIDDEN EMAIL DATA */
 
         setHidden(
             "Product_Price",
             rupees(PRODUCT_PRICE)
         );
 
-
         setHidden(
             "Delivery_Charges",
             rupees(DELIVERY_CHARGES)
         );
 
+        setHidden(
+            "Product_Total",
+            rupees(productTotal)
+        );
 
         setHidden(
             "Total_Amount",
@@ -249,48 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       PLATFORM
-       ===================================================== */
-
-    function platform() {
-
-        const element =
-            get("platform");
-
-        if (!element) {
-            return "Markaz";
-        }
-
-        return clean(
-            element.value
-        ) || "Markaz";
-    }
-
-
-    /* =====================================================
-       PRODUCT LINK
-       ===================================================== */
-
-    function productLink() {
-
-        const hidden =
-            form.querySelector(
-                'input[name="Product_Link"]'
-            );
-
-        if (
-            hidden &&
-            clean(hidden.value)
-        ) {
-            return clean(hidden.value);
-        }
-
-        return window.location.href;
-    }
-
-
-    /* =====================================================
-       PREPARE ALL ORDER DATA
+       ORDER DATA
        ===================================================== */
 
     function prepareOrder() {
@@ -314,12 +273,11 @@ document.addEventListener("DOMContentLoaded", function () {
             quantity();
 
 
-        /* CUSTOMER */
+        /* ORDER */
 
         setHidden(
             "Order_ID",
-            phone ||
-            "New Order"
+            phone || ("ORDER-" + Date.now())
         );
 
 
@@ -367,8 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setHidden(
             "Color",
-            color ||
-            "Not Required"
+            color || "Not Required"
         );
 
 
@@ -376,8 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setHidden(
             "Size",
-            size ||
-            "Not Required"
+            size || "Not Required"
         );
 
 
@@ -394,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
         calculateTotal();
 
 
-        /* PRODUCT LINK */
+        /* LINK */
 
         setHidden(
             "Product_Link",
@@ -402,47 +358,131 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* REMOVE OLD ADDITIONAL MESSAGE */
+        /* =================================================
+           FORMSUBMIT SETTINGS
+           ================================================= */
 
-        const oldMessage =
+        setHidden(
+            "_subject",
+            "Janjua Traders - New Order"
+        );
+
+
+        setHidden(
+            "_template",
+            "table"
+        );
+
+
+        /*
+         * AJAX استعمال ہو رہا ہے،
+         * اس لیے _next کی ضرورت نہیں۔
+         */
+
+        setHidden(
+            "_captcha",
+            "false"
+        );
+
+
+        return {
+            Order_ID:
+                getValueFromForm("Order_ID"),
+
+            Customer_Name:
+                getValueFromForm("Customer_Name"),
+
+            Mobile_WhatsApp:
+                getValueFromForm("Mobile_WhatsApp"),
+
+            Delivery_Address:
+                getValueFromForm("Delivery_Address"),
+
+            Platform:
+                getValueFromForm("Platform"),
+
+            Product:
+                getValueFromForm("Product"),
+
+            Product_Description:
+                getValueFromForm("Product_Description"),
+
+            Color:
+                getValueFromForm("Color"),
+
+            Size:
+                getValueFromForm("Size"),
+
+            Quantity:
+                getValueFromForm("Quantity"),
+
+            Product_Price:
+                getValueFromForm("Product_Price"),
+
+            Delivery_Charges:
+                getValueFromForm("Delivery_Charges"),
+
+            Product_Total:
+                getValueFromForm("Product_Total"),
+
+            Total_Amount:
+                getValueFromForm("Total_Amount"),
+
+            Product_Link:
+                getValueFromForm("Product_Link"),
+
+            _subject:
+                "Janjua Traders - New Order",
+
+            _template:
+                "table",
+
+            _captcha:
+                "false"
+        };
+    }
+
+
+    function getValueFromForm(name) {
+
+        const field =
             form.querySelector(
-                '[name="Additional_Message"]'
+                'input[name="' + name + '"]'
             );
 
-        if (oldMessage) {
-            oldMessage.remove();
+        if (!field) {
+            return "";
         }
+
+        return clean(field.value);
     }
 
 
     /* =====================================================
-       SUCCESS / ERROR MESSAGE
+       RESULT MESSAGE
        ===================================================== */
 
     function showResult(message, success) {
 
-        const result =
-            get("result");
+        const result = get("result");
 
         if (!result) {
             return;
         }
 
-        result.textContent =
-            message;
+        result.textContent = message;
 
         result.className =
             success
                 ? "result success"
                 : "result error";
 
-        result.style.display =
-            "block";
+        result.style.display = "block";
     }
 
 
     /* =====================================================
-       BUTTON
+       SUBMIT BUTTON
        ===================================================== */
 
     const submitButton =
@@ -488,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       COLOR LIVE
+       COLOR
        ===================================================== */
 
     const colorField =
@@ -502,9 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 setHidden(
                     "Color",
-                    clean(
-                        colorField.value
-                    ) ||
+                    clean(colorField.value) ||
                     "Not Required"
                 );
             }
@@ -513,7 +551,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       SIZE LIVE
+       SIZE
        ===================================================== */
 
     const sizeField =
@@ -527,9 +565,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 setHidden(
                     "Size",
-                    clean(
-                        sizeField.value
-                    ) ||
+                    clean(sizeField.value) ||
                     "Not Required"
                 );
             }
@@ -538,7 +574,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       PHONE LIVE
+       PHONE
        ===================================================== */
 
     const phoneField =
@@ -551,17 +587,13 @@ document.addEventListener("DOMContentLoaded", function () {
             function () {
 
                 const phone =
-                    clean(
-                        phoneField.value
-                    );
-
+                    clean(phoneField.value);
 
                 setHidden(
                     "Order_ID",
                     phone ||
-                    "New Order"
+                    ("ORDER-" + Date.now())
                 );
-
 
                 setHidden(
                     "Mobile_WhatsApp",
@@ -573,26 +605,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       AJAX FORM SUBMIT
+       FINAL AJAX SUBMIT
        ===================================================== */
 
     form.addEventListener(
         "submit",
         async function (event) {
 
-            /*
-             * Browser کا normal FormSubmit redirect
-             * روک دیا گیا ہے۔
-             */
-
             event.preventDefault();
 
 
             /* Browser validation */
 
-            if (
-                !form.checkValidity()
-            ) {
+            if (!form.checkValidity()) {
 
                 form.reportValidity();
 
@@ -600,24 +625,22 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* Prepare everything */
+            /* Prepare */
 
-            prepareOrder();
+            const orderData =
+                prepareOrder();
 
 
             /* Button */
 
             if (submitButton) {
 
-                submitButton.disabled =
-                    true;
+                submitButton.disabled = true;
 
                 submitButton.textContent =
                     "Order Submit ہو رہا ہے...";
             }
 
-
-            /* Result */
 
             showResult(
                 "Order submit ہو رہا ہے، براہِ کرم انتظار کریں...",
@@ -627,30 +650,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
             try {
 
-                /*
-                 * FormSubmit AJAX endpoint
-                 */
+                console.log(
+                    "Sending order to FormSubmit:",
+                    orderData
+                );
+
+
+                /* =================================================
+                   FORMSUBMIT AJAX
+                   ================================================= */
 
                 const response =
                     await fetch(
-                        "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
+                        FORM_SUBMIT_URL,
                         {
                             method: "POST",
 
                             headers: {
-                                "Accept":
+                                "Content-Type":
                                     "application/json",
 
-                                "Content-Type":
-                                    "application/x-www-form-urlencoded"
+                                "Accept":
+                                    "application/json"
                             },
 
                             body:
-                                new URLSearchParams(
-                                    new FormData(form)
-                                ).toString()
+                                JSON.stringify(orderData)
                         }
                     );
+
+
+                const text =
+                    await response.text();
+
+
+                console.log(
+                    "FormSubmit HTTP status:",
+                    response.status
+                );
+
+                console.log(
+                    "FormSubmit response:",
+                    text
+                );
 
 
                 let data = null;
@@ -659,11 +701,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
 
                     data =
-                        await response.json();
+                        JSON.parse(text);
 
-                } catch (jsonError) {
+                } catch (error) {
 
-                    data = null;
+                    console.warn(
+                        "FormSubmit returned non-JSON response."
+                    );
                 }
 
 
@@ -673,23 +717,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (
                     response.ok &&
+                    data &&
                     (
-                        !data ||
                         data.success === true ||
                         data.success === "true"
                     )
                 ) {
 
                     showResult(
-                        "✓ Order کامیابی سے Submit ہو گیا ہے۔ Gmail پر Order بھیج دیا گیا ہے۔",
+                        "✓ Order کامیابی سے Submit ہو گیا ہے۔ Gmail چیک کریں۔",
                         true
                     );
 
 
-                    /*
-                     * Form reset
-                     * Product information کو چھیڑا نہیں جائے گا۔
-                     */
+                    /* Clear customer fields */
 
                     const customerName =
                         get("customerName");
@@ -731,12 +772,34 @@ document.addEventListener("DOMContentLoaded", function () {
                         quantityField.value = "1";
 
 
+                    /*
+                     * Product information کو reset نہیں کیا جائے گا۔
+                     */
+
                     prepareOrder();
+
 
                 } else {
 
+                    console.error(
+                        "FormSubmit rejected order:",
+                        data || text
+                    );
+
+
+                    let errorMessage =
+                        "FormSubmit نے Order قبول نہیں کیا۔";
+
+
+                    if (data && data.message) {
+
+                        errorMessage =
+                            data.message;
+                    }
+
+
                     throw new Error(
-                        "FormSubmit did not accept the order."
+                        errorMessage
                     );
                 }
 
@@ -744,15 +807,17 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (error) {
 
                 console.error(
-                    "FormSubmit Error:",
+                    "Janjua Traders FormSubmit Error:",
                     error
                 );
 
 
                 showResult(
-                    "Order Submit نہیں ہو سکا۔ Internet connection اور FormSubmit activation چیک کریں۔",
+                    "✗ Order Gmail پر نہیں بھیجا گیا۔ " +
+                    (error.message || "FormSubmit error"),
                     false
                 );
+
 
             } finally {
 
@@ -771,7 +836,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       INITIAL SETUP
+       INITIAL LOAD
        ===================================================== */
 
     prepareOrder();
@@ -780,17 +845,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     console.log(
-        "Janjua Traders: Final script loaded."
-    );
-
-    console.log(
-        "Product Price:",
-        PRODUCT_PRICE
-    );
-
-    console.log(
-        "Delivery Charges:",
-        DELIVERY_CHARGES
+        "Janjua Traders: FINAL Gmail AJAX script loaded."
     );
 
 });
