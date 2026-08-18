@@ -2,6 +2,13 @@
    JANJUA TRADERS
    FINAL FIXED SCRIPT.JS
    FormSubmit AJAX -> Gmail
+
+   QUANTITY FIX:
+   - Quantity 1 to 10
+   - Existing value automatically selected on focus
+   - Typing 2 replaces 1 instead of making 12 / 21
+   - Direct calculation
+   - Gmail receives correct quantity
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -13,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+
     /* =====================================================
        SETTINGS
        ===================================================== */
@@ -20,10 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const PRODUCT_PRICE = 42999;
     const DELIVERY_CHARGES = 250;
 
-    const FORM_SUBMIT_EMAIL = "thanksyou0339@gmail.com";
+    const FORM_SUBMIT_EMAIL =
+        "thanksyou0339@gmail.com";
 
     const FORM_SUBMIT_URL =
-        "https://formsubmit.co/ajax/" + FORM_SUBMIT_EMAIL;
+        "https://formsubmit.co/ajax/" +
+        FORM_SUBMIT_EMAIL;
 
 
     /* =====================================================
@@ -32,7 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function clean(value) {
 
-        if (value === null || value === undefined) {
+        if (
+            value === null ||
+            value === undefined
+        ) {
             return "";
         }
 
@@ -43,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function get(id) {
+
         return document.getElementById(id);
     }
 
@@ -61,13 +75,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setHidden(name, value) {
 
-        let field = form.querySelector(
-            'input[type="hidden"][name="' + name + '"]'
-        );
+        let field =
+            form.querySelector(
+                'input[type="hidden"][name="' +
+                name +
+                '"]'
+            );
+
 
         if (!field) {
 
-            field = document.createElement("input");
+            field =
+                document.createElement("input");
 
             field.type = "hidden";
             field.name = name;
@@ -75,7 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
             form.appendChild(field);
         }
 
-        field.value = clean(value);
+
+        field.value =
+            clean(value);
 
         return field;
     }
@@ -83,10 +104,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function rupees(number) {
 
-        return "Rs. " + Number(number).toLocaleString("en-PK", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
+        return "Rs. " +
+            Number(number).toLocaleString(
+                "en-PK",
+                {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }
+            );
     }
 
 
@@ -96,25 +121,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function productName() {
 
-        const element = get("productTitle");
+        const element =
+            get("productTitle");
+
 
         if (!element) {
             return "Product";
         }
 
-        return clean(element.textContent) || "Product";
+
+        return clean(
+            element.textContent
+        ) || "Product";
     }
 
 
     function productDescription() {
 
-        const element = get("productDescription");
+        const element =
+            get("productDescription");
+
 
         if (!element) {
             return "";
         }
 
-        return clean(element.textContent);
+
+        return clean(
+            element.textContent
+        );
     }
 
 
@@ -124,17 +159,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function quantity() {
 
-        const element = get("quantity");
+        const element =
+            get("quantity");
+
 
         if (!element) {
             return 1;
         }
 
-        let qty = parseInt(element.value, 10);
 
-        if (isNaN(qty) || qty < 1) {
-            qty = 1;
+        let qty =
+            parseInt(
+                element.value,
+                10
+            );
+
+
+        /*
+         * اگر Quantity خالی ہو یا غلط ہو
+         * calculation کے لیے 1 استعمال ہوگا۔
+         */
+
+        if (
+            isNaN(qty) ||
+            qty < 1
+        ) {
+            return 1;
         }
+
+
+        /*
+         * Maximum Quantity = 10
+         */
+
+        if (qty > 10) {
+            return 10;
+        }
+
 
         return qty;
     }
@@ -146,13 +207,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function platform() {
 
-        const element = get("platform");
+        const element =
+            get("platform");
+
 
         if (!element) {
             return "Markaz";
         }
 
-        return clean(element.value) || "Markaz";
+
+        return clean(
+            element.value
+        ) || "Markaz";
     }
 
 
@@ -162,13 +228,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function productLink() {
 
-        const field = form.querySelector(
-            'input[name="Product_Link"]'
-        );
+        const field =
+            form.querySelector(
+                'input[name="Product_Link"]'
+            );
 
-        if (field && clean(field.value)) {
-            return clean(field.value);
+
+        if (
+            field &&
+            clean(field.value)
+        ) {
+
+            return clean(
+                field.value
+            );
         }
+
 
         return window.location.href;
     }
@@ -180,19 +255,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calculateTotal() {
 
-        const qty = quantity();
+        const qty =
+            quantity();
+
 
         const productTotal =
             PRODUCT_PRICE * qty;
 
+
         const total =
-            productTotal + DELIVERY_CHARGES;
+            productTotal +
+            DELIVERY_CHARGES;
 
 
-        /* SCREEN */
+        /* =================================================
+           SCREEN
+           ================================================= */
 
         const productPriceElement =
             get("productPrice");
+
 
         if (productPriceElement) {
 
@@ -204,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const deliveryElement =
             get("deliveryPrice");
 
+
         if (deliveryElement) {
 
             deliveryElement.textContent =
@@ -214,6 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalElement =
             get("totalPrice");
 
+
         if (totalElement) {
 
             totalElement.textContent =
@@ -221,22 +305,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* HIDDEN EMAIL DATA */
+        /* =================================================
+           HIDDEN EMAIL DATA
+           ================================================= */
 
         setHidden(
             "Product_Price",
             rupees(PRODUCT_PRICE)
         );
 
+
         setHidden(
             "Delivery_Charges",
             rupees(DELIVERY_CHARGES)
         );
 
+
         setHidden(
             "Product_Total",
             rupees(productTotal)
         );
+
 
         setHidden(
             "Total_Amount",
@@ -257,27 +346,35 @@ document.addEventListener("DOMContentLoaded", function () {
         const name =
             getValue("customerName");
 
+
         const phone =
             getValue("customerPhone");
+
 
         const address =
             getValue("address");
 
+
         const color =
             getValue("color");
 
+
         const size =
             getValue("size");
+
 
         const qty =
             quantity();
 
 
-        /* ORDER */
+        /* =================================================
+           ORDER
+           ================================================= */
 
         setHidden(
             "Order_ID",
-            phone || ("ORDER-" + Date.now())
+            phone ||
+            ("ORDER-" + Date.now())
         );
 
 
@@ -299,7 +396,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* PLATFORM */
+        /* =================================================
+           PLATFORM
+           ================================================= */
 
         setHidden(
             "Platform",
@@ -307,7 +406,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* PRODUCT */
+        /* =================================================
+           PRODUCT
+           ================================================= */
 
         setHidden(
             "Product",
@@ -321,23 +422,31 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* COLOR */
+        /* =================================================
+           COLOR
+           ================================================= */
 
         setHidden(
             "Color",
-            color || "Not Required"
+            color ||
+            "Not Required"
         );
 
 
-        /* SIZE */
+        /* =================================================
+           SIZE
+           ================================================= */
 
         setHidden(
             "Size",
-            size || "Not Required"
+            size ||
+            "Not Required"
         );
 
 
-        /* QUANTITY */
+        /* =================================================
+           QUANTITY
+           ================================================= */
 
         setHidden(
             "Quantity",
@@ -345,12 +454,16 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* PRICE */
+        /* =================================================
+           PRICE
+           ================================================= */
 
         calculateTotal();
 
 
-        /* LINK */
+        /* =================================================
+           PRODUCT LINK
+           ================================================= */
 
         setHidden(
             "Product_Link",
@@ -374,62 +487,92 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /*
-         * AJAX استعمال ہو رہا ہے،
-         * اس لیے _next کی ضرورت نہیں۔
-         */
-
         setHidden(
             "_captcha",
             "false"
         );
 
 
+        /* =================================================
+           FINAL ORDER OBJECT
+           ================================================= */
+
         return {
+
             Order_ID:
-                getValueFromForm("Order_ID"),
+                getValueFromForm(
+                    "Order_ID"
+                ),
 
             Customer_Name:
-                getValueFromForm("Customer_Name"),
+                getValueFromForm(
+                    "Customer_Name"
+                ),
 
             Mobile_WhatsApp:
-                getValueFromForm("Mobile_WhatsApp"),
+                getValueFromForm(
+                    "Mobile_WhatsApp"
+                ),
 
             Delivery_Address:
-                getValueFromForm("Delivery_Address"),
+                getValueFromForm(
+                    "Delivery_Address"
+                ),
 
             Platform:
-                getValueFromForm("Platform"),
+                getValueFromForm(
+                    "Platform"
+                ),
 
             Product:
-                getValueFromForm("Product"),
+                getValueFromForm(
+                    "Product"
+                ),
 
             Product_Description:
-                getValueFromForm("Product_Description"),
+                getValueFromForm(
+                    "Product_Description"
+                ),
 
             Color:
-                getValueFromForm("Color"),
+                getValueFromForm(
+                    "Color"
+                ),
 
             Size:
-                getValueFromForm("Size"),
+                getValueFromForm(
+                    "Size"
+                ),
 
             Quantity:
-                getValueFromForm("Quantity"),
+                getValueFromForm(
+                    "Quantity"
+                ),
 
             Product_Price:
-                getValueFromForm("Product_Price"),
+                getValueFromForm(
+                    "Product_Price"
+                ),
 
             Delivery_Charges:
-                getValueFromForm("Delivery_Charges"),
+                getValueFromForm(
+                    "Delivery_Charges"
+                ),
 
             Product_Total:
-                getValueFromForm("Product_Total"),
+                getValueFromForm(
+                    "Product_Total"
+                ),
 
             Total_Amount:
-                getValueFromForm("Total_Amount"),
+                getValueFromForm(
+                    "Total_Amount"
+                ),
 
             Product_Link:
-                getValueFromForm("Product_Link"),
+                getValueFromForm(
+                    "Product_Link"
+                ),
 
             _subject:
                 "Janjua Traders - New Order",
@@ -447,14 +590,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const field =
             form.querySelector(
-                'input[name="' + name + '"]'
+                'input[name="' +
+                name +
+                '"]'
             );
+
 
         if (!field) {
             return "";
         }
 
-        return clean(field.value);
+
+        return clean(
+            field.value
+        );
     }
 
 
@@ -462,22 +611,32 @@ document.addEventListener("DOMContentLoaded", function () {
        RESULT MESSAGE
        ===================================================== */
 
-    function showResult(message, success) {
+    function showResult(
+        message,
+        success
+    ) {
 
-        const result = get("result");
+        const result =
+            get("result");
+
 
         if (!result) {
             return;
         }
 
-        result.textContent = message;
+
+        result.textContent =
+            message;
+
 
         result.className =
             success
                 ? "result success"
                 : "result error";
 
-        result.style.display = "block";
+
+        result.style.display =
+            "block";
     }
 
 
@@ -490,38 +649,237 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       QUANTITY LIVE
+       QUANTITY LIVE - FIXED
        ===================================================== */
 
     const quantityField =
         get("quantity");
 
+
     if (quantityField) {
 
+        /*
+         * Quantity field کو 1 سے 10 تک محدود کریں۔
+         */
+
+        quantityField.type = "number";
+        quantityField.min = "1";
+        quantityField.max = "10";
+        quantityField.step = "1";
+
+
+        /*
+         * Mobile پر number keyboard دکھانے میں مدد۔
+         */
+
+        quantityField.inputMode =
+            "numeric";
+
+
+        /* =================================================
+           FOCUS
+           =================================================
+
+           جب user Quantity box پر tap کرے گا،
+           موجودہ 1 automatically select ہو جائے گا۔
+
+           اس لیے user 2 لکھے گا تو:
+           1 -> 2
+
+           نہ کہ:
+           1 -> 12
+           یا:
+           1 -> 21
+        */
+
         quantityField.addEventListener(
-            "input",
+            "focus",
             function () {
 
-                calculateTotal();
+                setTimeout(
+                    function () {
 
-                setHidden(
-                    "Quantity",
-                    quantity()
+                        quantityField.select();
+
+                    },
+                    0
                 );
             }
         );
 
 
+        /* =================================================
+           INPUT
+           ================================================= */
+
+        quantityField.addEventListener(
+            "input",
+            function () {
+
+                /*
+                 * اگر user نے value مکمل delete کر دی
+                 * تو فوراً 1 واپس نہ ڈالیں۔
+                 *
+                 * اسے خالی رہنے دیں تاکہ user
+                 * نیا نمبر لکھ سکے۔
+                 */
+
+                if (
+                    quantityField.value === ""
+                ) {
+
+                    setHidden(
+                        "Quantity",
+                        1
+                    );
+
+                    calculateTotal();
+
+                    return;
+                }
+
+
+                let value =
+                    parseInt(
+                        quantityField.value,
+                        10
+                    );
+
+
+                /*
+                 * اگر غلط value ہو
+                 */
+
+                if (isNaN(value)) {
+
+                    quantityField.value = "1";
+
+                    value = 1;
+                }
+
+
+                /*
+                 * Minimum = 1
+                 */
+
+                if (value < 1) {
+
+                    value = 1;
+                }
+
+
+                /*
+                 * Maximum = 10
+                 */
+
+                if (value > 10) {
+
+                    value = 10;
+                }
+
+
+                /*
+                 * Final value واپس field میں۔
+                 */
+
+                quantityField.value =
+                    String(value);
+
+
+                /*
+                 * Gmail data update
+                 */
+
+                setHidden(
+                    "Quantity",
+                    value
+                );
+
+
+                /*
+                 * Total فوراً calculate
+                 */
+
+                calculateTotal();
+            }
+        );
+
+
+        /* =================================================
+           CHANGE
+           ================================================= */
+
         quantityField.addEventListener(
             "change",
             function () {
 
-                calculateTotal();
+                let value =
+                    parseInt(
+                        quantityField.value,
+                        10
+                    );
+
+
+                /*
+                 * Empty / invalid
+                 */
+
+                if (
+                    isNaN(value) ||
+                    value < 1
+                ) {
+
+                    value = 1;
+                }
+
+
+                /*
+                 * Maximum 10
+                 */
+
+                if (value > 10) {
+
+                    value = 10;
+                }
+
+
+                quantityField.value =
+                    String(value);
+
 
                 setHidden(
                     "Quantity",
-                    quantity()
+                    value
                 );
+
+
+                calculateTotal();
+            }
+        );
+
+
+        /* =================================================
+           KEYBOARD PROTECTION
+           ================================================= */
+
+        quantityField.addEventListener(
+            "keydown",
+            function (event) {
+
+                /*
+                 * یہ characters Quantity میں
+                 * استعمال نہیں ہونے دیں گے۔
+                 */
+
+                if (
+                    event.key === "e" ||
+                    event.key === "E" ||
+                    event.key === "+" ||
+                    event.key === "-"
+                ) {
+
+                    event.preventDefault();
+                }
             }
         );
     }
@@ -534,6 +892,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const colorField =
         get("color");
 
+
     if (colorField) {
 
         colorField.addEventListener(
@@ -542,7 +901,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 setHidden(
                     "Color",
-                    clean(colorField.value) ||
+                    clean(
+                        colorField.value
+                    ) ||
                     "Not Required"
                 );
             }
@@ -557,6 +918,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const sizeField =
         get("size");
 
+
     if (sizeField) {
 
         sizeField.addEventListener(
@@ -565,7 +927,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 setHidden(
                     "Size",
-                    clean(sizeField.value) ||
+                    clean(
+                        sizeField.value
+                    ) ||
                     "Not Required"
                 );
             }
@@ -580,6 +944,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const phoneField =
         get("customerPhone");
 
+
     if (phoneField) {
 
         phoneField.addEventListener(
@@ -587,13 +952,17 @@ document.addEventListener("DOMContentLoaded", function () {
             function () {
 
                 const phone =
-                    clean(phoneField.value);
+                    clean(
+                        phoneField.value
+                    );
+
 
                 setHidden(
                     "Order_ID",
                     phone ||
                     ("ORDER-" + Date.now())
                 );
+
 
                 setHidden(
                     "Mobile_WhatsApp",
@@ -615,9 +984,13 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
 
 
-            /* Browser validation */
+            /* =================================================
+               BROWSER VALIDATION
+               ================================================= */
 
-            if (!form.checkValidity()) {
+            if (
+                !form.checkValidity()
+            ) {
 
                 form.reportValidity();
 
@@ -625,22 +998,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* Prepare */
+            /* =================================================
+               PREPARE ORDER
+               ================================================= */
 
             const orderData =
                 prepareOrder();
 
 
-            /* Button */
+            /* =================================================
+               BUTTON
+               ================================================= */
 
             if (submitButton) {
 
-                submitButton.disabled = true;
+                submitButton.disabled =
+                    true;
+
 
                 submitButton.textContent =
                     "Order Submit ہو رہا ہے...";
             }
 
+
+            /* =================================================
+               RESULT
+               ================================================= */
 
             showResult(
                 "Order submit ہو رہا ہے، براہِ کرم انتظار کریں...",
@@ -667,6 +1050,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             method: "POST",
 
                             headers: {
+
                                 "Content-Type":
                                     "application/json",
 
@@ -675,7 +1059,9 @@ document.addEventListener("DOMContentLoaded", function () {
                             },
 
                             body:
-                                JSON.stringify(orderData)
+                                JSON.stringify(
+                                    orderData
+                                )
                         }
                     );
 
@@ -688,6 +1074,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     "FormSubmit HTTP status:",
                     response.status
                 );
+
 
                 console.log(
                     "FormSubmit response:",
@@ -730,50 +1117,69 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                    /* Clear customer fields */
+                    /* =================================================
+                       CLEAR CUSTOMER FIELDS
+                       ================================================= */
 
                     const customerName =
                         get("customerName");
 
+
                     const customerPhone =
                         get("customerPhone");
+
 
                     const address =
                         get("address");
 
+
                     const color =
                         get("color");
+
 
                     const size =
                         get("size");
 
 
-                    if (customerName)
+                    if (customerName) {
                         customerName.value = "";
+                    }
 
 
-                    if (customerPhone)
+                    if (customerPhone) {
                         customerPhone.value = "";
+                    }
 
 
-                    if (address)
+                    if (address) {
                         address.value = "";
+                    }
 
 
-                    if (color)
+                    if (color) {
                         color.value = "";
+                    }
 
 
-                    if (size)
+                    if (size) {
                         size.value = "";
-
-
-                    if (quantityField)
-                        quantityField.value = "1";
+                    }
 
 
                     /*
-                     * Product information کو reset نہیں کیا جائے گا۔
+                     * Quantity دوبارہ 1 ہو جائے گی۔
+                     */
+
+                    if (quantityField) {
+
+                        quantityField.value =
+                            "1";
+                    }
+
+
+                    /*
+                     * Product information کو reset
+                     * نہیں کیا جائے گا۔
                      */
 
                     prepareOrder();
@@ -791,7 +1197,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         "FormSubmit نے Order قبول نہیں کیا۔";
 
 
-                    if (data && data.message) {
+                    if (
+                        data &&
+                        data.message
+                    ) {
 
                         errorMessage =
                             data.message;
@@ -814,7 +1223,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 showResult(
                     "✗ Order Gmail پر نہیں بھیجا گیا۔ " +
-                    (error.message || "FormSubmit error"),
+                    (
+                        error.message ||
+                        "FormSubmit error"
+                    ),
                     false
                 );
 
@@ -825,6 +1237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     submitButton.disabled =
                         false;
+
 
                     submitButton.textContent =
                         "Order Final Submit کریں";
@@ -839,6 +1252,19 @@ document.addEventListener("DOMContentLoaded", function () {
        INITIAL LOAD
        ===================================================== */
 
+    /*
+     * اگر Quantity field خالی ہو تو اسے 1 سے شروع کریں۔
+     */
+
+    if (
+        quantityField &&
+        clean(quantityField.value) === ""
+    ) {
+
+        quantityField.value = "1";
+    }
+
+
     prepareOrder();
 
     calculateTotal();
@@ -846,6 +1272,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(
         "Janjua Traders: FINAL Gmail AJAX script loaded."
+    );
+
+
+    console.log(
+        "Quantity: 1 to 10 - Fixed"
     );
 
 });
