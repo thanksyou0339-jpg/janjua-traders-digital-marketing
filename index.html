@@ -62,13 +62,17 @@ header{
     border-radius:16px;
     padding:14px;
     margin-bottom:18px;
+    overflow:hidden;
 }
 
 .product-image{
+    display:block;
+    width:100%;
     max-width:100%;
     max-height:430px;
     object-fit:contain;
     border-radius:12px;
+    margin:auto;
 }
 
 .platform-badge{
@@ -93,8 +97,7 @@ label{
 }
 
 input,
-select,
-textarea{
+select{
     width:100%;
     padding:14px;
     border:1px solid #cfd6df;
@@ -104,9 +107,11 @@ textarea{
     direction:auto;
 }
 
-textarea{
-    min-height:105px;
-    resize:vertical;
+input:focus,
+select:focus{
+    outline:none;
+    border-color:#176fc4;
+    box-shadow:0 0 0 3px rgba(23,111,196,.12);
 }
 
 .hint{
@@ -119,6 +124,18 @@ textarea{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:14px;
+    margin-top:5px;
+}
+
+.choice-box{
+    background:#f8fafc;
+    border:1px solid #e0e6ee;
+    border-radius:14px;
+    padding:14px;
+}
+
+.choice-box label{
+    margin-top:0;
 }
 
 .price-box{
@@ -148,7 +165,7 @@ textarea{
     font-size:20px;
     font-weight:800;
     padding:16px;
-    margin-top:20px;
+    margin-top:24px;
     cursor:pointer;
 }
 
@@ -209,6 +226,12 @@ footer{
     color:#b00020;
 }
 
+.success-note{
+    margin-top:10px;
+    font-size:14px;
+    color:#176b2c;
+}
+
 @media(max-width:650px){
 
     .choice-grid,
@@ -252,9 +275,7 @@ footer{
 <main class="container">
 
 
-<!-- =====================================================
-     PRODUCT DISPLAY
-     ===================================================== -->
+<!-- PRODUCT DETAILS -->
 
 <section class="card">
 
@@ -267,15 +288,16 @@ footer{
 <img
     id="productImage"
     class="product-image"
-    src=""
+    src="file_00000000ee44820880d5993065f8c4c9.png"
     alt="Product Image"
+    onerror="this.style.display='none';document.getElementById('noImage').style.display='block';"
 >
 
 <div
     id="noImage"
     style="display:none;padding:40px;color:#777;"
 >
-    Product Image
+    Product Image دستیاب نہیں
 </div>
 
 </div>
@@ -349,9 +371,7 @@ footer{
 
 
 
-<!-- =====================================================
-     ORDER FORM
-     ===================================================== -->
+<!-- ORDER FORM -->
 
 <section class="card">
 
@@ -360,24 +380,15 @@ footer{
 </h2>
 
 
-<!--
-IMPORTANT:
-
-YOUR_FORM_SUBMIT_EMAIL
-
-کی جگہ وہی Gmail address لکھیں
-جس سے FormSubmit کی activation ہوئی تھی۔
--->
-
 <form
     id="orderForm"
-    action="https://formsubmit.co/YOUR_FORM_SUBMIT_EMAIL"
+    action="https://formsubmit.co/thanksyou0339@gmail.com"
     method="POST"
     novalidate
 >
 
 
-<!-- FORM SUBMIT SETTINGS -->
+<!-- FORMSUBMIT SETTINGS -->
 
 <input
     type="hidden"
@@ -515,12 +526,13 @@ Delivery Address
 
 </label>
 
-<textarea
+<input
     id="address"
     name="Delivery_Address"
+    type="text"
     placeholder="مکمل ڈیلیوری ایڈریس لکھیں"
     required
-></textarea>
+>
 
 
 
@@ -576,14 +588,21 @@ Quantity
 
 
 
-<!-- =====================================================
-     COLOR + SIZE
-     ===================================================== -->
+<!-- COLOR + SIZE -->
+
+<h3 style="margin-top:25px;margin-bottom:5px;">
+    Product Color & Size
+</h3>
+
+<p class="hint">
+    اگر اس Product میں Color یا Size لاگو نہیں ہوتا تو متعلقہ خانہ خالی چھوڑ دیں۔
+</p>
+
 
 <div class="choice-grid">
 
 
-<div>
+<div class="choice-box">
 
 <label for="color">
 
@@ -595,20 +614,18 @@ Color / رنگ
     id="color"
     name="Color"
     type="text"
-    placeholder="مثلاً White, Black, Green"
+    placeholder="مثلاً White, Black, Blue, Green"
 >
 
 <p class="hint">
-
-اگر Color درکار نہیں تو خالی چھوڑ دیں۔
-
+    مطلوبہ Color لکھیں۔
 </p>
 
 </div>
 
 
 
-<div>
+<div class="choice-box">
 
 <label for="size">
 
@@ -620,47 +637,17 @@ Size / سائز
     id="size"
     name="Size"
     type="text"
-    placeholder="مثلاً 42, L, XL"
+    placeholder="مثلاً 40, 41, 42, L, XL"
 >
 
 <p class="hint">
-
-اگر Size درکار نہیں تو خالی چھوڑ دیں۔
-
+    مطلوبہ Size لکھیں۔
 </p>
 
 </div>
 
 
 </div>
-
-
-
-<!-- =====================================================
-     ADDITIONAL MESSAGE
-     =====================================================
-
-     یہ صرف اضافی ہدایت کے لیے ہے۔
-     Color یا Size یہاں نہیں لکھنا۔
-     ===================================================== -->
-
-<label for="message">
-
-Additional Message
-
-<span style="font-weight:400;color:#777;">
-    (اختیاری)
-</span>
-
-</label>
-
-<textarea
-    id="message"
-    name="Additional_Message"
-    rows="3"
-    placeholder="صرف دوسری اضافی ہدایات لکھیں؛ Color اور Size اوپر والے خانوں میں لکھیں۔"
-></textarea>
-
 
 
 <!-- SUBMIT -->
@@ -674,7 +661,6 @@ Additional Message
 Order Final Submit کریں
 
 </button>
-
 
 
 <!-- SUCCESS / ERROR MESSAGE -->
@@ -693,9 +679,7 @@ Order Final Submit کریں
 
 
 
-<!-- =====================================================
-     PLATFORMS
-     ===================================================== -->
+<!-- PLATFORMS -->
 
 <section class="card">
 
@@ -766,9 +750,7 @@ Order Final Submit کریں
 
 
 
-<!-- =====================================================
-     ABOUT
-     ===================================================== -->
+<!-- ABOUT -->
 
 <section class="card">
 
@@ -777,10 +759,12 @@ Order Final Submit کریں
 </h2>
 
 <p>
-
 Customer جب order کرے گا تو مکمل order information،
 Color اور Size سمیت configured email پر بھیجی جائے گی۔
+</p>
 
+<p class="success-note">
+Color اور Size اب Additional Message میں نہیں بلکہ الگ الگ خانوں میں جائیں گے۔
 </p>
 
 </section>
@@ -801,10 +785,6 @@ Color اور Size سمیت configured email پر بھیجی جائے گی۔
 </footer>
 
 
-
-<!-- =====================================================
-     SCRIPT
-     ===================================================== -->
 
 <script src="script.js"></script>
 
