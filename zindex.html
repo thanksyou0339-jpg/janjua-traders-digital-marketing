@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Janjua Traders - Daraz
+    </title>
+
+    <!-- Daraz CSS -->
+    <link
+        rel="stylesheet"
+        href="zstyle.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="hero">
+
+    <div class="container">
+
+        <h1>
+            JANJUA TRADERS
+        </h1>
+
+        <p>
+            Daraz Digital Marketing & Order Platform
+        </p>
+
+        <div class="platform-badge">
+            DARAZ
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =========================
+     PRODUCT VIEW
+========================= -->
+
+<section id="productView">
+
+
+    <div class="product-image-wrap">
+
+        <img
+            id="productImage"
+            src=""
+            alt="Daraz Product"
+        >
+
+        <div
+            id="noImage"
+            style="display:none;"
+        >
+            Product Image دستیاب نہیں
+        </div>
+
+    </div>
+
+
+
+    <div class="product-info">
+
+
+        <div class="platform-badge">
+            Daraz
+        </div>
+
+
+        <h2 id="productTitle">
+            Daraz Product
+        </h2>
+
+
+        <p id="productDescription">
+            Product کی تفصیل یہاں نظر آئے گی۔
+        </p>
+
+
+        <div class="price-box">
+
+            <p>
+                Product Price:
+                <strong id="productPrice">
+                    Rs. 0
+                </strong>
+            </p>
+
+
+            <p>
+                Delivery Charges:
+                <strong id="deliveryPrice">
+                    Rs. 0
+                </strong>
+            </p>
+
+
+            <p>
+                Total:
+                <strong id="totalPrice">
+                    Rs. 0
+                </strong>
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ORDER FORM
+========================= -->
+
+<section class="card">
+
+
+    <h2>
+        Daraz Order / Customer Request
+    </h2>
+
+
+    <form
+        id="orderForm"
+        novalidate
+    >
+
+
+        <!-- Customer Name -->
+
+        <label for="customerName">
+
+            Customer Name
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="customerName"
+            name="Customer_Name"
+            type="text"
+            placeholder="اپنا نام لکھیں"
+            required
+        >
+
+
+
+        <!-- Mobile -->
+
+        <label for="customerPhone">
+
+            Mobile / WhatsApp
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="customerPhone"
+            name="Mobile_WhatsApp"
+            type="tel"
+            inputmode="tel"
+            placeholder="03XXXXXXXXX"
+            required
+        >
+
+
+
+        <!-- Address -->
+
+        <label for="address">
+
+            Delivery Address
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <textarea
+            id="address"
+            name="Delivery_Address"
+            placeholder="مکمل ڈیلیوری ایڈریس لکھیں"
+            required
+        ></textarea>
+
+
+
+        <!-- Quantity -->
+
+        <label for="quantity">
+
+            Quantity
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="quantity"
+            name="Quantity"
+            type="number"
+            min="1"
+            max="10"
+            step="1"
+            value="1"
+            required
+        >
+
+
+
+        <!-- Color -->
+
+        <label for="color">
+
+            Color / رنگ
+
+        </label>
+
+
+        <input
+            id="color"
+            name="Color"
+            type="text"
+            placeholder="مثلاً Black, White, Blue"
+        >
+
+
+
+        <!-- Size -->
+
+        <label for="size">
+
+            Size / سائز
+
+        </label>
+
+
+        <input
+            id="size"
+            name="Size"
+            type="text"
+            placeholder="مثلاً 40, 41, L, XL"
+        >
+
+
+
+        <!-- Daraz Product Link -->
+
+        <label for="productLink">
+
+            Daraz Product Link
+
+        </label>
+
+
+        <input
+            id="productLink"
+            name="Product_Link"
+            type="url"
+            placeholder="Daraz product link"
+        >
+
+
+
+        <!-- Submit -->
+
+        <button
+            id="submitButton"
+            type="submit"
+        >
+
+            Order Final Submit کریں
+
+        </button>
+
+
+
+        <!-- Result -->
+
+        <div
+            id="result"
+            class="result"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- =========================
+     DARAZ PLATFORM
+========================= -->
+
+<section class="card">
+
+
+    <h2>
+        Daraz Product System
+    </h2>
+
+
+    <p>
+        اس system میں Daraz product کی
+        معلومات، قیمت، لنک اور customer
+        order information ایک جگہ manage کی جا سکے گی۔
+    </p>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    <strong>
+        Janjua Traders
+    </strong>
+
+    — Daraz Digital Marketing Platform
+
+</footer>
+
+
+
+<!-- Daraz JavaScript -->
+
+<script
+    src="zscript.js"
+></script>
+
+
+</body>
+
+</html>
