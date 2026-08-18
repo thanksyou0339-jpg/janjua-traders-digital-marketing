@@ -1,920 +1,1277 @@
-document.addEventListener("DOMContentLoaded", function () {
+/* =========================================================
+   JANJUA TRADERS
+   DARAZ FINAL GMAIL ORDER SCRIPT
 
-    const form = document.getElementById("orderForm");
+   FEATURES:
+   - Daraz Product
+   - Product Price
+   - Delivery Charges
+   - Quantity 1 to 10
+   - Correct Total
+   - Customer Name
+   - Phone / WhatsApp
+   - Address
+   - Platform = Daraz
+   - Product Description
+   - Color
+   - Size
+   - Product Link
+   - Unique Tracking ID
+   - Pakistan Date
+   - Pakistan Time
+   - FormSubmit AJAX
+   - Gmail Order Submission
+   - Custom Gmail Subject
+   - Success / Error Message
+   - Customer fields reset after successful order
+   - Product information preserved
 
-    if (!form) {
-        console.error("Daraz: orderForm not found.");
-        return;
-    }
-
-
-    /* =========================================
-       DARAZ SETTINGS
-    ========================================= */
-
-    const PRODUCT_PRICE = 42999;
-
-    const DELIVERY_CHARGES = 250;
-
-    /*
-     * Backend ابھی connect نہیں ہے۔
-     * بعد میں zindex.gs / Google Apps Script
-     * کا Web App URL یہاں لگایا جائے گا۔
-     */
-    const BACKEND_URL = "";
-
-
-    /* =========================================
-       HELPERS
-    ========================================= */
-
-    function clean(value) {
-
-        if (
-            value === null ||
-            value === undefined
-        ) {
-            return "";
-        }
-
-        return String(value)
-            .replace(/\s+/g, " ")
-            .trim();
-    }
+   IMPORTANT:
+   Tracking ID + Date + Time are generated
+   ONLY when customer submits the order.
+   ========================================================= */
 
 
-    function get(id) {
-
-        return document.getElementById(id);
-
-    }
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    function getValue(id) {
+        /* =====================================================
+           FORM
+        ===================================================== */
 
-        const element = get(id);
-
-        if (!element) {
-            return "";
-        }
-
-        return clean(element.value);
-
-    }
-
-
-    function setValue(id, value) {
-
-        const element = get(id);
-
-        if (element) {
-
-            element.value =
-                clean(value);
-
-        }
-
-    }
-
-
-    function rupees(number) {
-
-        return "Rs. " +
-            Number(number).toLocaleString(
-                "en-PK",
-                {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }
+        const form =
+            document.getElementById(
+                "orderForm"
             );
 
-    }
 
+        if (!form) {
 
-    /* =========================================
-       PRODUCT
-    ========================================= */
-
-    function getProductName() {
-
-        const element =
-            get("productTitle");
-
-        if (!element) {
-            return "Product";
-        }
-
-        return clean(
-            element.textContent
-        ) || "Product";
-
-    }
-
-
-    function getProductDescription() {
-
-        const element =
-            get("productDescription");
-
-        if (!element) {
-            return "";
-        }
-
-        return clean(
-            element.textContent
-        );
-
-    }
-
-
-    /* =========================================
-       QUANTITY
-    ========================================= */
-
-    function getQuantity() {
-
-        const field =
-            get("quantity");
-
-        if (!field) {
-            return 1;
-        }
-
-        let quantity =
-            parseInt(
-                field.value,
-                10
+            console.error(
+                "Janjua Traders Daraz: orderForm not found."
             );
 
-        if (
-            isNaN(quantity) ||
-            quantity < 1
-        ) {
-
-            quantity = 1;
-
-        }
-
-        if (quantity > 10) {
-
-            quantity = 10;
-
-        }
-
-        return quantity;
-
-    }
-
-
-    /* =========================================
-       ORDER ID
-    ========================================= */
-
-    function generateOrderId() {
-
-        const now =
-            new Date();
-
-        const year =
-            now.getFullYear();
-
-        const month =
-            String(
-                now.getMonth() + 1
-            ).padStart(2, "0");
-
-        const day =
-            String(
-                now.getDate()
-            ).padStart(2, "0");
-
-        const hours =
-            String(
-                now.getHours()
-            ).padStart(2, "0");
-
-        const minutes =
-            String(
-                now.getMinutes()
-            ).padStart(2, "0");
-
-        const seconds =
-            String(
-                now.getSeconds()
-            ).padStart(2, "0");
-
-        const random =
-            Math.floor(
-                100 +
-                Math.random() * 900
-            );
-
-        return (
-            "JT-DZ-" +
-            year +
-            month +
-            day +
-            "-" +
-            hours +
-            minutes +
-            seconds +
-            "-" +
-            random
-        );
-
-    }
-
-
-    /* =========================================
-       DATE / TIME
-    ========================================= */
-
-    function setOrderDateTime() {
-
-        const now =
-            new Date();
-
-        const date =
-            now.toLocaleDateString(
-                "en-PK"
-            );
-
-        const time =
-            now.toLocaleTimeString(
-                "en-PK",
-                {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                }
-            );
-
-        setValue(
-            "orderDate",
-            date
-        );
-
-        setValue(
-            "orderTime",
-            time
-        );
-
-    }
-
-
-    /* =========================================
-       PRODUCT LINK
-    ========================================= */
-
-    function setProductLink() {
-
-        setValue(
-            "formProductLink",
-            window.location.href
-        );
-
-    }
-
-
-    /* =========================================
-       TOTAL
-    ========================================= */
-
-    function calculateTotal() {
-
-        const quantity =
-            getQuantity();
-
-
-        const productTotal =
-            PRODUCT_PRICE *
-            quantity;
-
-
-        const total =
-            productTotal +
-            DELIVERY_CHARGES;
-
-
-        const productPrice =
-            get("productPrice");
-
-        if (productPrice) {
-
-            productPrice.textContent =
-                rupees(PRODUCT_PRICE);
-
-        }
-
-
-        const deliveryPrice =
-            get("deliveryPrice");
-
-        if (deliveryPrice) {
-
-            deliveryPrice.textContent =
-                rupees(
-                    DELIVERY_CHARGES
-                );
-
-        }
-
-
-        const totalPrice =
-            get("totalPrice");
-
-        if (totalPrice) {
-
-            totalPrice.textContent =
-                rupees(total);
-
-        }
-
-
-        setValue(
-            "formProductPrice",
-            rupees(PRODUCT_PRICE)
-        );
-
-
-        setValue(
-            "formDeliveryPrice",
-            rupees(DELIVERY_CHARGES)
-        );
-
-
-        setValue(
-            "formProductTotal",
-            rupees(productTotal)
-        );
-
-
-        setValue(
-            "formTotalPrice",
-            rupees(total)
-        );
-
-
-        return {
-
-            quantity:
-                quantity,
-
-            productTotal:
-                productTotal,
-
-            total:
-                total
-
-        };
-
-    }
-
-
-    /* =========================================
-       PREPARE PRODUCT DATA
-    ========================================= */
-
-    function prepareProductData() {
-
-        setValue(
-            "formProduct",
-            getProductName()
-        );
-
-
-        setValue(
-            "formDescription",
-            getProductDescription()
-        );
-
-
-        setValue(
-            "formPlatform",
-            "Daraz"
-        );
-
-
-        setProductLink();
-
-
-        calculateTotal();
-
-    }
-
-
-    /* =========================================
-       VALIDATION
-    ========================================= */
-
-    function validateForm() {
-
-        const name =
-            getValue("customerName");
-
-        const phone =
-            getValue("customerPhone");
-
-        const address =
-            getValue("address");
-
-        const quantity =
-            getQuantity();
-
-
-        if (!name) {
-
-            showResult(
-                "براہ کرم اپنا نام درج کریں۔",
-                "error"
-            );
-
-            get("customerName").focus();
-
-            return false;
-
-        }
-
-
-        if (!phone) {
-
-            showResult(
-                "براہ کرم Mobile / WhatsApp نمبر درج کریں۔",
-                "error"
-            );
-
-            get("customerPhone").focus();
-
-            return false;
-
-        }
-
-
-        if (
-            phone.length < 10
-        ) {
-
-            showResult(
-                "براہ کرم درست Mobile / WhatsApp نمبر درج کریں۔",
-                "error"
-            );
-
-            get("customerPhone").focus();
-
-            return false;
-
-        }
-
-
-        if (!address) {
-
-            showResult(
-                "براہ کرم مکمل Delivery Address درج کریں۔",
-                "error"
-            );
-
-            get("address").focus();
-
-            return false;
-
-        }
-
-
-        if (
-            quantity < 1 ||
-            quantity > 10
-        ) {
-
-            showResult(
-                "Quantity 1 سے 10 کے درمیان ہونی چاہیے۔",
-                "error"
-            );
-
-            get("quantity").focus();
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /* =========================================
-       RESULT MESSAGE
-    ========================================= */
-
-    function showResult(
-        message,
-        type
-    ) {
-
-        const result =
-            get("result");
-
-        if (!result) {
             return;
         }
 
 
-        result.textContent =
-            message;
+        /* =====================================================
+           DARAZ SETTINGS
+        ===================================================== */
+
+        const PRODUCT_PRICE =
+            42999;
 
 
-        result.className =
-            "result " +
-            (
-                type === "success"
-                    ? "success"
-                    : "error"
+        const DELIVERY_CHARGES =
+            250;
+
+
+        /* =====================================================
+           GMAIL / FORMSUBMIT
+        ===================================================== */
+
+        const FORM_SUBMIT_EMAIL =
+            "thanksyou0339@gmail.com";
+
+
+        const FORM_SUBMIT_URL =
+            "https://formsubmit.co/ajax/" +
+            FORM_SUBMIT_EMAIL;
+
+
+        /* =====================================================
+           HELPERS
+        ===================================================== */
+
+        function clean(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+            }
+
+
+            return String(value)
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+
+        function get(id) {
+
+            return document.getElementById(id);
+        }
+
+
+        function getValue(id) {
+
+            const element =
+                get(id);
+
+
+            if (!element) {
+
+                return "";
+            }
+
+
+            return clean(
+                element.value
             );
-
-    }
-
-
-    /* =========================================
-       BUILD ORDER DATA
-    ========================================= */
-
-    function buildOrderData() {
-
-        const totals =
-            calculateTotal();
+        }
 
 
-        const orderId =
-            generateOrderId();
+        function setHidden(
+            name,
+            value
+        ) {
+
+            let field =
+                form.querySelector(
+                    'input[type="hidden"][name="' +
+                    name +
+                    '"]'
+                );
 
 
-        setValue(
-            "orderId",
-            orderId
-        );
+            if (!field) {
+
+                field =
+                    document.createElement(
+                        "input"
+                    );
+
+                field.type =
+                    "hidden";
+
+                field.name =
+                    name;
+
+                form.appendChild(
+                    field
+                );
+            }
 
 
-        setOrderDateTime();
+            field.value =
+                clean(value);
 
 
-        const data = {
-
-            Order_ID:
-                orderId,
-
-            Order_Date:
-                getValue("orderDate"),
-
-            Order_Time:
-                getValue("orderTime"),
-
-            Product:
-                getProductName(),
-
-            Product_Description:
-                getProductDescription(),
-
-            Product_Price:
-                rupees(PRODUCT_PRICE),
-
-            Delivery_Charges:
-                rupees(DELIVERY_CHARGES),
-
-            Product_Total:
-                rupees(
-                    totals.productTotal
-                ),
-
-            Total_Amount:
-                rupees(
-                    totals.total
-                ),
-
-            Product_Link:
-                window.location.href,
-
-            Platform:
-                "Daraz",
-
-            Customer_Name:
-                getValue("customerName"),
-
-            Mobile_WhatsApp:
-                getValue("customerPhone"),
-
-            Delivery_Address:
-                getValue("address"),
-
-            Quantity:
-                totals.quantity,
-
-            Color:
-                getValue("color"),
-
-            Size:
-                getValue("size")
-
-        };
+            return field;
+        }
 
 
-        return data;
+        function rupees(number) {
 
-    }
+            return "Rs. " +
+                Number(number)
+                    .toLocaleString(
+                        "en-PK",
+                        {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                        }
+                    );
+        }
 
 
-    /* =========================================
-       BACKEND SUBMIT
-    ========================================= */
+        /* =====================================================
+           PRODUCT
+        ===================================================== */
 
-    async function sendToBackend(
-        orderData
-    ) {
+        function productName() {
 
-        if (!BACKEND_URL) {
+            const element =
+                get(
+                    "productTitle"
+                );
+
+
+            if (!element) {
+
+                return "Daraz Product";
+            }
+
+
+            return clean(
+                element.textContent
+            ) || "Daraz Product";
+        }
+
+
+        function productDescription() {
+
+            const element =
+                get(
+                    "productDescription"
+                );
+
+
+            if (!element) {
+
+                return "";
+            }
+
+
+            return clean(
+                element.textContent
+            );
+        }
+
+
+        /* =====================================================
+           QUANTITY
+        ===================================================== */
+
+        function quantity() {
+
+            const element =
+                get(
+                    "quantity"
+                );
+
+
+            if (!element) {
+
+                return 1;
+            }
+
+
+            let qty =
+                parseInt(
+                    element.value,
+                    10
+                );
+
+
+            if (
+                isNaN(qty) ||
+                qty < 1
+            ) {
+
+                qty = 1;
+            }
+
+
+            if (
+                qty > 10
+            ) {
+
+                qty = 10;
+            }
+
+
+            return qty;
+        }
+
+
+        /* =====================================================
+           PRODUCT LINK
+        ===================================================== */
+
+        function productLink() {
+
+            return window.location.href;
+        }
+
+
+        /* =====================================================
+           ORDER DATE / TIME / TRACKING ID
+           PAKISTAN TIME
+        ===================================================== */
+
+        function createOrderInfo() {
+
+            const now =
+                new Date();
+
+
+            const dateParts =
+                new Intl.DateTimeFormat(
+                    "en-GB",
+                    {
+                        timeZone:
+                            "Asia/Karachi",
+
+                        day:
+                            "2-digit",
+
+                        month:
+                            "2-digit",
+
+                        year:
+                            "numeric"
+                    }
+                ).formatToParts(
+                    now
+                );
+
+
+            const timeParts =
+                new Intl.DateTimeFormat(
+                    "en-US",
+                    {
+                        timeZone:
+                            "Asia/Karachi",
+
+                        hour:
+                            "2-digit",
+
+                        minute:
+                            "2-digit",
+
+                        second:
+                            "2-digit",
+
+                        hour12:
+                            true
+                    }
+                ).formatToParts(
+                    now
+                );
+
+
+            function partValue(
+                parts,
+                type
+            ) {
+
+                const part =
+                    parts.find(
+                        function (item) {
+
+                            return (
+                                item.type ===
+                                type
+                            );
+                        }
+                    );
+
+
+                return part
+                    ? part.value
+                    : "";
+            }
+
+
+            const day =
+                partValue(
+                    dateParts,
+                    "day"
+                );
+
+
+            const month =
+                partValue(
+                    dateParts,
+                    "month"
+                );
+
+
+            const year =
+                partValue(
+                    dateParts,
+                    "year"
+                );
+
+
+            const hour =
+                partValue(
+                    timeParts,
+                    "hour"
+                );
+
+
+            const minute =
+                partValue(
+                    timeParts,
+                    "minute"
+                );
+
+
+            const second =
+                partValue(
+                    timeParts,
+                    "second"
+                );
+
+
+            const dayPeriod =
+                partValue(
+                    timeParts,
+                    "dayPeriod"
+                );
+
+
+            const orderDate =
+                `${day}-${month}-${year}`;
+
+
+            const orderTime =
+                `${hour}:${minute}:${second} ${dayPeriod}`;
+
+
+            let hour24 =
+                parseInt(
+                    hour,
+                    10
+                );
+
+
+            if (
+                dayPeriod === "AM" &&
+                hour24 === 12
+            ) {
+
+                hour24 = 0;
+            }
+
+
+            if (
+                dayPeriod === "PM" &&
+                hour24 !== 12
+            ) {
+
+                hour24 += 12;
+            }
+
+
+            const hour24String =
+                String(hour24)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+
+            const trackingId =
+                `JT-DZ-${year}${month}${day}-${hour24String}${minute}${second}`;
+
 
             return {
 
-                success: false,
+                trackingId:
+                    trackingId,
 
-                backendConnected: false,
+                orderDate:
+                    orderDate,
 
-                message:
-                    "Backend ابھی connect نہیں ہے۔"
-
+                orderTime:
+                    orderTime
             };
-
         }
 
 
-        const response =
-            await fetch(
-                BACKEND_URL,
-                {
+        /* =====================================================
+           TOTAL CALCULATION
+        ===================================================== */
 
-                    method: "POST",
+        function calculateTotal() {
 
-                    headers: {
+            const qty =
+                quantity();
 
-                        "Content-Type":
-                            "application/json"
 
-                    },
+            const productTotal =
+                PRODUCT_PRICE *
+                qty;
 
-                    body:
-                        JSON.stringify(
-                            orderData
-                        )
 
-                }
+            const total =
+                productTotal +
+                DELIVERY_CHARGES;
+
+
+            const productPriceElement =
+                get(
+                    "productPrice"
+                );
+
+
+            if (
+                productPriceElement
+            ) {
+
+                productPriceElement.textContent =
+                    rupees(
+                        PRODUCT_PRICE
+                    );
+            }
+
+
+            const deliveryElement =
+                get(
+                    "deliveryPrice"
+                );
+
+
+            if (
+                deliveryElement
+            ) {
+
+                deliveryElement.textContent =
+                    rupees(
+                        DELIVERY_CHARGES
+                    );
+            }
+
+
+            const totalElement =
+                get(
+                    "totalPrice"
+                );
+
+
+            if (
+                totalElement
+            ) {
+
+                totalElement.textContent =
+                    rupees(
+                        total
+                    );
+            }
+
+
+            setHidden(
+                "Product_Price",
+                rupees(
+                    PRODUCT_PRICE
+                )
             );
 
 
-        if (!response.ok) {
-
-            throw new Error(
-                "Backend request failed."
+            setHidden(
+                "Delivery_Charges",
+                rupees(
+                    DELIVERY_CHARGES
+                )
             );
 
+
+            setHidden(
+                "Product_Total",
+                rupees(
+                    productTotal
+                )
+            );
+
+
+            setHidden(
+                "Total_Amount",
+                rupees(
+                    total
+                )
+            );
+
+
+            return {
+
+                quantity:
+                    qty,
+
+                productTotal:
+                    productTotal,
+
+                total:
+                    total
+            };
         }
 
 
-        return await response.json();
+        /* =====================================================
+           PREPARE ORDER
+        ===================================================== */
 
-    }
+        function prepareOrder(
+            orderInfo
+        ) {
 
-
-    /* =========================================
-       FORM SUBMIT
-    ========================================= */
-
-    form.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
+            const totals =
+                calculateTotal();
 
 
-            if (!validateForm()) {
+            setHidden(
+                "Order_ID",
+                orderInfo.trackingId
+            );
+
+
+            setHidden(
+                "Order_Date",
+                orderInfo.orderDate
+            );
+
+
+            setHidden(
+                "Order_Time",
+                orderInfo.orderTime
+            );
+
+
+            setHidden(
+                "Customer_Name",
+                getValue(
+                    "customerName"
+                )
+            );
+
+
+            setHidden(
+                "Mobile_WhatsApp",
+                getValue(
+                    "customerPhone"
+                )
+            );
+
+
+            setHidden(
+                "Delivery_Address",
+                getValue(
+                    "address"
+                )
+            );
+
+
+            setHidden(
+                "Platform",
+                "Daraz"
+            );
+
+
+            setHidden(
+                "Product",
+                productName()
+            );
+
+
+            setHidden(
+                "Product_Description",
+                productDescription()
+            );
+
+
+            setHidden(
+                "Color",
+                getValue(
+                    "color"
+                ) ||
+                "Not Required"
+            );
+
+
+            setHidden(
+                "Size",
+                getValue(
+                    "size"
+                ) ||
+                "Not Required"
+            );
+
+
+            setHidden(
+                "Quantity",
+                totals.quantity
+            );
+
+
+            setHidden(
+                "Product_Price",
+                rupees(
+                    PRODUCT_PRICE
+                )
+            );
+
+
+            setHidden(
+                "Delivery_Charges",
+                rupees(
+                    DELIVERY_CHARGES
+                )
+            );
+
+
+            setHidden(
+                "Product_Total",
+                rupees(
+                    totals.productTotal
+                )
+            );
+
+
+            setHidden(
+                "Total_Amount",
+                rupees(
+                    totals.total
+                )
+            );
+
+
+            setHidden(
+                "Product_Link",
+                productLink()
+            );
+
+
+            /* ---------------------------------------------
+               FORMSUBMIT SETTINGS
+            --------------------------------------------- */
+
+            setHidden(
+                "_subject",
+                "Janjua Traders | DARAZ NEW ORDER | " +
+                orderInfo.trackingId
+            );
+
+
+            setHidden(
+                "_template",
+                "table"
+            );
+
+
+            setHidden(
+                "_captcha",
+                "false"
+            );
+        }
+
+
+        /* =====================================================
+           RESULT MESSAGE
+        ===================================================== */
+
+        function showResult(
+            message,
+            success
+        ) {
+
+            const result =
+                get(
+                    "result"
+                );
+
+
+            if (!result) {
 
                 return;
-
             }
 
 
-            const submitButton =
-                get("submitButton");
+            result.textContent =
+                message;
 
 
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.textContent =
-                    "Order Processing...";
-
-            }
+            result.className =
+                success
+                    ? "result success"
+                    : "result error";
 
 
-            try {
-
-                const orderData =
-                    buildOrderData();
-
-
-                /*
-                 * Backend ابھی خالی ہے۔
-                 * اس لیے فی الحال Order کو browser
-                 * میں successfully prepare کیا جائے گا۔
-                 */
-
-                if (!BACKEND_URL) {
-
-                    showResult(
-
-                        "Order تیار ہے۔ Order ID: " +
-                        orderData.Order_ID +
-                        " — Backend ابھی connect نہیں کیا گیا۔",
-
-                        "success"
-
-                    );
-
-                    console.log(
-                        "Daraz Order:",
-                        orderData
-                    );
+            result.style.display =
+                "block";
+        }
 
 
-                    /*
-                     * Customer کی سہولت کے لیے
-                     * order data کو temporary
-                     * browser storage میں رکھیں۔
-                     */
+        /* =====================================================
+           SUBMIT BUTTON
+        ===================================================== */
 
-                    try {
+        const submitButton =
+            get(
+                "submitButton"
+            );
 
-                        localStorage.setItem(
 
-                            "lastDarazOrder",
+        /* =====================================================
+           QUANTITY LIVE UPDATE
+        ===================================================== */
 
-                            JSON.stringify(
-                                orderData
-                            )
+        const quantityField =
+            get(
+                "quantity"
+            );
 
+
+        if (
+            quantityField
+        ) {
+
+            quantityField.type =
+                "number";
+
+            quantityField.min =
+                "1";
+
+            quantityField.max =
+                "10";
+
+            quantityField.step =
+                "1";
+
+            quantityField.inputMode =
+                "numeric";
+
+
+            quantityField.addEventListener(
+                "input",
+                function () {
+
+                    let value =
+                        parseInt(
+                            quantityField.value,
+                            10
                         );
 
+
+                    if (
+                        isNaN(value) ||
+                        value < 1
+                    ) {
+
+                        value = 1;
                     }
 
-                    catch (storageError) {
 
-                        console.warn(
-                            "Local storage unavailable.",
-                            storageError
+                    if (
+                        value > 10
+                    ) {
+
+                        value = 10;
+                    }
+
+
+                    quantityField.value =
+                        String(
+                            value
                         );
 
-                    }
 
-
-                    return;
-
+                    calculateTotal();
                 }
+            );
 
 
-                /*
-                 * Backend connected
-                 */
+            quantityField.addEventListener(
+                "change",
+                function () {
 
-                const result =
-                    await sendToBackend(
-                        orderData
-                    );
+                    let value =
+                        parseInt(
+                            quantityField.value,
+                            10
+                        );
 
+
+                    if (
+                        isNaN(value) ||
+                        value < 1
+                    ) {
+
+                        value = 1;
+                    }
+
+
+                    if (
+                        value > 10
+                    ) {
+
+                        value = 10;
+                    }
+
+
+                    quantityField.value =
+                        String(
+                            value
+                        );
+
+
+                    calculateTotal();
+                }
+            );
+
+
+            quantityField.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "e" ||
+                        event.key === "E" ||
+                        event.key === "+" ||
+                        event.key === "-"
+                    ) {
+
+                        event.preventDefault();
+                    }
+                }
+            );
+        }
+
+
+        /* =====================================================
+           FORM SUBMIT
+        ===================================================== */
+
+        form.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                /* ---------------------------------------------
+                   VALIDATION
+                --------------------------------------------- */
 
                 if (
-                    result &&
-                    result.success
+                    !form.checkValidity()
                 ) {
 
-                    showResult(
+                    form.reportValidity();
 
-                        "Order کامیابی سے submit ہوگیا۔ Order ID: " +
-                        orderData.Order_ID,
-
-                        "success"
-
-                    );
-
-
-                    form.reset();
-
-
-                    setValue(
-                        "quantity",
-                        "1"
-                    );
-
-
-                    prepareProductData();
-
+                    return;
                 }
 
-                else {
 
-                    showResult(
+                /* ---------------------------------------------
+                   CREATE ORDER INFO ONLY NOW
+                --------------------------------------------- */
 
-                        (
-                            result &&
-                            result.message
-                        )
-                        ||
-                        "Order submit نہیں ہو سکا۔",
+                const orderInfo =
+                    createOrderInfo();
 
-                        "error"
 
-                    );
+                /* ---------------------------------------------
+                   PREPARE ORDER
+                --------------------------------------------- */
 
-                }
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Daraz order error:",
-                    error
+                prepareOrder(
+                    orderInfo
                 );
+
+
+                /* ---------------------------------------------
+                   BUTTON
+                --------------------------------------------- */
+
+                if (
+                    submitButton
+                ) {
+
+                    submitButton.disabled =
+                        true;
+
+                    submitButton.textContent =
+                        "Order Submit ہو رہا ہے...";
+                }
 
 
                 showResult(
-
-                    "Order submit کرتے وقت مسئلہ آیا۔ براہ کرم دوبارہ کوشش کریں۔",
-
-                    "error"
-
+                    "Order Gmail پر بھیجا جا رہا ہے، براہِ کرم انتظار کریں...",
+                    true
                 );
 
-            }
 
-            finally {
+                try {
 
-                if (submitButton) {
+                    console.log(
+                        "Sending Daraz order to Gmail:",
+                        orderInfo.trackingId
+                    );
 
-                    submitButton.disabled =
-                        false;
 
-                    submitButton.textContent =
-                        "Order Final Submit کریں";
+                    /* =========================================
+                       FORMSUBMIT AJAX
+                    ========================================= */
+
+                    const response =
+                        await fetch(
+                            FORM_SUBMIT_URL,
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers:
+                                    {
+                                        "Content-Type":
+                                            "application/json",
+
+                                        "Accept":
+                                            "application/json"
+                                    },
+
+                                body:
+                                    JSON.stringify(
+                                        Object.fromEntries(
+                                            new FormData(
+                                                form
+                                            )
+                                        )
+                                    )
+                            }
+                        );
+
+
+                    const text =
+                        await response.text();
+
+
+                    console.log(
+                        "FormSubmit status:",
+                        response.status
+                    );
+
+
+                    console.log(
+                        "FormSubmit response:",
+                        text
+                    );
+
+
+                    let data =
+                        null;
+
+
+                    try {
+
+                        data =
+                            JSON.parse(
+                                text
+                            );
+
+                    }
+
+                    catch (
+                        parseError
+                    ) {
+
+                        console.warn(
+                            "Non-JSON response from FormSubmit."
+                        );
+                    }
+
+
+                    /* =========================================
+                       SUCCESS
+                    ========================================= */
+
+                    if (
+                        response.ok &&
+                        data &&
+                        (
+                            data.success === true ||
+                            data.success === "true"
+                        )
+                    ) {
+
+                        showResult(
+
+                            "✓ Daraz Order کامیابی سے Gmail پر Submit ہو گیا ہے۔ Tracking ID: " +
+                            orderInfo.trackingId,
+
+                            true
+
+                        );
+
+
+                        /* -----------------------------------------
+                           CUSTOMER FIELDS CLEAR
+                        ----------------------------------------- */
+
+                        const customerName =
+                            get(
+                                "customerName"
+                            );
+
+
+                        const customerPhone =
+                            get(
+                                "customerPhone"
+                            );
+
+
+                        const address =
+                            get(
+                                "address"
+                            );
+
+
+                        const color =
+                            get(
+                                "color"
+                            );
+
+
+                        const size =
+                            get(
+                                "size"
+                            );
+
+
+                        if (
+                            customerName
+                        ) {
+
+                            customerName.value =
+                                "";
+                        }
+
+
+                        if (
+                            customerPhone
+                        ) {
+
+                            customerPhone.value =
+                                "";
+                        }
+
+
+                        if (
+                            address
+                        ) {
+
+                            address.value =
+                                "";
+                        }
+
+
+                        if (
+                            color
+                        ) {
+
+                            color.value =
+                                "";
+                        }
+
+
+                        if (
+                            size
+                        ) {
+
+                            size.value =
+                                "";
+                        }
+
+
+                        if (
+                            quantityField
+                        ) {
+
+                            quantityField.value =
+                                "1";
+                        }
+
+
+                        /*
+                         * Product information remains unchanged.
+                         */
+
+                        calculateTotal();
+
+
+                    }
+
+                    else {
+
+                        let errorMessage =
+                            "FormSubmit نے Order قبول نہیں کیا۔";
+
+
+                        if (
+                            data &&
+                            data.message
+                        ) {
+
+                            errorMessage =
+                                data.message;
+                        }
+
+
+                        throw new Error(
+                            errorMessage
+                        );
+                    }
+
+
+                }
+
+                catch (
+                    error
+                ) {
+
+                    console.error(
+                        "Daraz Gmail Order Error:",
+                        error
+                    );
+
+
+                    showResult(
+
+                        "✗ Order Gmail پر نہیں بھیجا گیا۔ " +
+                        (
+                            error.message ||
+                            "FormSubmit error"
+                        ),
+
+                        false
+                    );
+
+                }
+
+                finally {
+
+                    if (
+                        submitButton
+                    ) {
+
+                        submitButton.disabled =
+                            false;
+
+                        submitButton.textContent =
+                            "Order Final Submit کریں";
+                    }
 
                 }
 
             }
-
-        }
-    );
-
-
-    /* =========================================
-       QUANTITY CHANGE
-    ========================================= */
-
-    const quantityField =
-        get("quantity");
-
-
-    if (quantityField) {
-
-        quantityField.addEventListener(
-            "input",
-            function () {
-
-                calculateTotal();
-
-            }
         );
 
 
-        quantityField.addEventListener(
-            "change",
-            function () {
+        /* =====================================================
+           INITIAL LOAD
+        ===================================================== */
 
-                calculateTotal();
+        if (
+            quantityField &&
+            clean(
+                quantityField.value
+            ) === ""
+        ) {
 
-            }
+            quantityField.value =
+                "1";
+        }
+
+
+        /*
+         * Page load پر صرف price calculate ہوگا۔
+         * Tracking ID / Date / Time submit کے وقت بنیں گے۔
+         */
+
+        calculateTotal();
+
+
+        console.log(
+            "Janjua Traders: DARAZ Gmail AJAX script loaded."
         );
 
     }
-
-
-    /* =========================================
-       INITIALIZE
-    ========================================= */
-
-    prepareProductData();
-
-
-    console.log(
-        "Janjua Traders Daraz system loaded."
-    );
-
-});
+);
