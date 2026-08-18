@@ -1,8 +1,8 @@
 /* =========================================================
    JANJUA TRADERS
    COMPLETE ORDER SCRIPT
-   COLOR + SIZE FOR EVERY PRODUCT
-   FORMSUBMIT EMAIL ORDER SYSTEM
+   COLOR + SIZE ORDER FORM
+   FORMSUBMIT EMAIL SYSTEM
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
-       HELPER
+       BASIC HELPERS
        ===================================================== */
 
     function clean(value) {
@@ -23,9 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return "";
         }
 
-        return String(value)
-            .replace(/\s+/g, " ")
-            .trim();
+        return String(value).replace(/\s+/g, " ").trim();
     }
 
     function getElement(id) {
@@ -33,42 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getValue(id) {
+        const element = getElement(id);
 
-        const el = getElement(id);
-
-        if (!el) {
+        if (!element) {
             return "";
         }
 
-        return clean(
-            el.value !== undefined
-                ? el.value
-                : el.textContent
-        );
+        return clean(element.value);
     }
-
-    /* =====================================================
-       MAIN FORM FIELDS
-       ===================================================== */
-
-    const customerName = getElement("customerName");
-    const customerPhone = getElement("customerPhone");
-    const address = getElement("address");
-    const quantity = getElement("quantity");
-    const message = getElement("message");
-
-    /* =====================================================
-       PRODUCT DISPLAY FIELDS
-       ===================================================== */
-
-    const productTitle = getElement("productTitle");
-    const productDescription = getElement("productDescription");
-    const productPrice = getElement("productPrice");
-    const deliveryPrice = getElement("deliveryPrice");
-
-    /* =====================================================
-       CREATE / UPDATE HIDDEN FORMSUBMIT FIELD
-       ===================================================== */
 
     function hiddenField(name, value) {
 
@@ -77,12 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         if (!field) {
-
             field = document.createElement("input");
-
             field.type = "hidden";
             field.name = name;
-
             form.appendChild(field);
         }
 
@@ -92,12 +59,51 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
-       PRODUCT COLOR + SIZE
-       THESE ARE AVAILABLE FOR EVERY PRODUCT
+       REMOVE OLD ADDITIONAL MESSAGE
        ===================================================== */
 
-    let variantBox =
-        document.getElementById("productVariants");
+    const oldMessage = getElement("message");
+
+    if (oldMessage) {
+
+        const oldLabel = oldMessage.closest("label");
+
+        if (oldLabel) {
+            oldLabel.remove();
+        } else {
+            oldMessage.remove();
+        }
+    }
+
+    /* =====================================================
+       REMOVE OLD COLOR / SIZE MESSAGE
+       ===================================================== */
+
+    document.querySelectorAll("p, div, span").forEach(function (element) {
+
+        const text = clean(element.textContent).toLowerCase();
+
+        if (
+            text.includes("color یا size") ||
+            text.includes("color or size") ||
+            text.includes("size درکار نہیں") ||
+            text.includes("color درکار نہیں")
+        ) {
+
+            if (
+                element.id !== "productVariants" &&
+                !element.closest("#productVariants")
+            ) {
+                element.remove();
+            }
+        }
+    });
+
+    /* =====================================================
+       FIND A GOOD PLACE FOR COLOR + SIZE
+       ===================================================== */
+
+    let variantBox = getElement("productVariants");
 
     if (!variantBox) {
 
@@ -105,32 +111,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         variantBox.id = "productVariants";
 
-        variantBox.style.marginTop = "18px";
-        variantBox.style.marginBottom = "18px";
+        variantBox.style.marginTop = "20px";
+        variantBox.style.marginBottom = "20px";
         variantBox.style.width = "100%";
 
-        /*
-           Put Color + Size before Additional Message
-        */
+        const quantityField = getElement("quantity");
 
-        if (message) {
+        if (quantityField) {
 
-            const messageLabel =
-                message.closest("label");
+            const quantityLabel =
+                quantityField.closest("label");
 
-            if (messageLabel) {
+            if (quantityLabel && quantityLabel.parentNode) {
 
-                messageLabel.parentNode.insertBefore(
+                quantityLabel.parentNode.insertBefore(
                     variantBox,
-                    messageLabel
+                    quantityLabel.nextSibling
                 );
 
             } else {
 
-                form.insertBefore(
-                    variantBox,
-                    message
-                );
+                form.appendChild(variantBox);
             }
 
         } else {
@@ -140,187 +141,179 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
-       ALWAYS SHOW COLOR + SIZE
+       CREATE COLOR + SIZE FIELDS
        ===================================================== */
 
     function createVariantFields() {
 
         variantBox.innerHTML = "";
 
+        /* ---------- HEADING ---------- */
+
         const heading =
             document.createElement("div");
 
-        heading.innerHTML =
-            "<strong>Product Color & Size</strong>";
+        heading.textContent =
+            "Product Color & Size";
 
-        heading.style.fontSize = "18px";
-        heading.style.marginBottom = "10px";
+        heading.style.fontWeight = "700";
+        heading.style.fontSize = "20px";
+        heading.style.marginBottom = "15px";
 
         variantBox.appendChild(heading);
 
-        /* COLOR */
+        /* ---------- COLOR ---------- */
 
         const colorLabel =
             document.createElement("label");
 
+        colorLabel.setAttribute(
+            "for",
+            "productColor"
+        );
+
         colorLabel.innerHTML = `
             <span>Color / رنگ</span>
-            <input
-                type="text"
-                id="productColor"
-                name="Product_Color"
-                placeholder="مثلاً Black, Blue, Green"
-                autocomplete="off"
-            >
         `;
 
-        /* SIZE */
+        const colorInput =
+            document.createElement("input");
+
+        colorInput.type = "text";
+        colorInput.id = "productColor";
+        colorInput.name = "Product_Color";
+        colorInput.placeholder =
+            "مثلاً White, Black, Blue, Green";
+        colorInput.autocomplete = "off";
+        colorInput.required = false;
+
+        colorLabel.appendChild(colorInput);
+
+        variantBox.appendChild(colorLabel);
+
+        /* ---------- SIZE ---------- */
 
         const sizeLabel =
             document.createElement("label");
 
+        sizeLabel.setAttribute(
+            "for",
+            "productSize"
+        );
+
         sizeLabel.innerHTML = `
             <span>Size / سائز</span>
-            <input
-                type="text"
-                id="productSize"
-                name="Product_Size"
-                placeholder="مثلاً 40, 41, 42, XL, XXL"
-                autocomplete="off"
-            >
         `;
 
-        variantBox.appendChild(colorLabel);
+        const sizeInput =
+            document.createElement("input");
+
+        sizeInput.type = "text";
+        sizeInput.id = "productSize";
+        sizeInput.name = "Product_Size";
+        sizeInput.placeholder =
+            "مثلاً 40, 41, 42, L, XL, XXL";
+        sizeInput.autocomplete = "off";
+        sizeInput.required = false;
+
+        sizeLabel.appendChild(sizeInput);
+
         variantBox.appendChild(sizeLabel);
 
-        const color =
-            document.getElementById("productColor");
+        /* ---------- STYLING ---------- */
 
-        const size =
-            document.getElementById("productSize");
+        [colorInput, sizeInput].forEach(function (input) {
 
-        /*
-           IMPORTANT:
-           دونوں OPTIONAL ہیں۔
-           ہر Product میں نظر آئیں گے،
-           لیکن ہر Product کے لیے لازمی نہیں۔
-        */
+            input.style.width = "100%";
+            input.style.boxSizing = "border-box";
+            input.style.padding = "14px";
+            input.style.marginTop = "7px";
+            input.style.marginBottom = "15px";
+            input.style.fontSize = "16px";
+        });
 
-        color.required = false;
-        size.required = false;
+        [colorLabel, sizeLabel].forEach(function (label) {
 
-        color.style.width = "100%";
-        color.style.boxSizing = "border-box";
-        color.style.padding = "12px";
-        color.style.marginTop = "6px";
-        color.style.marginBottom = "12px";
-
-        size.style.width = "100%";
-        size.style.boxSizing = "border-box";
-        size.style.padding = "12px";
-        size.style.marginTop = "6px";
-        size.style.marginBottom = "12px";
+            label.style.display = "block";
+            label.style.fontWeight = "600";
+            label.style.marginBottom = "8px";
+        });
     }
 
     createVariantFields();
 
     /* =====================================================
-       REMOVE OLD "NO COLOR OR SIZE REQUIRED" MESSAGE
+       PRODUCT INFORMATION
        ===================================================== */
 
-    function removeOldVariantMessage() {
+    function getProductName() {
 
-        const allElements =
-            document.querySelectorAll("p, div, span");
+        const element =
+            getElement("productTitle");
 
-        allElements.forEach(function (element) {
-
-            const text =
-                clean(element.textContent);
-
-            if (
-                text.includes("Color یا Size درکار نہیں") ||
-                text.includes("Color or Size is not required") ||
-                text.includes("Color or Size") &&
-                text.includes("required")
-            ) {
-
-                /*
-                   Do not remove our actual Color/Size box
-                */
-
-                if (
-                    element.id !== "productVariants" &&
-                    !element.closest("#productVariants")
-                ) {
-                    element.style.display = "none";
-                }
-            }
-        });
-    }
-
-    removeOldVariantMessage();
-
-    /* =====================================================
-       PRODUCT DATA
-       ===================================================== */
-
-    function productName() {
-
-        if (!productTitle) {
+        if (!element) {
             return "";
         }
 
         return clean(
-            productTitle.value ||
-            productTitle.textContent
+            element.value ||
+            element.textContent
         );
     }
 
-    function productDescription() {
+    function getProductDescription() {
 
-        if (!productDescription) {
+        const element =
+            getElement("productDescription");
+
+        if (!element) {
             return "";
         }
 
         return clean(
-            productDescription.value ||
-            productDescription.textContent
+            element.value ||
+            element.textContent
         );
     }
 
-    function priceValue() {
+    function getProductPrice() {
 
-        if (!productPrice) {
+        const element =
+            getElement("productPrice");
+
+        if (!element) {
             return "0";
         }
 
-        const text =
+        const raw =
             clean(
-                productPrice.value ||
-                productPrice.textContent
+                element.value ||
+                element.textContent
             );
 
         const number =
-            text.replace(/[^0-9.]/g, "");
+            raw.replace(/[^0-9.]/g, "");
 
         return number || "0";
     }
 
-    function deliveryValue() {
+    function getDeliveryCharges() {
 
-        if (!deliveryPrice) {
+        const element =
+            getElement("deliveryPrice");
+
+        if (!element) {
             return "0";
         }
 
-        const text =
+        const raw =
             clean(
-                deliveryPrice.value ||
-                deliveryPrice.textContent
+                element.value ||
+                element.textContent
             );
 
         const number =
-            text.replace(/[^0-9.]/g, "");
+            raw.replace(/[^0-9.]/g, "");
 
         return number || "0";
     }
@@ -329,15 +322,15 @@ document.addEventListener("DOMContentLoaded", function () {
        PLATFORM
        ===================================================== */
 
-    function platformValue() {
+    function getPlatform() {
 
-        const select =
-            document.querySelector(
-                "select[name='Platform']"
+        const platformSelect =
+            form.querySelector(
+                'select[name="Platform"]'
             );
 
-        if (select) {
-            return clean(select.value);
+        if (platformSelect) {
+            return clean(platformSelect.value);
         }
 
         const platform =
@@ -351,33 +344,36 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
-        return "Janjua Traders";
+        return "Markaz";
     }
 
     /* =====================================================
        PRODUCT LINK
        ===================================================== */
 
-    function productLink() {
+    function getProductLink() {
 
-        const input =
-            document.querySelector(
-                "input[name='Product_Link']"
+        const hiddenLink =
+            form.querySelector(
+                'input[name="Product_Link"]'
             );
 
-        if (input && clean(input.value)) {
-            return clean(input.value);
+        if (
+            hiddenLink &&
+            clean(hiddenLink.value)
+        ) {
+            return clean(hiddenLink.value);
         }
 
-        const link =
+        const productLink =
             getElement("productLink");
 
-        if (link) {
+        if (productLink) {
 
             return clean(
-                link.href ||
-                link.value ||
-                link.textContent
+                productLink.href ||
+                productLink.value ||
+                productLink.textContent
             );
         }
 
@@ -385,39 +381,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
-       TOTAL
+       TOTAL AMOUNT
        ===================================================== */
 
     function calculateTotal() {
 
         const price =
-            parseFloat(priceValue()) || 0;
+            parseFloat(
+                getProductPrice()
+            ) || 0;
 
         const delivery =
-            parseFloat(deliveryValue()) || 0;
+            parseFloat(
+                getDeliveryCharges()
+            ) || 0;
 
-        const qty =
+        const quantityElement =
+            getElement("quantity");
+
+        const quantity =
             parseInt(
-                quantity
-                    ? quantity.value
+                quantityElement
+                    ? quantityElement.value
                     : "1",
                 10
             ) || 1;
 
         const total =
-            (price * qty) + delivery;
+            (price * quantity) + delivery;
 
         hiddenField(
             "Total_Amount",
             "Rs. " + total
         );
 
-        const totalElement =
+        const totalDisplay =
             getElement("totalAmount");
 
-        if (totalElement) {
+        if (totalDisplay) {
 
-            totalElement.textContent =
+            totalDisplay.textContent =
                 "Rs. " + total;
         }
 
@@ -425,15 +428,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
-       PREPARE COMPLETE ORDER
+       PREPARE ORDER FOR FORMSUBMIT
        ===================================================== */
 
     function prepareOrder() {
 
+        const name =
+            getValue("customerName");
+
         const phone =
-            customerPhone
-                ? clean(customerPhone.value)
-                : "";
+            getValue("customerPhone");
+
+        const address =
+            getValue("address");
+
+        const quantityElement =
+            getElement("quantity");
+
+        const quantity =
+            quantityElement
+                ? clean(quantityElement.value)
+                : "1";
 
         const color =
             getValue("productColor");
@@ -441,9 +456,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const size =
             getValue("productSize");
 
-        /* -----------------------------------------------
-           CUSTOMER
-           ----------------------------------------------- */
+        /* =================================================
+           CUSTOMER INFORMATION
+           ================================================= */
 
         hiddenField(
             "Order_ID",
@@ -452,9 +467,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         hiddenField(
             "Customer_Name",
-            customerName
-                ? customerName.value
-                : ""
+            name
         );
 
         hiddenField(
@@ -465,106 +478,118 @@ document.addEventListener("DOMContentLoaded", function () {
         hiddenField(
             "Delivery_Address",
             address
-                ? address.value
-                : ""
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            PLATFORM
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
             "Platform",
-            platformValue()
+            getPlatform()
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            PRODUCT
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
             "Product",
-            productName()
+            getProductName()
         );
 
         hiddenField(
             "Product_Description",
-            productDescription()
+            getProductDescription()
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            COLOR
-           ----------------------------------------------- */
+           =================================================
+
+           اگر customer نے Color لکھا ہے
+           تو وہی Gmail میں جائے گا۔
+
+           اگر خالی چھوڑا ہے
+           تو صرف اسی صورت میں Not Required جائے گا۔
+        */
 
         hiddenField(
-            "Product_Color",
-            color || "Not specified"
+            "Color",
+            color !== ""
+                ? color
+                : "Not Required"
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            SIZE
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
-            "Product_Size",
-            size || "Not specified"
+            "Size",
+            size !== ""
+                ? size
+                : "Not Required"
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            QUANTITY
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
             "Quantity",
             quantity
-                ? quantity.value
-                : "1"
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            PRICE
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
             "Product_Price",
-            "Rs. " + priceValue()
+            "Rs. " + getProductPrice()
         );
 
         hiddenField(
             "Delivery_Charges",
-            "Rs. " + deliveryValue()
+            "Rs. " + getDeliveryCharges()
         );
 
-        /* -----------------------------------------------
+        /* =================================================
            TOTAL
-           ----------------------------------------------- */
+           ================================================= */
 
         calculateTotal();
 
-        /* -----------------------------------------------
-           ADDITIONAL MESSAGE
-           ----------------------------------------------- */
+        /* =================================================
+           REMOVE ADDITIONAL MESSAGE COMPLETELY
+           ================================================= */
 
-        hiddenField(
-            "Additional_Message",
-            message
-                ? message.value
-                : ""
-        );
+        const additionalMessage =
+            form.querySelector(
+                '[name="Additional_Message"]'
+            );
 
-        /* -----------------------------------------------
+        if (additionalMessage) {
+            additionalMessage.remove();
+        }
+
+        /* =================================================
            PRODUCT LINK
-           ----------------------------------------------- */
+           ================================================= */
 
         hiddenField(
             "Product_Link",
-            productLink()
+            getProductLink()
         );
     }
 
     /* =====================================================
-       LIVE UPDATE
+       LIVE TOTAL UPDATE
        ===================================================== */
+
+    const quantity =
+        getElement("quantity");
 
     if (quantity) {
 
@@ -576,27 +601,80 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    if (customerPhone) {
+    /* =====================================================
+       LIVE COLOR UPDATE
+       ===================================================== */
 
-        customerPhone.addEventListener(
+    const color =
+        getElement("productColor");
+
+    if (color) {
+
+        color.addEventListener(
             "input",
             function () {
 
                 hiddenField(
-                    "Order_ID",
-                    customerPhone.value
-                );
-
-                hiddenField(
-                    "Mobile_WhatsApp",
-                    customerPhone.value
+                    "Color",
+                    clean(color.value) !== ""
+                        ? color.value
+                        : "Not Required"
                 );
             }
         );
     }
 
     /* =====================================================
-       FINAL SUBMIT
+       LIVE SIZE UPDATE
+       ===================================================== */
+
+    const size =
+        getElement("productSize");
+
+    if (size) {
+
+        size.addEventListener(
+            "input",
+            function () {
+
+                hiddenField(
+                    "Size",
+                    clean(size.value) !== ""
+                        ? size.value
+                        : "Not Required"
+                );
+            }
+        );
+    }
+
+    /* =====================================================
+       PHONE -> ORDER ID
+       ===================================================== */
+
+    const phone =
+        getElement("customerPhone");
+
+    if (phone) {
+
+        phone.addEventListener(
+            "input",
+            function () {
+
+                hiddenField(
+                    "Order_ID",
+                    phone.value
+                );
+
+                hiddenField(
+                    "Mobile_WhatsApp",
+                    phone.value
+                );
+            }
+        );
+    }
+
+    /* =====================================================
+       FINAL FORM SUBMIT
        ===================================================== */
 
     form.addEventListener(
@@ -604,17 +682,16 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
 
             /*
-               Do NOT stop FormSubmit.
-               Just prepare all data before normal submission.
+               تمام معلومات Submit ہونے سے پہلے
+               hidden fields میں تیار کر دی جائیں گی۔
             */
 
             prepareOrder();
-
         }
     );
 
     /* =====================================================
-       INITIALIZE
+       INITIAL LOAD
        ===================================================== */
 
     prepareOrder();
