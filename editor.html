@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Janjua Traders Image Editor</title>
 
@@ -15,9 +20,8 @@
 body{
     margin:0;
     padding:12px;
-    background:#e9edf2;
+    background:#e7e9ed;
     font-family:Arial,"Noto Nastaliq Urdu",sans-serif;
-    color:#222;
 }
 
 .editor{
@@ -28,14 +32,14 @@ body{
 
 h1{
     text-align:center;
-    font-size:22px;
+    font-size:21px;
     margin:5px 0 15px;
 }
 
 .controls{
     background:#fff;
-    border-radius:15px;
     padding:14px;
+    border-radius:15px;
     box-shadow:0 5px 20px rgba(0,0,0,.12);
     margin-bottom:15px;
 }
@@ -51,7 +55,6 @@ h1{
 }
 
 input[type="file"],
-input[type="text"],
 textarea,
 select{
     width:100%;
@@ -86,12 +89,8 @@ button:hover{
 }
 
 .feature-buttons button{
-    background:#333;
     min-height:42px;
-}
-
-.active{
-    outline:3px solid #d4af37;
+    background:#333;
 }
 
 .color-grid{
@@ -101,16 +100,10 @@ button:hover{
 }
 
 .color{
-    width:34px;
-    height:34px;
+    width:35px;
+    height:35px;
     padding:0;
     border:2px solid #999;
-}
-
-.actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:5px;
 }
 
 .green{
@@ -126,11 +119,11 @@ button:hover{
 }
 
 .gold{
-    background:#b8860b;
+    background:#a87900;
 }
 
 .preview{
-    background:#cfd4da;
+    background:#c9cdd3;
     padding:10px;
     border-radius:15px;
     overflow:auto;
@@ -144,11 +137,6 @@ canvas{
     box-shadow:0 8px 25px rgba(0,0,0,.3);
 }
 
-.small{
-    font-size:12px;
-    color:#666;
-}
-
 #logoPreview{
     display:none;
     max-width:90px;
@@ -157,21 +145,29 @@ canvas{
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 <div class="editor">
 
-<h1>Janjua Traders — Digital Marketing Editor</h1>
+<h1>
+Janjua Traders — Product Designer
+</h1>
+
 
 <div class="controls">
+
 
 <!-- IMAGE -->
 
 <div class="section">
 
-<label>1۔ Product Image</label>
+<label>
+1۔ Product Image
+</label>
 
 <input
 type="file"
@@ -185,7 +181,9 @@ accept="image/*">
 
 <div class="section">
 
-<label>2۔ اپنا Logo / Monogram</label>
+<label>
+2۔ اپنا Logo / Monogram
+</label>
 
 <input
 type="file"
@@ -198,25 +196,27 @@ id="logoPreview">
 </div>
 
 
-<!-- PANEL SIDE -->
+<!-- PANEL POSITION -->
 
 <div class="section">
 
-<label>3۔ Information Panel</label>
+<label>
+3۔ تصویر اور Information Panel کی ترتیب
+</label>
 
 <button
-onclick="setSide('right')"
+onclick="setLayout('imageLeft')"
 class="blue">
 
-دائیں طرف Panel
+تصویر بائیں — معلومات دائیں
 
 </button>
 
 <button
-onclick="setSide('left')"
+onclick="setLayout('imageRight')"
 class="blue">
 
-بائیں طرف Panel
+تصویر دائیں — معلومات بائیں
 
 </button>
 
@@ -228,7 +228,7 @@ class="blue">
 <div class="section">
 
 <label>
-4۔ تیار عبارت — صرف Button دبائیں
+4۔ تیار Features — صرف Button دبائیں
 </label>
 
 <div class="feature-buttons">
@@ -267,10 +267,6 @@ class="blue">
 
 </div>
 
-<p class="small">
-Button دبانے سے Star اور عبارت خود اپنی مخصوص جگہ پر لگ جائے گی۔
-</p>
-
 </div>
 
 
@@ -279,19 +275,19 @@ Button دبانے سے Star اور عبارت خود اپنی مخصوص جگہ 
 <div class="section">
 
 <label>
-5۔ اپنی مرضی کی عبارت
+5۔ اپنی عبارت
 </label>
 
 <textarea
 id="customText"
-placeholder="مثلاً: اصل اور معیاری پروڈکٹ">
+placeholder="مثلاً: اصل پاکستانی پروڈکٹ">
 </textarea>
 
 <button
 onclick="addCustomFeature()"
 class="gold">
 
-⭐ Custom عبارت شامل کریں
+⭐ عبارت شامل کریں
 
 </button>
 
@@ -311,62 +307,68 @@ class="gold">
 <button
 class="color"
 style="background:#ffffff"
-onclick="setTextColor('#ffffff')"></button>
+onclick="setTextColor('#ffffff')">
+</button>
 
 <button
 class="color"
 style="background:#000000"
-onclick="setTextColor('#000000')"></button>
+onclick="setTextColor('#000000')">
+</button>
 
 <button
 class="color"
 style="background:#ff0000"
-onclick="setTextColor('#ff0000')"></button>
+onclick="setTextColor('#ff0000')">
+</button>
 
 <button
 class="color"
 style="background:#ffd700"
-onclick="setTextColor('#ffd700')"></button>
+onclick="setTextColor('#ffd700')">
+</button>
 
 <button
 class="color"
 style="background:#00aaff"
-onclick="setTextColor('#00aaff')"></button>
+onclick="setTextColor('#00aaff')">
+</button>
 
 <button
 class="color"
 style="background:#00c853"
-onclick="setTextColor('#00c853')"></button>
+onclick="setTextColor('#00c853')">
+</button>
 
 <button
 class="color"
 style="background:#ff6d00"
-onclick="setTextColor('#ff6d00')"></button>
+onclick="setTextColor('#ff6d00')">
+</button>
 
 <button
 class="color"
 style="background:#e91e63"
-onclick="setTextColor('#e91e63')"></button>
+onclick="setTextColor('#e91e63')">
+</button>
 
 <button
 class="color"
 style="background:#9c27b0"
-onclick="setTextColor('#9c27b0')"></button>
+onclick="setTextColor('#9c27b0')">
+</button>
 
 <button
 class="color"
 style="background:#00bcd4"
-onclick="setTextColor('#00bcd4')"></button>
-
-<button
-class="color"
-style="background:#795548"
-onclick="setTextColor('#795548')"></button>
+onclick="setTextColor('#00bcd4')">
+</button>
 
 <button
 class="color"
 style="background:#c0c0c0"
-onclick="setTextColor('#c0c0c0')"></button>
+onclick="setTextColor('#c0c0c0')">
+</button>
 
 </div>
 
@@ -386,47 +388,56 @@ onclick="setTextColor('#c0c0c0')"></button>
 <button
 class="color"
 style="background:#ffd700"
-onclick="setStarColor('#ffd700')"></button>
+onclick="setStarColor('#ffd700')">
+</button>
 
 <button
 class="color"
 style="background:#ffffff"
-onclick="setStarColor('#ffffff')"></button>
+onclick="setStarColor('#ffffff')">
+</button>
 
 <button
 class="color"
 style="background:#000000"
-onclick="setStarColor('#000000')"></button>
+onclick="setStarColor('#000000')">
+</button>
 
 <button
 class="color"
 style="background:#ff0000"
-onclick="setStarColor('#ff0000')"></button>
+onclick="setStarColor('#ff0000')">
+</button>
 
 <button
 class="color"
 style="background:#00aaff"
-onclick="setStarColor('#00aaff')"></button>
+onclick="setStarColor('#00aaff')">
+</button>
 
 <button
 class="color"
 style="background:#00c853"
-onclick="setStarColor('#00c853')"></button>
+onclick="setStarColor('#00c853')">
+</button>
 
 <button
 class="color"
 style="background:#ff6d00"
-onclick="setStarColor('#ff6d00')"></button>
+onclick="setStarColor('#ff6d00')">
+</button>
 
 <button
 class="color"
 style="background:#e91e63"
-onclick="setStarColor('#e91e63')"></button>
+onclick="setStarColor('#e91e63')">
+</button>
 
 <button
 class="color"
 style="background:#9c27b0"
-onclick="setStarColor('#9c27b0')"></button>
+onclick="setStarColor('#9c27b0')">
+</button>
 
 </div>
 
@@ -438,22 +449,22 @@ onclick="setStarColor('#9c27b0')"></button>
 <div class="section">
 
 <label>
-8۔ Font Size:
-<span id="sizeValue">26</span> px
+8۔ Font Size
+<span id="sizeValue">24</span>
 </label>
 
 <input
 type="range"
 id="fontSize"
 min="14"
-max="42"
-value="26"
+max="40"
+value="24"
 oninput="changeSize()">
 
 </div>
 
 
-<!-- FORMAT -->
+<!-- TEXT FORMAT -->
 
 <div class="section">
 
@@ -501,7 +512,7 @@ class="red">
 
 <!-- DOWNLOAD -->
 
-<div class="section actions">
+<div class="section">
 
 <button
 onclick="downloadJPG()"
@@ -524,7 +535,7 @@ PNG Download
 </div>
 
 
-<!-- PREVIEW -->
+<!-- CANVAS -->
 
 <div class="preview">
 
@@ -532,13 +543,15 @@ PNG Download
 
 </div>
 
+
 </div>
 
 
 <script>
 
+
 /* =====================================================
-   SETTINGS
+   CANVAS
 ===================================================== */
 
 const canvas =
@@ -547,29 +560,51 @@ document.getElementById("canvas");
 const ctx =
 canvas.getContext("2d");
 
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 let productImage = null;
 
 let logoImage = null;
 
-let panelSide = "right";
 
-let textColor = "#ffffff";
+/*
+   ایک ہی Page۔
+   Page کے اندر دو برابر حصے:
+   50% Image
+   50% Information
+*/
 
-let starColor = "#ffd700";
+let layout =
+"imageLeft";
 
-let fontSize = 26;
 
-let bold = false;
+let textColor =
+"#ffffff";
 
-let italic = false;
+let starColor =
+"#ffd700";
 
-let underline = false;
+let fontSize =
+24;
 
-let selectedFeature = null;
+let bold =
+false;
+
+let italic =
+false;
+
+let underline =
+false;
+
+let selectedFeature =
+null;
 
 
 /* =====================================================
-   FIXED FEATURES
+   READY FEATURES
 ===================================================== */
 
 const featureNames = {
@@ -593,15 +628,15 @@ const featureNames = {
 };
 
 
-/* =====================================================
-   FEATURES DATA
-===================================================== */
+/*
+   ہر نمبر اپنی جگہ محفوظ ہوگا۔
+*/
 
 let features = {};
 
 
 /* =====================================================
-   IMAGE
+   IMAGE UPLOAD
 ===================================================== */
 
 document
@@ -613,16 +648,20 @@ function(e){
     const file =
     e.target.files[0];
 
-    if(!file) return;
+    if(!file)
+        return;
+
 
     const reader =
     new FileReader();
+
 
     reader.onload =
     function(event){
 
         const img =
         new Image();
+
 
         img.onload =
         function(){
@@ -634,10 +673,12 @@ function(e){
 
         };
 
+
         img.src =
         event.target.result;
 
     };
+
 
     reader.readAsDataURL(file);
 
@@ -657,10 +698,13 @@ function(e){
     const file =
     e.target.files[0];
 
-    if(!file) return;
+    if(!file)
+        return;
+
 
     const reader =
     new FileReader();
+
 
     reader.onload =
     function(event){
@@ -668,11 +712,13 @@ function(e){
         const img =
         new Image();
 
+
         img.onload =
         function(){
 
             logoImage =
             img;
+
 
             document
             .getElementById(
@@ -681,6 +727,7 @@ function(e){
             .src =
             event.target.result;
 
+
             document
             .getElementById(
                 "logoPreview"
@@ -688,14 +735,17 @@ function(e){
             .style.display =
             "block";
 
+
             draw();
 
         };
+
 
         img.src =
         event.target.result;
 
     };
+
 
     reader.readAsDataURL(file);
 
@@ -703,13 +753,13 @@ function(e){
 
 
 /* =====================================================
-   PANEL SIDE
+   LAYOUT
 ===================================================== */
 
-function setSide(side){
+function setLayout(value){
 
-    panelSide =
-    side;
+    layout =
+    value;
 
     draw();
 
@@ -717,7 +767,7 @@ function setSide(side){
 
 
 /* =====================================================
-   SELECT FEATURE
+   FEATURE BUTTON
 ===================================================== */
 
 function selectFeature(number){
@@ -727,9 +777,9 @@ function selectFeature(number){
 
 
     /*
-     * اگر پہلی دفعہ دبایا گیا ہے
-     * تو وہ feature خود add ہوگا۔
-     */
+       اگر Feature پہلی مرتبہ لگ رہا ہے
+       تو خود بخود اپنی جگہ بن جائے۔
+    */
 
     if(!features[number]){
 
@@ -760,16 +810,6 @@ function selectFeature(number){
 
     }
 
-    else{
-
-        /*
-         * دوبارہ button دبانے پر
-         * اس feature کی موجودہ style
-         * برقرار رہے گی۔
-         */
-
-    }
-
 
     draw();
 
@@ -790,10 +830,11 @@ function addCustomFeature(){
     .value
     .trim();
 
+
     if(!text){
 
         alert(
-            "پہلے اپنی عبارت لکھیں۔"
+            "پہلے عبارت لکھیں۔"
         );
 
         return;
@@ -801,20 +842,23 @@ function addCustomFeature(){
     }
 
 
-    /*
-     * اگلی available جگہ
-     */
+    let number =
+    1;
 
-    let number = 1;
 
-    while(features[number]){
+    while(
+        features[number]
+    ){
+
         number++;
+
     }
+
 
     if(number > 8){
 
         alert(
-            "تمام 8 جگہیں استعمال ہو چکی ہیں۔"
+            "8 Feature جگہیں مکمل ہو چکی ہیں۔"
         );
 
         return;
@@ -824,7 +868,8 @@ function addCustomFeature(){
 
     features[number] = {
 
-        text:text,
+        text:
+        text,
 
         textColor:
         textColor,
@@ -855,7 +900,8 @@ function addCustomFeature(){
     .getElementById(
         "customText"
     )
-    .value = "";
+    .value =
+    "";
 
 
     draw();
@@ -873,11 +919,14 @@ function setTextColor(color){
     color;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .textColor =
+    ){
+
+        features[
+            selectedFeature
+        ].textColor =
         color;
 
     }
@@ -898,11 +947,14 @@ function setStarColor(color){
     color;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .starColor =
+    ){
+
+        features[
+            selectedFeature
+        ].starColor =
         color;
 
     }
@@ -937,11 +989,14 @@ function changeSize(){
     fontSize;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .size =
+    ){
+
+        features[
+            selectedFeature
+        ].size =
         fontSize;
 
     }
@@ -953,7 +1008,7 @@ function changeSize(){
 
 
 /* =====================================================
-   FORMAT
+   BOLD
 ===================================================== */
 
 function toggleBold(){
@@ -962,11 +1017,14 @@ function toggleBold(){
     !bold;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .bold =
+    ){
+
+        features[
+            selectedFeature
+        ].bold =
         bold;
 
     }
@@ -977,17 +1035,24 @@ function toggleBold(){
 }
 
 
+/* =====================================================
+   ITALIC
+===================================================== */
+
 function toggleItalic(){
 
     italic =
     !italic;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .italic =
+    ){
+
+        features[
+            selectedFeature
+        ].italic =
         italic;
 
     }
@@ -998,17 +1063,24 @@ function toggleItalic(){
 }
 
 
+/* =====================================================
+   UNDERLINE
+===================================================== */
+
 function toggleUnderline(){
 
     underline =
     !underline;
 
 
-    if(selectedFeature &&
-       features[selectedFeature]){
-
+    if(
+        selectedFeature &&
         features[selectedFeature]
-        .underline =
+    ){
+
+        features[
+            selectedFeature
+        ].underline =
         underline;
 
     }
@@ -1025,10 +1097,12 @@ function toggleUnderline(){
 
 function removeSelected(){
 
-    if(!selectedFeature){
+    if(
+        !selectedFeature
+    ){
 
         alert(
-            "پہلے Feature button منتخب کریں۔"
+            "پہلے کوئی Feature منتخب کریں۔"
         );
 
         return;
@@ -1043,6 +1117,7 @@ function removeSelected(){
 
     selectedFeature =
     null;
+
 
     draw();
 
@@ -1066,10 +1141,10 @@ function clearAll(){
 
 
 /* =====================================================
-   PANEL COLOR
+   PANEL BACKGROUND
 ===================================================== */
 
-function getPanelGradient(
+function panelBackground(
     x,
     width
 ){
@@ -1115,7 +1190,7 @@ function drawStar(
 ){
 
     const outer =
-    20;
+    19;
 
     const inner =
     9;
@@ -1151,8 +1226,10 @@ function drawStar(
             outer
         );
 
+
         rotation +=
         step;
+
 
         ctx.lineTo(
             x +
@@ -1163,6 +1240,7 @@ function drawStar(
             Math.sin(rotation) *
             inner
         );
+
 
         rotation +=
         step;
@@ -1183,95 +1261,26 @@ function drawStar(
 
 
 /* =====================================================
-   TEXT WRAP
-===================================================== */
-
-function wrapText(
-    text,
-    maxWidth,
-    font
-){
-
-    ctx.font =
-    font;
-
-    const words =
-    text.split(" ");
-
-    const lines = [];
-
-    let line = "";
-
-
-    for(
-        let i=0;
-        i<words.length;
-        i++
-    ){
-
-        const test =
-        line +
-        (line ? " " : "") +
-        words[i];
-
-
-        if(
-            ctx.measureText(
-                test
-            ).width >
-            maxWidth &&
-            line
-        ){
-
-            lines.push(
-                line
-            );
-
-            line =
-            words[i];
-
-        }
-        else{
-
-            line =
-            test;
-
-        }
-
-    }
-
-
-    if(line){
-
-        lines.push(
-            line
-        );
-
-    }
-
-
-    return lines;
-
-}
-
-
-/* =====================================================
    DRAW
 ===================================================== */
 
 function draw(){
 
+    /*
+       تصویر نہ ہو تو editor message
+    */
+
     if(!productImage){
 
         canvas.width =
-        900;
+        1000;
 
         canvas.height =
-        600;
+        560;
 
 
         ctx.fillStyle =
-        "#ddd";
+        "#dddddd";
 
         ctx.fillRect(
             0,
@@ -1292,146 +1301,214 @@ function draw(){
 
         ctx.fillText(
             "Product Image منتخب کریں",
-            450,
-            300
+            500,
+            280
         );
+
 
         return;
 
     }
 
 
-    const iw =
-    productImage.naturalWidth;
-
-    const ih =
-    productImage.naturalHeight;
-
-
     /*
-     * PANEL تقریباً تصویر کے برابر
-     * یعنی مکمل فریم کا تقریباً آدھا۔
-     */
+       ONE SINGLE PAGE
 
-    const panelWidth =
-    Math.round(
-        iw
-    );
+       دونوں حصے برابر۔
+    */
+
+    const pageWidth =
+    1200;
+
+    const pageHeight =
+    675;
 
 
     canvas.width =
-    iw +
-    panelWidth;
+    pageWidth;
 
     canvas.height =
-    ih;
+    pageHeight;
 
 
-    /* BACKGROUND */
+    const half =
+    pageWidth / 2;
+
+
+    /*
+       سفید Page
+    */
 
     ctx.fillStyle =
-    "#111";
+    "#ffffff";
 
     ctx.fillRect(
         0,
         0,
-        canvas.width,
-        canvas.height
+        pageWidth,
+        pageHeight
     );
 
+
+    /*
+       IMAGE HALF
+    */
 
     let imageX;
 
 
-    if(panelSide === "right"){
+    if(
+        layout ===
+        "imageLeft"
+    ){
 
-        imageX = 0;
+        imageX =
+        0;
 
     }
     else{
 
         imageX =
-        panelWidth;
+        half;
 
     }
 
 
     /*
-     * ORIGINAL IMAGE
-     */
+       Image کو صرف اپنے
+       آدھے حصے میں fit کریں۔
+    */
 
-    ctx.drawImage(
-        productImage,
-        imageX,
-        0,
-        iw,
-        ih
+    const scale =
+    Math.min(
+        half /
+        productImage.naturalWidth,
+
+        pageHeight /
+        productImage.naturalHeight
     );
 
 
+    const drawWidth =
+    productImage.naturalWidth *
+    scale;
+
+
+    const drawHeight =
+    productImage.naturalHeight *
+    scale;
+
+
+    const centeredX =
+    imageX +
+    (half - drawWidth)/2;
+
+
+    const centeredY =
+    (pageHeight -
+    drawHeight)/2;
+
+
     /*
-     * PANEL
-     */
+       Image Area
+    */
+
+    ctx.save();
+
+    ctx.beginPath();
+
+    ctx.rect(
+        imageX,
+        0,
+        half,
+        pageHeight
+    );
+
+    ctx.clip();
+
+
+    ctx.drawImage(
+        productImage,
+        centeredX,
+        centeredY,
+        drawWidth,
+        drawHeight
+    );
+
+
+    ctx.restore();
+
+
+    /*
+       INFORMATION HALF
+    */
 
     let panelX;
 
 
-    if(panelSide === "right"){
+    if(
+        layout ===
+        "imageLeft"
+    ){
 
         panelX =
-        iw;
+        half;
 
     }
     else{
 
-        panelX = 0;
+        panelX =
+        0;
 
     }
 
 
     ctx.fillStyle =
-    getPanelGradient(
+    panelBackground(
         panelX,
-        panelWidth
+        half
     );
+
 
     ctx.fillRect(
         panelX,
         0,
-        panelWidth,
-        ih
+        half,
+        pageHeight
     );
 
 
     /*
-     * GOLD BORDER
-     */
+       PANEL BORDER
+    */
 
     ctx.strokeStyle =
     "#d4af37";
 
     ctx.lineWidth =
-    7;
+    6;
+
 
     ctx.strokeRect(
         panelX + 5,
         5,
-        panelWidth - 10,
-        ih - 10
+        half - 10,
+        pageHeight - 10
     );
 
 
     /*
-     * LOGO
-     */
+       LOGO
+    */
 
     if(logoImage){
 
         const maxWidth =
-        panelWidth * .28;
+        125;
 
         const maxHeight =
-        80;
+        75;
+
 
         let lw =
         logoImage.naturalWidth;
@@ -1440,26 +1517,26 @@ function draw(){
         logoImage.naturalHeight;
 
 
-        const scale =
+        const logoScale =
         Math.min(
-            maxWidth / lw,
-            maxHeight / lh,
+            maxWidth/lw,
+            maxHeight/lh,
             1
         );
 
 
         lw *=
-        scale;
+        logoScale;
 
         lh *=
-        scale;
+        logoScale;
 
 
         ctx.drawImage(
             logoImage,
 
             panelX +
-            (panelWidth-lw)/2,
+            (half-lw)/2,
 
             25,
 
@@ -1471,8 +1548,8 @@ function draw(){
 
 
     /*
-     * TITLE
-     */
+       TITLE
+    */
 
     ctx.fillStyle =
     "#d4af37";
@@ -1483,11 +1560,12 @@ function draw(){
     ctx.textAlign =
     "center";
 
+
     ctx.fillText(
         "JANJUA TRADERS",
 
         panelX +
-        panelWidth/2,
+        half/2,
 
         135
     );
@@ -1499,19 +1577,20 @@ function draw(){
     ctx.font =
     "15px Arial";
 
+
     ctx.fillText(
         "DIGITAL MARKETING",
 
         panelX +
-        panelWidth/2,
+        half/2,
 
         160
     );
 
 
     /*
-     * FEATURES
-     */
+       FEATURES
+    */
 
     let y =
     220;
@@ -1531,14 +1610,14 @@ function draw(){
             continue;
 
 
-        const starX =
-        panelX +
-        48;
-
-
         /*
-         * STAR
-         */
+           Star ہمیشہ Feature کے
+           ساتھ خود آئے گا۔
+        */
+
+        const starX =
+        panelX + 55;
+
 
         drawStar(
             starX,
@@ -1548,113 +1627,113 @@ function draw(){
 
 
         /*
-         * FONT
-         */
+           FONT STYLE
+        */
 
-        let fontStyle =
+        let style =
         "";
 
+
         if(item.bold)
-            fontStyle +=
+            style +=
             "bold ";
 
+
         if(item.italic)
-            fontStyle +=
+            style +=
             "italic ";
 
 
         const font =
-        fontStyle +
+        style +
         item.size +
         "px Arial";
 
 
-        /*
-         * TEXT
-         */
-
         ctx.font =
         font;
 
+
         ctx.fillStyle =
         item.textColor;
+
 
         ctx.textAlign =
         "left";
 
 
-        const maxWidth =
-        panelWidth -
-        90;
+        /*
+           Text
+        */
 
-
-        const lines =
-        wrapText(
+        ctx.fillText(
             item.text,
-            maxWidth,
-            font
+
+            panelX + 90,
+
+            y
         );
-
-
-        lines.forEach(
-            function(line){
-
-                ctx.fillText(
-                    line,
-                    panelX + 82,
-                    y
-                );
-
-
-                if(item.underline){
-
-                    const width =
-                    ctx.measureText(
-                        line
-                    ).width;
-
-
-                    ctx.strokeStyle =
-                    item.textColor;
-
-                    ctx.lineWidth =
-                    2;
-
-                    ctx.beginPath();
-
-                    ctx.moveTo(
-                        panelX + 82,
-                        y + 5
-                    );
-
-                    ctx.lineTo(
-                        panelX + 82 + width,
-                        y + 5
-                    );
-
-                    ctx.stroke();
-
-                }
-
-
-                y +=
-                item.size + 10;
-
-            }
-        );
-
-
-        y +=
-        25;
 
 
         /*
-         * اگر نیچے جگہ ختم ہو جائے
-         */
+           Underline
+        */
+
+        if(
+            item.underline
+        ){
+
+            const width =
+            ctx.measureText(
+                item.text
+            ).width;
+
+
+            ctx.strokeStyle =
+            item.textColor;
+
+            ctx.lineWidth =
+            2;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                panelX + 90,
+                y + 5
+            );
+
+
+            ctx.lineTo(
+                panelX + 90 + width,
+                y + 5
+            );
+
+
+            ctx.stroke();
+
+        }
+
+
+        /*
+           اگلی Feature کی جگہ
+        */
+
+        y +=
+        Math.max(
+            58,
+            item.size + 32
+        );
+
+
+        /*
+           Panel سے باہر نہ جائے
+        */
 
         if(
             y >
-            ih - 55
+            pageHeight - 55
         ){
 
             break;
@@ -1665,8 +1744,8 @@ function draw(){
 
 
     /*
-     * FOOTER
-     */
+       FOOTER
+    */
 
     ctx.fillStyle =
     "#d4af37";
@@ -1677,20 +1756,21 @@ function draw(){
     ctx.textAlign =
     "center";
 
+
     ctx.fillText(
         "QUALITY • VALUE • TRUST",
 
         panelX +
-        panelWidth/2,
+        half/2,
 
-        ih - 25
+        pageHeight - 25
     );
 
 }
 
 
 /* =====================================================
-   JPG
+   DOWNLOAD JPG
 ===================================================== */
 
 function downloadJPG(){
@@ -1698,7 +1778,7 @@ function downloadJPG(){
     if(!productImage){
 
         alert(
-            "پہلے تصویر منتخب کریں۔"
+            "پہلے Product Image منتخب کریں۔"
         );
 
         return;
@@ -1707,13 +1787,11 @@ function downloadJPG(){
 
 
     const link =
-    document.createElement(
-        "a"
-    );
+    document.createElement("a");
 
 
     link.download =
-    "janjua-traders.jpg";
+    "janjua-traders-product.jpg";
 
 
     link.href =
@@ -1729,7 +1807,7 @@ function downloadJPG(){
 
 
 /* =====================================================
-   PNG
+   DOWNLOAD PNG
 ===================================================== */
 
 function downloadPNG(){
@@ -1737,7 +1815,7 @@ function downloadPNG(){
     if(!productImage){
 
         alert(
-            "پہلے تصویر منتخب کریں۔"
+            "پہلے Product Image منتخب کریں۔"
         );
 
         return;
@@ -1746,13 +1824,11 @@ function downloadPNG(){
 
 
     const link =
-    document.createElement(
-        "a"
-    );
+    document.createElement("a");
 
 
     link.download =
-    "janjua-traders.png";
+    "janjua-traders-product.png";
 
 
     link.href =
@@ -1775,4 +1851,5 @@ draw();
 </script>
 
 </body>
+
 </html>
