@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Janjua Traders - Product Editor</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#f3f4f6;
+    font-family:Arial,sans-serif;
+    color:#111827;
+}
+
+.header{
+    background:#111827;
+    color:white;
+    padding:16px;
+    text-align:center;
+}
+
+.header h1{
+    margin:0;
+    font-size:22px;
+}
+
+.header p{
+    margin:6px 0 0;
+    font-size:13px;
+    opacity:.85;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:15px;
+}
+
+.editor{
+    display:grid;
+    grid-template-columns:360px 1fr;
+    gap:18px;
+}
+
+.panel{
+    background:white;
+    padding:18px;
+    border-radius:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.panel h2{
+    margin-top:0;
+    font-size:19px;
+}
+
+.field{
+    margin-bottom:13px;
+}
+
+.field label{
+    display:block;
+    margin-bottom:5px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:10px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.field textarea{
+    min-height:70px;
+    resize:vertical;
+}
+
+.buttons{
+    display:grid;
+    gap:9px;
+    margin-top:15px;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:11px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.success{
+    background:#16a34a;
+    color:white;
+}
+
+.dark{
+    background:#374151;
+    color:white;
+}
+
+.warning{
+    background:#d97706;
+    color:white;
+}
+
+.danger{
+    background:#dc2626;
+    color:white;
+}
+
+.canvas-wrapper{
+    width:100%;
+    overflow:auto;
+    background:#e5e7eb;
+    padding:12px;
+    border-radius:12px;
+    text-align:center;
+}
+
+canvas{
+    display:block;
+    margin:auto;
+    max-width:100%;
+    height:auto;
+    background:white;
+    cursor:crosshair;
+}
+
+.info{
+    margin-top:12px;
+    background:#f9fafb;
+    padding:12px;
+    border-radius:8px;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.link-preview{
+    direction:ltr;
+    text-align:left;
+    word-break:break-all;
+    background:#f9fafb;
+    padding:10px;
+    border-radius:8px;
+    margin-top:10px;
+    font-size:12px;
+}
+
+.logo-status{
+    font-size:12px;
+    margin-top:5px;
+    color:#666;
+}
+
+@media(max-width:850px){
+
+    .editor{
+        grid-template-columns:1fr;
+    }
+
+    .panel{
+        padding:14px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>Janjua Traders</h1>
+
+    <p>
+        Product Image Marketing Editor
+    </p>
+
+</div>
+
+
+<div class="container">
+
+<div class="editor">
+
+
+<!-- =====================================================
+     CONTROL PANEL
+     ===================================================== -->
+
+<div class="panel">
+
+<h2>
+Product Information
+</h2>
+
+
+<!-- PRODUCT IMAGE -->
+
+<div class="field">
+
+<label>
+Product Image
+</label>
+
+<input
+    type="file"
+    id="imageInput"
+    accept="image/*">
+
+</div>
+
+
+<!-- LOGO -->
+
+<div class="field">
+
+<label>
+Janjua Traders Logo / Monogram
+</label>
+
+<input
+    type="file"
+    id="logoInput"
+    accept="image/*">
+
+<div
+    class="logo-status"
+    id="logoStatus">
+
+Logo ابھی شامل نہیں ہے۔
+
+</div>
+
+</div>
+
+
+<!-- PLATFORM -->
+
+<div class="field">
+
+<label>
+Platform
+</label>
+
+<select id="platform">
+
+<option value="Daraz">
+Daraz
+</option>
+
+<option value="OLX">
+OLX
+</option>
+
+<option value="Markaz">
+Markaz
+</option>
+
+<option value="Other">
+Other
+</option>
+
+</select>
+
+</div>
+
+
+<!-- PRODUCT NAME -->
+
+<div class="field">
+
+<label>
+Product Name
+</label>
+
+<input
+    type="text"
+    id="productName"
+    placeholder="مثلاً Premium Watch">
+
+</div>
+
+
+<!-- COUNTRY -->
+
+<div class="field">
+
+<label>
+Country of Manufacture
+</label>
+
+<select id="country">
+
+<option value="">
+ملک منتخب کریں
+</option>
+
+<option value="پاکستان">
+پاکستان
+</option>
+
+<option value="چین">
+چین
+</option>
+
+<option value="ایران">
+ایران
+</option>
+
+<option value="سعودی عرب">
+سعودی عرب
+</option>
+
+<option value="فرانس">
+فرانس
+</option>
+
+<option value="ترکی">
+ترکی
+</option>
+
+<option value="جرمنی">
+جرمنی
+</option>
+
+<option value="دیگر">
+دیگر
+</option>
+
+</select>
+
+</div>
+
+
+<!-- PRICE -->
+
+<div class="field">
+
+<label>
+Price
+</label>
+
+<input
+    type="text"
+    id="price"
+    placeholder="Rs. 2,999">
+
+</div>
+
+
+<!-- QUALITY -->
+
+<div class="field">
+
+<label>
+Quality / Feature
+</label>
+
+<input
+    type="text"
+    id="quality"
+    placeholder="بہترین معیار">
+
+</div>
+
+
+<!-- OFFER -->
+
+<div class="field">
+
+<label>
+Offer / Highlight
+</label>
+
+<input
+    type="text"
+    id="offer"
+    placeholder="خاص آفر">
+
+</div>
+
+
+<!-- ADDITIONAL -->
+
+<div class="field">
+
+<label>
+Additional Information
+</label>
+
+<textarea
+    id="additional"
+    placeholder="مضبوط، پائیدار، جدید ڈیزائن وغیرہ">
+</textarea>
+
+</div>
+
+
+<!-- PRODUCT LINK -->
+
+<div class="field">
+
+<label>
+Product Link
+</label>
+
+<input
+    type="url"
+    id="productLink"
+    placeholder="https://...">
+
+</div>
+
+
+<!-- LOGO POSITION -->
+
+<div class="field">
+
+<label>
+Logo Position
+</label>
+
+<select id="logoPosition">
+
+<option value="top-right">
+اوپر دائیں
+</option>
+
+<option value="top-left">
+اوپر بائیں
+</option>
+
+</select>
+
+</div>
+
+
+<!-- LOGO SIZE -->
+
+<div class="field">
+
+<label>
+Logo Size
+</label>
+
+<input
+    type="range"
+    id="logoSize"
+    min="50"
+    max="250"
+    value="110">
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<button
+    class="primary"
+    id="applyLabels">
+
+معلومات / Arrows لگائیں
+
+</button>
+
+
+<button
+    class="dark"
+    id="resetPositions">
+
+Positions دوبارہ شروع کریں
+
+</button>
+
+
+<button
+    class="success"
+    id="downloadPng">
+
+PNG Download کریں
+
+</button>
+
+
+<button
+    class="success"
+    id="downloadJpg">
+
+JPG Download کریں
+
+</button>
+
+
+<button
+    class="warning"
+    id="copyCaption">
+
+Facebook Caption Copy کریں
+
+</button>
+
+
+<button
+    class="dark"
+    id="copyLink">
+
+Product Link Copy کریں
+
+</button>
+
+</div>
+
+
+<div class="link-preview"
+     id="linkPreview">
+
+Product Link یہاں آئے گا۔
+
+</div>
+
+
+<div class="info">
+
+<strong>
+اہم:
+</strong>
+
+تصویر کے اندر Product Link clickable نہیں ہوتا۔
+اصل Daraz / OLX / Markaz link Facebook post کے
+caption یا link field میں استعمال ہوگا۔
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PREVIEW PANEL
+     ===================================================== -->
+
+<div class="panel">
+
+<h2>
+Image Preview
+</h2>
+
+<div class="canvas-wrapper">
+
+<canvas
+    id="canvas"
+    width="1080"
+    height="1080">
+</canvas>
+
+</div>
+
+
+<div class="info">
+
+<strong>
+Text یا Arrow move کرنے کے لیے:
+</strong>
+
+Canvas پر متعلقہ text یا arrow پر mouse/touch
+سے drag کریں۔
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const imageInput =
+document.getElementById("imageInput");
+
+const logoInput =
+document.getElementById("logoInput");
+
+const logoStatus =
+document.getElementById("logoStatus");
+
+const platform =
+document.getElementById("platform");
+
+const productName =
+document.getElementById("productName");
+
+const country =
+document.getElementById("country");
+
+const price =
+document.getElementById("price");
+
+const quality =
+document.getElementById("quality");
+
+const offer =
+document.getElementById("offer");
+
+const additional =
+document.getElementById("additional");
+
+const productLink =
+document.getElementById("productLink");
+
+const logoPosition =
+document.getElementById("logoPosition");
+
+const logoSize =
+document.getElementById("logoSize");
+
+const linkPreview =
+document.getElementById("linkPreview");
+
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+let productImage = null;
+
+let logoImage = null;
+
+let labels = [];
+
+let selectedObject = null;
+
+let dragging = false;
+
+let dragOffsetX = 0;
+
+let dragOffsetY = 0;
+
+
+/* =========================================================
+   DEFAULT CANVAS
+   ========================================================= */
+
+function drawDefault(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.fillStyle =
+        "#eeeeee";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.fillStyle =
+        "#777";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.font =
+        "bold 38px Arial";
+
+    ctx.fillText(
+        "Upload Product Image",
+        canvas.width / 2,
+        canvas.height / 2
+    );
+
+}
+
+drawDefault();
+
+
+/* =========================================================
+   PRODUCT IMAGE
+   ========================================================= */
+
+imageInput.addEventListener(
+"change",
+function(){
+
+    const file =
+    imageInput.files[0];
+
+    if(!file){
+        return;
+    }
+
+    const reader =
+    new FileReader();
+
+    reader.onload =
+    function(event){
+
+        const img =
+        new Image();
+
+        img.onload =
+        function(){
+
+            productImage =
+            img;
+
+            drawCanvas();
+
+        };
+
+        img.src =
+        event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================================
+   LOGO IMAGE
+   ========================================================= */
+
+logoInput.addEventListener(
+"change",
+function(){
+
+    const file =
+    logoInput.files[0];
+
+    if(!file){
+        return;
+    }
+
+    const reader =
+    new FileReader();
+
+    reader.onload =
+    function(event){
+
+        const img =
+        new Image();
+
+        img.onload =
+        function(){
+
+            logoImage =
+            img;
+
+            logoStatus.textContent =
+            "Logo کامیابی سے شامل ہو گیا ہے۔";
+
+            drawCanvas();
+
+        };
+
+        img.src =
+        event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =========================================================
+   CREATE LABELS
+   ========================================================= */
+
+function createLabels(){
+
+    labels = [];
+
+    let yLeft = 150;
+
+    let yRight = 250;
+
+
+    if(productName.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            "پروڈکٹ: " +
+            productName.value.trim(),
+
+            x:60,
+
+            y:yLeft,
+
+            side:"left"
+
+        });
+
+        yLeft += 120;
+
+    }
+
+
+    if(country.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            "ملکِ تیاری: " +
+            country.value.trim(),
+
+            x:canvas.width - 60,
+
+            y:yRight,
+
+            side:"right"
+
+        });
+
+        yRight += 120;
+
+    }
+
+
+    if(price.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            "قیمت: " +
+            price.value.trim(),
+
+            x:60,
+
+            y:yLeft,
+
+            side:"left"
+
+        });
+
+        yLeft += 120;
+
+    }
+
+
+    if(quality.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            quality.value.trim(),
+
+            x:canvas.width - 60,
+
+            y:yRight,
+
+            side:"right"
+
+        });
+
+        yRight += 120;
+
+    }
+
+
+    if(offer.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            offer.value.trim(),
+
+            x:60,
+
+            y:yLeft,
+
+            side:"left"
+
+        });
+
+        yLeft += 120;
+
+    }
+
+
+    if(additional.value.trim()){
+
+        labels.push({
+
+            type:"label",
+
+            text:
+            additional.value.trim(),
+
+            x:canvas.width - 60,
+
+            y:yRight,
+
+            side:"right"
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   DRAW CANVAS
+   ========================================================= */
+
+function drawCanvas(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.fillStyle =
+    "#ffffff";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* IMAGE */
+
+    if(productImage){
+
+        const scale =
+        Math.min(
+            canvas.width / productImage.width,
+            canvas.height / productImage.height
+        );
+
+        const width =
+        productImage.width * scale;
+
+        const height =
+        productImage.height * scale;
+
+        const x =
+        (canvas.width - width) / 2;
+
+        const y =
+        (canvas.height - height) / 2;
+
+        ctx.drawImage(
+            productImage,
+            x,
+            y,
+            width,
+            height
+        );
+
+    }
+
+
+    /* LOGO */
+
+    drawLogo();
+
+
+    /* LABELS */
+
+    drawLabels();
+
+}
+
+
+/* =========================================================
+   DRAW LOGO
+   ========================================================= */
+
+function drawLogo(){
+
+    if(!logoImage){
+        return;
+    }
+
+    const size =
+    Number(logoSize.value);
+
+    let x;
+    let y = 25;
+
+
+    if(
+        logoPosition.value ===
+        "top-left"
+    ){
+
+        x = 25;
+
+    }else{
+
+        x =
+        canvas.width -
+        size -
+        25;
+
+    }
+
+
+    const ratio =
+    logoImage.height /
+    logoImage.width;
+
+    const height =
+    size * ratio;
+
+
+    ctx.drawImage(
+        logoImage,
+        x,
+        y,
+        size,
+        height
+    );
+
+}
+
+
+/* =========================================================
+   DRAW LABELS
+   ========================================================= */
+
+function drawLabels(){
+
+    labels.forEach(
+    function(label){
+
+        ctx.save();
+
+        ctx.font =
+        "bold 28px Arial";
+
+        ctx.fillStyle =
+        "#111827";
+
+        ctx.textBaseline =
+        "middle";
+
+        ctx.textAlign =
+        label.side === "left"
+        ? "left"
+        : "right";
+
+
+        ctx.fillText(
+            label.text,
+            label.x,
+            label.y
+        );
+
+
+        /* ARROW */
+
+        const arrowLength = 90;
+
+        let startX;
+
+        let endX;
+
+
+        if(
+            label.side === "left"
+        ){
+
+            startX =
+            label.x + 250;
+
+            endX =
+            startX + arrowLength;
+
+        }else{
+
+            startX =
+            label.x - 250;
+
+            endX =
+            startX - arrowLength;
+
+        }
+
+
+        ctx.strokeStyle =
+        "#111827";
+
+        ctx.lineWidth =
+        4;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            startX,
+            label.y
+        );
+
+        ctx.lineTo(
+            endX,
+            label.y
+        );
+
+        ctx.stroke();
+
+
+        /* ARROW HEAD */
+
+        ctx.beginPath();
+
+
+        if(
+            label.side === "left"
+        ){
+
+            ctx.moveTo(
+                endX,
+                label.y
+            );
+
+            ctx.lineTo(
+                endX - 15,
+                label.y - 10
+            );
+
+            ctx.lineTo(
+                endX - 15,
+                label.y + 10
+            );
+
+        }else{
+
+            ctx.moveTo(
+                endX,
+                label.y
+            );
+
+            ctx.lineTo(
+                endX + 15,
+                label.y - 10
+            );
+
+            ctx.lineTo(
+                endX + 15,
+                label.y + 10
+            );
+
+        }
+
+
+        ctx.closePath();
+
+        ctx.fillStyle =
+        "#111827";
+
+        ctx.fill();
+
+        ctx.restore();
+
+    });
+
+}
+
+
+/* =========================================================
+   APPLY LABELS
+   ========================================================= */
+
+document
+.getElementById("applyLabels")
+.addEventListener(
+"click",
+function(){
+
+    createLabels();
+
+    drawCanvas();
+
+});
+
+
+/* =========================================================
+   RESET POSITIONS
+   ========================================================= */
+
+document
+.getElementById("resetPositions")
+.addEventListener(
+"click",
+function(){
+
+    createLabels();
+
+    drawCanvas();
+
+});
+
+
+/* =========================================================
+   LOGO SIZE
+   ========================================================= */
+
+logoSize.addEventListener(
+"input",
+function(){
+
+    drawCanvas();
+
+});
+
+
+/* =========================================================
+   LOGO POSITION
+   ========================================================= */
+
+logoPosition.addEventListener(
+"change",
+function(){
+
+    drawCanvas();
+
+});
+
+
+/* =========================================================
+   LIVE INFORMATION
+   ========================================================= */
+
+[
+productName,
+country,
+price,
+quality,
+offer,
+additional
+].forEach(
+function(field){
+
+    field.addEventListener(
+    "input",
+    function(){
+
+        createLabels();
+
+        drawCanvas();
+
+    });
+
+});
+
+
+/* =========================================================
+   LINK PREVIEW
+   ========================================================= */
+
+productLink.addEventListener(
+"input",
+function(){
+
+    const link =
+    productLink.value.trim();
+
+    linkPreview.textContent =
+    link ||
+    "Product Link یہاں آئے گا۔";
+
+});
+
+
+/* =========================================================
+   CANVAS POSITION
+   ========================================================= */
+
+function getCanvasPosition(event){
+
+    const rect =
+    canvas.getBoundingClientRect();
+
+    let clientX;
+    let clientY;
+
+
+    if(event.touches){
+
+        clientX =
+        event.touches[0].clientX;
+
+        clientY =
+        event.touches[0].clientY;
+
+    }else{
+
+        clientX =
+        event.clientX;
+
+        clientY =
+        event.clientY;
+
+    }
+
+
+    return {
+
+        x:
+        (clientX - rect.left) *
+        (canvas.width / rect.width),
+
+        y:
+        (clientY - rect.top) *
+        (canvas.height / rect.height)
+
+    };
+
+}
+
+
+/* =========================================================
+   SELECT LABEL
+   ========================================================= */
+
+function findLabel(x,y){
+
+    for(
+        let i = labels.length - 1;
+        i >= 0;
+        i--
+    ){
+
+        const label =
+        labels[i];
+
+        if(
+            Math.abs(x - label.x) < 300 &&
+            Math.abs(y - label.y) < 45
+        ){
+
+            return label;
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =========================================================
+   MOUSE DOWN
+   ========================================================= */
+
+canvas.addEventListener(
+"mousedown",
+function(event){
+
+    const pos =
+    getCanvasPosition(event);
+
+    selectedObject =
+    findLabel(
+        pos.x,
+        pos.y
+    );
+
+    if(selectedObject){
+
+        dragging = true;
+
+        dragOffsetX =
+        pos.x -
+        selectedObject.x;
+
+        dragOffsetY =
+        pos.y -
+        selectedObject.y;
+
+    }
+
+});
+
+
+/* =========================================================
+   MOUSE MOVE
+   ========================================================= */
+
+canvas.addEventListener(
+"mousemove",
+function(event){
+
+    if(
+        !dragging ||
+        !selectedObject
+    ){
+        return;
+    }
+
+
+    const pos =
+    getCanvasPosition(event);
+
+
+    selectedObject.x =
+    pos.x -
+    dragOffsetX;
+
+
+    selectedObject.y =
+    pos.y -
+    dragOffsetY;
+
+
+    drawCanvas();
+
+});
+
+
+/* =========================================================
+   MOUSE UP
+   ========================================================= */
+
+canvas.addEventListener(
+"mouseup",
+function(){
+
+    dragging = false;
+
+    selectedObject = null;
+
+});
+
+
+canvas.addEventListener(
+"mouseleave",
+function(){
+
+    dragging = false;
+
+    selectedObject = null;
+
+});
+
+
+/* =========================================================
+   TOUCH START
+   ========================================================= */
+
+canvas.addEventListener(
+"touchstart",
+function(event){
+
+    const pos =
+    getCanvasPosition(event);
+
+    selectedObject =
+    findLabel(
+        pos.x,
+        pos.y
+    );
+
+    if(selectedObject){
+
+        dragging = true;
+
+        dragOffsetX =
+        pos.x -
+        selectedObject.x;
+
+        dragOffsetY =
+        pos.y -
+        selectedObject.y;
+
+    }
+
+},
+{
+    passive:true
+});
+
+
+/* =========================================================
+   TOUCH MOVE
+   ========================================================= */
+
+canvas.addEventListener(
+"touchmove",
+function(event){
+
+    if(
+        !dragging ||
+        !selectedObject
+    ){
+        return;
+    }
+
+
+    const pos =
+    getCanvasPosition(event);
+
+
+    selectedObject.x =
+    pos.x -
+    dragOffsetX;
+
+
+    selectedObject.y =
+    pos.y -
+    dragOffsetY;
+
+
+    drawCanvas();
+
+},
+{
+    passive:true
+});
+
+
+/* =========================================================
+   TOUCH END
+   ========================================================= */
+
+canvas.addEventListener(
+"touchend",
+function(){
+
+    dragging = false;
+
+    selectedObject = null;
+
+});
+
+
+/* =========================================================
+   DOWNLOAD PNG
+   ========================================================= */
+
+document
+.getElementById("downloadPng")
+.addEventListener(
+"click",
+function(){
+
+    downloadImage(
+        "image/png",
+        "janjua-traders-product.png"
+    );
+
+});
+
+
+/* =========================================================
+   DOWNLOAD JPG
+   ========================================================= */
+
+document
+.getElementById("downloadJpg")
+.addEventListener(
+"click",
+function(){
+
+    downloadImage(
+        "image/jpeg",
+        "janjua-traders-product.jpg"
+    );
+
+});
+
+
+/* =========================================================
+   DOWNLOAD FUNCTION
+   ========================================================= */
+
+function downloadImage(
+    type,
+    filename
+){
+
+    const link =
+    document.createElement("a");
+
+    link.download =
+    filename;
+
+    link.href =
+    canvas.toDataURL(
+        type,
+        0.95
+    );
+
+    link.click();
+
+}
+
+
+/* =========================================================
+   FACEBOOK CAPTION
+   ========================================================= */
+
+function createCaption(){
+
+    const name =
+    productName.value.trim();
+
+    const p =
+    price.value.trim();
+
+    const c =
+    country.value.trim();
+
+    const q =
+    quality.value.trim();
+
+    const o =
+    offer.value.trim();
+
+    const link =
+    productLink.value.trim();
+
+    let text =
+    "Janjua Traders\n\n";
+
+
+    if(name){
+
+        text +=
+        "🛍️ " +
+        name +
+        "\n";
+
+    }
+
+
+    if(c){
+
+        text +=
+        "🌍 ملکِ تیاری: " +
+        c +
+        "\n";
+
+    }
+
+
+    if(q){
+
+        text +=
+        "⭐ " +
+        q +
+        "\n";
+
+    }
+
+
+    if(p){
+
+        text +=
+        "💰 قیمت: " +
+        p +
+        "\n";
+
+    }
+
+
+    if(o){
+
+        text +=
+        "🔥 " +
+        o +
+        "\n";
+
+    }
+
+
+    if(link){
+
+        text +=
+        "\n🔗 پروڈکٹ دیکھنے کے لیے:\n" +
+        link;
+
+    }
+
+
+    return text;
+
+}
+
+
+/* =========================================================
+   COPY CAPTION
+   ========================================================= */
+
+document
+.getElementById("copyCaption")
+.addEventListener(
+"click",
+async function(){
+
+    const caption =
+    createCaption();
+
+
+    try{
+
+        await navigator.clipboard.writeText(
+            caption
+        );
+
+        alert(
+            "Facebook Caption Copy ہو گیا ہے۔"
+        );
+
+    }catch(error){
+
+        alert(
+            caption
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   COPY PRODUCT LINK
+   ========================================================= */
+
+document
+.getElementById("copyLink")
+.addEventListener(
+"click",
+async function(){
+
+    const link =
+    productLink.value.trim();
+
+
+    if(!link){
+
+        alert(
+            "پہلے Product Link ڈالیں۔"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await navigator.clipboard.writeText(
+            link
+        );
+
+        alert(
+            "Product Link Copy ہو گیا ہے۔"
+        );
+
+    }catch(error){
+
+        alert(
+            link
+        );
+
+    }
+
+});
+
+
+/* =========================================================
+   INITIAL
+   ========================================================= */
+
+createLabels();
+
+drawCanvas();
+
+console.log(
+"Janjua Traders Product Editor V2 loaded."
+);
+
+</script>
+
+</body>
+</html>
