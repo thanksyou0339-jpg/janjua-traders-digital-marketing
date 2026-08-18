@@ -1,1701 +1,2467 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Janjua Traders - Product Editor</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Janjua Traders - Product Image Editor
+</title>
 
 <style>
-* {
-    box-sizing: border-box;
+
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    padding: 15px;
-    font-family: Arial, "Noto Nastaliq Urdu", sans-serif;
-    background: #eeeeee;
-    color: #222;
+body{
+
+    margin:0;
+
+    padding:10px;
+
+    background:#e9e9e9;
+
+    font-family:
+        Arial,
+        "Noto Sans Arabic",
+        sans-serif;
+
+    color:#222;
 }
 
-h1 {
-    text-align: center;
-    margin: 5px 0 18px;
-    font-size: 22px;
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
 }
 
-.editor {
-    max-width: 1050px;
-    margin: auto;
+h1{
+
+    text-align:center;
+
+    margin:5px 0 15px;
+
+    font-size:22px;
 }
 
-/* =========================
-   CONTROL PANEL
-========================= */
+.editor{
 
-.controls {
-    background: white;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 18px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.12);
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:12px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0,0,0,.12);
 }
 
-.row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+.section{
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin-bottom:10px;
 }
 
-.control {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.section-title{
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    margin-bottom:8px;
 }
 
-label {
-    font-weight: bold;
-    font-size: 14px;
+.row{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+}
+
+.field{
+
+    flex:1;
+
+    min-width:180px;
+}
+
+label{
+
+    display:block;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    margin-bottom:4px;
 }
 
 input,
 select,
-button {
-    font-family: inherit;
+button{
+
+    width:100%;
+
+    min-height:40px;
+
+    border:1px solid #bbb;
+
+    border-radius:7px;
+
+    padding:7px 9px;
+
+    font-size:13px;
 }
 
-input[type="text"],
-input[type="number"],
-select {
-    width: 100%;
-    min-height: 42px;
-    border: 1px solid #bbb;
-    border-radius: 9px;
-    padding: 8px 10px;
-    font-size: 15px;
-    background: #fff;
+button{
+
+    background:#222;
+
+    color:white;
+
+    border:none;
+
+    font-weight:bold;
+
+    cursor:pointer;
 }
 
-input[type="file"] {
-    width: 100%;
-    padding: 8px 0;
+button:hover{
+
+    opacity:.88;
 }
 
-.section-title {
-    margin: 18px 0 10px;
-    font-size: 17px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+.add-btn{
+
+    background:#111;
 }
 
-/* =========================
-   IMAGE FRAME
-========================= */
+.download-jpg{
 
-.canvas-wrapper {
-    width: 100%;
-    overflow: auto;
-    padding: 10px;
+    background:#333;
 }
 
-#designCanvas {
-    position: relative;
-    width: min(100%, 900px);
-    margin: auto;
-    background: white;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.18);
+.download-png{
+
+    background:#555;
 }
 
-/*
-    Main image
-*/
+.clear-btn{
 
-#productImage {
-    position: absolute;
-    object-fit: contain;
-    background: #f7f7f7;
-    z-index: 2;
+    background:#9b1c1c;
 }
 
-/*
-    Bottom information panel
-*/
+.color-input{
 
-#infoPanel {
-    position: absolute;
-    z-index: 4;
-    overflow: hidden;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
+    height:40px;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.96),
-            rgba(235,235,235,.96)
-        );
+    padding:2px;
 }
 
-/* Decorative animated background */
+.canvas-wrap{
 
-#infoPanel::before {
-    content: "";
-    position: absolute;
-    width: 180%;
-    height: 180%;
-    top: -40%;
-    left: -40%;
+    width:100%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(212,175,55,.18) 0%,
-            transparent 45%
-        );
+    max-width:600px;
 
-    animation: moveBackground 8s linear infinite;
+    margin:12px auto;
+
+    padding:7px;
+
+    background:#d5d5d5;
+
+    border-radius:9px;
 }
 
-#infoPanel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+canvas{
 
-    background:
-        linear-gradient(
-            120deg,
-            transparent 0%,
-            rgba(255,255,255,.35) 45%,
-            transparent 55%
-        );
+    display:block;
 
-    animation: shine 5s linear infinite;
+    width:100%;
+
+    height:auto;
+
+    background:white;
+
+    border-radius:4px;
 }
 
-@keyframes moveBackground {
-    0% {
-        transform: rotate(0deg) scale(1);
+.feature-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:7px;
+}
+
+.feature-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    background:#f2f2f2;
+
+    border:1px solid #ccc;
+
+    border-radius:7px;
+
+    padding:5px 7px;
+
+    font-size:12px;
+}
+
+.remove-feature{
+
+    width:25px;
+
+    min-height:25px;
+
+    padding:0;
+
+    background:#a00;
+
+}
+
+.delivery-mode{
+
+    background:#f7f7f7;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    padding:8px;
+
+}
+
+@media(max-width:600px){
+
+    body{
+
+        padding:5px;
     }
 
-    50% {
-        transform: rotate(180deg) scale(1.1);
+    .editor{
+
+        padding:7px;
     }
 
-    100% {
-        transform: rotate(360deg) scale(1);
-    }
-}
+    h1{
 
-@keyframes shine {
-    0% {
-        transform: translateX(-100%);
+        font-size:18px;
     }
 
-    100% {
-        transform: translateX(100%);
-    }
-}
+    .field{
 
-.info-content {
-    position: relative;
-    z-index: 5;
-}
-
-/* =========================
-   FEATURES
-========================= */
-
-.feature {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 17px;
-    font-weight: bold;
-    margin: 4px 0;
-}
-
-.star {
-    width: 27px;
-    height: 27px;
-    min-width: 27px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 18px;
-    clip-path: polygon(
-        50% 0%,
-        61% 35%,
-        98% 35%,
-        68% 57%,
-        79% 94%,
-        50% 72%,
-        21% 94%,
-        32% 57%,
-        2% 35%,
-        39% 35%
-    );
-
-    background: #d4af37;
-    color: white;
-}
-
-/* =========================
-   PRICE BADGE
-========================= */
-
-#priceBadge {
-    position: absolute;
-    z-index: 10;
-
-    background: #111;
-    color: white;
-
-    border-radius: 12px;
-
-    padding: 9px 14px;
-
-    min-width: 120px;
-
-    text-align: center;
-
-    font-size: 21px;
-    font-weight: 900;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.35);
-
-    cursor: move;
-
-    user-select: none;
-}
-
-#priceBadge.dragging {
-    opacity: .75;
-    transform: scale(1.04);
-}
-
-/* =========================
-   LOGO
-========================= */
-
-#logoPreview {
-    position: absolute;
-    z-index: 20;
-
-    width: 55px;
-    height: 55px;
-
-    object-fit: contain;
-
-    top: 10px;
-    right: 10px;
-
-    display: none;
-
-    pointer-events: none;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    margin-top: 15px;
-}
-
-button {
-    border: none;
-    border-radius: 9px;
-    padding: 11px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    background: #222;
-    color: white;
-}
-
-button:hover {
-    opacity: .85;
-}
-
-.btn-download {
-    background: #198754;
-}
-
-.btn-reset {
-    background: #dc3545;
-}
-
-/* =========================
-   HIDDEN
-========================= */
-
-.hidden {
-    display: none !important;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 8px;
+        min-width:100%;
     }
 
-    .row {
-        grid-template-columns: 1fr;
-    }
-
-    #priceBadge {
-        font-size: 16px;
-        min-width: 90px;
-        padding: 7px 10px;
-    }
-
-    .feature {
-        font-size: 12px;
-    }
-
-    .star {
-        width: 21px;
-        height: 21px;
-        min-width: 21px;
-        font-size: 13px;
-    }
-
-    #logoPreview {
-        width: 40px;
-        height: 40px;
-    }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<div class="container">
+
+
+<h1>
+Janjua Traders — Product Image Editor
+</h1>
+
+
 <div class="editor">
 
-<h1>Janjua Traders — Product Image Editor</h1>
 
-<div class="controls">
+<!-- =====================================================
+     IMAGE
+===================================================== -->
 
-    <!-- IMAGE -->
+<div class="section">
 
-    <div class="section-title">
-        1۔ Product Image
-    </div>
+<div class="section-title">
+1. Product Image & Logo
+</div>
 
-    <div class="control">
-        <label>تصویر منتخب کریں</label>
-        <input type="file" id="imageInput" accept="image/*">
-    </div>
 
+<div class="row">
 
-    <!-- LOGO -->
 
-    <div class="control" style="margin-top:10px;">
-        <label>اپنا Logo / Monogram</label>
-        <input type="file" id="logoInput" accept="image/*">
-    </div>
+<div class="field">
 
+<label>
+Product Image
+</label>
 
-    <!-- PRICE -->
-
-    <div class="section-title">
-        2۔ Price
-    </div>
-
-    <div class="row">
-
-        <div class="control">
-            <label>Price</label>
-
-            <input
-                type="text"
-                id="priceInput"
-                placeholder="مثلاً Rs. 2,999"
-                value="Rs. 2,999"
-            >
-        </div>
-
-        <div class="control">
-
-            <label>Price Style</label>
-
-            <select id="priceStyle">
-
-                <option value="black">
-                    Black
-                </option>
-
-                <option value="gold">
-                    Golden
-                </option>
-
-                <option value="red">
-                    Red
-                </option>
-
-                <option value="green">
-                    Green
-                </option>
-
-                <option value="blue">
-                    Blue
-                </option>
-
-                <option value="white">
-                    White
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <!-- DELIVERY -->
-
-    <div class="section-title">
-        3۔ Delivery
-    </div>
-
-    <div class="row">
-
-        <div class="control">
-
-            <label>Delivery Type</label>
-
-            <select id="deliveryType">
-
-                <option value="free">
-                    Free Delivery
-                </option>
-
-                <option value="charges">
-                    Delivery Charges
-                </option>
-
-                <option value="custom">
-                    Custom
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div
-            class="control hidden"
-            id="deliveryChargesBox"
-        >
-
-            <label>Delivery Charges</label>
-
-            <input
-                type="text"
-                id="deliveryCharges"
-                placeholder="مثلاً Rs. 250"
-            >
-
-        </div>
-
-    </div>
-
-
-    <!-- COUNTRY -->
-
-    <div class="section-title">
-        4۔ Product Information
-    </div>
-
-    <div class="row">
-
-        <div class="control">
-
-            <label>ملک</label>
-
-            <select id="countrySelect">
-
-                <option value="">
-                    ملک منتخب کریں
-                </option>
-
-                <option>پاکستان</option>
-                <option>چین</option>
-                <option>ترکی</option>
-                <option>ایران</option>
-                <option>سعودی عرب</option>
-                <option>متحدہ عرب امارات</option>
-                <option>قطر</option>
-                <option>کینیڈا</option>
-                <option>آسٹریلیا</option>
-                <option>فرانس</option>
-                <option>جرمنی</option>
-                <option>اٹلی</option>
-                <option>برطانیہ</option>
-                <option>امریکہ</option>
-
-            </select>
-
-        </div>
-
-
-        <div class="control">
-
-            <label>مضبوطی</label>
-
-            <select id="strengthSelect">
-
-                <option value="">منتخب کریں</option>
-
-                <option>مضبوط چیز</option>
-                <option>انتہائی مضبوط</option>
-                <option>مضبوط اور قابل اعتماد</option>
-                <option>بہترین مضبوطی</option>
-
-            </select>
-
-        </div>
-
-
-        <div class="control">
-
-            <label>پائیداری</label>
-
-            <select id="durabilitySelect">
-
-                <option value="">منتخب کریں</option>
-
-                <option>پائیدار چیز</option>
-                <option>لمبی مدت تک استعمال</option>
-                <option>اعلیٰ پائیداری</option>
-                <option>روزمرہ استعمال کے لیے بہترین</option>
-
-            </select>
-
-        </div>
-
-
-        <div class="control">
-
-            <label>Quality</label>
-
-            <select id="qualitySelect">
-
-                <option value="">منتخب کریں</option>
-
-                <option>بہترین کوالٹی</option>
-                <option>اعلیٰ معیار</option>
-                <option>پریمیم کوالٹی</option>
-                <option>بہترین معیار</option>
-
-            </select>
-
-        </div>
-
-
-        <div class="control">
-
-            <label>خوبصورتی</label>
-
-            <select id="beautySelect">
-
-                <option value="">منتخب کریں</option>
-
-                <option>خوبصورت ڈیزائن</option>
-                <option>جدید ڈیزائن</option>
-                <option>شاندار انداز</option>
-                <option>پریمیم لک</option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <!-- CUSTOM TEXT -->
-
-    <div class="section-title">
-        5۔ اضافی عبارت
-    </div>
-
-    <div class="row">
-
-        <div class="control">
-
-            <label>اضافی عبارت</label>
-
-            <input
-                type="text"
-                id="customText"
-                placeholder="مثلاً خاص پیشکش"
-            >
-
-        </div>
-
-        <div class="control">
-
-            <label>Text Color</label>
-
-            <select id="textColor">
-
-                <option value="#111111">Black</option>
-                <option value="#ffffff">White</option>
-                <option value="#d4af37">Golden</option>
-                <option value="#ff0000">Red</option>
-                <option value="#008000">Green</option>
-                <option value="#0000ff">Blue</option>
-                <option value="#800080">Purple</option>
-                <option value="#ff6600">Orange</option>
-                <option value="#00a6a6">Teal</option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <!-- DOWNLOAD -->
-
-    <div class="buttons">
-
-        <button
-            class="btn-download"
-            id="downloadPNG"
-        >
-            PNG Download
-        </button>
-
-        <button
-            class="btn-download"
-            id="downloadJPG"
-        >
-            JPG Download
-        </button>
-
-        <button
-            class="btn-reset"
-            id="resetButton"
-        >
-            Reset
-        </button>
-
-    </div>
+<input
+type="file"
+id="imageInput"
+accept="image/*">
 
 </div>
 
 
-<!-- =========================
-     DESIGN CANVAS
-========================= -->
+<div class="field">
 
-<div class="canvas-wrapper">
+<label>
+Logo / Monogram
+</label>
 
-    <div id="designCanvas">
+<input
+type="file"
+id="logoInput"
+accept="image/*">
 
-        <img
-            id="productImage"
-            alt=""
-        >
+</div>
 
-        <img
-            id="logoPreview"
-            alt=""
-        >
-
-        <div id="priceBadge">
-            Rs. 2,999
-        </div>
-
-        <div id="infoPanel">
-
-            <div class="info-content">
-
-                <div
-                    class="feature"
-                    id="countryFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="countryText"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="strengthFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="strengthText"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="durabilityFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="durabilityText"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="qualityFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="qualityText"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="beautyFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="beautyText"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="customFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="customTextDisplay"></span>
-                </div>
-
-
-                <div
-                    class="feature"
-                    id="deliveryFeature"
-                >
-                    <span class="star">★</span>
-                    <span id="deliveryText"></span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
 </div>
 
 </div>
 
 
-<!-- =========================
-     html2canvas
-========================= -->
+<!-- =====================================================
+     PRODUCT
+===================================================== -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<div class="section">
+
+<div class="section-title">
+2. Product Information
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Product Name
+</label>
+
+<input
+type="text"
+id="productName"
+placeholder="مثلاً Premium Product">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Product Description
+</label>
+
+<input
+type="text"
+id="productDescription"
+placeholder="مختصر وضاحت">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     COUNTRY
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+3. Country — ملک
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<select id="countrySelect">
+
+<option value="">
+ملک منتخب کریں
+</option>
+
+<option>پاکستان</option>
+<option>چین</option>
+<option>ایران</option>
+<option>سعودیہ عرب</option>
+<option>متحدہ عرب امارات</option>
+<option>ترکی</option>
+<option>فرانس</option>
+<option>جرمنی</option>
+<option>اٹلی</option>
+<option>برطانیہ</option>
+<option>امریکہ</option>
+<option>کینیڈا</option>
+<option>آسٹریلیا</option>
+<option>جاپان</option>
+<option>جنوبی کوریا</option>
+<option>ملائیشیا</option>
+<option>تھائی لینڈ</option>
+<option>انڈیا</option>
+<option>دیگر</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addCountry">
+
+★ ملک تصویر پر شامل کریں
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+4. Product Features
+</div>
+
+
+<div class="row">
+
+<div class="field">
+
+<label>
+مضبوطی
+</label>
+
+<select id="strengthSelect">
+
+<option value="">
+منتخب کریں
+</option>
+
+<option>بہت مضبوط</option>
+<option>مضبوط اور قابل اعتماد</option>
+<option>روزمرہ استعمال کے لیے مضبوط</option>
+<option>Heavy Duty</option>
+<option>Premium Strength</option>
+<option>اعلیٰ معیار کی مضبوطی</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addStrength">
+
+★ مضبوطی شامل کریں
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div class="field">
+
+<label>
+پائیداری
+</label>
+
+<select id="durabilitySelect">
+
+<option value="">
+منتخب کریں
+</option>
+
+<option>انتہائی پائیدار</option>
+<option>لمبے عرصے تک استعمال</option>
+<option>مضبوط اور پائیدار</option>
+<option>Long Lasting</option>
+<option>Durable Quality</option>
+<option>روزمرہ استعمال کے لیے پائیدار</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addDurability">
+
+★ پائیداری شامل کریں
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div class="field">
+
+<label>
+کوالٹی
+</label>
+
+<select id="qualitySelect">
+
+<option value="">
+منتخب کریں
+</option>
+
+<option>بہترین کوالٹی</option>
+<option>Premium Quality</option>
+<option>اعلیٰ معیار</option>
+<option>Original Quality</option>
+<option>Top Quality</option>
+<option>Excellent Quality</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addQuality">
+
+★ کوالٹی شامل کریں
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div class="field">
+
+<label>
+خوبصورتی / ڈیزائن
+</label>
+
+<select id="beautySelect">
+
+<option value="">
+منتخب کریں
+</option>
+
+<option>خوبصورت ڈیزائن</option>
+<option>جدید ڈیزائن</option>
+<option>Premium Design</option>
+<option>Elegant Look</option>
+<option>Stylish Design</option>
+<option>خوبصورت اور جدید</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addBeauty">
+
+★ ڈیزائن شامل کریں
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div class="field">
+
+<label>
+اپنی مرضی کی عبارت
+</label>
+
+<input
+type="text"
+id="customText"
+placeholder="مثلاً خاص اور منفرد پروڈکٹ">
+
+</div>
+
+
+<div class="field">
+
+<button
+class="add-btn"
+id="addCustom">
+
+★ عبارت شامل کریں
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     PRICE CARD
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+5. Price List — قیمت اور Delivery
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Product Price — Rs.
+</label>
+
+<input
+type="number"
+id="priceInput"
+value="42999"
+placeholder="42999">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Delivery Type
+</label>
+
+<select id="deliveryType">
+
+<option value="free">
+FREE DELIVERY
+</option>
+
+<option value="custom">
+CUSTOM CHARGES
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field"
+id="customDeliveryField"
+style="display:none;">
+
+<label>
+Custom Delivery Charges — Rs.
+</label>
+
+<input
+type="number"
+id="deliveryInput"
+value="250"
+placeholder="250">
+
+</div>
+
+
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Price Position
+</label>
+
+<select id="pricePosition">
+
+<option value="left">
+Left
+</option>
+
+<option value="center" selected>
+Center
+</option>
+
+<option value="right">
+Right
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>
+Price Card Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="priceCardColor"
+value="#111111">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Price Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="priceColor"
+value="#FFD700">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Delivery Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="deliveryColor"
+value="#FFFFFF">
+
+</div>
+
+
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Price Size
+</label>
+
+<input
+type="range"
+id="priceSize"
+min="35"
+max="95"
+value="68">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Delivery Text Size
+</label>
+
+<input
+type="range"
+id="deliverySize"
+min="18"
+max="45"
+value="28">
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     TEXT STYLE
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+6. Text & Star Style
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Feature Text Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="textColor"
+value="#FFFFFF">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Star Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="starColor"
+value="#D4AF37">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Panel Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="panelColor"
+value="#111111">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Feature Font Size
+</label>
+
+<input
+type="range"
+id="fontSize"
+min="22"
+max="55"
+value="34">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<button id="boldBtn">
+B — Bold
+</button>
+
+</div>
+
+
+<div class="field">
+
+<button id="italicBtn">
+I — Italic
+</button>
+
+</div>
+
+
+<div class="field">
+
+<button id="underlineBtn">
+U — Underline
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FEATURES LIST
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+7. Added Features
+</div>
+
+
+<div
+id="featureList"
+class="feature-list">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CANVAS
+===================================================== -->
+
+<div class="canvas-wrap">
+
+<canvas
+id="canvas"
+width="1080"
+height="1350">
+</canvas>
+
+</div>
+
+
+<!-- =====================================================
+     DOWNLOAD
+===================================================== -->
+
+<div class="section">
+
+<div class="section-title">
+8. Download
+</div>
+
+
+<div class="row">
+
+
+<div class="field">
+
+<button
+class="download-jpg"
+id="downloadJPG">
+
+⬇ Download JPG
+
+</button>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="download-png"
+id="downloadPNG">
+
+⬇ Download PNG
+
+</button>
+
+</div>
+
+
+<div class="field">
+
+<button
+class="clear-btn"
+id="clearAll">
+
+✕ سب صاف کریں
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
 
 
 <script>
 
 document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const imageInput =
-            document.getElementById("imageInput");
-
-        const logoInput =
-            document.getElementById("logoInput");
-
-        const productImage =
-            document.getElementById("productImage");
-
-        const logoPreview =
-            document.getElementById("logoPreview");
-
-        const canvas =
-            document.getElementById("designCanvas");
-
-        const infoPanel =
-            document.getElementById("infoPanel");
-
-        const priceBadge =
-            document.getElementById("priceBadge");
+"DOMContentLoaded",
+function(){
 
 
-        /* =========================
-           INPUTS
-        ========================= */
+const canvas =
+document.getElementById(
+"canvas"
+);
 
-        const priceInput =
-            document.getElementById("priceInput");
+const ctx =
+canvas.getContext(
+"2d"
+);
 
-        const priceStyle =
-            document.getElementById("priceStyle");
 
-        const deliveryType =
-            document.getElementById("deliveryType");
+const W = 1080;
+const H = 1350;
 
-        const deliveryCharges =
-            document.getElementById("deliveryCharges");
 
-        const deliveryChargesBox =
-            document.getElementById(
-                "deliveryChargesBox"
+let productImage = null;
+let logoImage = null;
+
+let features = [];
+
+
+let textColor =
+"#FFFFFF";
+
+let starColor =
+"#D4AF37";
+
+let panelColor =
+"#111111";
+
+
+let priceCardColor =
+"#111111";
+
+let priceColor =
+"#FFD700";
+
+let deliveryColor =
+"#FFFFFF";
+
+
+let fontSize = 34;
+
+let priceSize = 68;
+
+let deliverySize = 28;
+
+
+let isBold = true;
+
+let isItalic = false;
+
+let isUnderline = false;
+
+
+/* =====================================================
+   LOAD IMAGE
+===================================================== */
+
+function loadImage(
+file,
+callback
+){
+
+    if(!file)
+        return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+    function(e){
+
+
+        const img =
+            new Image();
+
+
+        img.onload =
+        function(){
+
+            callback(img);
+
+            draw();
+
+        };
+
+
+        img.src =
+            e.target.result;
+
+    };
+
+
+    reader.readAsDataURL(
+        file
+    );
+
+}
+
+
+/* =====================================================
+   COVER IMAGE
+===================================================== */
+
+function drawImageCover(
+img,
+x,
+y,
+w,
+h
+){
+
+    const scale =
+        Math.max(
+            w / img.width,
+            h / img.height
+        );
+
+
+    const newW =
+        img.width *
+        scale;
+
+
+    const newH =
+        img.height *
+        scale;
+
+
+    const dx =
+        x +
+        (w - newW) / 2;
+
+
+    const dy =
+        y +
+        (h - newH) / 2;
+
+
+    ctx.save();
+
+
+    ctx.beginPath();
+
+    ctx.rect(
+        x,
+        y,
+        w,
+        h
+    );
+
+    ctx.clip();
+
+
+    ctx.drawImage(
+        img,
+        dx,
+        dy,
+        newW,
+        newH
+    );
+
+
+    ctx.restore();
+
+}
+
+
+/* =====================================================
+   STAR
+===================================================== */
+
+function drawStar(
+cx,
+cy,
+r,
+color
+){
+
+    ctx.save();
+
+    ctx.fillStyle =
+        color;
+
+    ctx.beginPath();
+
+    for(
+        let i=0;
+        i<10;
+        i++
+    ){
+
+        const angle =
+            -Math.PI/2 +
+            i*Math.PI/5;
+
+
+        const radius =
+            i%2===0
+            ? r
+            : r*.45;
+
+
+        const x =
+            cx +
+            Math.cos(angle) *
+            radius;
+
+
+        const y =
+            cy +
+            Math.sin(angle) *
+            radius;
+
+
+        if(i===0)
+            ctx.moveTo(
+                x,
+                y
             );
-
-
-        const countrySelect =
-            document.getElementById(
-                "countrySelect"
+        else
+            ctx.lineTo(
+                x,
+                y
             );
-
-        const strengthSelect =
-            document.getElementById(
-                "strengthSelect"
-            );
-
-        const durabilitySelect =
-            document.getElementById(
-                "durabilitySelect"
-            );
-
-        const qualitySelect =
-            document.getElementById(
-                "qualitySelect"
-            );
-
-        const beautySelect =
-            document.getElementById(
-                "beautySelect"
-            );
-
-        const customText =
-            document.getElementById(
-                "customText"
-            );
-
-        const textColor =
-            document.getElementById(
-                "textColor"
-            );
-
-
-        /* =========================
-           IMAGE
-        ========================= */
-
-        imageInput.addEventListener(
-            "change",
-            function () {
-
-                const file =
-                    imageInput.files[0];
-
-                if (!file) return;
-
-                const reader =
-                    new FileReader();
-
-                reader.onload =
-                    function (event) {
-
-                        productImage.src =
-                            event.target.result;
-
-                        productImage.onload =
-                            function () {
-
-                                buildCanvas();
-                            };
-
-                    };
-
-                reader.readAsDataURL(file);
-            }
-        );
-
-
-        /* =========================
-           LOGO
-        ========================= */
-
-        logoInput.addEventListener(
-            "change",
-            function () {
-
-                const file =
-                    logoInput.files[0];
-
-                if (!file) return;
-
-                const reader =
-                    new FileReader();
-
-                reader.onload =
-                    function (event) {
-
-                        logoPreview.src =
-                            event.target.result;
-
-                        logoPreview.style.display =
-                            "block";
-                    };
-
-                reader.readAsDataURL(file);
-            }
-        );
-
-
-        /* =========================
-           BUILD CANVAS
-        ========================= */
-
-        function buildCanvas() {
-
-            if (!productImage.naturalWidth) {
-                return;
-            }
-
-            const imageWidth =
-                productImage.naturalWidth;
-
-            const imageHeight =
-                productImage.naturalHeight;
-
-
-            /*
-             * Maximum display width
-             */
-
-            const maxWidth = 900;
-
-            const scale =
-                Math.min(
-                    1,
-                    maxWidth / imageWidth
-                );
-
-
-            const displayWidth =
-                imageWidth * scale;
-
-            const displayHeight =
-                imageHeight * scale;
-
-
-            /*
-             * Canvas = image + small information area
-             */
-
-            const panelWidth =
-                Math.max(
-                    280,
-                    displayWidth * 0.36
-                );
-
-
-            const finalWidth =
-                displayWidth + panelWidth;
-
-
-            const finalHeight =
-                displayHeight;
-
-
-            canvas.style.width =
-                finalWidth + "px";
-
-            canvas.style.height =
-                finalHeight + "px";
-
-
-            /*
-             * Image takes left side
-             */
-
-            productImage.style.left =
-                "0px";
-
-            productImage.style.top =
-                "0px";
-
-            productImage.style.width =
-                displayWidth + "px";
-
-            productImage.style.height =
-                displayHeight + "px";
-
-
-            /*
-             * Information panel on right
-             */
-
-            infoPanel.style.left =
-                displayWidth + "px";
-
-            infoPanel.style.top =
-                "0px";
-
-            infoPanel.style.width =
-                panelWidth + "px";
-
-            infoPanel.style.height =
-                displayHeight + "px";
-
-
-            /*
-             * Price starts near top of image
-             */
-
-            priceBadge.style.left =
-                Math.max(
-                    10,
-                    displayWidth - 150
-                ) + "px";
-
-            priceBadge.style.top =
-                "15px";
-
-
-            /*
-             * Logo
-             */
-
-            logoPreview.style.right =
-                (
-                    panelWidth + 10
-                ) + "px";
-
-            logoPreview.style.top =
-                "10px";
-        }
-
-
-        /* =========================
-           PRICE
-        ========================= */
-
-        function updatePrice() {
-
-            const value =
-                priceInput.value.trim();
-
-            priceBadge.textContent =
-                value || "Price";
-
-
-            const style =
-                priceStyle.value;
-
-
-            const styles = {
-
-                black: {
-                    background: "#111",
-                    color: "#fff"
-                },
-
-                gold: {
-                    background: "#d4af37",
-                    color: "#111"
-                },
-
-                red: {
-                    background: "#d62828",
-                    color: "#fff"
-                },
-
-                green: {
-                    background: "#198754",
-                    color: "#fff"
-                },
-
-                blue: {
-                    background: "#1769aa",
-                    color: "#fff"
-                },
-
-                white: {
-                    background: "#fff",
-                    color: "#111"
-                }
-
-            };
-
-
-            priceBadge.style.background =
-                styles[style].background;
-
-            priceBadge.style.color =
-                styles[style].color;
-        }
-
-
-        priceInput.addEventListener(
-            "input",
-            updatePrice
-        );
-
-        priceStyle.addEventListener(
-            "change",
-            updatePrice
-        );
-
-
-        /* =========================
-           DELIVERY
-        ========================= */
-
-        function updateDelivery() {
-
-            const type =
-                deliveryType.value;
-
-
-            if (type === "charges") {
-
-                deliveryChargesBox
-                    .classList
-                    .remove("hidden");
-
-            } else {
-
-                deliveryChargesBox
-                    .classList
-                    .add("hidden");
-            }
-
-
-            const deliveryFeature =
-                document.getElementById(
-                    "deliveryFeature"
-                );
-
-            const deliveryText =
-                document.getElementById(
-                    "deliveryText"
-                );
-
-
-            if (type === "free") {
-
-                deliveryFeature.style.display =
-                    "flex";
-
-                deliveryText.textContent =
-                    "پورے پاکستان کے لیے فری ڈیلیوری";
-
-            }
-
-            else if (type === "charges") {
-
-                deliveryFeature.style.display =
-                    "flex";
-
-                const charge =
-                    deliveryCharges.value.trim();
-
-                deliveryText.textContent =
-                    charge
-                    ? "ڈیلیوری چارجز: " + charge
-                    : "ڈیلیوری چارجز";
-
-            }
-
-            else {
-
-                deliveryFeature.style.display =
-                    "flex";
-
-                deliveryText.textContent =
-                    "ڈیلیوری دستیاب ہے";
-            }
-        }
-
-
-        deliveryType.addEventListener(
-            "change",
-            updateDelivery
-        );
-
-        deliveryCharges.addEventListener(
-            "input",
-            updateDelivery
-        );
-
-
-        /* =========================
-           FEATURES
-        ========================= */
-
-        function updateFeature(
-            select,
-            featureId,
-            textId
-        ) {
-
-            const value =
-                select.value;
-
-            const feature =
-                document.getElementById(
-                    featureId
-                );
-
-            const text =
-                document.getElementById(
-                    textId
-                );
-
-
-            if (!value) {
-
-                feature.style.display =
-                    "none";
-
-            } else {
-
-                feature.style.display =
-                    "flex";
-
-                text.textContent =
-                    value;
-            }
-        }
-
-
-        countrySelect.addEventListener(
-            "change",
-            function () {
-
-                updateFeature(
-                    countrySelect,
-                    "countryFeature",
-                    "countryText"
-                );
-            }
-        );
-
-
-        strengthSelect.addEventListener(
-            "change",
-            function () {
-
-                updateFeature(
-                    strengthSelect,
-                    "strengthFeature",
-                    "strengthText"
-                );
-            }
-        );
-
-
-        durabilitySelect.addEventListener(
-            "change",
-            function () {
-
-                updateFeature(
-                    durabilitySelect,
-                    "durabilityFeature",
-                    "durabilityText"
-                );
-            }
-        );
-
-
-        qualitySelect.addEventListener(
-            "change",
-            function () {
-
-                updateFeature(
-                    qualitySelect,
-                    "qualityFeature",
-                    "qualityText"
-                );
-            }
-        );
-
-
-        beautySelect.addEventListener(
-            "change",
-            function () {
-
-                updateFeature(
-                    beautySelect,
-                    "beautyFeature",
-                    "beautyText"
-                );
-            }
-        );
-
-
-        /* =========================
-           CUSTOM TEXT
-        ========================= */
-
-        function updateCustom() {
-
-            const value =
-                customText.value.trim();
-
-            const feature =
-                document.getElementById(
-                    "customFeature"
-                );
-
-            const display =
-                document.getElementById(
-                    "customTextDisplay"
-                );
-
-
-            if (!value) {
-
-                feature.style.display =
-                    "none";
-
-            } else {
-
-                feature.style.display =
-                    "flex";
-
-                display.textContent =
-                    value;
-            }
-        }
-
-
-        customText.addEventListener(
-            "input",
-            updateCustom
-        );
-
-
-        /* =========================
-           TEXT COLOR
-        ========================= */
-
-        textColor.addEventListener(
-            "change",
-            function () {
-
-                const features =
-                    document.querySelectorAll(
-                        ".feature"
-                    );
-
-                features.forEach(
-                    function (feature) {
-
-                        feature.style.color =
-                            textColor.value;
-                    }
-                );
-            }
-        );
-
-
-        /* =========================
-           DRAG PRICE
-        ========================= */
-
-        let dragging = false;
-
-        let offsetX = 0;
-
-        let offsetY = 0;
-
-
-        priceBadge.addEventListener(
-            "pointerdown",
-            function (event) {
-
-                dragging = true;
-
-                priceBadge.classList.add(
-                    "dragging"
-                );
-
-
-                const rect =
-                    priceBadge.getBoundingClientRect();
-
-                offsetX =
-                    event.clientX -
-                    rect.left;
-
-                offsetY =
-                    event.clientY -
-                    rect.top;
-
-
-                priceBadge.setPointerCapture(
-                    event.pointerId
-                );
-            }
-        );
-
-
-        priceBadge.addEventListener(
-            "pointermove",
-            function (event) {
-
-                if (!dragging) return;
-
-
-                const canvasRect =
-                    canvas.getBoundingClientRect();
-
-
-                let x =
-                    event.clientX -
-                    canvasRect.left -
-                    offsetX;
-
-                let y =
-                    event.clientY -
-                    canvasRect.top -
-                    offsetY;
-
-
-                const maxX =
-                    canvas.clientWidth -
-                    priceBadge.offsetWidth;
-
-                const maxY =
-                    canvas.clientHeight -
-                    priceBadge.offsetHeight;
-
-
-                x =
-                    Math.max(
-                        0,
-                        Math.min(
-                            x,
-                            maxX
-                        )
-                    );
-
-
-                y =
-                    Math.max(
-                        0,
-                        Math.min(
-                            y,
-                            maxY
-                        )
-                    );
-
-
-                priceBadge.style.left =
-                    x + "px";
-
-                priceBadge.style.top =
-                    y + "px";
-            }
-        );
-
-
-        priceBadge.addEventListener(
-            "pointerup",
-            function () {
-
-                dragging = false;
-
-                priceBadge.classList.remove(
-                    "dragging"
-                );
-            }
-        );
-
-
-        /* =========================
-           DOWNLOAD
-        ========================= */
-
-        async function downloadImage(
-            type
-        ) {
-
-            if (
-                !productImage.src
-            ) {
-
-                alert(
-                    "پہلے Product Image منتخب کریں۔"
-                );
-
-                return;
-            }
-
-
-            /*
-             * Temporarily hide shadow
-             */
-
-            const oldShadow =
-                canvas.style.boxShadow;
-
-            canvas.style.boxShadow =
-                "none";
-
-
-            try {
-
-                const captured =
-                    await html2canvas(
-                        canvas,
-                        {
-                            backgroundColor:
-                                "#ffffff",
-
-                            scale:
-                                2,
-
-                            useCORS:
-                                true,
-
-                            allowTaint:
-                                true
-                        }
-                    );
-
-
-                let dataURL;
-
-
-                if (
-                    type === "jpg"
-                ) {
-
-                    dataURL =
-                        captured.toDataURL(
-                            "image/jpeg",
-                            0.95
-                        );
-
-                } else {
-
-                    dataURL =
-                        captured.toDataURL(
-                            "image/png"
-                        );
-                }
-
-
-                const link =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                link.download =
-                    "Janjua-Traders-Product." +
-                    type;
-
-
-                link.href =
-                    dataURL;
-
-
-                document.body.appendChild(
-                    link
-                );
-
-                link.click();
-
-                link.remove();
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    error
-                );
-
-                alert(
-                    "Image download نہیں ہو سکی۔"
-                );
-
-            }
-
-            finally {
-
-                canvas.style.boxShadow =
-                    oldShadow;
-            }
-        }
-
-
-        document.getElementById(
-            "downloadPNG"
-        ).addEventListener(
-            "click",
-            function () {
-
-                downloadImage(
-                    "png"
-                );
-            }
-        );
-
-
-        document.getElementById(
-            "downloadJPG"
-        ).addEventListener(
-            "click",
-            function () {
-
-                downloadImage(
-                    "jpg"
-                );
-            }
-        );
-
-
-        /* =========================
-           RESET
-        ========================= */
-
-        document.getElementById(
-            "resetButton"
-        ).addEventListener(
-            "click",
-            function () {
-
-                location.reload();
-
-            }
-        );
-
-
-        /* =========================
-           INITIAL
-        ========================= */
-
-        updatePrice();
-
-        updateDelivery();
 
     }
-);
+
+    ctx.closePath();
+
+    ctx.fill();
+
+    ctx.restore();
+
+}
+
+
+/* =====================================================
+   PRICE CARD
+===================================================== */
+
+function drawPriceCard(
+imageX,
+imageY,
+imageW,
+imageH
+){
+
+    const price =
+        Number(
+            document.getElementById(
+                "priceInput"
+            ).value || 0
+        );
+
+
+    const deliveryType =
+        document.getElementById(
+            "deliveryType"
+        ).value;
+
+
+    const delivery =
+        Number(
+            document.getElementById(
+                "deliveryInput"
+            ).value || 0
+        );
+
+
+    const position =
+        document.getElementById(
+            "pricePosition"
+        ).value;
+
+
+    const cardW = 460;
+
+    const cardH = 205;
+
+
+    let cardX;
+
+
+    if(position==="left"){
+
+        cardX =
+            imageX + 30;
+
+    }
+    else if(position==="right"){
+
+        cardX =
+            imageX +
+            imageW -
+            cardW -
+            30;
+
+    }
+    else{
+
+        cardX =
+            imageX +
+            (imageW-cardW)/2;
+
+    }
+
+
+    /*
+       PRICE CARD:
+       تصویر کے اوپر
+       نیچے نہیں
+    */
+
+    const cardY =
+        imageY + 35;
+
+
+    /* SHADOW */
+
+    ctx.save();
+
+    ctx.shadowColor =
+        "rgba(0,0,0,.48)";
+
+    ctx.shadowBlur =
+        18;
+
+    ctx.shadowOffsetY =
+        5;
+
+
+    ctx.fillStyle =
+        priceCardColor;
+
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        cardX,
+        cardY,
+        cardW,
+        cardH,
+        24
+    );
+
+    ctx.fill();
+
+
+    ctx.restore();
+
+
+    /* GOLD BORDER */
+
+    ctx.save();
+
+    ctx.strokeStyle =
+        priceColor;
+
+    ctx.lineWidth =
+        3;
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        cardX,
+        cardY,
+        cardW,
+        cardH,
+        24
+    );
+
+    ctx.stroke();
+
+    ctx.restore();
+
+
+    /* PRICE */
+
+    ctx.fillStyle =
+        priceColor;
+
+    ctx.textAlign =
+        "center";
+
+    ctx.textBaseline =
+        "middle";
+
+    ctx.font =
+        "900 " +
+        priceSize +
+        "px Arial";
+
+
+    ctx.fillText(
+        "Rs. " +
+        price.toLocaleString(
+            "en-PK"
+        ),
+        cardX +
+        cardW/2,
+        cardY + 72
+    );
+
+
+    /* DELIVERY */
+
+    ctx.fillStyle =
+        deliveryColor;
+
+
+    ctx.font =
+        "bold " +
+        deliverySize +
+        "px Arial";
+
+
+    let deliveryText;
+
+
+    if(
+        deliveryType ===
+        "free"
+    ){
+
+        deliveryText =
+            "FREE DELIVERY";
+
+    }
+    else{
+
+        deliveryText =
+            "DELIVERY: Rs. " +
+            delivery.toLocaleString(
+                "en-PK"
+            );
+
+    }
+
+
+    ctx.fillText(
+        deliveryText,
+        cardX +
+        cardW/2,
+        cardY + 132
+    );
+
+
+    /* TOTAL */
+
+    const total =
+        price +
+        (
+            deliveryType ===
+            "free"
+            ? 0
+            : delivery
+        );
+
+
+    ctx.font =
+        "bold 21px Arial";
+
+
+    ctx.fillStyle =
+        "#FFFFFF";
+
+
+    ctx.fillText(
+        "TOTAL: Rs. " +
+        total.toLocaleString(
+            "en-PK"
+        ),
+        cardX +
+        cardW/2,
+        cardY + 175
+    );
+
+}
+
+
+/* =====================================================
+   DRAW
+===================================================== */
+
+function draw(){
+
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /* BACKGROUND */
+
+    ctx.fillStyle =
+        "#FFFFFF";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /* IMAGE */
+
+    const imageX = 30;
+
+    const imageY = 30;
+
+    const imageW = 1020;
+
+    const imageH = 850;
+
+
+    ctx.fillStyle =
+        "#EEEEEE";
+
+
+    ctx.fillRect(
+        imageX,
+        imageY,
+        imageW,
+        imageH
+    );
+
+
+    if(productImage){
+
+        drawImageCover(
+            productImage,
+            imageX,
+            imageY,
+            imageW,
+            imageH
+        );
+
+    }
+
+
+    /* LOGO */
+
+    if(logoImage){
+
+        const maxLogo =
+            115;
+
+
+        const scale =
+            Math.min(
+                maxLogo /
+                logoImage.width,
+
+                maxLogo /
+                logoImage.height
+            );
+
+
+        const lw =
+            logoImage.width *
+            scale;
+
+
+        const lh =
+            logoImage.height *
+            scale;
+
+
+        ctx.drawImage(
+            logoImage,
+            W-lw-55,
+            imageY+35,
+            lw,
+            lh
+        );
+
+    }
+
+
+    /* PRICE CARD */
+
+    drawPriceCard(
+        imageX,
+        imageY,
+        imageW,
+        imageH
+    );
+
+
+    /* =================================================
+       FEATURE PANEL
+    ================================================= */
+
+    const panelY = 905;
+
+    const panelH = 415;
+
+
+    ctx.fillStyle =
+        panelColor;
+
+
+    ctx.fillRect(
+        30,
+        panelY,
+        1020,
+        panelH
+    );
+
+
+    /* PRODUCT NAME */
+
+    const productName =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    if(productName){
+
+        ctx.fillStyle =
+            textColor;
+
+
+        ctx.textAlign =
+            "right";
+
+
+        ctx.font =
+            "bold 42px Arial";
+
+
+        ctx.fillText(
+            productName,
+            1000,
+            panelY+55
+        );
+
+    }
+
+
+    /* FEATURES */
+
+    let startY =
+        panelY+115;
+
+
+    features
+    .slice(0,5)
+    .forEach(
+    function(item,index){
+
+
+        const y =
+            startY +
+            index*58;
+
+
+        drawStar(
+            990,
+            y,
+            20,
+            item.starColor ||
+            starColor
+        );
+
+
+        ctx.fillStyle =
+            item.color ||
+            textColor;
+
+
+        ctx.textAlign =
+            "right";
+
+
+        let style = "";
+
+
+        if(item.italic)
+            style +=
+                "italic ";
+
+
+        if(item.bold)
+            style +=
+                "bold ";
+
+
+        ctx.font =
+            style +
+            (item.size ||
+             fontSize) +
+            "px Arial";
+
+
+        ctx.fillText(
+            item.text,
+            950,
+            y
+        );
+
+
+        if(
+            item.underline
+        ){
+
+            const width =
+                ctx.measureText(
+                    item.text
+                ).width;
+
+
+            ctx.fillRect(
+                950-width,
+                y+5,
+                width,
+                2
+            );
+
+        }
+
+    });
+
+
+}
+
+
+/* =====================================================
+   ADD FEATURE
+===================================================== */
+
+function addFeature(
+text
+){
+
+    if(!text)
+        return;
+
+
+    features.push({
+
+        id:
+            Date.now() +
+            Math.random(),
+
+        text:text,
+
+        color:
+            textColor,
+
+        starColor:
+            starColor,
+
+        size:
+            fontSize,
+
+        bold:
+            isBold,
+
+        italic:
+            isItalic,
+
+        underline:
+            isUnderline
+
+    });
+
+
+    updateFeatureList();
+
+    draw();
+
+}
+
+
+/* =====================================================
+   FEATURE LIST
+===================================================== */
+
+function updateFeatureList(){
+
+    const list =
+        document.getElementById(
+            "featureList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    features.forEach(
+    function(item){
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.className =
+            "feature-item";
+
+
+        const star =
+            document.createElement(
+                "span"
+            );
+
+
+        star.textContent =
+            "★";
+
+
+        star.style.color =
+            item.starColor;
+
+
+        const text =
+            document.createElement(
+                "span"
+            );
+
+
+        text.textContent =
+            item.text;
+
+
+        const remove =
+            document.createElement(
+                "button"
+            );
+
+
+        remove.className =
+            "remove-feature";
+
+
+        remove.textContent =
+            "×";
+
+
+        remove.onclick =
+        function(){
+
+
+            features =
+                features.filter(
+                function(f){
+
+                    return f.id !==
+                        item.id;
+
+                });
+
+
+            updateFeatureList();
+
+            draw();
+
+        };
+
+
+        div.appendChild(
+            star
+        );
+
+
+        div.appendChild(
+            text
+        );
+
+
+        div.appendChild(
+            remove
+        );
+
+
+        list.appendChild(
+            div
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   COUNTRY
+===================================================== */
+
+document.getElementById(
+"addCountry"
+).onclick =
+function(){
+
+
+    const value =
+        document.getElementById(
+            "countrySelect"
+        ).value;
+
+
+    if(value){
+
+        addFeature(
+            "بنا ہوا ملک: " +
+            value
+        );
+
+    }
+
+};
+
+
+/* =====================================================
+   STRENGTH
+===================================================== */
+
+document.getElementById(
+"addStrength"
+).onclick =
+function(){
+
+
+    const value =
+        document.getElementById(
+            "strengthSelect"
+        ).value;
+
+
+    if(value)
+        addFeature(value);
+
+};
+
+
+/* =====================================================
+   DURABILITY
+===================================================== */
+
+document.getElementById(
+"addDurability"
+).onclick =
+function(){
+
+
+    const value =
+        document.getElementById(
+            "durabilitySelect"
+        ).value;
+
+
+    if(value)
+        addFeature(value);
+
+};
+
+
+/* =====================================================
+   QUALITY
+===================================================== */
+
+document.getElementById(
+"addQuality"
+).onclick =
+function(){
+
+
+    const value =
+        document.getElementById(
+            "qualitySelect"
+        ).value;
+
+
+    if(value)
+        addFeature(value);
+
+};
+
+
+/* =====================================================
+   BEAUTY
+===================================================== */
+
+document.getElementById(
+"addBeauty"
+).onclick =
+function(){
+
+
+    const value =
+        document.getElementById(
+            "beautySelect"
+        ).value;
+
+
+    if(value)
+        addFeature(value);
+
+};
+
+
+/* =====================================================
+   CUSTOM
+===================================================== */
+
+document.getElementById(
+"addCustom"
+).onclick =
+function(){
+
+
+    const input =
+        document.getElementById(
+            "customText"
+        );
+
+
+    const value =
+        input.value.trim();
+
+
+    if(value){
+
+        addFeature(value);
+
+        input.value = "";
+
+    }
+
+};
+
+
+/* =====================================================
+   DELIVERY TYPE
+===================================================== */
+
+document.getElementById(
+"deliveryType"
+).addEventListener(
+"change",
+function(){
+
+
+    const field =
+        document.getElementById(
+            "customDeliveryField"
+        );
+
+
+    if(
+        this.value ===
+        "custom"
+    ){
+
+        field.style.display =
+            "block";
+
+    }
+    else{
+
+        field.style.display =
+            "none";
+
+    }
+
+
+    draw();
+
+});
+
+
+/* =====================================================
+   LIVE UPDATE
+===================================================== */
+
+const liveFields = [
+
+    "priceInput",
+
+    "deliveryInput",
+
+    "pricePosition",
+
+    "priceCardColor",
+
+    "priceColor",
+
+    "deliveryColor",
+
+    "priceSize",
+
+    "deliverySize",
+
+    "textColor",
+
+    "starColor",
+
+    "panelColor",
+
+    "fontSize",
+
+    "productName",
+
+    "productDescription"
+
+];
+
+
+liveFields.forEach(
+function(id){
+
+    document.getElementById(
+        id
+    ).addEventListener(
+        "input",
+        draw
+    );
+
+    document.getElementById(
+        id
+    ).addEventListener(
+        "change",
+        draw
+    );
+
+});
+
+
+/* =====================================================
+   BOLD
+===================================================== */
+
+document.getElementById(
+"boldBtn"
+).onclick =
+function(){
+
+    isBold =
+        !isBold;
+
+
+    this.style.opacity =
+        isBold
+        ? "1"
+        : ".5";
+
+};
+
+
+/* =====================================================
+   ITALIC
+===================================================== */
+
+document.getElementById(
+"italicBtn"
+).onclick =
+function(){
+
+    isItalic =
+        !isItalic;
+
+
+    this.style.opacity =
+        isItalic
+        ? "1"
+        : ".5";
+
+};
+
+
+/* =====================================================
+   UNDERLINE
+===================================================== */
+
+document.getElementById(
+"underlineBtn"
+).onclick =
+function(){
+
+    isUnderline =
+        !isUnderline;
+
+
+    this.style.opacity =
+        isUnderline
+        ? "1"
+        : ".5";
+
+};
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+document.getElementById(
+"imageInput"
+).onchange =
+function(){
+
+    loadImage(
+        this.files[0],
+
+        function(img){
+
+            productImage =
+                img;
+
+        }
+
+    );
+
+};
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+document.getElementById(
+"logoInput"
+).onchange =
+function(){
+
+    loadImage(
+        this.files[0],
+
+        function(img){
+
+            logoImage =
+                img;
+
+        }
+
+    );
+
+};
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+document.getElementById(
+"clearAll"
+).onclick =
+function(){
+
+
+    features = [];
+
+    productImage = null;
+
+    logoImage = null;
+
+
+    document.getElementById(
+        "imageInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "logoInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "productName"
+    ).value = "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "customText"
+    ).value = "";
+
+
+    document.getElementById(
+        "deliveryType"
+    ).value = "free";
+
+
+    document.getElementById(
+        "deliveryInput"
+    ).value = "250";
+
+
+    document.getElementById(
+        "customDeliveryField"
+    ).style.display =
+        "none";
+
+
+    updateFeatureList();
+
+    draw();
+
+};
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+function download(
+type
+){
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    if(type==="jpg"){
+
+        link.download =
+            "Janjua-Traders-Product.jpg";
+
+
+        link.href =
+            canvas.toDataURL(
+                "image/jpeg",
+                .95
+            );
+
+    }
+    else{
+
+        link.download =
+            "Janjua-Traders-Product.png";
+
+
+        link.href =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+    }
+
+
+    link.click();
+
+}
+
+
+document.getElementById(
+"downloadJPG"
+).onclick =
+function(){
+
+    download("jpg");
+
+};
+
+
+document.getElementById(
+"downloadPNG"
+).onclick =
+function(){
+
+    download("png");
+
+};
+
+
+/* =====================================================
+   FIRST DRAW
+===================================================== */
+
+draw();
+
+
+});
 
 </script>
 
 </body>
+
 </html>
