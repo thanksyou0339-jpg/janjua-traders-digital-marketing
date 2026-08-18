@@ -1,0 +1,810 @@
+/* =========================================================
+   JANJUA TRADERS
+   APNAMART CSS
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family:
+        Arial,
+        "Noto Nastaliq Urdu",
+        "Noto Sans Arabic",
+        sans-serif;
+
+    background:
+        #f3f5f7;
+
+    color:
+        #222;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1f2937
+        );
+
+    color: #ffffff;
+
+    text-align: center;
+
+    padding:
+        25px 15px 22px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+.brand {
+    font-size: 28px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.tagline {
+    margin:
+        3px 0 0;
+
+    font-size: 15px;
+
+    opacity: 0.9;
+}
+
+
+.subtag {
+    margin:
+        2px 0 0;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    width: 100%;
+
+    max-width: 850px;
+
+    margin:
+        0 auto;
+
+    padding:
+        20px 14px 35px;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+    background:
+        #ffffff;
+
+    border-radius:
+        14px;
+
+    padding:
+        22px;
+
+    margin-bottom:
+        20px;
+
+    box-shadow:
+        0 4px 16px
+        rgba(0, 0, 0, 0.08);
+
+    border:
+        1px solid #e5e7eb;
+}
+
+
+.card h1,
+.card h2 {
+    margin-top: 0;
+
+    color:
+        #111827;
+
+    line-height: 1.4;
+}
+
+
+.card h1 {
+    font-size: 25px;
+
+    text-align: center;
+
+    margin-bottom:
+        20px;
+}
+
+
+.card h2 {
+    font-size: 21px;
+
+    margin-bottom:
+        18px;
+}
+
+
+.card h3 {
+    color:
+        #374151;
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+   ========================================================= */
+
+.product-image-wrap {
+    width: 100%;
+
+    min-height: 220px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        #f9fafb;
+
+    border:
+        1px solid #e5e7eb;
+
+    border-radius:
+        12px;
+
+    overflow: hidden;
+
+    margin-bottom:
+        18px;
+}
+
+
+.product-image {
+    display: block;
+
+    width: 100%;
+
+    max-width: 520px;
+
+    max-height: 520px;
+
+    object-fit: contain;
+
+    border-radius:
+        10px;
+}
+
+
+#noImage {
+    width: 100%;
+
+    min-height: 220px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    color:
+        #6b7280;
+
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   PLATFORM BADGE
+   ========================================================= */
+
+.platform-badge {
+    display: inline-block;
+
+    background:
+        #111827;
+
+    color:
+        #ffffff;
+
+    padding:
+        6px 18px;
+
+    border-radius:
+        30px;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    margin-bottom:
+        12px;
+}
+
+
+/* =========================================================
+   PRODUCT TITLE
+   ========================================================= */
+
+#productTitle {
+    text-align:
+        center;
+
+    font-size:
+        23px;
+
+    margin:
+        8px 0 10px;
+
+    color:
+        #111827;
+}
+
+
+#productDescription {
+    text-align:
+        center;
+
+    color:
+        #4b5563;
+
+    margin:
+        0 auto 20px;
+
+    max-width:
+        700px;
+}
+
+
+/* =========================================================
+   PRICE BOX
+   ========================================================= */
+
+.price-box {
+    width: 100%;
+
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        12px;
+
+    padding:
+        12px 15px;
+}
+
+
+.price-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding:
+        10px 0;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    font-size:
+        16px;
+}
+
+
+.price-row:last-child {
+    border-bottom:
+        none;
+
+    font-size:
+        18px;
+
+    font-weight:
+        800;
+}
+
+
+.price-row strong {
+    direction:
+        ltr;
+
+    unicode-bidi:
+        embed;
+
+    white-space:
+        nowrap;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+#orderForm {
+    width: 100%;
+}
+
+
+label {
+    display: block;
+
+    margin-top:
+        15px;
+
+    margin-bottom:
+        6px;
+
+    font-weight:
+        700;
+
+    color:
+        #374151;
+}
+
+
+.required {
+    color:
+        #dc2626;
+
+    font-weight:
+        800;
+}
+
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    min-height: 48px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius:
+        9px;
+
+    padding:
+        10px 13px;
+
+    font-family:
+        inherit;
+
+    font-size:
+        16px;
+
+    background:
+        #ffffff;
+
+    color:
+        #111827;
+
+    outline:
+        none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color:
+        #374151;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(55, 65, 81, 0.12);
+}
+
+
+input[type="number"] {
+    direction:
+        ltr;
+
+    text-align:
+        left;
+
+    font-family:
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================================
+   HINT
+   ========================================================= */
+
+.hint {
+    margin-top:
+        0;
+
+    color:
+        #6b7280;
+
+    font-size:
+        14px;
+}
+
+
+/* =========================================================
+   COLOR / SIZE GRID
+   ========================================================= */
+
+.choice-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        14px;
+
+    margin-bottom:
+        20px;
+}
+
+
+.choice-box {
+    width:
+        100%;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.submit-btn {
+    width:
+        100%;
+
+    min-height:
+        54px;
+
+    border:
+        none;
+
+    border-radius:
+        10px;
+
+    background:
+        #111827;
+
+    color:
+        #ffffff;
+
+    font-family:
+        inherit;
+
+    font-size:
+        18px;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+    padding:
+        12px 18px;
+
+    margin-top:
+        10px;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease,
+        background 0.15s ease;
+}
+
+
+.submit-btn:hover {
+    background:
+        #1f2937;
+}
+
+
+.submit-btn:active {
+    transform:
+        scale(0.99);
+}
+
+
+.submit-btn:disabled {
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.65;
+}
+
+
+/* =========================================================
+   RESULT MESSAGE
+   ========================================================= */
+
+.result {
+    display:
+        none;
+
+    margin-top:
+        16px;
+
+    padding:
+        13px 15px;
+
+    border-radius:
+        9px;
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    text-align:
+        center;
+
+    word-break:
+        break-word;
+}
+
+
+.result.success {
+    display:
+        block;
+
+    background:
+        #ecfdf5;
+
+    border:
+        1px solid #a7f3d0;
+
+    color:
+        #065f46;
+}
+
+
+.result.error {
+    display:
+        block;
+
+    background:
+        #fef2f2;
+
+    border:
+        1px solid #fecaca;
+
+    color:
+        #991b1b;
+}
+
+
+/* =========================================================
+   SUCCESS NOTE
+   ========================================================= */
+
+.success-note {
+    background:
+        #f8fafc;
+
+    border:
+        1px solid #e2e8f0;
+
+    border-radius:
+        10px;
+
+    padding:
+        12px 14px;
+
+    color:
+        #374151;
+
+    margin-bottom:
+        0;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    width:
+        100%;
+
+    text-align:
+        center;
+
+    padding:
+        22px 14px 28px;
+
+    color:
+        #6b7280;
+
+    font-size:
+        14px;
+}
+
+
+/* =========================================================
+   HIDDEN FORM FIELDS
+   ========================================================= */
+
+input[type="hidden"] {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding:
+            14px 10px 25px;
+    }
+
+
+    .card {
+        padding:
+            17px 14px;
+
+        border-radius:
+            11px;
+    }
+
+
+    .brand {
+        font-size:
+            23px;
+    }
+
+
+    .tagline {
+        font-size:
+            13px;
+    }
+
+
+    .subtag {
+        font-size:
+            17px;
+    }
+
+
+    .card h1 {
+        font-size:
+            21px;
+    }
+
+
+    .card h2 {
+        font-size:
+            19px;
+    }
+
+
+    #productTitle {
+        font-size:
+            20px;
+    }
+
+
+    .price-row {
+        font-size:
+            15px;
+    }
+
+
+    .price-row:last-child {
+        font-size:
+            17px;
+    }
+
+
+    .choice-grid {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            4px;
+    }
+
+
+    input,
+    select,
+    textarea {
+        font-size:
+            16px;
+
+        min-height:
+            47px;
+    }
+
+
+    .submit-btn {
+        font-size:
+            17px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .card {
+        padding:
+            14px 11px;
+    }
+
+
+    .price-row {
+        gap:
+            8px;
+
+        font-size:
+            14px;
+    }
+
+
+    .price-row:last-child {
+        font-size:
+            16px;
+    }
+}
