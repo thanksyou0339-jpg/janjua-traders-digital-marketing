@@ -1,389 +1,116 @@
 /* =========================================================
    JANJUA TRADERS
-   COMPLETE ORDER SYSTEM
-   COLOR + SIZE
-   FORMSUBMIT AJAX EMAIL
+   CLEAN ORDER SCRIPT
+   - No duplicate Color / Size fields
+   - Uses Color / Size already present in index.html
+   - Prepares complete order for FormSubmit
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    "use strict";
-
-    /* =====================================================
-       SETTINGS
-       ===================================================== */
-
-    const ORDER_EMAIL = "thanksyou0339@gmail.com";
-
-    const FORM_SUBMIT_URL =
-        "https://formsubmit.co/ajax/" + ORDER_EMAIL;
-
-    /*
-       آپ کی GitHub repository میں موجود product image
-       اگر HTML میں image source خالی ہو تو یہ استعمال ہوگی۔
-    */
-    const DEFAULT_PRODUCT_IMAGE =
-        "file_00000000ee44820880d5993065f8c4c9.png";
-
-
-    /* =====================================================
-       BASIC FUNCTIONS
-       ===================================================== */
-
-    function byId(id) {
-        return document.getElementById(id);
-    }
-
-
-    function clean(value) {
-
-        if (
-            value === null ||
-            value === undefined
-        ) {
-            return "";
-        }
-
-        return String(value)
-            .replace(/\s+/g, " ")
-            .trim();
-    }
-
-
-    function valueOf(id) {
-
-        const element = byId(id);
-
-        if (!element) {
-            return "";
-        }
-
-        return clean(element.value);
-    }
-
-
-    function textOf(id) {
-
-        const element = byId(id);
-
-        if (!element) {
-            return "";
-        }
-
-        return clean(element.textContent);
-    }
-
-
-    function numberFromText(value) {
-
-        const number =
-            clean(value).replace(/[^0-9.]/g, "");
-
-        return parseFloat(number) || 0;
-    }
-
-
-    function hiddenField(name, value) {
-
-        let field =
-            document.querySelector(
-                '#orderForm input[type="hidden"][name="' +
-                name +
-                '"]'
-            );
-
-        if (!field) {
-
-            field =
-                document.createElement("input");
-
-            field.type = "hidden";
-            field.name = name;
-
-            const form = byId("orderForm");
-
-            if (form) {
-                form.appendChild(field);
-            }
-        }
-
-        if (field) {
-            field.value = clean(value);
-        }
-
-        return field;
-    }
-
-
-    /* =====================================================
-       FIND FORM
-       ===================================================== */
-
-    const form = byId("orderForm");
+    const form = document.getElementById("orderForm");
 
     if (!form) {
-
-        console.error(
-            "Janjua Traders: Order form not found."
-        );
-
+        console.error("Order form not found.");
         return;
     }
 
-
     /* =====================================================
-       FORMSUBMIT CONFIGURATION
+       HELPERS
        ===================================================== */
 
-    form.action = FORM_SUBMIT_URL;
-    form.method = "POST";
-
-
-    hiddenField(
-        "_subject",
-        "New Janjua Traders Order"
-    );
-
-    hiddenField(
-        "_template",
-        "table"
-    );
-
-    hiddenField(
-        "_captcha",
-        "false"
-    );
-
-    hiddenField(
-        "_ajax",
-        "true"
-    );
-
-
-    /* =====================================================
-       REMOVE ADDITIONAL MESSAGE
-       ===================================================== */
-
-    const additionalMessage =
-        byId("message");
-
-    if (additionalMessage) {
-
-        const parentLabel =
-            additionalMessage.closest("label");
-
-        if (parentLabel) {
-            parentLabel.remove();
-        } else {
-            additionalMessage.remove();
+    function clean(value) {
+        if (value === null || value === undefined) {
+            return "";
         }
+
+        return String(value).replace(/\s+/g, " ").trim();
     }
 
+    function get(id) {
+        return document.getElementById(id);
+    }
 
-    /*
-       اگر Additional_Message نام کا hidden field
-       کہیں موجود ہو تو اسے بھی ختم کریں۔
-    */
+    function value(id) {
+        const el = get(id);
+        return el ? clean(el.value) : "";
+    }
 
-    const additionalFields =
-        form.querySelectorAll(
-            '[name="Additional_Message"]'
+    function setHidden(name, val) {
+
+        let field = form.querySelector(
+            'input[type="hidden"][name="' + name + '"]'
         );
 
-    additionalFields.forEach(function (field) {
-        field.remove();
-    });
-
-
-    /* =====================================================
-       COLOR + SIZE
-       ===================================================== */
-
-    let colorInput =
-        byId("color");
-
-    let sizeInput =
-        byId("size");
-
-
-    /*
-       اگر موجودہ HTML میں Color/Size مل جائیں
-       تو انہیں ہی استعمال کریں۔
-    */
-
-
-    /* =====================================================
-       PRODUCT IMAGE
-       ===================================================== */
-
-    const productImage =
-        byId("productImage");
-
-    const noImage =
-        byId("noImage");
-
-
-    if (productImage) {
-
-        /*
-           اگر HTML میں image source خالی ہے
-           تو repository والی image لگائیں۔
-        */
-
-        if (
-            !clean(productImage.getAttribute("src"))
-        ) {
-
-            productImage.src =
-                DEFAULT_PRODUCT_IMAGE;
+        if (!field) {
+            field = document.createElement("input");
+            field.type = "hidden";
+            field.name = name;
+            form.appendChild(field);
         }
 
-
-        productImage.onload =
-            function () {
-
-                productImage.style.display =
-                    "block";
-
-                if (noImage) {
-                    noImage.style.display =
-                        "none";
-                }
-            };
-
-
-        productImage.onerror =
-            function () {
-
-                /*
-                   Image نہ ملے تو broken image
-                   icon کے بجائے صاف message دکھائیں۔
-                */
-
-                productImage.style.display =
-                    "none";
-
-                if (noImage) {
-
-                    noImage.style.display =
-                        "block";
-
-                    noImage.textContent =
-                        "Product Image";
-                }
-            };
+        field.value = clean(val);
     }
-
 
     /* =====================================================
        PRODUCT INFORMATION
        ===================================================== */
 
-    function getProductName() {
+    function productName() {
 
-        const element =
-            byId("productTitle");
+        const el = get("productTitle");
 
-        if (!element) {
+        if (!el) {
+            return "Product";
+        }
+
+        return clean(
+            el.value || el.textContent
+        ) || "Product";
+    }
+
+
+    function productDescription() {
+
+        const el = get("productDescription");
+
+        if (!el) {
             return "";
         }
 
         return clean(
-            element.value ||
-            element.textContent
+            el.value || el.textContent
         );
     }
 
 
-    function getProductDescription() {
+    function numberFromElement(id) {
 
-        const element =
-            byId("productDescription");
+        const el = get(id);
 
-        if (!element) {
-            return "";
-        }
-
-        return clean(
-            element.value ||
-            element.textContent
-        );
-    }
-
-
-    function getProductPrice() {
-
-        const element =
-            byId("productPrice");
-
-        if (!element) {
+        if (!el) {
             return 0;
         }
 
-        return numberFromText(
-            element.value ||
-            element.textContent
+        const raw = clean(
+            el.value || el.textContent
         );
-    }
 
-
-    function getDeliveryCharges() {
-
-        const element =
-            byId("deliveryPrice");
-
-        if (!element) {
-            return 0;
-        }
-
-        return numberFromText(
-            element.value ||
-            element.textContent
+        const number = parseFloat(
+            raw.replace(/[^0-9.]/g, "")
         );
+
+        return isNaN(number) ? 0 : number;
     }
 
 
-    /* =====================================================
-       PLATFORM
-       ===================================================== */
-
-    function getPlatform() {
-
-        const platform =
-            byId("platform");
-
-        if (platform) {
-
-            return clean(
-                platform.value ||
-                platform.textContent
-            );
-        }
-
-        return "Markaz";
+    function productPrice() {
+        return numberFromElement("productPrice");
     }
 
 
-    /* =====================================================
-       PRODUCT LINK
-       ===================================================== */
-
-    function getProductLink() {
-
-        const field =
-            form.querySelector(
-                '[name="Product_Link"]'
-            );
-
-        if (
-            field &&
-            clean(field.value)
-        ) {
-
-            return clean(field.value);
-        }
-
-        return window.location.href;
+    function deliveryPrice() {
+        return numberFromElement("deliveryPrice");
     }
 
 
@@ -391,31 +118,17 @@ document.addEventListener("DOMContentLoaded", function () {
        QUANTITY
        ===================================================== */
 
-    function getQuantity() {
+    function quantity() {
 
-        const quantity =
-            byId("quantity");
+        const el = get("quantity");
 
-        if (!quantity) {
+        if (!el) {
             return 1;
         }
 
-        let number =
-            parseInt(
-                quantity.value,
-                10
-            );
+        const q = parseInt(el.value, 10);
 
-        if (
-            isNaN(number) ||
-            number < 1
-        ) {
-            number = 1;
-        }
-
-        quantity.value = number;
-
-        return number;
+        return q > 0 ? q : 1;
     }
 
 
@@ -425,313 +138,207 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calculateTotal() {
 
-        const price =
-            getProductPrice();
-
-        const delivery =
-            getDeliveryCharges();
-
-        const quantity =
-            getQuantity();
-
-        /*
-           Product price × quantity
-           پھر delivery charges
-        */
-
         const total =
-            (price * quantity) +
-            delivery;
+            (productPrice() * quantity()) +
+            deliveryPrice();
 
-
-        /* HTML میں total update */
-
-        const totalElement =
-            byId("totalPrice");
-
-        if (totalElement) {
-
-            totalElement.textContent =
-                "Rs. " +
-                total.toLocaleString(
-                    "en-PK"
-                );
-        }
-
-
-        /* Email field */
-
-        hiddenField(
-            "Total_Amount",
-            "Rs. " +
-            total.toLocaleString(
-                "en-PK"
-            )
+        setHidden(
+            "Product_Price",
+            "Rs. " + productPrice()
         );
 
+        setHidden(
+            "Delivery_Charges",
+            "Rs. " + deliveryPrice()
+        );
+
+        setHidden(
+            "Total_Amount",
+            "Rs. " + total
+        );
+
+        const totalDisplay = get("totalPrice");
+
+        if (totalDisplay) {
+            totalDisplay.textContent =
+                "Rs. " + total;
+        }
 
         return total;
     }
 
 
     /* =====================================================
-       PREPARE ORDER DATA
+       PLATFORM
+       ===================================================== */
+
+    function platform() {
+
+        const el = get("platform");
+
+        if (!el) {
+            return "Markaz";
+        }
+
+        return clean(el.value) || "Markaz";
+    }
+
+
+    /* =====================================================
+       PRODUCT LINK
+       ===================================================== */
+
+    function productLink() {
+
+        const hidden = form.querySelector(
+            'input[name="Product_Link"]'
+        );
+
+        if (hidden && clean(hidden.value)) {
+            return clean(hidden.value);
+        }
+
+        return window.location.href;
+    }
+
+
+    /* =====================================================
+       PREPARE ORDER
        ===================================================== */
 
     function prepareOrder() {
 
         const customerName =
-            valueOf("customerName");
+            value("customerName");
 
         const customerPhone =
-            valueOf("customerPhone");
+            value("customerPhone");
 
-        const deliveryAddress =
-            valueOf("address");
-
-        const quantity =
-            getQuantity();
+        const address =
+            value("address");
 
         const color =
-            colorInput
-                ? clean(colorInput.value)
-                : "";
+            value("color");
 
         const size =
-            sizeInput
-                ? clean(sizeInput.value)
-                : "";
+            value("size");
 
+        /* -------------------------------------------------
+           CUSTOMER
+           ------------------------------------------------- */
 
-        /* =================================================
-           ORDER ID
-           ================================================= */
-
-        let orderId =
-            clean(
-                customerPhone
-            );
-
-        if (!orderId) {
-
-            orderId =
-                "JT-" +
-                Date.now();
-        }
-
-
-        hiddenField(
+        setHidden(
             "Order_ID",
-            orderId
+            customerPhone || "New Order"
         );
 
-
-        /* =================================================
-           CUSTOMER
-           ================================================= */
-
-        hiddenField(
+        setHidden(
             "Customer_Name",
             customerName
         );
 
-
-        hiddenField(
+        setHidden(
             "Mobile_WhatsApp",
             customerPhone
         );
 
-
-        hiddenField(
+        setHidden(
             "Delivery_Address",
-            deliveryAddress
+            address
         );
 
-
-        /* =================================================
+        /* -------------------------------------------------
            PLATFORM
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Platform",
-            getPlatform()
+            platform()
         );
 
-
-        /* =================================================
+        /* -------------------------------------------------
            PRODUCT
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Product",
-            getProductName()
+            productName()
         );
 
-
-        hiddenField(
+        setHidden(
             "Product_Description",
-            getProductDescription()
+            productDescription()
         );
 
-
-        /* =================================================
+        /* -------------------------------------------------
            COLOR
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Color",
             color || "Not Required"
         );
 
-
-        /* =================================================
+        /* -------------------------------------------------
            SIZE
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Size",
             size || "Not Required"
         );
 
-
-        /* =================================================
+        /* -------------------------------------------------
            QUANTITY
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Quantity",
-            quantity
+            quantity()
         );
 
-
-        /* =================================================
-           PRICE
-           ================================================= */
-
-        hiddenField(
-            "Product_Price",
-            "Rs. " +
-            getProductPrice().toLocaleString(
-                "en-PK"
-            )
-        );
-
-
-        hiddenField(
-            "Delivery_Charges",
-            "Rs. " +
-            getDeliveryCharges().toLocaleString(
-                "en-PK"
-            )
-        );
-
-
-        /* =================================================
-           TOTAL
-           ================================================= */
+        /* -------------------------------------------------
+           PRICES
+           ------------------------------------------------- */
 
         calculateTotal();
 
-
-        /* =================================================
+        /* -------------------------------------------------
            PRODUCT LINK
-           ================================================= */
+           ------------------------------------------------- */
 
-        hiddenField(
+        setHidden(
             "Product_Link",
-            getProductLink()
+            productLink()
         );
+
+        /* -------------------------------------------------
+           REMOVE OLD ADDITIONAL MESSAGE IF IT EXISTS
+           ------------------------------------------------- */
+
+        const oldMessage =
+            form.querySelector(
+                '[name="Additional_Message"]'
+            );
+
+        if (oldMessage) {
+            oldMessage.remove();
+        }
     }
 
 
     /* =====================================================
-       SUCCESS / ERROR MESSAGE
+       LIVE TOTAL
        ===================================================== */
 
-    let result =
-        byId("result");
+    const quantityField =
+        get("quantity");
 
+    if (quantityField) {
 
-    if (!result) {
-
-        result =
-            document.createElement("div");
-
-        result.id = "result";
-        result.className = "result";
-        result.setAttribute(
-            "role",
-            "status"
-        );
-
-        result.setAttribute(
-            "aria-live",
-            "polite"
-        );
-
-        form.appendChild(result);
-    }
-
-
-    function showSuccess(message) {
-
-        result.className =
-            "result success";
-
-        result.textContent =
-            message;
-
-        result.style.display =
-            "block";
-    }
-
-
-    function showError(message) {
-
-        result.className =
-            "result error";
-
-        result.textContent =
-            message;
-
-        result.style.display =
-            "block";
-    }
-
-
-    function clearResult() {
-
-        result.className =
-            "result";
-
-        result.textContent = "";
-
-        result.style.display =
-            "none";
-    }
-
-
-    /* =====================================================
-       SUBMIT BUTTON
-       ===================================================== */
-
-    const submitButton =
-        byId("submitButton");
-
-
-    /* =====================================================
-       QUANTITY LIVE UPDATE
-       ===================================================== */
-
-    const quantity =
-        byId("quantity");
-
-    if (quantity) {
-
-        quantity.addEventListener(
+        quantityField.addEventListener(
             "input",
             function () {
-
                 calculateTotal();
             }
         );
@@ -739,18 +346,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       COLOR LIVE UPDATE
+       LIVE COLOR
        ===================================================== */
 
-    if (colorInput) {
+    const colorField =
+        get("color");
 
-        colorInput.addEventListener(
+    if (colorField) {
+
+        colorField.addEventListener(
             "input",
             function () {
 
-                hiddenField(
+                setHidden(
                     "Color",
-                    clean(colorInput.value) ||
+                    clean(colorField.value) ||
                     "Not Required"
                 );
             }
@@ -759,18 +369,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       SIZE LIVE UPDATE
+       LIVE SIZE
        ===================================================== */
 
-    if (sizeInput) {
+    const sizeField =
+        get("size");
 
-        sizeInput.addEventListener(
+    if (sizeField) {
+
+        sizeField.addEventListener(
             "input",
             function () {
 
-                hiddenField(
+                setHidden(
                     "Size",
-                    clean(sizeInput.value) ||
+                    clean(sizeField.value) ||
                     "Not Required"
                 );
             }
@@ -779,27 +392,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       PHONE LIVE UPDATE
+       PHONE
        ===================================================== */
 
-    const phone =
-        byId("customerPhone");
+    const phoneField =
+        get("customerPhone");
 
-    if (phone) {
+    if (phoneField) {
 
-        phone.addEventListener(
+        phoneField.addEventListener(
             "input",
             function () {
 
-                hiddenField(
-                    "Mobile_WhatsApp",
-                    phone.value
+                setHidden(
+                    "Order_ID",
+                    clean(phoneField.value) ||
+                    "New Order"
                 );
 
-                hiddenField(
-                    "Order_ID",
-                    clean(phone.value) ||
-                    "JT-" + Date.now()
+                setHidden(
+                    "Mobile_WhatsApp",
+                    clean(phoneField.value)
                 );
             }
         );
@@ -807,210 +420,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FINAL AJAX SUBMIT
+       FORM SUBMIT
        ===================================================== */
 
     form.addEventListener(
         "submit",
-        async function (event) {
-
-            /*
-               Browser کا normal FormSubmit redirect
-               روک دیا گیا ہے۔
-            */
-
-            event.preventDefault();
-
-            clearResult();
-
-
-            /* ---------------------------------------------
-               Browser validation
-               --------------------------------------------- */
-
-            if (!form.checkValidity()) {
-
-                form.reportValidity();
-
-                showError(
-                    "براہِ کرم تمام ضروری معلومات مکمل کریں۔"
-                );
-
-                return;
-            }
-
-
-            /* ---------------------------------------------
-               Prepare all data
-               --------------------------------------------- */
+        function () {
 
             prepareOrder();
 
-
-            /* ---------------------------------------------
-               Button loading
-               --------------------------------------------- */
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.dataset.originalText =
-                    submitButton.textContent;
-
-                submitButton.textContent =
-                    "Order Submit ہو رہا ہے...";
-            }
-
-
-            try {
-
-                /* -----------------------------------------
-                   Send to FormSubmit
-                   ----------------------------------------- */
-
-                const formData =
-                    new FormData(form);
-
-
-                const response =
-                    await fetch(
-                        FORM_SUBMIT_URL,
-                        {
-                            method: "POST",
-                            body: formData,
-                            headers: {
-                                "Accept":
-                                    "application/json"
-                            }
-                        }
-                    );
-
-
-                let data = null;
-
-
-                try {
-
-                    data =
-                        await response.json();
-
-                } catch (jsonError) {
-
-                    data = null;
-                }
-
-
-                /* -----------------------------------------
-                   SUCCESS
-                   ----------------------------------------- */
-
-                if (
-                    response.ok &&
-                    (
-                        !data ||
-                        data.success !== false
-                    )
-                ) {
-
-                    showSuccess(
-                        "✅ آپ کا Order کامیابی سے Submit ہو گیا ہے۔ ہماری ٹیم آپ سے جلد رابطہ کرے گی۔"
-                    );
-
-
-                    /*
-                       Customer fields clear کریں،
-                       مگر product information برقرار رہے۔
-                    */
-
-                    const name =
-                        byId("customerName");
-
-                    const customerPhone =
-                        byId("customerPhone");
-
-                    const address =
-                        byId("address");
-
-                    if (name) {
-                        name.value = "";
-                    }
-
-                    if (customerPhone) {
-                        customerPhone.value = "";
-                    }
-
-                    if (address) {
-                        address.value = "";
-                    }
-
-                    if (colorInput) {
-                        colorInput.value = "";
-                    }
-
-                    if (sizeInput) {
-                        sizeInput.value = "";
-                    }
-
-                    if (quantity) {
-                        quantity.value = 1;
-                    }
-
-
-                    calculateTotal();
-
-
-                    /*
-                       سبز message کو کچھ دیر screen پر رکھیں۔
-                    */
-
-                    window.scrollTo({
-                        top:
-                            result.getBoundingClientRect().top +
-                            window.scrollY -
-                            120,
-                        behavior: "smooth"
-                    });
-
-
-                } else {
-
-                    throw new Error(
-                        (
-                            data &&
-                            data.message
-                        ) ||
-                        "FormSubmit نے order قبول نہیں کیا۔"
-                    );
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "Order submission error:",
-                    error
-                );
-
-
-                showError(
-                    "❌ Order Submit نہیں ہو سکا۔ براہِ کرم Internet connection چیک کرکے دوبارہ کوشش کریں۔"
-                );
-
-
-            } finally {
-
-                if (submitButton) {
-
-                    submitButton.disabled =
-                        false;
-
-                    submitButton.textContent =
-                        submitButton.dataset.originalText ||
-                        "Order Final Submit کریں";
-                }
-            }
+            /*
+               FormSubmit کو submit ہونے دیا جا رہا ہے۔
+               کوئی preventDefault نہیں لگایا گیا۔
+            */
 
         }
     );
@@ -1021,12 +443,5 @@ document.addEventListener("DOMContentLoaded", function () {
        ===================================================== */
 
     prepareOrder();
-
-    calculateTotal();
-
-
-    console.log(
-        "Janjua Traders Order System Loaded Successfully."
-    );
 
 });
