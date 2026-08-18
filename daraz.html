@@ -3,22 +3,15 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>
-        Janjua Traders - Daraz
-    </title>
+<title>Janjua Traders - Daraz</title>
 
-    <!-- Daraz CSS -->
-    <link
-        rel="stylesheet"
-        href="zstyle.css"
-    >
+<link rel="stylesheet"
+      href="daraz.css">
 
 </head>
 
@@ -26,23 +19,19 @@
 <body>
 
 
-<header class="hero">
+<header>
 
-    <div class="container">
-
-        <h1>
-            JANJUA TRADERS
-        </h1>
-
-        <p>
-            Daraz Digital Marketing & Order Platform
-        </p>
-
-        <div class="platform-badge">
-            DARAZ
-        </div>
-
+    <div class="brand">
+        JANJUA TRADERS
     </div>
+
+    <p class="tagline">
+        Digital Marketing Platform
+    </p>
+
+    <p class="subtag">
+        Daraz
+    </p>
 
 </header>
 
@@ -51,20 +40,30 @@
 <main class="container">
 
 
-<!-- =========================
-     PRODUCT VIEW
-========================= -->
+<!-- =========================================
+     PRODUCT DETAILS
+========================================= -->
 
-<section id="productView">
+<section class="card">
+
+    <h1>
+        Product Details
+    </h1>
 
 
     <div class="product-image-wrap">
 
         <img
             id="productImage"
-            src=""
-            alt="Daraz Product"
+            class="product-image"
+            src="file_00000000ee44820880d5993065f8c4c9.png"
+            alt="Product Image"
+            onerror="
+                this.style.display='none';
+                document.getElementById('noImage').style.display='flex';
+            "
         >
+
 
         <div
             id="noImage"
@@ -77,51 +76,70 @@
 
 
 
-    <div class="product-info">
+    <div style="text-align:center;">
 
-
-        <div class="platform-badge">
+        <div
+            id="platformBadge"
+            class="platform-badge"
+        >
             Daraz
         </div>
 
-
-        <h2 id="productTitle">
-            Daraz Product
-        </h2>
+    </div>
 
 
-        <p id="productDescription">
-            Product کی تفصیل یہاں نظر آئے گی۔
-        </p>
+
+    <h2 id="productTitle">
+        آپ کا Product
+    </h2>
 
 
-        <div class="price-box">
 
-            <p>
-                Product Price:
-                <strong id="productPrice">
-                    Rs. 0
-                </strong>
-            </p>
+    <p id="productDescription">
+        Product کی تفصیل یہاں نظر آئے گی۔
+    </p>
 
 
-            <p>
-                Delivery Charges:
-                <strong id="deliveryPrice">
-                    Rs. 0
-                </strong>
-            </p>
 
+    <div class="price-box">
 
-            <p>
-                Total:
-                <strong id="totalPrice">
-                    Rs. 0
-                </strong>
-            </p>
+        <div class="price-row">
+
+            <span>
+                پروڈکٹ قیمت
+            </span>
+
+            <strong id="productPrice">
+                Rs. 0
+            </strong>
 
         </div>
 
+
+        <div class="price-row">
+
+            <span>
+                Delivery Charges
+            </span>
+
+            <strong id="deliveryPrice">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+        <div class="price-row">
+
+            <span>
+                کل قابل ادائیگی
+            </span>
+
+            <strong id="totalPrice">
+                Rs. 0
+            </strong>
+
+        </div>
 
     </div>
 
@@ -129,12 +147,12 @@
 
 
 
-<!-- =========================
+
+<!-- =========================================
      ORDER FORM
-========================= -->
+========================================= -->
 
 <section class="card">
-
 
     <h2>
         Daraz Order / Customer Request
@@ -147,7 +165,98 @@
     >
 
 
-        <!-- Customer Name -->
+        <!-- ORDER INFORMATION -->
+
+        <input
+            type="hidden"
+            name="Order_ID"
+            id="orderId"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Order_Date"
+            id="orderDate"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Order_Time"
+            id="orderTime"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product"
+            id="formProduct"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Description"
+            id="formDescription"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Price"
+            id="formProductPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Delivery_Charges"
+            id="formDeliveryPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Total"
+            id="formProductTotal"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Total_Amount"
+            id="formTotalPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Link"
+            id="formProductLink"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Platform"
+            id="formPlatform"
+            value="Daraz"
+        >
+
+
+
+        <!-- CUSTOMER NAME -->
 
         <label for="customerName">
 
@@ -170,7 +279,7 @@
 
 
 
-        <!-- Mobile -->
+        <!-- MOBILE -->
 
         <label for="customerPhone">
 
@@ -194,7 +303,7 @@
 
 
 
-        <!-- Address -->
+        <!-- ADDRESS -->
 
         <label for="address">
 
@@ -207,16 +316,39 @@
         </label>
 
 
-        <textarea
+        <input
             id="address"
             name="Delivery_Address"
+            type="text"
             placeholder="مکمل ڈیلیوری ایڈریس لکھیں"
             required
-        ></textarea>
+        >
 
 
 
-        <!-- Quantity -->
+        <!-- PLATFORM -->
+
+        <label for="platform">
+
+            Platform
+
+        </label>
+
+
+        <select
+            id="platform"
+            name="Platform"
+        >
+
+            <option value="Daraz">
+                Daraz
+            </option>
+
+        </select>
+
+
+
+        <!-- QUANTITY -->
 
         <label for="quantity">
 
@@ -242,64 +374,75 @@
 
 
 
-        <!-- Color -->
+        <!-- COLOR / SIZE -->
 
-        <label for="color">
+        <h3 style="margin-top:25px;margin-bottom:5px;">
 
-            Color / رنگ
+            Product Color & Size
 
-        </label>
-
-
-        <input
-            id="color"
-            name="Color"
-            type="text"
-            placeholder="مثلاً Black, White, Blue"
-        >
+        </h3>
 
 
+        <p class="hint">
 
-        <!-- Size -->
+            اگر Color یا Size لاگو نہیں ہوتا
+            تو متعلقہ خانہ خالی چھوڑ دیں۔
 
-        <label for="size">
-
-            Size / سائز
-
-        </label>
-
-
-        <input
-            id="size"
-            name="Size"
-            type="text"
-            placeholder="مثلاً 40, 41, L, XL"
-        >
+        </p>
 
 
 
-        <!-- Daraz Product Link -->
-
-        <label for="productLink">
-
-            Daraz Product Link
-
-        </label>
+        <div class="choice-grid">
 
 
-        <input
-            id="productLink"
-            name="Product_Link"
-            type="url"
-            placeholder="Daraz product link"
-        >
+            <div class="choice-box">
+
+                <label for="color">
+
+                    Color / رنگ
+
+                </label>
+
+
+                <input
+                    id="color"
+                    name="Color"
+                    type="text"
+                    placeholder="مثلاً White, Black, Blue"
+                >
+
+            </div>
 
 
 
-        <!-- Submit -->
+            <div class="choice-box">
+
+                <label for="size">
+
+                    Size / سائز
+
+                </label>
+
+
+                <input
+                    id="size"
+                    name="Size"
+                    type="text"
+                    placeholder="مثلاً 40, 41, L, XL"
+                >
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
 
         <button
             id="submitButton"
+            class="submit-btn"
             type="submit"
         >
 
@@ -309,7 +452,7 @@
 
 
 
-        <!-- Result -->
+        <!-- RESULT -->
 
         <div
             id="result"
@@ -325,24 +468,33 @@
 
 
 
-<!-- =========================
-     DARAZ PLATFORM
-========================= -->
+
+<!-- =========================================
+     DARAZ INFORMATION
+========================================= -->
 
 <section class="card">
 
-
     <h2>
-        Daraz Product System
+        Daraz
     </h2>
 
 
     <p>
-        اس system میں Daraz product کی
-        معلومات، قیمت، لنک اور customer
-        order information ایک جگہ manage کی جا سکے گی۔
+
+        یہ Janjua Traders کا Daraz
+        order workflow ہے۔
+
     </p>
 
+
+    <p class="success-note">
+
+        Customer کی معلومات، Product،
+        Quantity، Color، Size، قیمت اور
+        Order ID محفوظ کیے جائیں گے۔
+
+    </p>
 
 </section>
 
@@ -357,17 +509,17 @@
         Janjua Traders
     </strong>
 
-    — Daraz Digital Marketing Platform
+    — Daraz Digital Marketing
 
 </footer>
 
 
 
-<!-- Daraz JavaScript -->
+<!-- =========================================
+     DARAZ JAVASCRIPT
+========================================= -->
 
-<script
-    src="zscript.js"
-></script>
+<script src="daraz.js"></script>
 
 
 </body>
