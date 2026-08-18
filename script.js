@@ -1,9 +1,11 @@
 /* =========================================================
    JANJUA TRADERS
-   CLEAN ORDER SCRIPT
-   - No duplicate Color / Size fields
-   - Uses Color / Size already present in index.html
-   - Prepares complete order for FormSubmit
+   FINAL ORDER SCRIPT
+   - No duplicate Color / Size
+   - Correct Product Price
+   - Correct Delivery Charges
+   - Correct Total
+   - Complete Gmail/FormSubmit Order
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -16,25 +18,45 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* =====================================================
+       CURRENT PRODUCT PRICE
+       ===================================================== */
+
+    const CURRENT_PRODUCT_PRICE = 42999;
+    const CURRENT_DELIVERY_CHARGES = 250;
+
+
+    /* =====================================================
        HELPERS
        ===================================================== */
 
     function clean(value) {
+
         if (value === null || value === undefined) {
             return "";
         }
 
-        return String(value).replace(/\s+/g, " ").trim();
+        return String(value)
+            .replace(/\s+/g, " ")
+            .trim();
     }
+
 
     function get(id) {
         return document.getElementById(id);
     }
 
+
     function value(id) {
+
         const el = get(id);
-        return el ? clean(el.value) : "";
+
+        if (!el) {
+            return "";
+        }
+
+        return clean(el.value);
     }
+
 
     function setHidden(name, val) {
 
@@ -43,14 +65,18 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         if (!field) {
+
             field = document.createElement("input");
+
             field.type = "hidden";
             field.name = name;
+
             form.appendChild(field);
         }
 
         field.value = clean(val);
     }
+
 
     /* =====================================================
        PRODUCT INFORMATION
@@ -84,12 +110,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    function numberFromElement(id) {
+    /* =====================================================
+       PRICE
+       ===================================================== */
 
-        const el = get(id);
+    function productPrice() {
+
+        const el = get("productPrice");
 
         if (!el) {
-            return 0;
+            return CURRENT_PRODUCT_PRICE;
         }
 
         const raw = clean(
@@ -100,17 +130,87 @@ document.addEventListener("DOMContentLoaded", function () {
             raw.replace(/[^0-9.]/g, "")
         );
 
-        return isNaN(number) ? 0 : number;
-    }
+        /*
+           اگر HTML میں Rs. 0 ہے
+           تو اصل موجودہ قیمت استعمال ہوگی۔
+        */
 
+        if (!number || number <= 0) {
+            return CURRENT_PRODUCT_PRICE;
+        }
 
-    function productPrice() {
-        return numberFromElement("productPrice");
+        return number;
     }
 
 
     function deliveryPrice() {
-        return numberFromElement("deliveryPrice");
+
+        const el = get("deliveryPrice");
+
+        if (!el) {
+            return CURRENT_DELIVERY_CHARGES;
+        }
+
+        const raw = clean(
+            el.value || el.textContent
+        );
+
+        const number = parseFloat(
+            raw.replace(/[^0-9.]/g, "")
+        );
+
+        if (!number || number < 0) {
+            return CURRENT_DELIVERY_CHARGES;
+        }
+
+        return number;
+    }
+
+
+    /* =====================================================
+       UPDATE PRICE ON SCREEN
+       ===================================================== */
+
+    function updatePriceDisplay() {
+
+        const price = productPrice();
+        const delivery = deliveryPrice();
+        const qty = quantity();
+
+        const total =
+            (price * qty) + delivery;
+
+
+        const priceDisplay =
+            get("productPrice");
+
+        if (priceDisplay) {
+
+            priceDisplay.textContent =
+                "Rs. " + price.toLocaleString("en-PK");
+        }
+
+
+        const deliveryDisplay =
+            get("deliveryPrice");
+
+        if (deliveryDisplay) {
+
+            deliveryDisplay.textContent =
+                "Rs. " + delivery.toLocaleString("en-PK");
+        }
+
+
+        const totalDisplay =
+            get("totalPrice");
+
+        if (totalDisplay) {
+
+            totalDisplay.textContent =
+                "Rs. " + total.toLocaleString("en-PK");
+        }
+
+        return total;
     }
 
 
@@ -126,7 +226,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return 1;
         }
 
-        const q = parseInt(el.value, 10);
+        const q = parseInt(
+            el.value,
+            10
+        );
 
         return q > 0 ? q : 1;
     }
@@ -138,31 +241,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calculateTotal() {
 
-        const total =
-            (productPrice() * quantity()) +
+        const price =
+            productPrice();
+
+        const delivery =
             deliveryPrice();
+
+        const qty =
+            quantity();
+
+        const total =
+            (price * qty) + delivery;
+
 
         setHidden(
             "Product_Price",
-            "Rs. " + productPrice()
+            "Rs. " +
+            price.toLocaleString("en-PK")
         );
+
 
         setHidden(
             "Delivery_Charges",
-            "Rs. " + deliveryPrice()
+            "Rs. " +
+            delivery.toLocaleString("en-PK")
         );
+
 
         setHidden(
             "Total_Amount",
-            "Rs. " + total
+            "Rs. " +
+            total.toLocaleString("en-PK")
         );
 
-        const totalDisplay = get("totalPrice");
 
-        if (totalDisplay) {
-            totalDisplay.textContent =
-                "Rs. " + total;
-        }
+        updatePriceDisplay();
 
         return total;
     }
@@ -174,13 +287,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function platform() {
 
-        const el = get("platform");
+        const el =
+            get("platform");
 
         if (!el) {
             return "Markaz";
         }
 
-        return clean(el.value) || "Markaz";
+        return clean(
+            el.value
+        ) || "Markaz";
     }
 
 
@@ -190,12 +306,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function productLink() {
 
-        const hidden = form.querySelector(
-            'input[name="Product_Link"]'
-        );
+        const hidden =
+            form.querySelector(
+                'input[name="Product_Link"]'
+            );
 
-        if (hidden && clean(hidden.value)) {
-            return clean(hidden.value);
+        if (
+            hidden &&
+            clean(hidden.value)
+        ) {
+
+            return clean(
+                hidden.value
+            );
         }
 
         return window.location.href;
@@ -223,98 +346,96 @@ document.addEventListener("DOMContentLoaded", function () {
         const size =
             value("size");
 
-        /* -------------------------------------------------
-           CUSTOMER
-           ------------------------------------------------- */
+
+        /* CUSTOMER */
 
         setHidden(
             "Order_ID",
-            customerPhone || "New Order"
+            customerPhone ||
+            "New Order"
         );
+
 
         setHidden(
             "Customer_Name",
             customerName
         );
 
+
         setHidden(
             "Mobile_WhatsApp",
             customerPhone
         );
+
 
         setHidden(
             "Delivery_Address",
             address
         );
 
-        /* -------------------------------------------------
-           PLATFORM
-           ------------------------------------------------- */
+
+        /* PLATFORM */
 
         setHidden(
             "Platform",
             platform()
         );
 
-        /* -------------------------------------------------
-           PRODUCT
-           ------------------------------------------------- */
+
+        /* PRODUCT */
 
         setHidden(
             "Product",
             productName()
         );
 
+
         setHidden(
             "Product_Description",
             productDescription()
         );
 
-        /* -------------------------------------------------
-           COLOR
-           ------------------------------------------------- */
+
+        /* COLOR */
 
         setHidden(
             "Color",
-            color || "Not Required"
+            color ||
+            "Not Required"
         );
 
-        /* -------------------------------------------------
-           SIZE
-           ------------------------------------------------- */
+
+        /* SIZE */
 
         setHidden(
             "Size",
-            size || "Not Required"
+            size ||
+            "Not Required"
         );
 
-        /* -------------------------------------------------
-           QUANTITY
-           ------------------------------------------------- */
+
+        /* QUANTITY */
 
         setHidden(
             "Quantity",
             quantity()
         );
 
-        /* -------------------------------------------------
-           PRICES
-           ------------------------------------------------- */
+
+        /* PRICE + TOTAL */
 
         calculateTotal();
 
-        /* -------------------------------------------------
-           PRODUCT LINK
-           ------------------------------------------------- */
+
+        /* PRODUCT LINK */
 
         setHidden(
             "Product_Link",
             productLink()
         );
 
-        /* -------------------------------------------------
-           REMOVE OLD ADDITIONAL MESSAGE IF IT EXISTS
-           ------------------------------------------------- */
+
+        /* REMOVE OLD ADDITIONAL MESSAGE */
 
         const oldMessage =
             form.querySelector(
@@ -328,7 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       LIVE TOTAL
+       QUANTITY LIVE UPDATE
        ===================================================== */
 
     const quantityField =
@@ -339,14 +460,16 @@ document.addEventListener("DOMContentLoaded", function () {
         quantityField.addEventListener(
             "input",
             function () {
+
                 calculateTotal();
+
             }
         );
     }
 
 
     /* =====================================================
-       LIVE COLOR
+       COLOR
        ===================================================== */
 
     const colorField =
@@ -363,13 +486,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     clean(colorField.value) ||
                     "Not Required"
                 );
+
             }
         );
     }
 
 
     /* =====================================================
-       LIVE SIZE
+       SIZE
        ===================================================== */
 
     const sizeField =
@@ -386,6 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     clean(sizeField.value) ||
                     "Not Required"
                 );
+
             }
         );
     }
@@ -406,21 +531,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 setHidden(
                     "Order_ID",
-                    clean(phoneField.value) ||
+                    clean(
+                        phoneField.value
+                    ) ||
                     "New Order"
                 );
 
+
                 setHidden(
                     "Mobile_WhatsApp",
-                    clean(phoneField.value)
+                    clean(
+                        phoneField.value
+                    )
                 );
+
             }
         );
     }
 
 
     /* =====================================================
-       FORM SUBMIT
+       FINAL SUBMIT
        ===================================================== */
 
     form.addEventListener(
@@ -429,19 +560,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             prepareOrder();
 
-            /*
-               FormSubmit کو submit ہونے دیا جا رہا ہے۔
-               کوئی preventDefault نہیں لگایا گیا۔
-            */
-
         }
     );
 
 
     /* =====================================================
-       INITIAL SETUP
+       INITIAL LOAD
        ===================================================== */
 
     prepareOrder();
+
+    updatePriceDisplay();
 
 });
