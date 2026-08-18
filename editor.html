@@ -1,716 +1,477 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Janjua Traders - Product Editor</title>
+<title>Janjua Traders - Image Editor</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    background:#eef0f3;
-    color:#111827;
-    font-family:Arial,"Noto Sans",sans-serif;
+body {
+    margin: 0;
+    padding: 15px;
+    font-family: Arial, "Noto Nastaliq Urdu", sans-serif;
+    background: #f1f3f6;
+    color: #222;
 }
 
-.header{
-    background:#111827;
-    color:white;
-    padding:14px;
-    text-align:center;
+h1 {
+    text-align: center;
+    font-size: 22px;
+    margin: 5px 0 18px;
 }
 
-.header h1{
-    margin:0;
-    font-size:21px;
+.editor {
+    max-width: 1100px;
+    margin: auto;
 }
 
-.header p{
-    margin:5px 0 0;
-    font-size:12px;
+.controls {
+    background: white;
+    padding: 15px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    margin-bottom: 18px;
 }
 
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:12px;
+.control-group {
+    margin-bottom: 14px;
 }
 
-.panel{
-    background:white;
-    border-radius:14px;
-    padding:14px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.section{
-    border:1px solid #ddd;
-    border-radius:11px;
-    padding:12px;
-    margin-bottom:12px;
-}
-
-.section-title{
-    font-size:16px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.field{
-    margin-bottom:11px;
-}
-
-label{
-    display:block;
-    font-weight:bold;
-    font-size:14px;
-    margin-bottom:5px;
+.control-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 input,
-select{
-    width:100%;
-    padding:10px;
-    border:1px solid #cfd3d8;
-    border-radius:8px;
-    font-size:14px;
+select,
+button,
+textarea {
+    font-family: inherit;
 }
 
-button{
-    width:100%;
-    border:0;
-    border-radius:8px;
-    padding:10px;
-    margin-top:6px;
-    font-size:13px;
-    font-weight:bold;
-    cursor:pointer;
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
 }
 
-.blue{
-    background:#2563eb;
-    color:white;
+textarea {
+    min-height: 55px;
+    resize: vertical;
 }
 
-.green{
-    background:#16a34a;
-    color:white;
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 13px;
+    margin: 3px;
+    cursor: pointer;
+    background: #222;
+    color: white;
+    font-size: 14px;
 }
 
-.dark{
-    background:#374151;
-    color:white;
+button:hover {
+    opacity: .88;
 }
 
-.gold{
-    background:#d4a017;
-    color:white;
+.btn-green {
+    background: #198754;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
+.btn-blue {
+    background: #1769aa;
 }
 
-.star-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px;
+.btn-red {
+    background: #c62828;
 }
 
-.star-buttons button{
-    margin:0;
-    background:white;
-    color:#111;
-    border:1px solid #d4a017;
+.btn-gold {
+    background: #b8860b;
 }
 
-.side-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
+.color-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
-.side-buttons button{
-    margin:0;
+.color-btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 2px solid #ddd;
 }
 
-.slider-row{
-    display:grid;
-    grid-template-columns:1fr 60px;
-    gap:10px;
-    align-items:center;
-    margin-bottom:10px;
+.star-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
-.slider-row input[type="range"]{
-    width:100%;
-    padding:0;
+.star-color {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 50%;
 }
 
-.size-value{
-    background:#f3f4f6;
-    border-radius:7px;
-    padding:8px;
-    text-align:center;
-    font-weight:bold;
+.format-row {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.custom-row{
-    display:grid;
-    grid-template-columns:1fr 110px;
-    gap:7px;
+.format-row button {
+    min-width: 48px;
 }
 
-.canvas-box{
-    background:#dfe3e8;
-    border-radius:11px;
-    padding:8px;
-    overflow:auto;
+.feature-box {
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    background: #fafafa;
 }
 
-canvas{
-    display:block;
-    margin:auto;
-    max-width:100%;
-    height:auto;
-    touch-action:none;
+.feature-title {
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-.status{
-    margin-top:8px;
-    background:#f3f4f6;
-    padding:9px;
-    border-radius:7px;
-    font-size:12px;
-    text-align:center;
+.download-row {
+    text-align: center;
+    margin-top: 15px;
 }
 
-.link-box{
-    margin-top:6px;
-    background:#f3f4f6;
-    padding:8px;
-    border-radius:7px;
-    direction:ltr;
-    text-align:left;
-    word-break:break-all;
-    font-size:11px;
+#canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    background: white;
+    box-shadow: 0 5px 25px rgba(0,0,0,.18);
 }
 
-@media(max-width:700px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .star-buttons{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .custom-row{
-        grid-template-columns:1fr;
-    }
-
+.preview-area {
+    background: #ddd;
+    padding: 15px;
+    border-radius: 14px;
+    overflow: auto;
 }
 
+.small-note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.logo-preview {
+    max-width: 100px;
+    max-height: 60px;
+    display: none;
+    margin-top: 8px;
+}
+
+.direction-row {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
 </style>
-
 </head>
-
 
 <body>
 
+<div class="editor">
 
-<div class="header">
+<h1>Janjua Traders — Digital Marketing Image Editor</h1>
 
-<h1>Janjua Traders</h1>
+<div class="controls">
 
-<p>Digital Marketing Product Editor</p>
-
+<!-- IMAGE -->
+<div class="control-group">
+<label>1. پروڈکٹ تصویر منتخب کریں</label>
+<input type="file" id="imageInput" accept="image/*">
 </div>
 
-
-<div class="container">
-
-<div class="panel">
-
-
-<!-- =====================================================
-IMAGE
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-1. تصویر اور لوگو
+<!-- LOGO -->
+<div class="control-group">
+<label>2. اپنا Monogram / Logo</label>
+<input type="file" id="logoInput" accept="image/*">
+<img id="logoPreview" class="logo-preview">
 </div>
 
-<div class="field">
+<!-- PANEL SIDE -->
+<div class="control-group">
+<label>3. معلومات والا Panel</label>
 
-<label>
-Product Image
-</label>
-
-<input
-type="file"
-id="imageInput"
-accept="image/*">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Janjua Traders Logo / Monogram
-</label>
-
-<input
-type="file"
-id="logoInput"
-accept="image/*">
-
-</div>
-
-
-<div class="grid">
-
-<button
-class="dark"
-id="logoBigger">
-Logo بڑا کریں
+<div class="direction-row">
+<button onclick="setPanelSide('right')" class="btn-blue">
+دائیں طرف
 </button>
 
-<button
-class="dark"
-id="logoSmaller">
-Logo چھوٹا کریں
+<button onclick="setPanelSide('left')" class="btn-blue">
+بائیں طرف
 </button>
-
+</div>
 </div>
 
-</div>
+<!-- PANEL BACKGROUND -->
+<div class="control-group">
+<label>4. Panel Background</label>
 
-
-<!-- =====================================================
-PRODUCT
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-2. Product Information
-</div>
-
-
-<div class="field">
-
-<label>
-Product Name
-</label>
-
-<input
-type="text"
-id="productName"
-placeholder="مثلاً Premium Watch">
-
-<button
-class="blue"
-id="addProduct">
-Product Name تصویر پر لگائیں
-</button>
-
-</div>
-
-
-<div class="field">
-
-<label>
-Country
-</label>
-
-<select id="country">
-
-<option value="">
-ملک منتخب کریں
-</option>
-
-<option value="پاکستان">
-پاکستان
-</option>
-
-<option value="چین">
-چین
-</option>
-
-<option value="ایران">
-ایران
-</option>
-
-<option value="سعودی عرب">
-سعودی عرب
-</option>
-
-<option value="فرانس">
-فرانس
-</option>
-
-<option value="ترکی">
-ترکی
-</option>
-
-<option value="جرمنی">
-جرمنی
-</option>
-
-<option value="اٹلی">
-اٹلی
-</option>
-
-<option value="جاپان">
-جاپان
-</option>
-
-<option value="دیگر">
-دیگر
-</option>
-
+<select id="panelBackground" onchange="draw()">
+<option value="dark">Dark Premium</option>
+<option value="light">White</option>
+<option value="gold">Golden</option>
+<option value="black">Black</option>
+<option value="blue">Blue</option>
+<option value="gradient">Premium Gradient</option>
 </select>
+</div>
 
-<button
-class="blue"
-id="addCountry">
-Country تصویر پر لگائیں
+<!-- TEXT -->
+<div class="control-group">
+
+<label>5. عبارت</label>
+
+<textarea
+id="featureText"
+placeholder="مثلاً: مضبوط اور پائیدار کوالٹی"
+></textarea>
+
+<div class="format-row">
+
+<button onclick="addFeature()"
+class="btn-green">
+⭐ Star کے ساتھ شامل کریں
+</button>
+
+<button onclick="clearText()"
+class="btn-red">
+صاف کریں
 </button>
 
 </div>
 
+</div>
 
-<div class="field">
+<!-- TEXT SIZE -->
+<div class="control-group">
 
 <label>
-Price
+Text Size:
+<span id="fontSizeValue">32</span> px
 </label>
 
 <input
-type="text"
-id="price"
-placeholder="Rs. 2,999">
-
-<button
-class="blue"
-id="addPrice">
-Price تصویر پر لگائیں
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-TEXT SIZE
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-3. Text Size
-</div>
-
-
-<div class="slider-row">
-
-<input
 type="range"
-id="textSize"
-min="10"
-max="30"
-value="14">
-
-<div
-class="size-value"
-id="textSizeValue">
-14
-</div>
+id="fontSize"
+min="18"
+max="70"
+value="32"
+oninput="updateFontSize()"
+>
 
 </div>
 
+<!-- TEXT COLOR -->
+<div class="control-group">
+
+<label>Text Color</label>
+
+<div class="color-row">
+
+<button class="color-btn"
+style="background:#ffffff"
+onclick="setTextColor('#ffffff')"></button>
+
+<button class="color-btn"
+style="background:#000000"
+onclick="setTextColor('#000000')"></button>
+
+<button class="color-btn"
+style="background:#ff0000"
+onclick="setTextColor('#ff0000')"></button>
+
+<button class="color-btn"
+style="background:#ffd700"
+onclick="setTextColor('#ffd700')"></button>
+
+<button class="color-btn"
+style="background:#00aaff"
+onclick="setTextColor('#00aaff')"></button>
+
+<button class="color-btn"
+style="background:#00c853"
+onclick="setTextColor('#00c853')"></button>
+
+<button class="color-btn"
+style="background:#ff6d00"
+onclick="setTextColor('#ff6d00')"></button>
+
+<button class="color-btn"
+style="background:#e91e63"
+onclick="setTextColor('#e91e63')"></button>
+
+<button class="color-btn"
+style="background:#9c27b0"
+onclick="setTextColor('#9c27b0')"></button>
 
 </div>
-
-
-<!-- =====================================================
-STAR SIZE
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-4. Star Size
 </div>
 
+<!-- FORMATTING -->
+<div class="control-group">
 
-<div class="slider-row">
+<label>Text Style</label>
 
-<input
-type="range"
-id="starSize"
-min="12"
-max="35"
-value="18">
+<div class="format-row">
 
-<div
-class="size-value"
-id="starSizeValue">
-18
-</div>
-
-</div>
-
-
-</div>
-
-
-<!-- =====================================================
-READY STARS
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-5. Ready Star Points
-</div>
-
-
-<div class="star-buttons">
-
-<button data-star="مضبوط چیز">
-⭐ مضبوط چیز
+<button onclick="toggleBold()">
+<b>B</b>
 </button>
 
-<button data-star="پائیدار">
-⭐ پائیدار
+<button onclick="toggleItalic()">
+<i>I</i>
 </button>
 
-<button data-star="بہترین کوالٹی">
-⭐ بہترین کوالٹی
-</button>
-
-<button data-star="کم قیمت">
-⭐ کم قیمت
-</button>
-
-<button data-star="Premium Quality">
-⭐ Premium Quality
-</button>
-
-<button data-star="بہترین انتخاب">
-⭐ بہترین انتخاب
-</button>
-
-<button data-star="قابل اعتماد">
-⭐ قابل اعتماد
-</button>
-
-<button data-star="نئی پروڈکٹ">
-⭐ نئی پروڈکٹ
+<button onclick="toggleUnderline()">
+<u>U</u>
 </button>
 
 </div>
 
 </div>
 
+<!-- STAR COLOR -->
+<div class="control-group">
 
-<!-- =====================================================
-CUSTOM STAR
-===================================================== -->
+<label>Star Color</label>
 
-<div class="section">
+<div class="star-row">
 
-<div class="section-title">
-6. اپنی عبارت
+<button class="star-color"
+style="background:#ffd700"
+onclick="setStarColor('#ffd700')"></button>
+
+<button class="star-color"
+style="background:#ffffff"
+onclick="setStarColor('#ffffff')"></button>
+
+<button class="star-color"
+style="background:#000000"
+onclick="setStarColor('#000000')"></button>
+
+<button class="star-color"
+style="background:#ff0000"
+onclick="setStarColor('#ff0000')"></button>
+
+<button class="star-color"
+style="background:#00aaff"
+onclick="setStarColor('#00aaff')"></button>
+
+<button class="star-color"
+style="background:#00c853"
+onclick="setStarColor('#00c853')"></button>
+
+<button class="star-color"
+style="background:#ff6d00"
+onclick="setStarColor('#ff6d00')"></button>
+
+<button class="star-color"
+style="background:#e91e63"
+onclick="setStarColor('#e91e63')"></button>
+
 </div>
 
+</div>
 
-<div class="custom-row">
+<!-- PRODUCT INFORMATION -->
+<div class="control-group">
 
-<input
-type="text"
-id="customStar"
-placeholder="مثلاً Original Product">
+<label>Product Information</label>
 
+<div class="format-row">
+
+<button onclick="addPreset('پاکستان کی بنی ہوئی پروڈکٹ')">
+پاکستان
+</button>
+
+<button onclick="addPreset('مضبوط اور پائیدار چیز')">
+پائیداری
+</button>
+
+<button onclick="addPreset('بہترین کوالٹی')">
+کوالٹی
+</button>
+
+<button onclick="addPreset('کم قیمت')">
+کم قیمت
+</button>
+
+<button onclick="addPreset('خوبصورت ڈیزائن')">
+ڈیزائن
+</button>
+
+<button onclick="addPreset('بہترین انتخاب')">
+بہترین انتخاب
+</button>
+
+</div>
+
+</div>
+
+<!-- REMOVE LAST -->
+<div class="control-group">
+
+<button onclick="removeLastFeature()" class="btn-red">
+آخری Star ختم کریں
+</button>
+
+<button onclick="clearFeatures()" class="btn-red">
+تمام Stars ختم کریں
+</button>
+
+</div>
+
+<!-- DOWNLOAD -->
+<div class="download-row">
 
 <button
-class="gold"
-id="addCustomStar">
-⭐ Add
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-STAR SIDE
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-7. Stars کی Side
-</div>
-
-
-<div class="side-buttons">
-
-<button
-class="dark"
-id="starsRight">
-➡️ تمام Stars دائیں
+onclick="downloadImage('jpg')"
+class="btn-green">
+JPG Download
 </button>
 
 <button
-class="dark"
-id="starsLeft">
-⬅️ تمام Stars بائیں
+onclick="downloadImage('png')"
+class="btn-blue">
+PNG Download
 </button>
 
 </div>
 
 </div>
 
+<!-- PREVIEW -->
+<div class="preview-area">
 
-<!-- =====================================================
-STAR COLOR
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-8. Star Color
-</div>
-
-
-<div class="grid">
-
-<button
-class="gold"
-id="goldStars">
-⭐ Gold
-</button>
-
-<button
-class="dark"
-id="blackStars">
-⭐ Black
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-LINK
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-9. Product Link
-</div>
-
-
-<input
-type="url"
-id="productLink"
-placeholder="https://www.daraz.pk/...">
-
-
-<div
-class="link-box"
-id="linkStatus">
-Product Link یہاں دکھائی دے گا۔
-</div>
-
-
-<button
-class="blue"
-id="copyLink">
-Product Link Copy کریں
-</button>
-
-</div>
-
-
-<!-- =====================================================
-CANVAS
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-10. اصل تصویر
-</div>
-
-
-<div class="canvas-box">
-
-<canvas
-id="canvas">
-</canvas>
-
-</div>
-
-
-<div
-class="status"
-id="status">
-پہلے Product Image منتخب کریں۔
-</div>
-
-</div>
-
-
-<!-- =====================================================
-DOWNLOAD
-===================================================== -->
-
-<div class="section">
-
-<div class="section-title">
-11. Download
-</div>
-
-
-<button
-class="green"
-id="downloadPNG">
-Download PNG
-</button>
-
-
-<button
-class="green"
-id="downloadJPG">
-Download JPG
-</button>
-
-</div>
-
+<canvas id="canvas"></canvas>
 
 </div>
 
@@ -719,114 +480,68 @@ Download JPG
 
 <script>
 
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-/* =====================================================
-BASIC
-===================================================== */
+const imageInput =
+document.getElementById("imageInput");
 
-const canvas =
-document.getElementById("canvas");
+const logoInput =
+document.getElementById("logoInput");
 
-const ctx =
-canvas.getContext("2d");
+const logoPreview =
+document.getElementById("logoPreview");
 
+const featureText =
+document.getElementById("featureText");
 
-let mainImage = null;
+const fontSize =
+document.getElementById("fontSize");
 
+let productImage = null;
 let logoImage = null;
 
-let logoScale = 1;
+let panelSide = "right";
 
-let starColor = "#D4A017";
+let textColor = "#ffffff";
+let starColor = "#ffd700";
 
-let starSide = "right";
+let currentFontSize = 32;
 
-let elements = [];
+let isBold = false;
+let isItalic = false;
+let isUnderline = false;
 
-let draggingElement = null;
-
-let dragOffsetX = 0;
-
-let dragOffsetY = 0;
-
-
-/* =====================================================
-SIZE SETTINGS
-===================================================== */
-
-let textSize =
-14;
-
-let starSize =
-18;
+let features = [];
 
 
 /* =====================================================
 IMAGE
 ===================================================== */
 
-document
-.getElementById("imageInput")
-.addEventListener(
-"change",
-function(){
+imageInput.addEventListener("change", function(e) {
 
-    const file =
-    this.files[0];
+    const file = e.target.files[0];
 
-    if(!file){
-        return;
-    }
+    if (!file) return;
 
+    const reader = new FileReader();
 
-    const reader =
-    new FileReader();
+    reader.onload = function(event) {
 
+        const img = new Image();
 
-    reader.onload =
-    function(e){
+        img.onload = function() {
 
-        const img =
-        new Image();
-
-
-        img.onload =
-        function(){
-
-            mainImage =
-            img;
-
-
-            /*
-             * اصل تصویر کا اصل سائز
-             */
-
-            canvas.width =
-            img.naturalWidth;
-
-            canvas.height =
-            img.naturalHeight;
-
-
-            elements = [];
-
-
-            document
-            .getElementById("status")
-            .textContent =
-            "تصویر تیار ہے۔";
-
+            productImage = img;
 
             draw();
 
         };
 
-
-        img.src =
-        e.target.result;
+        img.src = event.target.result;
 
     };
-
 
     reader.readAsDataURL(file);
 
@@ -837,47 +552,35 @@ function(){
 LOGO
 ===================================================== */
 
-document
-.getElementById("logoInput")
-.addEventListener(
-"change",
-function(){
+logoInput.addEventListener("change", function(e) {
 
-    const file =
-    this.files[0];
+    const file = e.target.files[0];
 
-    if(!file){
-        return;
-    }
+    if (!file) return;
 
+    const reader = new FileReader();
 
-    const reader =
-    new FileReader();
+    reader.onload = function(event) {
 
+        const img = new Image();
 
-    reader.onload =
-    function(e){
+        img.onload = function() {
 
-        const img =
-        new Image();
+            logoImage = img;
 
+            logoPreview.src =
+                event.target.result;
 
-        img.onload =
-        function(){
-
-            logoImage =
-            img;
+            logoPreview.style.display =
+                "block";
 
             draw();
 
         };
 
-
-        img.src =
-        e.target.result;
+        img.src = event.target.result;
 
     };
-
 
     reader.readAsDataURL(file);
 
@@ -885,513 +588,193 @@ function(){
 
 
 /* =====================================================
-LOGO SIZE
+PANEL SIDE
 ===================================================== */
 
-document
-.getElementById("logoBigger")
-.addEventListener(
-"click",
-function(){
+function setPanelSide(side) {
 
-    logoScale *= 1.12;
+    panelSide = side;
 
     draw();
-
-});
-
-
-document
-.getElementById("logoSmaller")
-.addEventListener(
-"click",
-function(){
-
-    logoScale *= .89;
-
-    draw();
-
-});
+}
 
 
 /* =====================================================
 TEXT SIZE
 ===================================================== */
 
-const textSlider =
-document.getElementById(
-    "textSize"
-);
+function updateFontSize() {
 
-const textValue =
-document.getElementById(
-    "textSizeValue"
-);
+    currentFontSize =
+        parseInt(fontSize.value);
 
-
-textSlider.addEventListener(
-"input",
-function(){
-
-    textSize =
-    Number(this.value);
-
-
-    textValue.textContent =
-    textSize;
-
+    document.getElementById(
+        "fontSizeValue"
+    ).textContent =
+        currentFontSize;
 
     draw();
-
-});
-
-
-/* =====================================================
-STAR SIZE
-===================================================== */
-
-const starSlider =
-document.getElementById(
-    "starSize"
-);
-
-const starValue =
-document.getElementById(
-    "starSizeValue"
-);
-
-
-starSlider.addEventListener(
-"input",
-function(){
-
-    starSize =
-    Number(this.value);
-
-
-    starValue.textContent =
-    starSize;
-
-
-    draw();
-
-});
-
-
-/* =====================================================
-RTL
-===================================================== */
-
-function isRTL(text){
-
-    return /[\u0590-\u08FF]/.test(text);
-
 }
 
 
 /* =====================================================
-ADD ELEMENT
+TEXT COLOR
 ===================================================== */
 
-function addElement(
-type,
-text
-){
+function setTextColor(color) {
 
-    if(
-        !mainImage ||
-        !text
-    ){
-
-        return;
-
-    }
-
-
-    const margin =
-    canvas.width * .06;
-
-
-    let x;
-
-
-    if(
-        starSide ===
-        "right"
-    ){
-
-        x =
-        canvas.width -
-        margin;
-
-    }else{
-
-        x =
-        margin;
-
-    }
-
-
-    /*
-     * ہر نئی چیز نیچے سے
-     * اگلی مناسب لائن پر
-     */
-
-    const y =
-    canvas.height *
-    .16
-    +
-    elements.length *
-    canvas.height *
-    .085;
-
-
-    elements.push({
-
-        type:type,
-
-        text:text,
-
-        x:x,
-
-        y:y,
-
-        side:starSide
-
-    });
-
+    textColor = color;
 
     draw();
-
 }
-
-
-/* =====================================================
-PRODUCT
-===================================================== */
-
-document
-.getElementById("addProduct")
-.addEventListener(
-"click",
-function(){
-
-    const value =
-    document
-    .getElementById(
-        "productName"
-    )
-    .value
-    .trim();
-
-
-    if(!value){
-
-        alert(
-            "Product Name لکھیں۔"
-        );
-
-        return;
-
-    }
-
-
-    addElement(
-        "product",
-        value
-    );
-
-});
-
-
-/* =====================================================
-COUNTRY
-===================================================== */
-
-document
-.getElementById("addCountry")
-.addEventListener(
-"click",
-function(){
-
-    const value =
-    document
-    .getElementById(
-        "country"
-    )
-    .value
-    .trim();
-
-
-    if(!value){
-
-        alert(
-            "Country منتخب کریں۔"
-        );
-
-        return;
-
-    }
-
-
-    addElement(
-        "country",
-        "ملکِ تیاری: " +
-        value
-    );
-
-});
-
-
-/* =====================================================
-PRICE
-===================================================== */
-
-document
-.getElementById("addPrice")
-.addEventListener(
-"click",
-function(){
-
-    const value =
-    document
-    .getElementById(
-        "price"
-    )
-    .value
-    .trim();
-
-
-    if(!value){
-
-        alert(
-            "Price لکھیں۔"
-        );
-
-        return;
-
-    }
-
-
-    addElement(
-        "price",
-        "قیمت: " +
-        value
-    );
-
-});
-
-
-/* =====================================================
-READY STARS
-===================================================== */
-
-document
-.querySelectorAll(
-"[data-star]"
-)
-.forEach(
-function(button){
-
-    button.addEventListener(
-    "click",
-    function(){
-
-        addElement(
-            "star",
-            this.dataset.star
-        );
-
-    });
-
-});
-
-
-/* =====================================================
-CUSTOM STAR
-===================================================== */
-
-document
-.getElementById("addCustomStar")
-.addEventListener(
-"click",
-function(){
-
-    const input =
-    document
-    .getElementById(
-        "customStar"
-    );
-
-
-    const value =
-    input.value.trim();
-
-
-    if(!value){
-
-        alert(
-            "عبارت لکھیں۔"
-        );
-
-        return;
-
-    }
-
-
-    addElement(
-        "star",
-        value
-    );
-
-
-    input.value = "";
-
-});
-
-
-/* =====================================================
-ENTER = ADD
-===================================================== */
-
-document
-.getElementById("customStar")
-.addEventListener(
-"keydown",
-function(event){
-
-    if(
-        event.key ===
-        "Enter"
-    ){
-
-        event.preventDefault();
-
-
-        document
-        .getElementById(
-            "addCustomStar"
-        )
-        .click();
-
-    }
-
-});
-
-
-/* =====================================================
-RIGHT
-===================================================== */
-
-document
-.getElementById("starsRight")
-.addEventListener(
-"click",
-function(){
-
-    starSide =
-    "right";
-
-
-    elements.forEach(
-    function(element){
-
-        if(
-            element.type ===
-            "star"
-        ){
-
-            element.side =
-            "right";
-
-
-            element.x =
-            canvas.width -
-            canvas.width *
-            .06;
-
-        }
-
-    });
-
-
-    draw();
-
-});
-
-
-/* =====================================================
-LEFT
-===================================================== */
-
-document
-.getElementById("starsLeft")
-.addEventListener(
-"click",
-function(){
-
-    starSide =
-    "left";
-
-
-    elements.forEach(
-    function(element){
-
-        if(
-            element.type ===
-            "star"
-        ){
-
-            element.side =
-            "left";
-
-
-            element.x =
-            canvas.width *
-            .06;
-
-        }
-
-    });
-
-
-    draw();
-
-});
 
 
 /* =====================================================
 STAR COLOR
 ===================================================== */
 
-document
-.getElementById("goldStars")
-.addEventListener(
-"click",
-function(){
+function setStarColor(color) {
 
-    starColor =
-    "#D4A017";
-
+    starColor = color;
 
     draw();
+}
 
-});
 
+/* =====================================================
+FORMAT
+===================================================== */
 
-document
-.getElementById("blackStars")
-.addEventListener(
-"click",
-function(){
+function toggleBold() {
 
-    starColor =
-    "#111111";
-
+    isBold = !isBold;
 
     draw();
+}
 
-});
+
+function toggleItalic() {
+
+    isItalic = !isItalic;
+
+    draw();
+}
+
+
+function toggleUnderline() {
+
+    isUnderline =
+        !isUnderline;
+
+    draw();
+}
+
+
+/* =====================================================
+ADD FEATURE
+===================================================== */
+
+function addFeature() {
+
+    const text =
+        featureText.value.trim();
+
+    if (!text) {
+
+        alert(
+            "پہلے عبارت لکھیں۔"
+        );
+
+        return;
+    }
+
+    features.push({
+
+        text: text,
+
+        color: textColor,
+
+        starColor: starColor,
+
+        fontSize: currentFontSize,
+
+        bold: isBold,
+
+        italic: isItalic,
+
+        underline: isUnderline
+
+    });
+
+    featureText.value = "";
+
+    draw();
+}
+
+
+/* =====================================================
+PRESET
+===================================================== */
+
+function addPreset(text) {
+
+    featureText.value = text;
+
+    addFeature();
+}
+
+
+/* =====================================================
+REMOVE LAST
+===================================================== */
+
+function removeLastFeature() {
+
+    if (features.length > 0) {
+
+        features.pop();
+
+        draw();
+    }
+}
+
+
+/* =====================================================
+CLEAR
+===================================================== */
+
+function clearFeatures() {
+
+    features = [];
+
+    draw();
+}
+
+
+/* =====================================================
+CLEAR TEXT
+===================================================== */
+
+function clearText() {
+
+    featureText.value = "";
+
+}
+
+
+/* =====================================================
+PANEL BACKGROUND
+===================================================== */
+
+function getPanelBackground() {
+
+    const value =
+        document.getElementById(
+            "panelBackground"
+        ).value;
+
+    return value;
+}
 
 
 /* =====================================================
@@ -1399,373 +782,134 @@ DRAW STAR
 ===================================================== */
 
 function drawStar(
-cx,
-cy,
-outer,
-inner
-){
+    x,
+    y,
+    outerRadius,
+    innerRadius,
+    color
+) {
 
-    let rotation =
-    -Math.PI / 2;
+    ctx.save();
 
-
-    const step =
-    Math.PI / 5;
-
+    ctx.fillStyle = color;
 
     ctx.beginPath();
 
+    let rotation =
+        Math.PI / 2 * 3;
 
-    for(
-        let i=0;
-        i<10;
+    const spikes = 5;
+
+    const step =
+        Math.PI / spikes;
+
+    ctx.moveTo(
+        x,
+        y - outerRadius
+    );
+
+    for (
+        let i = 0;
+        i < spikes;
         i++
-    ){
+    ) {
 
-        const radius =
-        i % 2 === 0
-        ? outer
-        : inner;
+        ctx.lineTo(
+            x +
+            Math.cos(rotation) *
+            outerRadius,
 
+            y +
+            Math.sin(rotation) *
+            outerRadius
+        );
 
-        const x =
-        cx +
-        Math.cos(rotation)
-        * radius;
+        rotation += step;
 
+        ctx.lineTo(
+            x +
+            Math.cos(rotation) *
+            innerRadius,
 
-        const y =
-        cy +
-        Math.sin(rotation)
-        * radius;
+            y +
+            Math.sin(rotation) *
+            innerRadius
+        );
 
-
-        if(i === 0){
-
-            ctx.moveTo(
-                x,
-                y
-            );
-
-        }else{
-
-            ctx.lineTo(
-                x,
-                y
-            );
-
-        }
-
-
-        rotation +=
-        step;
-
+        rotation += step;
     }
 
+    ctx.lineTo(
+        x,
+        y - outerRadius
+    );
 
     ctx.closePath();
 
     ctx.fill();
 
+    ctx.restore();
 }
 
 
 /* =====================================================
-LOGO
+WRAP TEXT
 ===================================================== */
 
-function drawLogo(){
+function wrapText(
+    text,
+    maxWidth,
+    font
+) {
 
-    if(!logoImage){
-        return;
+    ctx.font = font;
+
+    const words =
+        text.split(" ");
+
+    const lines = [];
+
+    let line = "";
+
+    for (
+        let i = 0;
+        i < words.length;
+        i++
+    ) {
+
+        const testLine =
+            line +
+            (line ? " " : "") +
+            words[i];
+
+        const width =
+            ctx.measureText(
+                testLine
+            ).width;
+
+        if (
+            width > maxWidth &&
+            line
+        ) {
+
+            lines.push(line);
+
+            line =
+                words[i];
+
+        } else {
+
+            line =
+                testLine;
+        }
     }
 
+    if (line) {
 
-    /*
-     * Logo پہلے سے بہتر بڑا
-     */
+        lines.push(line);
+    }
 
-    const width =
-    canvas.width *
-    .18 *
-    logoScale;
-
-
-    const ratio =
-    logoImage.height /
-    logoImage.width;
-
-
-    const height =
-    width *
-    ratio;
-
-
-    const x =
-    canvas.width -
-    width -
-    canvas.width *
-    .025;
-
-
-    const y =
-    canvas.height *
-    .025;
-
-
-    ctx.drawImage(
-
-        logoImage,
-
-        x,
-        y,
-
-        width,
-        height
-
-    );
-
-}
-
-
-/* =====================================================
-DRAW ELEMENTS
-===================================================== */
-
-function drawElements(){
-
-    elements.forEach(
-    function(element){
-
-        const rtl =
-        isRTL(
-            element.text
-        );
-
-
-        let fontSize;
-
-
-        if(
-            element.type ===
-            "product"
-        ){
-
-            fontSize =
-            textSize * 1.25;
-
-        }
-        else if(
-            element.type ===
-            "country"
-        ){
-
-            fontSize =
-            textSize;
-
-        }
-        else if(
-            element.type ===
-            "price"
-        ){
-
-            fontSize =
-            textSize * 1.15;
-
-        }
-        else{
-
-            fontSize =
-            textSize;
-
-        }
-
-
-        /*
-         * موبائل کے لیے واضح
-         * مگر بہت بڑا نہیں
-         */
-
-        ctx.font =
-        "bold " +
-        fontSize +
-        "px Arial";
-
-
-        ctx.textBaseline =
-        "middle";
-
-
-        /* ================================================
-           STAR
-        ================================================= */
-
-        if(
-            element.type ===
-            "star"
-        ){
-
-            const radius =
-            starSize;
-
-
-            ctx.save();
-
-
-            ctx.fillStyle =
-            starColor;
-
-
-            ctx.shadowColor =
-            "rgba(0,0,0,.30)";
-
-            ctx.shadowBlur =
-            Math.max(
-                2,
-                starSize * .20
-            );
-
-
-            drawStar(
-
-                element.x,
-
-                element.y,
-
-                radius,
-
-                radius * .45
-
-            );
-
-
-            ctx.fill();
-
-
-            ctx.restore();
-
-
-            ctx.fillStyle =
-            "#111";
-
-
-            ctx.font =
-            "bold " +
-            textSize +
-            "px Arial";
-
-
-            if(
-                element.side ===
-                "right"
-            ){
-
-                ctx.textAlign =
-                "right";
-
-
-                ctx.direction =
-                rtl
-                ? "rtl"
-                : "ltr";
-
-
-                ctx.fillText(
-
-                    element.text,
-
-                    element.x -
-                    radius -
-                    10,
-
-                    element.y
-
-                );
-
-            }else{
-
-                ctx.textAlign =
-                "left";
-
-
-                ctx.direction =
-                rtl
-                ? "rtl"
-                : "ltr";
-
-
-                ctx.fillText(
-
-                    element.text,
-
-                    element.x +
-                    radius +
-                    10,
-
-                    element.y
-
-                );
-
-            }
-
-        }
-
-
-        /* ================================================
-           NORMAL TEXT
-        ================================================= */
-
-        else{
-
-            ctx.fillStyle =
-            "#111";
-
-
-            ctx.font =
-            "bold " +
-            fontSize +
-            "px Arial";
-
-
-            const x =
-            element.side ===
-            "right"
-
-            ? canvas.width -
-              canvas.width *
-              .06
-
-            : canvas.width *
-              .06;
-
-
-            ctx.textAlign =
-            element.side ===
-            "right"
-            ? "right"
-            : "left";
-
-
-            ctx.direction =
-            rtl
-            ? "rtl"
-            : "ltr";
-
-
-            ctx.fillText(
-
-                element.text,
-
-                x,
-
-                element.y
-
-            );
-
-        }
-
-    });
-
+    return lines;
 }
 
 
@@ -1773,544 +917,524 @@ function drawElements(){
 DRAW
 ===================================================== */
 
-function draw(){
+function draw() {
 
-    if(!mainImage){
+    if (!productImage) {
 
-        ctx.clearRect(
+        canvas.width = 900;
+        canvas.height = 600;
+
+        ctx.fillStyle = "#eeeeee";
+
+        ctx.fillRect(
             0,
             0,
             canvas.width,
             canvas.height
         );
 
-        return;
+        ctx.fillStyle = "#555";
 
+        ctx.font =
+            "28px Arial";
+
+        ctx.textAlign =
+            "center";
+
+        ctx.fillText(
+            "پہلے Product Image منتخب کریں",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+
+        return;
     }
 
 
-    ctx.clearRect(
+    /* =================================================
+       ORIGINAL IMAGE RATIO
+       ================================================= */
+
+    const imgWidth =
+        productImage.naturalWidth;
+
+    const imgHeight =
+        productImage.naturalHeight;
+
+
+    const panelWidth =
+        Math.max(
+            330,
+            Math.min(
+                430,
+                imgWidth * .34
+            )
+        );
+
+
+    const finalWidth =
+        imgWidth +
+        panelWidth;
+
+
+    const finalHeight =
+        imgHeight;
+
+
+    canvas.width =
+        finalWidth;
+
+    canvas.height =
+        finalHeight;
+
+
+    /* BACKGROUND */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.fillRect(
         0,
         0,
-        canvas.width,
-        canvas.height
+        finalWidth,
+        finalHeight
     );
 
 
-    /*
-     * Original Image
-     */
+    /* =================================================
+       IMAGE
+       ================================================= */
+
+    let imageX = 0;
+
+    if (panelSide === "right") {
+
+        imageX = 0;
+
+    } else {
+
+        imageX =
+            panelWidth;
+    }
+
 
     ctx.drawImage(
-
-        mainImage,
-
+        productImage,
+        imageX,
         0,
-        0,
-
-        canvas.width,
-        canvas.height
-
+        imgWidth,
+        imgHeight
     );
 
 
-    drawLogo();
+    /* =================================================
+       PANEL
+       ================================================= */
 
-    drawElements();
+    let panelX;
 
-}
+    if (panelSide === "right") {
 
+        panelX =
+            imgWidth;
 
-/* =====================================================
-LINK
-===================================================== */
+    } else {
 
-document
-.getElementById("productLink")
-.addEventListener(
-"input",
-function(){
-
-    document
-    .getElementById(
-        "linkStatus"
-    )
-    .textContent =
-    this.value.trim()
-    ||
-    "Product Link یہاں دکھائی دے گا۔";
-
-});
-
-
-/* =====================================================
-COPY LINK
-===================================================== */
-
-document
-.getElementById("copyLink")
-.addEventListener(
-"click",
-async function(){
-
-    const link =
-    document
-    .getElementById(
-        "productLink"
-    )
-    .value
-    .trim();
-
-
-    if(!link){
-
-        alert(
-            "پہلے Product Link ڈالیں۔"
-        );
-
-        return;
-
+        panelX =
+            0;
     }
 
 
-    try{
-
-        await navigator
-        .clipboard
-        .writeText(link);
+    const background =
+        getPanelBackground();
 
 
-        alert(
-            "Product Link Copy ہو گیا۔"
+    if (background === "dark") {
+
+        ctx.fillStyle =
+            "#171717";
+
+    } else if (
+        background === "light"
+    ) {
+
+        ctx.fillStyle =
+            "#f7f7f7";
+
+    } else if (
+        background === "gold"
+    ) {
+
+        ctx.fillStyle =
+            "#b8860b";
+
+    } else if (
+        background === "black"
+    ) {
+
+        ctx.fillStyle =
+            "#000000";
+
+    } else if (
+        background === "blue"
+    ) {
+
+        ctx.fillStyle =
+            "#12355b";
+
+    } else {
+
+        const gradient =
+            ctx.createLinearGradient(
+                panelX,
+                0,
+                panelX + panelWidth,
+                finalHeight
+            );
+
+        gradient.addColorStop(
+            0,
+            "#111111"
         );
 
-    }catch(error){
+        gradient.addColorStop(
+            .5,
+            "#242424"
+        );
 
-        alert(link);
+        gradient.addColorStop(
+            1,
+            "#8b6914"
+        );
 
+        ctx.fillStyle =
+            gradient;
     }
 
-});
+
+    ctx.fillRect(
+        panelX,
+        0,
+        panelWidth,
+        finalHeight
+    );
 
 
-/* =====================================================
-FIND ELEMENT
-===================================================== */
+    /* =================================================
+       PANEL BORDER
+       ================================================= */
 
-function findElement(
-x,
-y
-){
+    ctx.strokeStyle =
+        "#d4af37";
 
-    for(
-        let i =
-        elements.length - 1;
+    ctx.lineWidth = 5;
 
-        i >= 0;
-
-        i--
-    ){
-
-        const element =
-        elements[i];
+    ctx.strokeRect(
+        panelX + 3,
+        3,
+        panelWidth - 6,
+        finalHeight - 6
+    );
 
 
-        const hitWidth =
-        canvas.width *
-        .40;
+    /* =================================================
+       LOGO
+       ================================================= */
+
+    if (logoImage) {
+
+        const maxLogoWidth =
+            panelWidth * .45;
+
+        const maxLogoHeight =
+            90;
+
+        let lw =
+            logoImage.naturalWidth;
+
+        let lh =
+            logoImage.naturalHeight;
 
 
-        if(
+        const scale =
+            Math.min(
+                maxLogoWidth / lw,
+                maxLogoHeight / lh,
+                1
+            );
 
-            Math.abs(
-                x -
-                element.x
-            ) < hitWidth
+        lw *= scale;
+        lh *= scale;
 
-            &&
 
-            Math.abs(
-                y -
-                element.y
-            ) < 60
+        const logoX =
+            panelX +
+            (panelWidth - lw) / 2;
 
-        ){
+        const logoY = 25;
 
-            return element;
 
+        ctx.drawImage(
+            logoImage,
+            logoX,
+            logoY,
+            lw,
+            lh
+        );
+    }
+
+
+    /* =================================================
+       TITLE
+       ================================================= */
+
+    ctx.fillStyle =
+        "#d4af37";
+
+    ctx.font =
+        "bold 24px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.fillText(
+        "JANJUA TRADERS",
+        panelX +
+        panelWidth / 2,
+        145
+    );
+
+
+    /* =================================================
+       FEATURES
+       ================================================= */
+
+    let y = 200;
+
+    const starRadius = 18;
+
+    const textAreaWidth =
+        panelWidth - 75;
+
+
+    features.forEach(
+        function(feature) {
+
+            let style = "";
+
+            if (feature.bold) {
+
+                style += "bold ";
+            }
+
+            if (feature.italic) {
+
+                style += "italic ";
+            }
+
+
+            const font =
+                style +
+                feature.fontSize +
+                "px Arial";
+
+
+            const lines =
+                wrapText(
+                    feature.text,
+                    textAreaWidth,
+                    font
+                );
+
+
+            /* STAR */
+
+            const starX =
+                panelSide === "right"
+                    ? panelX + 35
+                    : panelX +
+                      panelWidth - 35;
+
+
+            drawStar(
+                starX,
+                y - 8,
+                starRadius,
+                8,
+                feature.starColor
+            );
+
+
+            /* TEXT */
+
+            ctx.fillStyle =
+                feature.color;
+
+            ctx.font =
+                font;
+
+            ctx.textAlign =
+                panelSide === "right"
+                    ? "left"
+                    : "right";
+
+
+            let textX;
+
+            if (
+                panelSide === "right"
+            ) {
+
+                textX =
+                    panelX + 65;
+
+            } else {
+
+                textX =
+                    panelX +
+                    panelWidth -
+                    65;
+            }
+
+
+            lines.forEach(
+                function(line) {
+
+                    ctx.fillText(
+                        line,
+                        textX,
+                        y
+                    );
+
+
+                    if (
+                        feature.underline
+                    ) {
+
+                        const width =
+                            ctx.measureText(
+                                line
+                            ).width;
+
+                        let underlineX;
+
+                        if (
+                            panelSide === "right"
+                        ) {
+
+                            underlineX =
+                                textX;
+
+                        } else {
+
+                            underlineX =
+                                textX -
+                                width;
+                        }
+
+
+                        ctx.strokeStyle =
+                            feature.color;
+
+                        ctx.lineWidth = 2;
+
+                        ctx.beginPath();
+
+                        ctx.moveTo(
+                            underlineX,
+                            y + 5
+                        );
+
+                        ctx.lineTo(
+                            underlineX +
+                            width,
+                            y + 5
+                        );
+
+                        ctx.stroke();
+                    }
+
+
+                    y +=
+                        feature.fontSize +
+                        10;
+                }
+            );
+
+
+            y += 25;
         }
+    );
 
-    }
 
+    /* =================================================
+       FOOTER
+       ================================================= */
 
-    return null;
+    ctx.fillStyle =
+        "#d4af37";
+
+    ctx.font =
+        "bold 18px Arial";
+
+    ctx.textAlign =
+        "center";
+
+    ctx.fillText(
+        "Digital Marketing Platform",
+        panelX +
+        panelWidth / 2,
+        finalHeight - 35
+    );
 
 }
 
 
 /* =====================================================
-POINTER
+DOWNLOAD
 ===================================================== */
 
-function pointerPosition(
-event
-){
+function downloadImage(type) {
 
-    const rect =
-    canvas.getBoundingClientRect();
-
-
-    const point =
-    event.touches
-    ? event.touches[0]
-    : event;
-
-
-    return {
-
-        x:
-        (point.clientX -
-        rect.left)
-        *
-        canvas.width /
-        rect.width,
-
-
-        y:
-        (point.clientY -
-        rect.top)
-        *
-        canvas.height /
-        rect.height
-
-    };
-
-}
-
-
-/* =====================================================
-MOUSE DOWN
-===================================================== */
-
-canvas.addEventListener(
-"mousedown",
-function(event){
-
-    const point =
-    pointerPosition(
-        event
-    );
-
-
-    draggingElement =
-    findElement(
-        point.x,
-        point.y
-    );
-
-
-    if(
-        draggingElement
-    ){
-
-        dragOffsetX =
-        point.x -
-        draggingElement.x;
-
-
-        dragOffsetY =
-        point.y -
-        draggingElement.y;
-
-    }
-
-});
-
-
-/* =====================================================
-MOUSE MOVE
-===================================================== */
-
-canvas.addEventListener(
-"mousemove",
-function(event){
-
-    if(
-        !draggingElement
-    ){
-
-        return;
-
-    }
-
-
-    const point =
-    pointerPosition(
-        event
-    );
-
-
-    draggingElement.x =
-    point.x -
-    dragOffsetX;
-
-
-    draggingElement.y =
-    point.y -
-    dragOffsetY;
-
-
-    draw();
-
-});
-
-
-/* =====================================================
-MOUSE UP
-===================================================== */
-
-canvas.addEventListener(
-"mouseup",
-function(){
-
-    draggingElement =
-    null;
-
-});
-
-
-canvas.addEventListener(
-"mouseleave",
-function(){
-
-    draggingElement =
-    null;
-
-});
-
-
-/* =====================================================
-TOUCH START
-===================================================== */
-
-canvas.addEventListener(
-"touchstart",
-function(event){
-
-    const point =
-    pointerPosition(
-        event
-    );
-
-
-    draggingElement =
-    findElement(
-        point.x,
-        point.y
-    );
-
-
-    if(
-        draggingElement
-    ){
-
-        dragOffsetX =
-        point.x -
-        draggingElement.x;
-
-
-        dragOffsetY =
-        point.y -
-        draggingElement.y;
-
-    }
-
-},
-{
-    passive:true
-});
-
-
-/* =====================================================
-TOUCH MOVE
-===================================================== */
-
-canvas.addEventListener(
-"touchmove",
-function(event){
-
-    if(
-        !draggingElement
-    ){
-
-        return;
-
-    }
-
-
-    const point =
-    pointerPosition(
-        event
-    );
-
-
-    draggingElement.x =
-    point.x -
-    dragOffsetX;
-
-
-    draggingElement.y =
-    point.y -
-    dragOffsetY;
-
-
-    draw();
-
-},
-{
-    passive:true
-});
-
-
-/* =====================================================
-TOUCH END
-===================================================== */
-
-canvas.addEventListener(
-"touchend",
-function(){
-
-    draggingElement =
-    null;
-
-});
-
-
-/* =====================================================
-PNG
-===================================================== */
-
-document
-.getElementById("downloadPNG")
-.addEventListener(
-"click",
-function(){
-
-    if(!mainImage){
+    if (!productImage) {
 
         alert(
             "پہلے Product Image منتخب کریں۔"
         );
 
         return;
-
     }
 
 
     const link =
-    document.createElement(
-        "a"
-    );
+        document.createElement("a");
 
 
-    link.download =
-    "janjua-traders-product.png";
+    if (type === "jpg") {
 
+        link.download =
+            "janjua-traders-product.jpg";
 
-    link.href =
-    canvas.toDataURL(
-        "image/png"
-    );
+        link.href =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.95
+            );
 
+    } else {
 
-    link.click();
+        link.download =
+            "janjua-traders-product.png";
 
-});
-
-
-/* =====================================================
-JPG
-===================================================== */
-
-document
-.getElementById("downloadJPG")
-.addEventListener(
-"click",
-function(){
-
-    if(!mainImage){
-
-        alert(
-            "پہلے Product Image منتخب کریں۔"
-        );
-
-        return;
-
+        link.href =
+            canvas.toDataURL(
+                "image/png"
+            );
     }
 
 
-    const temp =
-    document.createElement(
-        "canvas"
-    );
-
-
-    temp.width =
-    canvas.width;
-
-
-    temp.height =
-    canvas.height;
-
-
-    const tempCtx =
-    temp.getContext(
-        "2d"
-    );
-
-
-    tempCtx.fillStyle =
-    "#ffffff";
-
-
-    tempCtx.fillRect(
-
-        0,
-        0,
-
-        temp.width,
-        temp.height
-
-    );
-
-
-    tempCtx.drawImage(
-        canvas,
-        0,
-        0
-    );
-
-
-    const link =
-    document.createElement(
-        "a"
-    );
-
-
-    link.download =
-    "janjua-traders-product.jpg";
-
-
-    link.href =
-    temp.toDataURL(
-        "image/jpeg",
-        .95
-    );
-
-
     link.click();
-
-});
+}
 
 
 /* =====================================================
@@ -2322,5 +1446,4 @@ draw();
 </script>
 
 </body>
-
 </html>
