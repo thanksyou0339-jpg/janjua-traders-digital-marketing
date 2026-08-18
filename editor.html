@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Janjua Traders - Product Designer</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Janjua Traders - Product Image Editor
+</title>
 
 <style>
 
@@ -13,218 +19,293 @@
 }
 
 body{
+
     margin:0;
-    padding:15px;
+
+    padding:10px;
+
     background:#e9e9e9;
-    font-family:Arial, "Noto Sans Arabic", sans-serif;
+
+    font-family:
+        Arial,
+        "Noto Sans Arabic",
+        sans-serif;
+
     color:#222;
 }
 
 .container{
+
+    width:100%;
+
     max-width:1100px;
+
     margin:auto;
 }
 
 h1{
+
     text-align:center;
-    margin:5px 0 18px;
-    font-size:24px;
+
+    margin:5px 0 15px;
+
+    font-size:22px;
 }
 
 .editor{
-    background:white;
+
+    background:#fff;
+
     border-radius:14px;
-    padding:15px;
-    box-shadow:0 4px 20px rgba(0,0,0,.12);
+
+    padding:12px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0,0,0,.12);
 }
 
 .section{
+
     border:1px solid #ddd;
+
     border-radius:10px;
-    padding:12px;
-    margin-bottom:12px;
+
+    padding:10px;
+
+    margin-bottom:10px;
 }
 
 .section-title{
+
     font-weight:bold;
-    margin-bottom:10px;
-    font-size:16px;
+
+    font-size:15px;
+
+    margin-bottom:8px;
 }
 
 .row{
+
     display:flex;
+
     flex-wrap:wrap;
+
     gap:8px;
 }
 
 .field{
+
     flex:1;
+
     min-width:180px;
 }
 
 label{
+
     display:block;
-    font-size:13px;
+
+    font-size:12px;
+
     font-weight:bold;
-    margin-bottom:5px;
+
+    margin-bottom:4px;
 }
 
 input,
 select,
 button{
+
     width:100%;
-    min-height:42px;
+
+    min-height:40px;
+
     border:1px solid #bbb;
+
     border-radius:7px;
-    padding:8px 10px;
-    font-size:14px;
+
+    padding:7px 9px;
+
+    font-size:13px;
 }
 
 button{
-    cursor:pointer;
+
     background:#222;
+
     color:white;
+
     border:none;
+
     font-weight:bold;
+
+    cursor:pointer;
 }
 
 button:hover{
-    opacity:.9;
+
+    opacity:.88;
 }
 
 .add-btn{
+
     background:#111;
 }
 
 .download-jpg{
+
     background:#333;
 }
 
 .download-png{
+
     background:#555;
 }
 
 .clear-btn{
+
     background:#9b1c1c;
 }
 
-/* =========================
-   CANVAS
-========================= */
-
-.canvas-wrap{
-    width:100%;
-    max-width:600px;
-    margin:15px auto;
-    background:#ddd;
-    padding:8px;
-    border-radius:10px;
-}
-
-canvas{
-    display:block;
-    width:100%;
-    height:auto;
-    background:white;
-    border-radius:4px;
-}
-
-/* =========================
-   FEATURE LIST
-========================= */
-
-.feature-list{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-top:10px;
-}
-
-.feature-item{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    background:#f2f2f2;
-    border:1px solid #ccc;
-    border-radius:7px;
-    padding:6px 8px;
-    font-size:13px;
-}
-
-.remove-feature{
-    width:28px;
-    min-height:28px;
-    padding:0;
-    background:#a00;
-    font-size:12px;
-}
-
-/* =========================
-   COLOR BOX
-========================= */
-
 .color-input{
-    height:42px;
+
+    height:40px;
+
     padding:2px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.canvas-wrap{
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:12px auto;
+
+    padding:7px;
+
+    background:#d5d5d5;
+
+    border-radius:9px;
+}
+
+canvas{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+    background:white;
+
+    border-radius:4px;
+}
+
+.feature-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:7px;
+}
+
+.feature-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    background:#f2f2f2;
+
+    border:1px solid #ccc;
+
+    border-radius:7px;
+
+    padding:5px 7px;
+
+    font-size:12px;
+}
+
+.remove-feature{
+
+    width:25px;
+
+    min-height:25px;
+
+    padding:0;
+
+    background:#a00;
+
+}
 
 @media(max-width:600px){
 
     body{
-        padding:7px;
+
+        padding:5px;
     }
 
     .editor{
-        padding:9px;
+
+        padding:7px;
     }
 
     h1{
-        font-size:19px;
+
+        font-size:18px;
     }
 
     .field{
-        min-width:100%;
-    }
 
-    input,
-    select,
-    button{
-        min-height:40px;
-        font-size:13px;
+        min-width:100%;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-<h1>Janjua Traders — Product Image Editor</h1>
+
+<h1>
+Janjua Traders — Product Image Editor
+</h1>
+
 
 <div class="editor">
 
-<!-- =========================
+
+<!-- =====================================================
      IMAGE
-========================= -->
+===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-1. Product Image
+1. Product Image & Logo
 </div>
+
 
 <div class="row">
 
+
 <div class="field">
 
-<label>Product Image</label>
+<label>
+Product Image
+</label>
 
 <input
 type="file"
@@ -233,9 +314,12 @@ accept="image/*">
 
 </div>
 
+
 <div class="field">
 
-<label>Logo / Monogram</label>
+<label>
+Logo / Monogram
+</label>
 
 <input
 type="file"
@@ -244,14 +328,15 @@ accept="image/*">
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =========================
-     PRODUCT INFORMATION
-========================= -->
+
+<!-- =====================================================
+     PRODUCT
+===================================================== -->
 
 <div class="section">
 
@@ -259,22 +344,29 @@ accept="image/*">
 2. Product Information
 </div>
 
+
 <div class="row">
+
 
 <div class="field">
 
-<label>Product Name</label>
+<label>
+Product Name
+</label>
 
 <input
 type="text"
 id="productName"
-placeholder="مثلاً: Premium Product">
+placeholder="مثلاً Premium Product">
 
 </div>
 
+
 <div class="field">
 
-<label>Product Description</label>
+<label>
+Product Description
+</label>
 
 <input
 type="text"
@@ -283,14 +375,15 @@ placeholder="مختصر وضاحت">
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =========================
+
+<!-- =====================================================
      COUNTRY
-========================= -->
+===================================================== -->
 
 <div class="section">
 
@@ -298,13 +391,17 @@ placeholder="مختصر وضاحت">
 3. Country — ملک
 </div>
 
+
 <div class="row">
+
 
 <div class="field">
 
 <select id="countrySelect">
 
-<option value="">ملک منتخب کریں</option>
+<option value="">
+ملک منتخب کریں
+</option>
 
 <option>پاکستان</option>
 <option>چین</option>
@@ -330,24 +427,28 @@ placeholder="مختصر وضاحت">
 
 </div>
 
+
 <div class="field">
 
 <button
 class="add-btn"
 id="addCountry">
+
 ★ ملک تصویر پر شامل کریں
+
 </button>
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =========================
+
+<!-- =====================================================
      FEATURES
-========================= -->
+===================================================== -->
 
 <div class="section">
 
@@ -355,15 +456,21 @@ id="addCountry">
 4. Product Features
 </div>
 
+
 <div class="row">
 
 <div class="field">
 
-<label>مضبوطی</label>
+<label>
+مضبوطی
+</label>
 
 <select id="strengthSelect">
 
-<option value="">منتخب کریں</option>
+<option value="">
+منتخب کریں
+</option>
+
 <option>بہت مضبوط</option>
 <option>مضبوط اور قابل اعتماد</option>
 <option>روزمرہ استعمال کے لیے مضبوط</option>
@@ -375,12 +482,15 @@ id="addCountry">
 
 </div>
 
+
 <div class="field">
 
 <button
 class="add-btn"
 id="addStrength">
+
 ★ مضبوطی شامل کریں
+
 </button>
 
 </div>
@@ -388,15 +498,20 @@ id="addStrength">
 </div>
 
 
-<div class="row" style="margin-top:8px;">
+<div class="row">
 
 <div class="field">
 
-<label>پائیداری</label>
+<label>
+پائیداری
+</label>
 
 <select id="durabilitySelect">
 
-<option value="">منتخب کریں</option>
+<option value="">
+منتخب کریں
+</option>
+
 <option>انتہائی پائیدار</option>
 <option>لمبے عرصے تک استعمال</option>
 <option>مضبوط اور پائیدار</option>
@@ -408,12 +523,15 @@ id="addStrength">
 
 </div>
 
+
 <div class="field">
 
 <button
 class="add-btn"
 id="addDurability">
+
 ★ پائیداری شامل کریں
+
 </button>
 
 </div>
@@ -421,33 +539,40 @@ id="addDurability">
 </div>
 
 
-<div class="row" style="margin-top:8px;">
+<div class="row">
 
 <div class="field">
 
-<label>کوالٹی</label>
+<label>
+کوالٹی
+</label>
 
 <select id="qualitySelect">
 
-<option value="">منتخب کریں</option>
+<option value="">
+منتخب کریں
+</option>
+
 <option>بہترین کوالٹی</option>
 <option>Premium Quality</option>
 <option>اعلیٰ معیار</option>
 <option>Original Quality</option>
 <option>Top Quality</option>
 <option>Excellent Quality</option>
-<option>اعلیٰ درجے کی کوالٹی</option>
 
 </select>
 
 </div>
+
 
 <div class="field">
 
 <button
 class="add-btn"
 id="addQuality">
+
 ★ کوالٹی شامل کریں
+
 </button>
 
 </div>
@@ -455,15 +580,20 @@ id="addQuality">
 </div>
 
 
-<div class="row" style="margin-top:8px;">
+<div class="row">
 
 <div class="field">
 
-<label>خوبصورتی / ڈیزائن</label>
+<label>
+خوبصورتی / ڈیزائن
+</label>
 
 <select id="beautySelect">
 
-<option value="">منتخب کریں</option>
+<option value="">
+منتخب کریں
+</option>
+
 <option>خوبصورت ڈیزائن</option>
 <option>جدید ڈیزائن</option>
 <option>Premium Design</option>
@@ -475,12 +605,15 @@ id="addQuality">
 
 </div>
 
+
 <div class="field">
 
 <button
 class="add-btn"
 id="addBeauty">
+
 ★ ڈیزائن شامل کریں
+
 </button>
 
 </div>
@@ -488,27 +621,30 @@ id="addBeauty">
 </div>
 
 
-<!-- CUSTOM -->
-
-<div class="row" style="margin-top:8px;">
+<div class="row">
 
 <div class="field">
 
-<label>اپنی مرضی کی عبارت</label>
+<label>
+اپنی مرضی کی عبارت
+</label>
 
 <input
 type="text"
 id="customText"
-placeholder="مثلاً: خاص اور منفرد پروڈکٹ">
+placeholder="مثلاً خاص اور منفرد پروڈکٹ">
 
 </div>
+
 
 <div class="field">
 
 <button
 class="add-btn"
 id="addCustom">
+
 ★ عبارت شامل کریں
+
 </button>
 
 </div>
@@ -518,129 +654,237 @@ id="addCustom">
 </div>
 
 
-<!-- =========================
-     PRICE
-========================= -->
+<!-- =====================================================
+     PRICE CARD
+===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-5. Price & Delivery
+5. Price Card — قیمت
 </div>
+
 
 <div class="row">
 
+
 <div class="field">
 
-<label>Product Price — Rs.</label>
+<label>
+Product Price — Rs.
+</label>
 
 <input
 type="number"
 id="priceInput"
-placeholder="42999"
-value="42999">
+value="42999"
+placeholder="42999">
 
 </div>
 
+
 <div class="field">
 
-<label>Delivery Charges — Rs.</label>
+<label>
+Delivery Charges — Rs.
+</label>
 
 <input
 type="number"
 id="deliveryInput"
-placeholder="250"
-value="250">
+value="0"
+placeholder="0">
 
 </div>
 
+
+</div>
+
+
+<div class="row">
+
+
 <div class="field">
 
-<label>Delivery Caption</label>
+<label>
+Delivery Caption
+</label>
 
 <input
 type="text"
 id="deliveryCaption"
-value="پورے پاکستان میں فری ڈلیوری"
-placeholder="Free Delivery">
+value="FREE DELIVERY"
+placeholder="FREE DELIVERY">
 
 </div>
 
-</div>
-
-<div class="row" style="margin-top:8px;">
 
 <div class="field">
 
-<button
-id="updatePrice">
-💰 Price Update کریں
-</button>
+<label>
+Price Position
+</label>
+
+<select id="pricePosition">
+
+<option value="left">
+Left
+</option>
+
+<option value="center" selected>
+Center
+</option>
+
+<option value="right">
+Right
+</option>
+
+</select>
 
 </div>
 
 </div>
 
+
+<div class="row">
+
+
+<div class="field">
+
+<label>
+Price Card Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="priceCardColor"
+value="#111111">
+
 </div>
 
 
-<!-- =========================
+<div class="field">
+
+<label>
+Price Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="priceColor"
+value="#FFD700">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Delivery Color
+</label>
+
+<input
+type="color"
+class="color-input"
+id="deliveryColor"
+value="#FFFFFF">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Price Size
+</label>
+
+<input
+type="range"
+id="priceSize"
+min="35"
+max="85"
+value="60">
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
      TEXT STYLE
-========================= -->
+===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
-6. Text Style
+6. Text & Star Style
 </div>
+
 
 <div class="row">
 
+
 <div class="field">
 
-<label>Text Color</label>
+<label>
+Feature Text Color
+</label>
 
 <input
-class="color-input"
 type="color"
+class="color-input"
 id="textColor"
-value="#ffffff">
+value="#FFFFFF">
 
 </div>
 
+
 <div class="field">
 
-<label>Star Color</label>
+<label>
+Star Color
+</label>
 
 <input
-class="color-input"
 type="color"
+class="color-input"
 id="starColor"
 value="#D4AF37">
 
 </div>
 
+
 <div class="field">
 
-<label>Background Color</label>
+<label>
+Panel Color
+</label>
 
 <input
-class="color-input"
 type="color"
+class="color-input"
 id="panelColor"
 value="#111111">
 
 </div>
 
+
 <div class="field">
 
-<label>Font Size</label>
+<label>
+Feature Font Size
+</label>
 
 <input
 type="range"
 id="fontSize"
-min="20"
-max="60"
+min="22"
+max="55"
 value="34">
 
 </div>
@@ -648,7 +892,8 @@ value="34">
 </div>
 
 
-<div class="row" style="margin-top:8px;">
+<div class="row">
+
 
 <div class="field">
 
@@ -658,6 +903,7 @@ B — Bold
 
 </div>
 
+
 <div class="field">
 
 <button id="italicBtn">
@@ -665,6 +911,7 @@ I — Italic
 </button>
 
 </div>
+
 
 <div class="field">
 
@@ -674,20 +921,22 @@ U — Underline
 
 </div>
 
-</div>
 
 </div>
 
+</div>
 
-<!-- =========================
-     FEATURE LIST
-========================= -->
+
+<!-- =====================================================
+     FEATURES LIST
+===================================================== -->
 
 <div class="section">
 
 <div class="section-title">
 7. Added Features
 </div>
+
 
 <div
 id="featureList"
@@ -697,9 +946,9 @@ class="feature-list">
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      CANVAS
-========================= -->
+===================================================== -->
 
 <div class="canvas-wrap">
 
@@ -712,9 +961,9 @@ height="1350">
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      DOWNLOAD
-========================= -->
+===================================================== -->
 
 <div class="section">
 
@@ -722,41 +971,53 @@ height="1350">
 8. Download
 </div>
 
+
 <div class="row">
+
 
 <div class="field">
 
 <button
 class="download-jpg"
 id="downloadJPG">
+
 ⬇ Download JPG
+
 </button>
 
 </div>
+
 
 <div class="field">
 
 <button
 class="download-png"
 id="downloadPNG">
+
 ⬇ Download PNG
+
 </button>
 
 </div>
+
 
 <div class="field">
 
 <button
 class="clear-btn"
 id="clearAll">
+
 ✕ سب صاف کریں
+
 </button>
 
 </div>
 
+
 </div>
 
 </div>
+
 
 </div>
 
@@ -765,48 +1026,92 @@ id="clearAll">
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
 
 const canvas =
-document.getElementById("canvas");
+document.getElementById(
+"canvas"
+);
 
 const ctx =
-canvas.getContext("2d");
+canvas.getContext(
+"2d"
+);
+
 
 const W = 1080;
 const H = 1350;
+
 
 let productImage = null;
 let logoImage = null;
 
 let features = [];
 
-let textColor = "#ffffff";
-let starColor = "#D4AF37";
-let panelColor = "#111111";
+
+let textColor =
+"#FFFFFF";
+
+let starColor =
+"#D4AF37";
+
+let panelColor =
+"#111111";
+
+
+let priceCardColor =
+"#111111";
+
+let priceColor =
+"#FFD700";
+
+let deliveryColor =
+"#FFFFFF";
+
 
 let fontSize = 34;
 
+let priceSize = 60;
+
+
 let isBold = true;
+
 let isItalic = false;
+
 let isUnderline = false;
 
 
-/* ==========================================
-   IMAGE LOAD
-========================================== */
+/* =====================================================
+   LOAD IMAGE
+===================================================== */
 
-function loadImage(file, callback){
+function loadImage(
+file,
+callback
+){
 
-    if(!file) return;
+    if(!file)
+        return;
 
-    const reader = new FileReader();
 
-    reader.onload = function(e){
+    const reader =
+        new FileReader();
 
-        const img = new Image();
 
-        img.onload = function(){
+    reader.onload =
+    function(e){
+
+
+        const img =
+            new Image();
+
+
+        img.onload =
+        function(){
 
             callback(img);
 
@@ -814,20 +1119,31 @@ function loadImage(file, callback){
 
         };
 
-        img.src = e.target.result;
+
+        img.src =
+            e.target.result;
 
     };
 
-    reader.readAsDataURL(file);
+
+    reader.readAsDataURL(
+        file
+    );
 
 }
 
 
-/* ==========================================
-   FIT IMAGE
-========================================== */
+/* =====================================================
+   COVER IMAGE
+===================================================== */
 
-function drawImageCover(img, x, y, w, h){
+function drawImageCover(
+img,
+x,
+y,
+w,
+h
+){
 
     const scale =
         Math.max(
@@ -835,25 +1151,41 @@ function drawImageCover(img, x, y, w, h){
             h / img.height
         );
 
+
     const newW =
-        img.width * scale;
+        img.width *
+        scale;
+
 
     const newH =
-        img.height * scale;
+        img.height *
+        scale;
+
 
     const dx =
-        x + (w - newW) / 2;
+        x +
+        (w - newW) / 2;
+
 
     const dy =
-        y + (h - newH) / 2;
+        y +
+        (h - newH) / 2;
+
 
     ctx.save();
 
+
     ctx.beginPath();
 
-    ctx.rect(x,y,w,h);
+    ctx.rect(
+        x,
+        y,
+        w,
+        h
+    );
 
     ctx.clip();
+
 
     ctx.drawImage(
         img,
@@ -863,48 +1195,75 @@ function drawImageCover(img, x, y, w, h){
         newH
     );
 
+
     ctx.restore();
 
 }
 
 
-/* ==========================================
+/* =====================================================
    STAR
-========================================== */
+===================================================== */
 
-function drawStar(cx,cy,r,color){
+function drawStar(
+cx,
+cy,
+r,
+color
+){
 
     ctx.save();
 
-    ctx.fillStyle = color;
+
+    ctx.fillStyle =
+        color;
+
 
     ctx.beginPath();
 
-    for(let i=0;i<10;i++){
+
+    for(
+        let i=0;
+        i<10;
+        i++
+    ){
 
         const angle =
-            -Math.PI / 2 +
-            i * Math.PI / 5;
+            -Math.PI/2 +
+            i*Math.PI/5;
+
 
         const radius =
-            i % 2 === 0
-                ? r
-                : r * 0.45;
+            i%2===0
+            ? r
+            : r*.45;
+
 
         const x =
             cx +
-            Math.cos(angle) * radius;
+            Math.cos(angle) *
+            radius;
+
 
         const y =
             cy +
-            Math.sin(angle) * radius;
+            Math.sin(angle) *
+            radius;
+
 
         if(i===0)
-            ctx.moveTo(x,y);
+            ctx.moveTo(
+                x,
+                y
+            );
         else
-            ctx.lineTo(x,y);
+            ctx.lineTo(
+                x,
+                y
+            );
 
     }
+
 
     ctx.closePath();
 
@@ -915,48 +1274,226 @@ function drawStar(cx,cy,r,color){
 }
 
 
-/* ==========================================
-   TEXT
-========================================== */
+/* =====================================================
+   PRICE CARD
+===================================================== */
 
-function drawText(text,x,y){
+function drawPriceCard(
+imageX,
+imageY,
+imageW,
+imageH
+){
 
-    let style = "";
+    const price =
+        Number(
+            document.getElementById(
+                "priceInput"
+            ).value || 0
+        );
 
-    if(isItalic)
-        style += "italic ";
 
-    if(isBold)
-        style += "bold ";
+    const delivery =
+        Number(
+            document.getElementById(
+                "deliveryInput"
+            ).value || 0
+        );
 
-    ctx.font =
-        style +
-        fontSize +
-        "px Arial";
+
+    const caption =
+        document.getElementById(
+            "deliveryCaption"
+        ).value.trim();
+
+
+    const position =
+        document.getElementById(
+            "pricePosition"
+        ).value;
+
+
+    const cardW = 430;
+
+    const cardH = 185;
+
+
+    let cardX;
+
+
+    if(position==="left"){
+
+        cardX =
+            imageX + 35;
+
+    }
+    else if(position==="right"){
+
+        cardX =
+            imageX +
+            imageW -
+            cardW -
+            35;
+
+    }
+    else{
+
+        cardX =
+            imageX +
+            (imageW-cardW)/2;
+
+    }
+
+
+    const cardY =
+        imageY +
+        imageH -
+        cardH -
+        35;
+
+
+    /* shadow */
+
+    ctx.save();
+
+    ctx.shadowColor =
+        "rgba(0,0,0,.45)";
+
+    ctx.shadowBlur =
+        18;
+
+    ctx.shadowOffsetY =
+        5;
+
 
     ctx.fillStyle =
-        textColor;
+        priceCardColor;
+
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        cardX,
+        cardY,
+        cardW,
+        cardH,
+        22
+    );
+
+    ctx.fill();
+
+
+    ctx.restore();
+
+
+    /* PRICE */
+
+    ctx.fillStyle =
+        priceColor;
+
 
     ctx.textAlign =
-        "right";
+        "center";
+
 
     ctx.textBaseline =
         "middle";
 
+
+    ctx.font =
+        "900 " +
+        priceSize +
+        "px Arial";
+
+
     ctx.fillText(
-        text,
-        x,
-        y
+        "Rs. " +
+        price.toLocaleString(
+            "en-PK"
+        ),
+        cardX +
+        cardW/2,
+        cardY + 75
+    );
+
+
+    /* DELIVERY */
+
+    ctx.fillStyle =
+        deliveryColor;
+
+
+    ctx.font =
+        "bold 28px Arial";
+
+
+    let deliveryText;
+
+
+    if(
+        delivery === 0 ||
+        delivery === ""
+    ){
+
+        deliveryText =
+            caption ||
+            "FREE DELIVERY";
+
+    }
+    else{
+
+        deliveryText =
+            caption ||
+            "Delivery: Rs. " +
+            delivery.toLocaleString(
+                "en-PK"
+            );
+
+    }
+
+
+    ctx.fillText(
+        deliveryText,
+        cardX +
+        cardW/2,
+        cardY + 135
+    );
+
+
+    /* TOTAL SMALL */
+
+    const total =
+        price +
+        delivery;
+
+
+    ctx.font =
+        "bold 20px Arial";
+
+
+    ctx.fillStyle =
+        "#FFFFFF";
+
+
+    ctx.fillText(
+        "Total: Rs. " +
+        total.toLocaleString(
+            "en-PK"
+        ),
+        cardX +
+        cardW/2,
+        cardY + 165
     );
 
 }
 
 
-/* ==========================================
+/* =====================================================
    DRAW
-========================================== */
+===================================================== */
 
 function draw(){
+
 
     ctx.clearRect(
         0,
@@ -965,10 +1502,12 @@ function draw(){
         H
     );
 
-    /* background */
+
+    /* WHITE BACKGROUND */
 
     ctx.fillStyle =
-        "#ffffff";
+        "#FFFFFF";
+
 
     ctx.fillRect(
         0,
@@ -978,18 +1517,20 @@ function draw(){
     );
 
 
-    /* IMAGE AREA */
+    /* IMAGE */
 
     const imageX = 30;
+
     const imageY = 30;
+
     const imageW = 1020;
-    const imageH = 820;
 
+    const imageH = 850;
 
-    /* frame */
 
     ctx.fillStyle =
-        "#eeeeee";
+        "#EEEEEE";
+
 
     ctx.fillRect(
         imageX,
@@ -1012,78 +1553,38 @@ function draw(){
     }
 
 
-    /* PRICE BADGE */
-
-    const price =
-        document.getElementById(
-            "priceInput"
-        ).value || "0";
-
-    const delivery =
-        document.getElementById(
-            "deliveryInput"
-        ).value || "0";
-
-
-    ctx.fillStyle =
-        "#C62828";
-
-    ctx.beginPath();
-
-    ctx.roundRect(
-        60,
-        70,
-        300,
-        90,
-        18
-    );
-
-    ctx.fill();
-
-
-    ctx.fillStyle =
-        "#ffffff";
-
-    ctx.textAlign =
-        "center";
-
-    ctx.textBaseline =
-        "middle";
-
-    ctx.font =
-        "bold 38px Arial";
-
-    ctx.fillText(
-        "Rs. " +
-        Number(price).toLocaleString(),
-        210,
-        115
-    );
-
-
     /* LOGO */
 
     if(logoImage){
 
         const maxLogo =
-            130;
+            115;
+
 
         const scale =
             Math.min(
-                maxLogo / logoImage.width,
-                maxLogo / logoImage.height
+                maxLogo /
+                logoImage.width,
+
+                maxLogo /
+                logoImage.height
             );
 
+
         const lw =
-            logoImage.width * scale;
+            logoImage.width *
+            scale;
+
 
         const lh =
-            logoImage.height * scale;
+            logoImage.height *
+            scale;
+
 
         ctx.drawImage(
             logoImage,
-            W - lw - 55,
-            55,
+            W-lw-55,
+            imageY+35,
             lw,
             lh
         );
@@ -1091,15 +1592,28 @@ function draw(){
     }
 
 
-    /* ==========================
-       INFORMATION PANEL
-    ========================== */
+    /* PRICE CARD */
 
-    const panelY = 880;
-    const panelH = 440;
+    drawPriceCard(
+        imageX,
+        imageY,
+        imageW,
+        imageH
+    );
+
+
+    /* =================================================
+       FEATURE PANEL
+    ================================================= */
+
+    const panelY = 905;
+
+    const panelH = 415;
+
 
     ctx.fillStyle =
         panelColor;
+
 
     ctx.fillRect(
         30,
@@ -1122,16 +1636,19 @@ function draw(){
         ctx.fillStyle =
             textColor;
 
+
         ctx.textAlign =
             "right";
+
 
         ctx.font =
             "bold 42px Arial";
 
+
         ctx.fillText(
             productName,
             1000,
-            panelY + 55
+            panelY+55
         );
 
     }
@@ -1140,56 +1657,88 @@ function draw(){
     /* FEATURES */
 
     let startY =
-        panelY + 115;
+        panelY+115;
 
-    const maxFeatures = 5;
 
     features
-        .slice(0,maxFeatures)
-        .forEach(function(item,index){
+    .slice(0,5)
+    .forEach(
+    function(item,index){
 
-            const y =
-                startY +
-                index * 58;
 
-            drawStar(
-                990,
-                y,
-                21,
-                item.starColor ||
-                starColor
+        const y =
+            startY +
+            index*58;
+
+
+        drawStar(
+            990,
+            y,
+            20,
+            item.starColor ||
+            starColor
+        );
+
+
+        ctx.fillStyle =
+            item.color ||
+            textColor;
+
+
+        ctx.textAlign =
+            "right";
+
+
+        let style = "";
+
+
+        if(item.italic)
+            style +=
+                "italic ";
+
+
+        if(item.bold)
+            style +=
+                "bold ";
+
+
+        ctx.font =
+            style +
+            (item.size ||
+             fontSize) +
+            "px Arial";
+
+
+        ctx.fillText(
+            item.text,
+            950,
+            y
+        );
+
+
+        if(
+            item.underline
+        ){
+
+            const width =
+                ctx.measureText(
+                    item.text
+                ).width;
+
+
+            ctx.fillRect(
+                950-width,
+                y+5,
+                width,
+                2
             );
 
-            ctx.fillStyle =
-                item.color ||
-                textColor;
+        }
 
-            ctx.textAlign =
-                "right";
-
-            let style = "";
-
-            if(item.italic)
-                style += "italic ";
-
-            if(item.bold)
-                style += "bold ";
-
-            ctx.font =
-                style +
-                (item.size || fontSize) +
-                "px Arial";
-
-            ctx.fillText(
-                item.text,
-                950,
-                y
-            );
-
-        });
+    });
 
 
-    /* DELIVERY */
+    /* DELIVERY MESSAGE */
 
     const deliveryCaption =
         document.getElementById(
@@ -1198,73 +1747,70 @@ function draw(){
 
 
     ctx.fillStyle =
-        "#ffffff";
+        textColor;
+
 
     ctx.font =
-        "bold 27px Arial";
+        "bold 25px Arial";
+
 
     ctx.textAlign =
         "right";
 
+
     ctx.fillText(
         deliveryCaption ||
-        "پورے پاکستان میں فری ڈلیوری",
+        "FREE DELIVERY",
         1000,
-        panelY + panelH - 70
+        panelY +
+        panelH -
+        35
     );
 
-
-    /* TOTAL */
-
-    const total =
-        Number(price || 0) *
-        1 +
-        Number(delivery || 0);
-
-
-    ctx.fillStyle =
-        "#D4AF37";
-
-    ctx.font =
-        "bold 32px Arial";
-
-    ctx.fillText(
-        "Total: Rs. " +
-        total.toLocaleString(),
-        1000,
-        panelY + panelH - 25
-    );
 
 }
 
 
-/* ==========================================
+/* =====================================================
    ADD FEATURE
-========================================== */
+===================================================== */
 
-function addFeature(text){
+function addFeature(
+text
+){
 
     if(!text)
         return;
 
+
     features.push({
 
-        id:Date.now() +
+        id:
+            Date.now() +
             Math.random(),
 
         text:text,
 
-        color:textColor,
+        color:
+            textColor,
 
-        starColor:starColor,
+        starColor:
+            starColor,
 
-        size:fontSize,
+        size:
+            fontSize,
 
-        bold:isBold,
+        bold:
+            isBold,
 
-        italic:isItalic
+        italic:
+            isItalic,
+
+        underline:
+            isUnderline
 
     });
+
 
     updateFeatureList();
 
@@ -1273,9 +1819,9 @@ function addFeature(text){
 }
 
 
-/* ==========================================
+/* =====================================================
    FEATURE LIST
-========================================== */
+===================================================== */
 
 function updateFeatureList(){
 
@@ -1284,14 +1830,19 @@ function updateFeatureList(){
             "featureList"
         );
 
+
     list.innerHTML = "";
 
-    features.forEach(function(item){
+
+    features.forEach(
+    function(item){
+
 
         const div =
             document.createElement(
                 "div"
             );
+
 
         div.className =
             "feature-item";
@@ -1302,8 +1853,10 @@ function updateFeatureList(){
                 "span"
             );
 
+
         star.textContent =
             "★";
+
 
         star.style.color =
             item.starColor;
@@ -1314,6 +1867,7 @@ function updateFeatureList(){
                 "span"
             );
 
+
         text.textContent =
             item.text;
 
@@ -1323,60 +1877,81 @@ function updateFeatureList(){
                 "button"
             );
 
+
         remove.className =
             "remove-feature";
+
 
         remove.textContent =
             "×";
 
 
         remove.onclick =
-            function(){
-
-                features =
-                    features.filter(
-                        function(f){
-                            return f.id !== item.id;
-                        }
-                    );
-
-                updateFeatureList();
-
-                draw();
-
-            };
+        function(){
 
 
-        div.appendChild(star);
+            features =
+                features.filter(
+                function(f){
 
-        div.appendChild(text);
+                    return f.id !==
+                        item.id;
 
-        div.appendChild(remove);
+                });
 
-        list.appendChild(div);
+
+            updateFeatureList();
+
+            draw();
+
+        };
+
+
+        div.appendChild(
+            star
+        );
+
+
+        div.appendChild(
+            text
+        );
+
+
+        div.appendChild(
+            remove
+        );
+
+
+        list.appendChild(
+            div
+        );
 
     });
 
 }
 
 
-/* ==========================================
+/* =====================================================
    COUNTRY
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addCountry"
-).onclick = function(){
+"addCountry"
+).onclick =
+function(){
+
 
     const value =
         document.getElementById(
             "countrySelect"
         ).value;
 
+
     if(value){
 
         addFeature(
-            "بنا ہوا ملک: " + value
+            "بنا ہوا ملک: " +
+            value
         );
 
     }
@@ -1384,97 +1959,113 @@ document.getElementById(
 };
 
 
-/* ==========================================
+/* =====================================================
    STRENGTH
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addStrength"
-).onclick = function(){
+"addStrength"
+).onclick =
+function(){
+
 
     const value =
         document.getElementById(
             "strengthSelect"
         ).value;
 
+
     if(value)
         addFeature(value);
 
 };
 
 
-/* ==========================================
+/* =====================================================
    DURABILITY
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addDurability"
-).onclick = function(){
+"addDurability"
+).onclick =
+function(){
+
 
     const value =
         document.getElementById(
             "durabilitySelect"
         ).value;
 
+
     if(value)
         addFeature(value);
 
 };
 
 
-/* ==========================================
+/* =====================================================
    QUALITY
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addQuality"
-).onclick = function(){
+"addQuality"
+).onclick =
+function(){
+
 
     const value =
         document.getElementById(
             "qualitySelect"
         ).value;
 
+
     if(value)
         addFeature(value);
 
 };
 
 
-/* ==========================================
+/* =====================================================
    BEAUTY
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addBeauty"
-).onclick = function(){
+"addBeauty"
+).onclick =
+function(){
+
 
     const value =
         document.getElementById(
             "beautySelect"
         ).value;
 
+
     if(value)
         addFeature(value);
 
 };
 
 
-/* ==========================================
+/* =====================================================
    CUSTOM
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "addCustom"
-).onclick = function(){
+"addCustom"
+).onclick =
+function(){
+
 
     const input =
         document.getElementById(
             "customText"
         );
 
+
     const value =
         input.value.trim();
+
 
     if(value){
 
@@ -1487,212 +2078,184 @@ document.getElementById(
 };
 
 
-/* ==========================================
-   PRICE UPDATE
-========================================== */
+/* =====================================================
+   LIVE UPDATE
+===================================================== */
 
-document.getElementById(
-    "updatePrice"
-).onclick = function(){
+const liveFields = [
 
-    draw();
+    "priceInput",
 
-};
+    "deliveryInput",
 
+    "deliveryCaption",
 
-/* ==========================================
-   COLOR
-========================================== */
+    "pricePosition",
 
-document.getElementById(
-    "textColor"
-).oninput =
-function(){
+    "priceCardColor",
 
-    textColor =
-        this.value;
+    "priceColor",
 
-    draw();
+    "deliveryColor",
 
-};
+    "priceSize",
 
+    "textColor",
 
-document.getElementById(
-    "starColor"
-).oninput =
-function(){
+    "starColor",
 
-    starColor =
-        this.value;
+    "panelColor",
 
-    draw();
+    "fontSize",
 
-};
+    "productName",
+
+    "productDescription"
+
+];
 
 
-document.getElementById(
-    "panelColor"
-).oninput =
-function(){
+liveFields.forEach(
+function(id){
 
-    panelColor =
-        this.value;
+    document.getElementById(
+        id
+    ).addEventListener(
+        "input",
+        draw
+    );
 
-    draw();
+    document.getElementById(
+        id
+    ).addEventListener(
+        "change",
+        draw
+    );
 
-};
-
-
-/* ==========================================
-   FONT SIZE
-========================================== */
-
-document.getElementById(
-    "fontSize"
-).oninput =
-function(){
-
-    fontSize =
-        Number(this.value);
-
-    draw();
-
-};
+});
 
 
-/* ==========================================
+/* =====================================================
    BOLD
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "boldBtn"
+"boldBtn"
 ).onclick =
 function(){
 
     isBold =
         !isBold;
 
-    this.style.opacity =
-        isBold ? "1" : ".5";
 
-    draw();
+    this.style.opacity =
+        isBold
+        ? "1"
+        : ".5";
+
 
 };
 
 
-/* ==========================================
+/* =====================================================
    ITALIC
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "italicBtn"
+"italicBtn"
 ).onclick =
 function(){
 
     isItalic =
         !isItalic;
 
-    this.style.opacity =
-        isItalic ? "1" : ".5";
 
-    draw();
+    this.style.opacity =
+        isItalic
+        ? "1"
+        : ".5";
 
 };
 
 
-/* ==========================================
+/* =====================================================
    UNDERLINE
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "underlineBtn"
+"underlineBtn"
 ).onclick =
 function(){
 
     isUnderline =
         !isUnderline;
 
-    this.style.opacity =
-        isUnderline ? "1" : ".5";
 
-    draw();
+    this.style.opacity =
+        isUnderline
+        ? "1"
+        : ".5";
 
 };
 
 
-/* ==========================================
+/* =====================================================
    IMAGE
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "imageInput"
+"imageInput"
 ).onchange =
 function(){
 
     loadImage(
         this.files[0],
+
         function(img){
 
             productImage =
                 img;
 
         }
+
     );
 
 };
 
 
-/* ==========================================
+/* =====================================================
    LOGO
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "logoInput"
+"logoInput"
 ).onchange =
 function(){
 
     loadImage(
         this.files[0],
+
         function(img){
 
             logoImage =
                 img;
 
         }
+
     );
 
 };
 
 
-/* ==========================================
-   LIVE PRICE
-========================================== */
-
-[
-    "priceInput",
-    "deliveryInput",
-    "deliveryCaption",
-    "productName",
-    "productDescription"
-].forEach(function(id){
-
-    document.getElementById(id)
-        .addEventListener(
-            "input",
-            draw
-        );
-
-});
-
-
-/* ==========================================
+/* =====================================================
    CLEAR
-========================================== */
+===================================================== */
 
 document.getElementById(
-    "clearAll"
+"clearAll"
 ).onclick =
 function(){
+
 
     features = [];
 
@@ -1700,25 +2263,31 @@ function(){
 
     logoImage = null;
 
+
     document.getElementById(
         "imageInput"
     ).value = "";
+
 
     document.getElementById(
         "logoInput"
     ).value = "";
 
+
     document.getElementById(
         "productName"
     ).value = "";
+
 
     document.getElementById(
         "productDescription"
     ).value = "";
 
+
     document.getElementById(
         "customText"
     ).value = "";
+
 
     updateFeatureList();
 
@@ -1727,21 +2296,25 @@ function(){
 };
 
 
-/* ==========================================
+/* =====================================================
    DOWNLOAD
-========================================== */
+===================================================== */
 
-function download(type){
+function download(
+type
+){
 
     const link =
         document.createElement(
             "a"
         );
 
-    if(type === "jpg"){
+
+    if(type==="jpg"){
 
         link.download =
             "Janjua-Traders-Product.jpg";
+
 
         link.href =
             canvas.toDataURL(
@@ -1749,10 +2322,12 @@ function download(type){
                 .95
             );
 
-    }else{
+    }
+    else{
 
         link.download =
             "Janjua-Traders-Product.png";
+
 
         link.href =
             canvas.toDataURL(
@@ -1761,13 +2336,14 @@ function download(type){
 
     }
 
+
     link.click();
 
 }
 
 
 document.getElementById(
-    "downloadJPG"
+"downloadJPG"
 ).onclick =
 function(){
 
@@ -1777,7 +2353,7 @@ function(){
 
 
 document.getElementById(
-    "downloadPNG"
+"downloadPNG"
 ).onclick =
 function(){
 
@@ -1786,15 +2362,17 @@ function(){
 };
 
 
-/* ==========================================
+/* =====================================================
    FIRST DRAW
-========================================== */
+===================================================== */
 
 draw();
+
 
 });
 
 </script>
 
 </body>
+
 </html>
