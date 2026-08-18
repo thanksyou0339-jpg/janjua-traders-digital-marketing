@@ -1,18 +1,17 @@
 /* =========================================================
    JANJUA TRADERS
-   FINAL COMPLETE ORDER SCRIPT
+   FINAL SCRIPT.JS
 
-   FEATURES:
-   - Customer information
-   - Product information
+   FIXES:
+   - Correct Product Price
+   - Correct Delivery Charges
+   - Correct Total
+   - Correct Gmail Order
    - Color
    - Size
    - Quantity
-   - Product price
-   - Delivery charges
-   - Automatic total
-   - Gmail / FormSubmit
-   - No duplicate Color / Size fields
+   - Customer Information
+   - No duplicate Color / Size
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -20,23 +19,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("orderForm");
 
     if (!form) {
-        console.error("Order form not found.");
+        console.error("Janjua Traders: Order form not found.");
         return;
     }
 
 
     /* =====================================================
-       PRODUCT PRICE SETTINGS
+       CURRENT PRODUCT PRICE
        =====================================================
 
-       اس وقت موجودہ Product کی قیمت:
-       42,999 روپے
+       موجودہ Product:
 
-       Delivery:
-       250 روپے
+       Product Price = Rs. 42,999
+       Delivery      = Rs. 250
 
-       بعد میں Product بدلنے پر صرف یہی دو values
-       تبدیل کی جا سکتی ہیں۔
+       اگر Product کی قیمت بعد میں بدلے تو
+       صرف PRODUCT_PRICE تبدیل کریں۔
        ===================================================== */
 
     const PRODUCT_PRICE = 42999;
@@ -44,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       BASIC HELPERS
+       HELPERS
        ===================================================== */
 
     function clean(value) {
@@ -81,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       HIDDEN FORM FIELD
+       CREATE / UPDATE HIDDEN FIELD
        ===================================================== */
 
     function setHidden(name, value) {
@@ -94,8 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!field) {
 
-            field =
-                document.createElement("input");
+            field = document.createElement("input");
 
             field.type = "hidden";
             field.name = name;
@@ -103,7 +100,24 @@ document.addEventListener("DOMContentLoaded", function () {
             form.appendChild(field);
         }
 
-        field.value = clean(value);
+        field.value = String(value);
+    }
+
+
+    /* =====================================================
+       RUPEE FORMAT
+       ===================================================== */
+
+    function rupees(number) {
+
+        return "Rs. " +
+            Number(number).toLocaleString(
+                "en-PK",
+                {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                }
+            );
     }
 
 
@@ -121,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return clean(
-            element.value ||
             element.textContent
         ) || "Product";
     }
@@ -141,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return clean(
-            element.value ||
             element.textContent
         );
     }
@@ -160,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return 1;
         }
 
-        const quantity =
+        let quantity =
             parseInt(
                 element.value,
                 10
@@ -170,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
             isNaN(quantity) ||
             quantity < 1
         ) {
-            return 1;
+            quantity = 1;
         }
 
         return quantity;
@@ -178,98 +190,86 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       TOTAL CALCULATION
+       CALCULATE PRICE
        ===================================================== */
 
-    function calculateTotal() {
+    function calculatePrice() {
 
         const quantity =
             getQuantity();
+
+
+        /* Product total */
 
         const productTotal =
             PRODUCT_PRICE *
             quantity;
 
-        const total =
+
+        /* Final total */
+
+        const finalTotal =
             productTotal +
             DELIVERY_CHARGES;
 
 
-        /* -------------------------------------------------
-           UPDATE PAGE DISPLAY
-           ------------------------------------------------- */
+        /* =================================================
+           SHOW ON SCREEN
+           ================================================= */
 
-        const priceDisplay =
+        const productPriceElement =
             get("productPrice");
 
-        if (priceDisplay) {
+        if (productPriceElement) {
 
-            priceDisplay.textContent =
-                "Rs. " +
-                PRODUCT_PRICE.toLocaleString(
-                    "en-PK"
-                );
+            productPriceElement.textContent =
+                rupees(PRODUCT_PRICE);
         }
 
 
-        const deliveryDisplay =
+        const deliveryElement =
             get("deliveryPrice");
 
-        if (deliveryDisplay) {
+        if (deliveryElement) {
 
-            deliveryDisplay.textContent =
-                "Rs. " +
-                DELIVERY_CHARGES.toLocaleString(
-                    "en-PK"
-                );
+            deliveryElement.textContent =
+                rupees(DELIVERY_CHARGES);
         }
 
 
-        const totalDisplay =
+        const totalElement =
             get("totalPrice");
 
-        if (totalDisplay) {
+        if (totalElement) {
 
-            totalDisplay.textContent =
-                "Rs. " +
-                total.toLocaleString(
-                    "en-PK"
-                );
+            totalElement.textContent =
+                rupees(finalTotal);
         }
 
 
-        /* -------------------------------------------------
-           GMAIL DATA
-           ------------------------------------------------- */
+        /* =================================================
+           SEND TO GMAIL
+           ================================================= */
 
         setHidden(
             "Product_Price",
-            "Rs. " +
-            PRODUCT_PRICE.toLocaleString(
-                "en-PK"
-            )
+            rupees(PRODUCT_PRICE)
         );
 
 
         setHidden(
             "Delivery_Charges",
-            "Rs. " +
-            DELIVERY_CHARGES.toLocaleString(
-                "en-PK"
-            )
+            rupees(DELIVERY_CHARGES)
         );
 
 
         setHidden(
             "Total_Amount",
-            "Rs. " +
-            total.toLocaleString(
-                "en-PK"
-            )
+            rupees(finalTotal)
         );
 
 
-        return total;
+        return finalTotal;
     }
 
 
@@ -298,18 +298,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getProductLink() {
 
-        const hiddenLink =
+        const element =
             form.querySelector(
                 'input[name="Product_Link"]'
             );
 
         if (
-            hiddenLink &&
-            clean(hiddenLink.value)
+            element &&
+            clean(element.value)
         ) {
-            return clean(
-                hiddenLink.value
-            );
+            return clean(element.value);
         }
 
         return window.location.href;
@@ -322,25 +320,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function prepareOrder() {
 
-        const customerName =
+        const name =
             getValue(
                 "customerName"
             );
 
-        const customerPhone =
+
+        const phone =
             getValue(
                 "customerPhone"
             );
+
 
         const address =
             getValue(
                 "address"
             );
 
+
         const color =
             getValue(
                 "color"
             );
+
 
         const size =
             getValue(
@@ -348,30 +350,26 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        /* -------------------------------------------------
-           ORDER ID
-           ------------------------------------------------- */
+        /* =================================================
+           CUSTOMER
+           ================================================= */
 
         setHidden(
             "Order_ID",
-            customerPhone ||
+            phone ||
             "New Order"
         );
 
 
-        /* -------------------------------------------------
-           CUSTOMER
-           ------------------------------------------------- */
-
         setHidden(
             "Customer_Name",
-            customerName
+            name
         );
 
 
         setHidden(
             "Mobile_WhatsApp",
-            customerPhone
+            phone
         );
 
 
@@ -381,9 +379,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            PLATFORM
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Platform",
@@ -391,9 +389,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            PRODUCT
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Product",
@@ -407,9 +405,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            COLOR
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Color",
@@ -418,9 +416,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            SIZE
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Size",
@@ -429,9 +427,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            QUANTITY
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Quantity",
@@ -439,16 +437,16 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
-           PRICE + DELIVERY + TOTAL
-           ------------------------------------------------- */
+        /* =================================================
+           PRICE
+           ================================================= */
 
-        calculateTotal();
+        calculatePrice();
 
 
-        /* -------------------------------------------------
+        /* =================================================
            PRODUCT LINK
-           ------------------------------------------------- */
+           ================================================= */
 
         setHidden(
             "Product_Link",
@@ -456,9 +454,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* -------------------------------------------------
+        /* =================================================
            REMOVE OLD ADDITIONAL MESSAGE
-           ------------------------------------------------- */
+           ================================================= */
 
         const oldMessage =
             form.querySelector(
@@ -466,14 +464,13 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
         if (oldMessage) {
-
             oldMessage.remove();
         }
     }
 
 
     /* =====================================================
-       QUANTITY CHANGE
+       QUANTITY UPDATE
        ===================================================== */
 
     const quantityField =
@@ -485,8 +482,12 @@ document.addEventListener("DOMContentLoaded", function () {
             "input",
             function () {
 
-                calculateTotal();
+                calculatePrice();
 
+                setHidden(
+                    "Quantity",
+                    getQuantity()
+                );
             }
         );
 
@@ -495,15 +496,19 @@ document.addEventListener("DOMContentLoaded", function () {
             "change",
             function () {
 
-                calculateTotal();
+                calculatePrice();
 
+                setHidden(
+                    "Quantity",
+                    getQuantity()
+                );
             }
         );
     }
 
 
     /* =====================================================
-       COLOR CHANGE
+       COLOR UPDATE
        ===================================================== */
 
     const colorField =
@@ -522,14 +527,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     ) ||
                     "Not Required"
                 );
-
             }
         );
     }
 
 
     /* =====================================================
-       SIZE CHANGE
+       SIZE UPDATE
        ===================================================== */
 
     const sizeField =
@@ -548,14 +552,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     ) ||
                     "Not Required"
                 );
-
             }
         );
     }
 
 
     /* =====================================================
-       PHONE CHANGE
+       PHONE UPDATE
        ===================================================== */
 
     const phoneField =
@@ -584,14 +587,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Mobile_WhatsApp",
                     phone
                 );
-
             }
         );
     }
 
 
     /* =====================================================
-       FINAL SUBMIT
+       FINAL FORM SUBMIT
        ===================================================== */
 
     form.addEventListener(
@@ -599,9 +601,9 @@ document.addEventListener("DOMContentLoaded", function () {
         function () {
 
             /*
-               Submit سے پہلے تمام data تیار ہوگا۔
-               FormSubmit کو normally submit ہونے دیا جائے گا۔
-            */
+             * Submit سے بالکل پہلے
+             * تمام معلومات دوبارہ تیار ہوں گی۔
+             */
 
             prepareOrder();
 
@@ -615,6 +617,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     prepareOrder();
 
-    calculateTotal();
+    calculatePrice();
+
+
+    console.log(
+        "Janjua Traders Price System Ready"
+    );
+
+    console.log(
+        "Product Price:",
+        PRODUCT_PRICE
+    );
+
+    console.log(
+        "Delivery:",
+        DELIVERY_CHARGES
+    );
+
+    console.log(
+        "Total:",
+        PRODUCT_PRICE +
+        DELIVERY_CHARGES
+    );
 
 });
