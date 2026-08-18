@@ -8,16 +8,20 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Janjua Traders - ApnaMart</title>
+    <title>Janjua Traders - Apna Mart</title>
 
-    <link rel="stylesheet"
-          href="apnamart.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="apnamart.css">
 
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -30,7 +34,7 @@
     </p>
 
     <p class="subtag">
-        ApnaMart
+        Apna Mart
     </p>
 
 </header>
@@ -57,7 +61,7 @@
             id="productImage"
             class="product-image"
             src="file_00000000ee44820880d5993065f8c4c9.png"
-            alt="ApnaMart Product"
+            alt="Product Image"
             onerror="
                 this.style.display='none';
                 document.getElementById('noImage').style.display='flex';
@@ -75,24 +79,21 @@
     </div>
 
 
-
     <div style="text-align:center;">
 
         <div
             id="platformBadge"
             class="platform-badge"
         >
-            ApnaMart
+            Apna Mart
         </div>
 
     </div>
 
 
-
     <h2 id="productTitle">
-        آپ کا ApnaMart Product
+        آپ کا Product
     </h2>
-
 
 
     <p id="productDescription">
@@ -100,9 +101,9 @@
     </p>
 
 
+    <!-- PRICE -->
 
     <div class="price-box">
-
 
         <div class="price-row">
 
@@ -115,7 +116,6 @@
             </strong>
 
         </div>
-
 
 
         <div class="price-row">
@@ -131,7 +131,6 @@
         </div>
 
 
-
         <div class="price-row">
 
             <span>
@@ -143,7 +142,6 @@
             </strong>
 
         </div>
-
 
     </div>
 
@@ -159,9 +157,8 @@
 <section class="card">
 
     <h2>
-        ApnaMart Order / Customer Request
+        Apna Mart Order / Customer Request
     </h2>
-
 
 
     <form
@@ -170,13 +167,14 @@
     >
 
 
-        <!-- ORDER INFORMATION -->
+        <!-- =================================================
+             HIDDEN ORDER INFORMATION
+        ================================================= -->
 
         <input
             type="hidden"
             name="Order_ID"
             id="orderId"
-            value=""
         >
 
 
@@ -184,7 +182,6 @@
             type="hidden"
             name="Order_Date"
             id="orderDate"
-            value=""
         >
 
 
@@ -192,7 +189,6 @@
             type="hidden"
             name="Order_Time"
             id="orderTime"
-            value=""
         >
 
 
@@ -200,7 +196,6 @@
             type="hidden"
             name="Product"
             id="formProduct"
-            value=""
         >
 
 
@@ -208,7 +203,6 @@
             type="hidden"
             name="Product_Description"
             id="formDescription"
-            value=""
         >
 
 
@@ -216,7 +210,6 @@
             type="hidden"
             name="Product_Price"
             id="formProductPrice"
-            value=""
         >
 
 
@@ -224,7 +217,6 @@
             type="hidden"
             name="Delivery_Charges"
             id="formDeliveryPrice"
-            value=""
         >
 
 
@@ -232,7 +224,6 @@
             type="hidden"
             name="Product_Total"
             id="formProductTotal"
-            value=""
         >
 
 
@@ -240,7 +231,6 @@
             type="hidden"
             name="Total_Amount"
             id="formTotalPrice"
-            value=""
         >
 
 
@@ -248,7 +238,6 @@
             type="hidden"
             name="Product_Link"
             id="formProductLink"
-            value=""
         >
 
 
@@ -256,12 +245,13 @@
             type="hidden"
             name="Platform"
             id="formPlatform"
-            value="ApnaMart"
+            value="Apna Mart"
         >
 
 
-
-        <!-- CUSTOMER NAME -->
+        <!-- =================================================
+             CUSTOMER NAME
+        ================================================= -->
 
         <label for="customerName">
 
@@ -285,7 +275,9 @@
 
 
 
-        <!-- MOBILE -->
+        <!-- =================================================
+             MOBILE
+        ================================================= -->
 
         <label for="customerPhone">
 
@@ -310,7 +302,9 @@
 
 
 
-        <!-- ADDRESS -->
+        <!-- =================================================
+             ADDRESS
+        ================================================= -->
 
         <label for="address">
 
@@ -334,7 +328,9 @@
 
 
 
-        <!-- PLATFORM -->
+        <!-- =================================================
+             PLATFORM
+        ================================================= -->
 
         <label for="platform">
 
@@ -348,15 +344,18 @@
             name="Platform"
         >
 
-            <option value="ApnaMart">
-                ApnaMart
+            <option value="Apna Mart">
+                Apna Mart
             </option>
 
         </select>
 
 
 
-        <!-- QUANTITY -->
+        <!-- =================================================
+             QUANTITY
+             1 TO 10
+        ================================================= -->
 
         <label for="quantity">
 
@@ -378,13 +377,14 @@
             step="1"
             value="1"
             inputmode="numeric"
-            autocomplete="off"
             required
         >
 
 
 
-        <!-- COLOR / SIZE -->
+        <!-- =================================================
+             COLOR / SIZE
+        ================================================= -->
 
         <h3 style="margin-top:25px;margin-bottom:5px;">
 
@@ -404,6 +404,8 @@
 
         <div class="choice-grid">
 
+
+            <!-- COLOR -->
 
             <div class="choice-box">
 
@@ -425,6 +427,8 @@
 
 
 
+            <!-- SIZE -->
+
             <div class="choice-box">
 
                 <label for="size">
@@ -443,12 +447,13 @@
 
             </div>
 
-
         </div>
 
 
 
-        <!-- SUBMIT -->
+        <!-- =================================================
+             SUBMIT
+        ================================================= -->
 
         <button
             id="submitButton"
@@ -462,7 +467,9 @@
 
 
 
-        <!-- RESULT -->
+        <!-- =================================================
+             RESULT
+        ================================================= -->
 
         <div
             id="result"
@@ -480,20 +487,20 @@
 
 
 <!-- =====================================================
-     APNAMART INFORMATION
+     APNA MART INFORMATION
 ===================================================== -->
 
 <section class="card">
 
     <h2>
-        ApnaMart
+        Apna Mart
     </h2>
 
 
     <p>
 
         یہ Janjua Traders کا
-        ApnaMart Reselling Order Workflow ہے۔
+        Apna Mart order workflow ہے۔
 
     </p>
 
@@ -501,11 +508,11 @@
     <p class="success-note">
 
         Customer کی معلومات، Product،
-        Quantity، Color، Size، قیمت اور
-        Order ID محفوظ کیے جائیں گے۔
+        Quantity، Color، Size، قیمت،
+        Order ID، Date اور Time
+        محفوظ کیے جائیں گے۔
 
     </p>
-
 
 </section>
 
@@ -514,20 +521,26 @@
 
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
     <strong>
         Janjua Traders
     </strong>
 
-    — ApnaMart Digital Marketing
+    — Apna Mart Digital Marketing
 
 </footer>
 
 
 
 <!-- =====================================================
-     APNAMART JAVASCRIPT
+     JAVASCRIPT
+     IMPORTANT:
+     یہ لائن پہلے سے مکمل HTML میں شامل ہے۔
 ===================================================== -->
 
 <script src="apnamart.js"></script>
