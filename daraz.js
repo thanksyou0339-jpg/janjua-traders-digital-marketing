@@ -2,13 +2,14 @@
    JANJUA TRADERS
    DARAZ FINAL GMAIL ORDER SCRIPT
 
+   FINAL VERSION
+
    FEATURES:
    - Daraz Product
    - Product Price
    - Delivery Charges
    - Quantity 1 to 10
-   - Quantity Mobile Input FIX
-   - Correct Total
+   - FIXED Quantity Input
    - Customer Name
    - Phone / WhatsApp
    - Address
@@ -43,9 +44,7 @@ document.addEventListener(
         ===================================================== */
 
         const form =
-            document.getElementById(
-                "orderForm"
-            );
+            document.getElementById("orderForm");
 
 
         if (!form) {
@@ -189,9 +188,7 @@ document.addEventListener(
         function productName() {
 
             const element =
-                get(
-                    "productTitle"
-                );
+                get("productTitle");
 
 
             if (!element) {
@@ -209,9 +206,7 @@ document.addEventListener(
         function productDescription() {
 
             const element =
-                get(
-                    "productDescription"
-                );
+                get("productDescription");
 
 
             if (!element) {
@@ -228,15 +223,13 @@ document.addEventListener(
 
         /* =====================================================
            QUANTITY
-           FINAL MOBILE FIX
+           FINAL FIX
         ===================================================== */
 
         function quantity() {
 
             const element =
-                get(
-                    "quantity"
-                );
+                get("quantity");
 
 
             if (!element) {
@@ -251,9 +244,7 @@ document.addEventListener(
                 );
 
 
-            if (
-                value === ""
-            ) {
+            if (value === "") {
 
                 return 1;
             }
@@ -261,17 +252,9 @@ document.addEventListener(
 
             value =
                 value.replace(
-                    /[^0-9]/g,
+                    /\D/g,
                     ""
                 );
-
-
-            if (
-                value === ""
-            ) {
-
-                return 1;
-            }
 
 
             let qty =
@@ -290,9 +273,7 @@ document.addEventListener(
             }
 
 
-            if (
-                qty > 10
-            ) {
+            if (qty > 10) {
 
                 qty = 10;
             }
@@ -519,10 +500,12 @@ document.addEventListener(
                 DELIVERY_CHARGES;
 
 
+            /* ---------------------------------------------
+               SCREEN PRICE
+            --------------------------------------------- */
+
             const productPriceElement =
-                get(
-                    "productPrice"
-                );
+                get("productPrice");
 
 
             if (
@@ -537,9 +520,7 @@ document.addEventListener(
 
 
             const deliveryElement =
-                get(
-                    "deliveryPrice"
-                );
+                get("deliveryPrice");
 
 
             if (
@@ -554,9 +535,7 @@ document.addEventListener(
 
 
             const totalElement =
-                get(
-                    "totalPrice"
-                );
+                get("totalPrice");
 
 
             if (
@@ -569,6 +548,10 @@ document.addEventListener(
                     );
             }
 
+
+            /* ---------------------------------------------
+               HIDDEN EMAIL DATA
+            --------------------------------------------- */
 
             setHidden(
                 "Product_Price",
@@ -784,9 +767,7 @@ document.addEventListener(
         ) {
 
             const result =
-                get(
-                    "result"
-                );
+                get("result");
 
 
             if (!result) {
@@ -815,19 +796,15 @@ document.addEventListener(
         ===================================================== */
 
         const submitButton =
-            get(
-                "submitButton"
-            );
+            get("submitButton");
 
 
         /* =====================================================
-           QUANTITY - FINAL MOBILE FIX
+           QUANTITY FINAL FIX
         ===================================================== */
 
         const quantityField =
-            get(
-                "quantity"
-            );
+            get("quantity");
 
 
         if (
@@ -837,41 +814,76 @@ document.addEventListener(
             quantityField.type =
                 "number";
 
-
             quantityField.min =
                 "1";
-
 
             quantityField.max =
                 "10";
 
-
             quantityField.step =
                 "1";
 
-
             quantityField.inputMode =
                 "numeric";
-
 
             quantityField.autocomplete =
                 "off";
 
 
             /* ---------------------------------------------
-               IMPORTANT:
+               FOCUS
 
-               Page load پر 1 خود سے نہیں ڈالا جائے گا۔
+               موجودہ Quantity خود select ہوگی۔
 
-               اس سے موبائل میں:
+               1 پر click
+               پھر 2 لکھیں
 
-               1 + 2 = 12
+               نتیجہ:
+               2
 
-               والا مسئلہ ختم ہوگا۔
+               12 نہیں۔
+               --------------------------------------------- */
 
-               User خود 1, 2, 3 ... 10 لکھے گا۔
-            --------------------------------------------- */
+            quantityField.addEventListener(
+                "focus",
+                function () {
 
+                    setTimeout(
+                        function () {
+
+                            quantityField.select();
+
+                        },
+                        0
+                    );
+
+                }
+            );
+
+
+            /* ---------------------------------------------
+               MOUSE CLICK
+
+               پرانی value append نہیں ہوگی۔
+               --------------------------------------------- */
+
+            quantityField.addEventListener(
+                "mouseup",
+                function (event) {
+
+                    event.preventDefault();
+
+                    quantityField.select();
+
+                }
+            );
+
+
+            /* ---------------------------------------------
+               INPUT
+
+               نئی value کو صحیح طور پر process کریں۔
+               --------------------------------------------- */
 
             quantityField.addEventListener(
                 "input",
@@ -879,15 +891,6 @@ document.addEventListener(
 
                     let value =
                         quantityField.value;
-
-
-                    /* صرف numbers */
-
-                    value =
-                        value.replace(
-                            /[^0-9]/g,
-                            ""
-                        );
 
 
                     /* خالی ہونے دیں */
@@ -902,15 +905,17 @@ document.addEventListener(
                     }
 
 
-                    let number =
-                        parseInt(
-                            value,
-                            10
+                    /* صرف numbers */
+
+                    value =
+                        value.replace(
+                            /\D/g,
+                            ""
                         );
 
 
                     if (
-                        isNaN(number)
+                        value === ""
                     ) {
 
                         quantityField.value =
@@ -920,6 +925,13 @@ document.addEventListener(
 
                         return;
                     }
+
+
+                    let number =
+                        parseInt(
+                            value,
+                            10
+                        );
 
 
                     /* Maximum 10 */
@@ -956,7 +968,7 @@ document.addEventListener(
 
             /* ---------------------------------------------
                CHANGE
-            --------------------------------------------- */
+               --------------------------------------------- */
 
             quantityField.addEventListener(
                 "change",
@@ -999,8 +1011,52 @@ document.addEventListener(
 
 
             /* ---------------------------------------------
+               BLUR
+               --------------------------------------------- */
+
+            quantityField.addEventListener(
+                "blur",
+                function () {
+
+                    let number =
+                        parseInt(
+                            quantityField.value,
+                            10
+                        );
+
+
+                    if (
+                        isNaN(number) ||
+                        number < 1
+                    ) {
+
+                        number = 1;
+                    }
+
+
+                    if (
+                        number > 10
+                    ) {
+
+                        number = 10;
+                    }
+
+
+                    quantityField.value =
+                        String(
+                            number
+                        );
+
+
+                    calculateTotal();
+
+                }
+            );
+
+
+            /* ---------------------------------------------
                KEYBOARD PROTECTION
-            --------------------------------------------- */
+               --------------------------------------------- */
 
             quantityField.addEventListener(
                 "keydown",
@@ -1048,7 +1104,8 @@ document.addEventListener(
 
 
                 /* ---------------------------------------------
-                   CREATE ORDER INFO ONLY NOW
+                   CREATE ORDER INFO
+                   ONLY ON SUBMIT
                 --------------------------------------------- */
 
                 const orderInfo =
@@ -1164,6 +1221,7 @@ document.addEventListener(
                         console.warn(
                             "Non-JSON response from FormSubmit."
                         );
+
                     }
 
 
@@ -1180,6 +1238,7 @@ document.addEventListener(
                         )
                     ) {
 
+
                         showResult(
 
                             "✓ Daraz Order کامیابی سے Gmail پر Submit ہو گیا ہے۔ Tracking ID: " +
@@ -1191,7 +1250,7 @@ document.addEventListener(
 
 
                         /* -----------------------------------------
-                           CUSTOMER FIELDS CLEAR
+                           CLEAR CUSTOMER FIELDS
                         ----------------------------------------- */
 
                         const customerName =
@@ -1269,12 +1328,16 @@ document.addEventListener(
                         }
 
 
+                        /* -----------------------------------------
+                           QUANTITY RESET
+                        ----------------------------------------- */
+
                         if (
                             quantityField
                         ) {
 
                             quantityField.value =
-                                "";
+                                "1";
                         }
 
 
@@ -1283,7 +1346,6 @@ document.addEventListener(
                          */
 
                         calculateTotal();
-
 
                     }
 
@@ -1306,6 +1368,7 @@ document.addEventListener(
                         throw new Error(
                             errorMessage
                         );
+
                     }
 
 
@@ -1330,6 +1393,7 @@ document.addEventListener(
                         ),
 
                         false
+
                     );
 
                 }
@@ -1358,27 +1422,68 @@ document.addEventListener(
            INITIAL LOAD
         ===================================================== */
 
-        /*
-         * Quantity کو یہاں 1 نہیں دیا جائے گا۔
-         *
-         * اس کا مقصد یہ ہے کہ موبائل پر
-         * پہلے سے موجود 1 کے ساتھ نیا نمبر
-         * جڑ کر 12 یا 21 نہ بنے۔
-         *
-         * User خود Quantity لکھے گا۔
-         */
+        if (
+            quantityField
+        ) {
 
+            let initialValue =
+                parseInt(
+                    quantityField.value,
+                    10
+                );
+
+
+            if (
+                isNaN(initialValue) ||
+                initialValue < 1
+            ) {
+
+                initialValue = 1;
+            }
+
+
+            if (
+                initialValue > 10
+            ) {
+
+                initialValue = 10;
+            }
+
+
+            quantityField.value =
+                String(
+                    initialValue
+                );
+        }
+
+
+        /*
+         * Page load پر صرف price/total calculate ہوگا۔
+         *
+         * Tracking ID / Date / Time
+         * submit کے وقت بنیں گے۔
+         */
 
         calculateTotal();
 
 
         console.log(
-            "Janjua Traders: DARAZ Gmail AJAX script loaded."
+            "Janjua Traders: DARAZ FINAL Gmail script loaded."
         );
 
 
         console.log(
-            "Daraz Quantity: FINAL MOBILE FIX"
+            "Quantity: FINAL FIX 1-10"
+        );
+
+
+        console.log(
+            "Tracking ID: Generated on Submit"
+        );
+
+
+        console.log(
+            "Pakistan Date/Time: Generated on Submit"
         );
 
 
