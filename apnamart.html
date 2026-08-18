@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Janjua Traders - ApnaMart</title>
+
+    <link rel="stylesheet"
+          href="apnamart.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="brand">
+        JANJUA TRADERS
+    </div>
+
+    <p class="tagline">
+        Digital Marketing Platform
+    </p>
+
+    <p class="subtag">
+        ApnaMart
+    </p>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     PRODUCT DETAILS
+===================================================== -->
+
+<section class="card">
+
+    <h1>
+        Product Details
+    </h1>
+
+
+    <div class="product-image-wrap">
+
+        <img
+            id="productImage"
+            class="product-image"
+            src="file_00000000ee44820880d5993065f8c4c9.png"
+            alt="ApnaMart Product"
+            onerror="
+                this.style.display='none';
+                document.getElementById('noImage').style.display='flex';
+            "
+        >
+
+
+        <div
+            id="noImage"
+            style="display:none;"
+        >
+            Product Image دستیاب نہیں
+        </div>
+
+    </div>
+
+
+
+    <div style="text-align:center;">
+
+        <div
+            id="platformBadge"
+            class="platform-badge"
+        >
+            ApnaMart
+        </div>
+
+    </div>
+
+
+
+    <h2 id="productTitle">
+        آپ کا ApnaMart Product
+    </h2>
+
+
+
+    <p id="productDescription">
+        Product کی تفصیل یہاں نظر آئے گی۔
+    </p>
+
+
+
+    <div class="price-box">
+
+
+        <div class="price-row">
+
+            <span>
+                پروڈکٹ قیمت
+            </span>
+
+            <strong id="productPrice">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+
+        <div class="price-row">
+
+            <span>
+                Delivery Charges
+            </span>
+
+            <strong id="deliveryPrice">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+
+        <div class="price-row">
+
+            <span>
+                کل قابل ادائیگی
+            </span>
+
+            <strong id="totalPrice">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+<!-- =====================================================
+     ORDER FORM
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        ApnaMart Order / Customer Request
+    </h2>
+
+
+
+    <form
+        id="orderForm"
+        novalidate
+    >
+
+
+        <!-- ORDER INFORMATION -->
+
+        <input
+            type="hidden"
+            name="Order_ID"
+            id="orderId"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Order_Date"
+            id="orderDate"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Order_Time"
+            id="orderTime"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product"
+            id="formProduct"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Description"
+            id="formDescription"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Price"
+            id="formProductPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Delivery_Charges"
+            id="formDeliveryPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Total"
+            id="formProductTotal"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Total_Amount"
+            id="formTotalPrice"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Product_Link"
+            id="formProductLink"
+            value=""
+        >
+
+
+        <input
+            type="hidden"
+            name="Platform"
+            id="formPlatform"
+            value="ApnaMart"
+        >
+
+
+
+        <!-- CUSTOMER NAME -->
+
+        <label for="customerName">
+
+            Customer Name
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="customerName"
+            name="Customer_Name"
+            type="text"
+            placeholder="اپنا نام لکھیں"
+            autocomplete="name"
+            required
+        >
+
+
+
+        <!-- MOBILE -->
+
+        <label for="customerPhone">
+
+            Mobile / WhatsApp
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="customerPhone"
+            name="Mobile_WhatsApp"
+            type="tel"
+            inputmode="tel"
+            placeholder="03XXXXXXXXX"
+            autocomplete="tel"
+            required
+        >
+
+
+
+        <!-- ADDRESS -->
+
+        <label for="address">
+
+            Delivery Address
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="address"
+            name="Delivery_Address"
+            type="text"
+            placeholder="مکمل ڈیلیوری ایڈریس لکھیں"
+            autocomplete="street-address"
+            required
+        >
+
+
+
+        <!-- PLATFORM -->
+
+        <label for="platform">
+
+            Platform
+
+        </label>
+
+
+        <select
+            id="platform"
+            name="Platform"
+        >
+
+            <option value="ApnaMart">
+                ApnaMart
+            </option>
+
+        </select>
+
+
+
+        <!-- QUANTITY -->
+
+        <label for="quantity">
+
+            Quantity
+
+            <span class="required">
+                *
+            </span>
+
+        </label>
+
+
+        <input
+            id="quantity"
+            name="Quantity"
+            type="number"
+            min="1"
+            max="10"
+            step="1"
+            value="1"
+            inputmode="numeric"
+            autocomplete="off"
+            required
+        >
+
+
+
+        <!-- COLOR / SIZE -->
+
+        <h3 style="margin-top:25px;margin-bottom:5px;">
+
+            Product Color & Size
+
+        </h3>
+
+
+        <p class="hint">
+
+            اگر Color یا Size لاگو نہیں ہوتا
+            تو متعلقہ خانہ خالی چھوڑ دیں۔
+
+        </p>
+
+
+
+        <div class="choice-grid">
+
+
+            <div class="choice-box">
+
+                <label for="color">
+
+                    Color / رنگ
+
+                </label>
+
+
+                <input
+                    id="color"
+                    name="Color"
+                    type="text"
+                    placeholder="مثلاً White, Black, Blue"
+                >
+
+            </div>
+
+
+
+            <div class="choice-box">
+
+                <label for="size">
+
+                    Size / سائز
+
+                </label>
+
+
+                <input
+                    id="size"
+                    name="Size"
+                    type="text"
+                    placeholder="مثلاً 40, 41, L, XL"
+                >
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+            id="submitButton"
+            class="submit-btn"
+            type="submit"
+        >
+
+            Order Final Submit کریں
+
+        </button>
+
+
+
+        <!-- RESULT -->
+
+        <div
+            id="result"
+            class="result"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+
+    </form>
+
+</section>
+
+
+
+
+<!-- =====================================================
+     APNAMART INFORMATION
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        ApnaMart
+    </h2>
+
+
+    <p>
+
+        یہ Janjua Traders کا
+        ApnaMart Reselling Order Workflow ہے۔
+
+    </p>
+
+
+    <p class="success-note">
+
+        Customer کی معلومات، Product،
+        Quantity، Color، Size، قیمت اور
+        Order ID محفوظ کیے جائیں گے۔
+
+    </p>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    <strong>
+        Janjua Traders
+    </strong>
+
+    — ApnaMart Digital Marketing
+
+</footer>
+
+
+
+<!-- =====================================================
+     APNAMART JAVASCRIPT
+===================================================== -->
+
+<script src="apnamart.js"></script>
+
+
+</body>
+
+</html>
