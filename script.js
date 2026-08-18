@@ -6,6 +6,7 @@
    - Product Price
    - Delivery Charges
    - Quantity 1 to 10
+   - Quantity typing fix
    - Correct Total
    - Customer Name
    - Phone / WhatsApp
@@ -16,13 +17,19 @@
    - Color
    - Size
    - Product Link
-   - Tracking / Order ID
-   - Pakistan Order Date
-   - Pakistan Order Time
+   - Unique Tracking ID
+   - Exact Pakistan Date
+   - Exact Pakistan Time
    - FormSubmit AJAX
    - Gmail Order Submission
-   - Green Success Message
-   - No duplicate Color / Size fields
+   - Custom Gmail Subject
+   - Success / Error Message
+   - Customer fields reset after successful order
+   - Product information preserved
+
+   IMPORTANT:
+   Tracking ID + Date + Time are generated
+   ONLY when the customer submits the order.
    ========================================================= */
 
 
@@ -172,11 +179,11 @@ document.addEventListener(
 
 
         /* =====================================================
-           DATE / TIME / TRACKING ID
+           ORDER DATE / TIME / TRACKING ID
            PAKISTAN TIME
            ===================================================== */
 
-        function getOrderDateTime() {
+        function createOrderInfo() {
 
             const now =
                 new Date();
@@ -235,93 +242,96 @@ document.addEventListener(
                 );
 
 
+            function partValue(
+                parts,
+                type
+            ) {
+
+                const part =
+                    parts.find(
+                        function (item) {
+
+                            return (
+                                item.type ===
+                                type
+                            );
+                        }
+                    );
+
+
+                return part
+                    ? part.value
+                    : "";
+            }
+
+
             const day =
-                dateParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "day"
-                        );
-                    }
-                ).value;
+                partValue(
+                    dateParts,
+                    "day"
+                );
 
 
             const month =
-                dateParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "month"
-                        );
-                    }
-                ).value;
+                partValue(
+                    dateParts,
+                    "month"
+                );
 
 
             const year =
-                dateParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "year"
-                        );
-                    }
-                ).value;
+                partValue(
+                    dateParts,
+                    "year"
+                );
 
 
             const hour =
-                timeParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "hour"
-                        );
-                    }
-                ).value;
+                partValue(
+                    timeParts,
+                    "hour"
+                );
 
 
             const minute =
-                timeParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "minute"
-                        );
-                    }
-                ).value;
+                partValue(
+                    timeParts,
+                    "minute"
+                );
 
 
             const second =
-                timeParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "second"
-                        );
-                    }
-                ).value;
+                partValue(
+                    timeParts,
+                    "second"
+                );
 
 
             const dayPeriod =
-                timeParts.find(
-                    function (part) {
-                        return (
-                            part.type ===
-                            "dayPeriod"
-                        );
-                    }
-                ).value;
+                partValue(
+                    timeParts,
+                    "dayPeriod"
+                );
 
 
-            const date =
+            /* ---------------------------------------------
+               Display Date
+               --------------------------------------------- */
+
+            const orderDate =
                 `${day}-${month}-${year}`;
 
 
-            const time =
+            /* ---------------------------------------------
+               Display Time
+               --------------------------------------------- */
+
+            const orderTime =
                 `${hour}:${minute}:${second} ${dayPeriod}`;
 
 
             /* ---------------------------------------------
-               24 Hour
+               Convert to 24 Hour
                --------------------------------------------- */
 
             let hour24 =
@@ -358,10 +368,10 @@ document.addEventListener(
 
 
             /* ---------------------------------------------
-               Tracking ID
+               Unique Tracking ID
 
                Example:
-               JT-20260818-145230
+               JT-20260818-143541
                --------------------------------------------- */
 
             const trackingId =
@@ -370,14 +380,14 @@ document.addEventListener(
 
             return {
 
-                date:
-                    date,
-
-                time:
-                    time,
-
                 trackingId:
-                    trackingId
+                    trackingId,
+
+                orderDate:
+                    orderDate,
+
+                orderTime:
+                    orderTime
             };
         }
 
@@ -389,7 +399,9 @@ document.addEventListener(
         function productName() {
 
             const element =
-                get("productTitle");
+                get(
+                    "productTitle"
+                );
 
 
             if (!element) {
@@ -431,7 +443,9 @@ document.addEventListener(
         function quantity() {
 
             const element =
-                get("quantity");
+                get(
+                    "quantity"
+                );
 
 
             if (!element) {
@@ -456,7 +470,9 @@ document.addEventListener(
             }
 
 
-            if (qty > 10) {
+            if (
+                qty > 10
+            ) {
 
                 return 10;
             }
@@ -473,7 +489,9 @@ document.addEventListener(
         function platform() {
 
             const element =
-                get("platform");
+                get(
+                    "platform"
+                );
 
 
             if (!element) {
@@ -630,10 +648,12 @@ document.addEventListener(
 
 
         /* =====================================================
-           ORDER DATA
+           PREPARE ORDER
            ===================================================== */
 
-        function prepareOrder() {
+        function prepareOrder(
+            orderInfo
+        ) {
 
             const name =
                 getValue(
@@ -670,20 +690,12 @@ document.addEventListener(
 
 
             /* ---------------------------------------------
-               DATE / TIME / TRACKING
-               --------------------------------------------- */
-
-            const orderDateTime =
-                getOrderDateTime();
-
-
-            /* ---------------------------------------------
                TRACKING ID
                --------------------------------------------- */
 
             setHidden(
                 "Order_ID",
-                orderDateTime.trackingId
+                orderInfo.trackingId
             );
 
 
@@ -693,7 +705,7 @@ document.addEventListener(
 
             setHidden(
                 "Order_Date",
-                orderDateTime.date
+                orderInfo.orderDate
             );
 
 
@@ -703,7 +715,7 @@ document.addEventListener(
 
             setHidden(
                 "Order_Time",
-                orderDateTime.time
+                orderInfo.orderTime
             );
 
 
@@ -810,8 +822,8 @@ document.addEventListener(
 
             setHidden(
                 "_subject",
-                "Janjua Traders - New Order - " +
-                orderDateTime.trackingId
+                "Janjua Traders | New Order | " +
+                orderInfo.trackingId
             );
 
 
@@ -919,8 +931,8 @@ document.addEventListener(
                     ),
 
                 _subject:
-                    "Janjua Traders - New Order - " +
-                    orderDateTime.trackingId,
+                    "Janjua Traders | New Order | " +
+                    orderInfo.trackingId,
 
                 _template:
                     "table",
@@ -969,7 +981,9 @@ document.addEventListener(
         ) {
 
             const result =
-                get("result");
+                get(
+                    "result"
+                );
 
 
             if (!result) {
@@ -1013,7 +1027,9 @@ document.addEventListener(
             );
 
 
-        if (quantityField) {
+        if (
+            quantityField
+        ) {
 
 
             /* ---------------------------------------------
@@ -1041,9 +1057,7 @@ document.addEventListener(
 
 
             /* ---------------------------------------------
-               Focus
-
-               Existing 1 automatically selected.
+               Select Existing Value
                --------------------------------------------- */
 
             quantityField.addEventListener(
@@ -1070,10 +1084,6 @@ document.addEventListener(
                 "input",
                 function () {
 
-
-                    /*
-                     * Empty allowed temporarily
-                     */
 
                     if (
                         quantityField.value === ""
@@ -1127,7 +1137,9 @@ document.addEventListener(
 
 
                     quantityField.value =
-                        String(value);
+                        String(
+                            value
+                        );
 
 
                     setHidden(
@@ -1174,7 +1186,9 @@ document.addEventListener(
 
 
                     quantityField.value =
-                        String(value);
+                        String(
+                            value
+                        );
 
 
                     setHidden(
@@ -1220,7 +1234,9 @@ document.addEventListener(
             );
 
 
-        if (colorField) {
+        if (
+            colorField
+        ) {
 
             colorField.addEventListener(
                 "input",
@@ -1248,7 +1264,9 @@ document.addEventListener(
             );
 
 
-        if (sizeField) {
+        if (
+            sizeField
+        ) {
 
             sizeField.addEventListener(
                 "input",
@@ -1276,7 +1294,9 @@ document.addEventListener(
             );
 
 
-        if (phoneField) {
+        if (
+            phoneField
+        ) {
 
             phoneField.addEventListener(
                 "input",
@@ -1324,11 +1344,21 @@ document.addEventListener(
 
 
                 /* ---------------------------------------------
-                   Prepare Order
+                   CREATE EXACT ORDER TIME
+                   --------------------------------------------- */
+
+                const orderInfo =
+                    createOrderInfo();
+
+
+                /* ---------------------------------------------
+                   PREPARE ORDER
                    --------------------------------------------- */
 
                 const orderData =
-                    prepareOrder();
+                    prepareOrder(
+                        orderInfo
+                    );
 
 
                 /* ---------------------------------------------
@@ -1368,7 +1398,7 @@ document.addEventListener(
 
 
                     /* =============================================
-                       FORMSUBMIT AJAX
+                       AJAX REQUEST
                        ============================================= */
 
                     const response =
@@ -1422,7 +1452,9 @@ document.addEventListener(
                                 text
                             );
 
-                    } catch (error) {
+                    } catch (
+                        error
+                    ) {
 
                         console.warn(
                             "FormSubmit returned non-JSON response."
@@ -1445,7 +1477,8 @@ document.addEventListener(
 
 
                         showResult(
-                            "✓ Order کامیابی سے Submit ہو گیا ہے۔ Gmail چیک کریں۔",
+                            "✓ Order کامیابی سے Submit ہو گیا ہے۔ Tracking ID: " +
+                            orderInfo.trackingId,
                             true
                         );
 
@@ -1543,12 +1576,15 @@ document.addEventListener(
 
 
                         /*
-                         * Product information کو reset
-                         * نہیں کیا جائے گا۔
+                         * IMPORTANT:
+                         * یہاں prepareOrder دوبارہ نہیں چلایا جائے گا۔
+                         *
+                         * اس سے نیا Tracking ID / Date / Time
+                         * generate نہیں ہوگا۔
+                         *
+                         * Gmail میں صرف submitted order کا
+                         * اصل Tracking ID / Date / Time رہے گا۔
                          */
-
-
-                        prepareOrder();
 
 
                     } else {
@@ -1637,8 +1673,11 @@ document.addEventListener(
         }
 
 
-        prepareOrder();
-
+        /*
+         * Page load پر صرف price/total calculate کریں۔
+         *
+         * Tracking ID / Date / Time یہاں generate نہیں ہوں گے۔
+         */
 
         calculateTotal();
 
@@ -1650,6 +1689,11 @@ document.addEventListener(
 
         console.log(
             "Quantity: 1 to 10 - Fixed"
+        );
+
+
+        console.log(
+            "Tracking ID: Generated on Submit"
         );
 
 
