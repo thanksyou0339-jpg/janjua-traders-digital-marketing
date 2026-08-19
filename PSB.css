@@ -1,7 +1,7 @@
 /* =========================================================
    JANJUA TRADERS
    PSB.CSS
-   POLYTHENE SHOPPER BAGS
+   FINAL MOBILE-FIRST DESIGN
    ========================================================= */
 
 * {
@@ -9,10 +9,10 @@
 }
 
 :root {
-    --bg: #f4f7fb;
+    --bg: #f3f6fa;
     --card: #ffffff;
-    --text: #222222;
-    --muted: #666666;
+    --text: #222;
+    --muted: #666;
     --border: #d9dee7;
 
     --primary: #1565c0;
@@ -21,14 +21,17 @@
     --red: #d00000;
     --red-dark: #a80000;
 
-    --success-bg: #dff7e5;
+    --yellow: #ffd54f;
+    --yellow-light: #fff8d8;
+
+    --success-bg: #e4f7e9;
     --success-text: #176b2c;
 
-    --error-bg: #ffe5e5;
+    --error-bg: #ffe7e7;
     --error-text: #9a1c1c;
 
-    --warning-bg: #fff4d6;
-    --warning-text: #795500;
+    --warning-bg: #fff7d6;
+    --warning-text: #735200;
 }
 
 
@@ -38,19 +41,12 @@
 
 html,
 body {
+    width: 100%;
+    min-height: 100%;
     margin: 0;
     padding: 0;
 
-    width: 100%;
-    min-height: 100%;
-
-    overflow-x: hidden;
-}
-
-body {
-    background: var(--bg);
-
-    color: var(--text);
+    overflow-x: hidden !important;
 
     font-family:
         Arial,
@@ -58,7 +54,10 @@ body {
         "Noto Nastaliq Urdu",
         sans-serif;
 
-    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+
+    line-height: 1.55;
 
     direction: rtl;
 }
@@ -68,90 +67,110 @@ body {
    HEADER
    ========================================================= */
 
-header {
+.main-header {
     width: 100%;
+    max-width: 100%;
 
-    background: #ffffff;
-
-    padding: 16px 14px 18px;
+    padding: 10px 8px 12px;
 
     text-align: center;
 
-    border-bottom: 1px solid var(--border);
+    background: var(--yellow);
+
+    border-bottom: 2px solid #e2b900;
+
+    overflow: hidden;
 }
 
 
 /* =========================================================
-   MONOGRAM / LOGO AREA
+   LOGO
    ========================================================= */
 
-.logo-area {
+.monogram-area {
     width: 100%;
+    max-width: 120px;
 
-    max-width: 180px;
+    height: 32px;
 
-    min-height: 55px;
-
-    margin: 0 auto 6px;
+    margin: 0 auto 2px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     overflow: hidden;
 }
 
-.logo-area img {
-    max-width: 100%;
 
-    max-height: 65px;
+.logo-placeholder {
+    font-size: 16px;
+    font-weight: 900;
 
-    object-fit: contain;
+    color: #8a6500;
+
+    letter-spacing: 1px;
 }
-
-
-/*
-   اگر بعد میں لوگو لگانا ہو تو
-   PSB.html میں logo image یہاں رکھی جا سکتی ہے۔
-*/
 
 
 /* =========================================================
-   BRAND
+   ANIMATED BRAND
    ========================================================= */
 
-.brand {
-    font-size: 28px;
+.brand-name {
+    display: block;
 
-    font-weight: 900;
+    width: 100%;
+
+    margin: 0;
+
+    font-size: 26px;
+    line-height: 1.15;
+
+    font-weight: 1000;
 
     direction: ltr;
 
-    letter-spacing: 0.5px;
+    color: #111;
 
-    margin: 2px 0;
+    text-shadow:
+        1px 1px 0 #ffffff;
+
+    animation:
+        janjuaBrand 2.5s ease-in-out infinite;
+
+    transform-origin: center;
 }
 
 
-.tagline {
-    margin: 4px 0;
-
-    font-size: 17px;
-
-    font-weight: 700;
-}
-
-
-.subtag {
-    margin: 3px 0 0;
-
-    color: var(--muted);
+.brand-subtitle {
+    margin-top: 4px;
 
     font-size: 14px;
 
-    font-weight: 600;
+    font-weight: 800;
+
+    color: #3d3100;
+}
+
+
+@keyframes janjuaBrand {
+
+    0% {
+        transform: scale(1);
+        opacity: 0.90;
+    }
+
+    50% {
+        transform: scale(1.035);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.90;
+    }
 }
 
 
@@ -160,190 +179,118 @@ header {
    ========================================================= */
 
 .container {
-    width: min(920px, 94%);
+    width: calc(100% - 14px);
+
+    max-width: 560px;
 
     margin: 0 auto;
+
+    padding: 0;
 }
 
 
 /* =========================================================
-   CARD
+   INSTRUCTION CARD
    ========================================================= */
 
-.card {
-    width: 100%;
+.instruction-card {
+    width: calc(100% - 14px);
 
-    background: var(--card);
+    max-width: 560px;
 
-    border: 1px solid var(--border);
+    margin: 10px auto;
 
-    border-radius: 17px;
+    padding: 11px 12px;
 
-    padding: 20px;
+    background: var(--yellow-light);
 
-    margin: 16px 0;
+    border: 1px solid #e7c642;
+
+    border-radius: 12px;
 
     box-shadow:
-        0 3px 14px rgba(0, 0, 0, 0.06);
+        0 2px 8px rgba(0,0,0,0.06);
+
+    overflow: hidden;
 }
 
 
-/* =========================================================
-   HEADINGS
-   ========================================================= */
+.instruction-card h2 {
+    margin: 0 0 7px;
 
-h1,
-h2,
-h3 {
-    margin-top: 0;
-}
+    font-size: 17px;
 
+    font-weight: 900;
 
-h1 {
-    font-size: 24px;
-
-    line-height: 1.4;
-}
-
-
-h2 {
-    font-size: 21px;
-
-    line-height: 1.4;
-}
-
-
-h3 {
-    font-size: 18px;
-}
-
-
-/* =========================================================
-   DELIVERY INSTRUCTIONS
-   ========================================================= */
-
-.delivery-instructions {
-    background: #f8fafc;
-
-    border: 1px solid var(--border);
-
-    border-radius: 13px;
-
-    padding: 13px 15px;
-
-    margin-bottom: 16px;
-
-    line-height: 1.8;
-}
-
-
-.delivery-instructions h3 {
-    margin-bottom: 8px;
-
-    font-size: 18px;
-}
-
-
-.delivery-instructions ul {
-    margin: 0;
-
-    padding-right: 22px;
-}
-
-
-.delivery-instructions li {
-    margin-bottom: 5px;
-}
-
-
-/* =========================================================
-   DELIVERY WARNING
-   ========================================================= */
-
-.delivery-warning {
-    background: var(--warning-bg);
-
-    color: var(--warning-text);
-
-    border: 1px solid #efd58a;
-
-    border-radius: 11px;
-
-    padding: 11px 13px;
-
-    margin-top: 10px;
-
-    font-weight: 700;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   AREA SELECTION
-   ========================================================= */
-
-.area-box {
-    background: #f8fafc;
-
-    border: 1px solid var(--border);
-
-    border-radius: 14px;
-
-    padding: 15px;
-
-    margin-bottom: 18px;
-}
-
-
-.area-box label {
-    margin-top: 0;
-}
-
-
-.area-message {
-    display: none;
-
-    margin-top: 10px;
-
-    padding: 11px;
-
-    border-radius: 10px;
-
-    font-weight: 700;
+    text-decoration: underline;
 
     text-align: center;
 }
 
 
-.area-message.available {
-    display: block;
-
-    background: var(--success-bg);
-
-    color: var(--success-text);
-
-    border: 1px solid #a9dfb5;
+.instruction-list {
+    width: 100%;
 }
 
 
-.area-message.unavailable {
-    display: block;
+.instruction-list p {
+    margin: 5px 0;
 
-    background: var(--error-bg);
+    font-size: 12px;
 
-    color: var(--error-text);
+    line-height: 1.55;
 
-    border: 1px solid #efaaaa;
+    overflow-wrap: break-word;
+}
+
+
+.instruction-list .important {
+    margin-top: 8px;
+
+    padding: 7px;
+
+    background: #fff0a8;
+
+    border-radius: 8px;
+
+    font-weight: 900;
+
+    text-align: center;
 }
 
 
 /* =========================================================
-   SHOP NAME
+   CARDS
    ========================================================= */
 
-.shop-section {
-    margin-bottom: 18px;
+.card {
+    width: 100%;
+
+    margin: 10px 0;
+
+    padding: 13px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.055);
+
+    overflow: hidden;
+}
+
+
+.card h2 {
+    margin: 0 0 10px;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+    line-height: 1.35;
 }
 
 
@@ -354,9 +301,11 @@ h3 {
 label {
     display: block;
 
-    font-weight: 700;
+    margin: 9px 0 5px;
 
-    margin: 14px 0 6px;
+    font-size: 14px;
+
+    font-weight: 800;
 }
 
 
@@ -375,20 +324,21 @@ input,
 select,
 textarea {
     width: 100%;
+    max-width: 100%;
 
-    padding: 13px;
+    padding: 10px;
 
-    border: 1px solid #cfd6df;
+    border: 1px solid #ccd3dc;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
-    background: #ffffff;
+    background: #fff;
 
-    color: #222222;
+    color: #222;
 
     font-family: inherit;
 
-    font-size: 16px;
+    font-size: 15px;
 
     outline: none;
 }
@@ -400,633 +350,532 @@ textarea:focus {
     border-color: var(--primary);
 
     box-shadow:
-        0 0 0 3px rgba(21, 101, 192, 0.12);
+        0 0 0 2px rgba(21,101,192,0.12);
 }
 
 
 textarea {
-    min-height: 95px;
+    min-height: 82px;
 
     resize: vertical;
 }
 
 
 /* =========================================================
-   SHOPPER BAG SECTION
+   DELIVERY OPTIONS
    ========================================================= */
 
-.bag-section {
-    margin-top: 18px;
+.delivery-options {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
 }
 
 
-.bag-section-title {
-    text-align: center;
+.delivery-option {
+    margin: 0;
 
-    font-size: 21px;
+    padding: 9px;
 
-    font-weight: 900;
-
-    margin-bottom: 12px;
-}
-
-
-/* =========================================================
-   BAG TYPE BLOCK
-   ========================================================= */
-
-.bag-type {
     border: 1px solid var(--border);
 
-    border-radius: 15px;
-
-    background: #ffffff;
-
-    margin-bottom: 16px;
-
-    overflow: hidden;
-}
-
-
-.bag-type-header {
-    padding: 11px 14px;
-
-    background: #f3f6fa;
-
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-
-.bag-type-title {
-    font-size: 19px;
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   ADMIN RATE DISPLAY
-   ========================================================= */
-
-.admin-rate {
-    color: var(--red);
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    white-space: nowrap;
-
-    direction: ltr;
-}
-
-
-.admin-rate span {
-    color: var(--red);
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   BAG TABLE
-   ========================================================= */
-
-.bag-table-wrap {
-    width: 100%;
-
-    overflow-x: auto;
-
-    -webkit-overflow-scrolling: touch;
-}
-
-
-.bag-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    min-width: 500px;
-}
-
-
-.bag-table th {
-    background: #fafbfc;
-
-    font-weight: 900;
-
-    padding: 9px 7px;
-
-    border-bottom: 1px solid var(--border);
-
-    text-align: center;
-}
-
-
-.bag-table td {
-    padding: 7px;
-
-    border-bottom: 1px solid #e7ebf0;
-
-    text-align: center;
-
-    vertical-align: middle;
-}
-
-
-.bag-table tr:last-child td {
-    border-bottom: 0;
-}
-
-
-/* =========================================================
-   BAG SIZE TEXT
-   ========================================================= */
-
-.bag-weight {
-    font-weight: 900;
-
-    font-size: 16px;
-
-    white-space: nowrap;
-}
-
-
-.bag-size {
-    color: #555555;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   QUANTITY INPUT
-   ========================================================= */
-
-.bag-quantity {
-    width: 75px;
-
-    max-width: 75px;
-
-    padding: 8px 5px;
-
-    text-align: center;
-
-    font-size: 16px;
-
-    font-weight: 800;
-
-    border-radius: 8px;
-}
-
-
-/*
-   Quantity ہمیشہ اصل مقدار دکھائے گی۔
-
-   مثال:
-   2 = 2
-   4 = 4
-
-   20 یا 40 نہیں بنے گی۔
-*/
-
-
-/* =========================================================
-   KG / PRICE INFORMATION
-   ========================================================= */
-
-.kg-info {
-    font-size: 13px;
-
-    color: var(--muted);
-
-    line-height: 1.4;
-}
-
-
-.rate-value {
-    color: var(--red);
-
-    font-weight: 900;
-
-    direction: ltr;
-}
-
-
-/* =========================================================
-   SUBTOTAL BOX
-   ========================================================= */
-
-.subtotal-box {
-    margin-top: 12px;
-
-    padding: 12px 14px;
-
-    border-radius: 12px;
+    border-radius: 10px;
 
     background: #f8fafc;
 
-    border: 1px solid var(--border);
-}
-
-
-.subtotal-row {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    padding: 6px 0;
-}
-
-
-.subtotal-row strong {
-    font-size: 17px;
-}
-
-
-.ld-subtotal {
-    color: var(--red);
-
-    font-weight: 900;
-}
-
-
-.hd-subtotal {
-    color: var(--red);
-
-    font-weight: 900;
-}
-
-
-/* =========================================================
-   GRAND TOTAL
-   ========================================================= */
-
-.grand-total {
-    margin-top: 18px;
-
-    background: #f1f5fa;
-
-    border: 2px solid var(--primary);
-
-    border-radius: 14px;
-
-    padding: 15px;
-}
-
-
-.grand-total-row {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-}
-
-
-.grand-total-label {
-    font-size: 19px;
-
-    font-weight: 900;
-}
-
-
-.grand-total-value {
-    color: var(--red);
-
-    font-size: 22px;
-
-    font-weight: 900;
-
-    direction: ltr;
-}
-
-
-/* =========================================================
-   CALCULATOR
-   ========================================================= */
-
-.calculate-btn {
-    width: 100%;
-
-    border: 0;
-
-    border-radius: 11px;
-
-    background: var(--primary);
-
-    color: #ffffff;
-
-    font-family: inherit;
-
-    font-size: 18px;
-
-    font-weight: 900;
-
-    padding: 13px;
-
-    margin-top: 15px;
-
-    cursor: pointer;
-}
-
-
-.calculate-btn:hover {
-    background: var(--primary-dark);
-}
-
-
-.calculate-btn:active {
-    transform: scale(0.99);
-}
-
-
-/* =========================================================
-   CUSTOMER FORM
-   ========================================================= */
-
-.customer-form {
-    margin-top: 18px;
-}
-
-
-/* =========================================================
-   CHECKBOX / RETURN INSTRUCTION
-   ========================================================= */
-
-.agreement-box {
-    background: #fafafa;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    padding: 12px;
-
-    margin-top: 16px;
-
-    line-height: 1.7;
-}
-
-
-.agreement-box label {
     display: flex;
 
     align-items: flex-start;
 
-    gap: 9px;
+    gap: 7px;
 
-    margin: 0;
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+.delivery-option input {
+    width: auto;
+
+    margin-top: 4px;
+}
+
+
+.delivery-option small {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--muted);
+
+    font-size: 11px;
 
     font-weight: 600;
 }
 
 
-.agreement-box input[type="checkbox"] {
-    width: auto;
+/* =========================================================
+   PRODUCT HEADER
+   ========================================================= */
 
-    margin-top: 5px;
+.product-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+}
+
+
+.product-header h2 {
+    margin-bottom: 4px;
+}
+
+
+.product-header p {
+    margin: 0;
+
+    font-size: 13px;
+}
+
+
+.rate {
+    color: var(--red);
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+.product-note {
+    margin: 7px 0 10px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
 }
 
 
 /* =========================================================
-   SUBMIT BUTTON
+   BAG GRID
    ========================================================= */
 
-.submit-btn {
+.bag-grid {
     width: 100%;
 
-    border: 0;
+    display: grid;
 
-    border-radius: 12px;
+    grid-template-columns: 1fr 1fr;
 
-    background: var(--primary);
-
-    color: #ffffff;
-
-    font-family: inherit;
-
-    font-size: 19px;
-
-    font-weight: 900;
-
-    padding: 15px;
-
-    margin-top: 20px;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.1s ease;
+    gap: 8px;
 }
 
 
+/* =========================================================
+   BAG ITEM
+   ========================================================= */
+
+.bag-item {
+    min-width: 0;
+
+    padding: 9px;
+
+    background: #fafbfc;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.bag-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 5px;
+
+    margin-bottom: 3px;
+}
+
+
+.bag-title strong {
+    font-size: 15px;
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+.bag-title span {
+    color: #555;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.bag-description {
+    min-height: 30px;
+
+    margin-bottom: 3px;
+
+    color: #666;
+
+    font-size: 10px;
+
+    line-height: 1.35;
+}
+
+
+/* =========================================================
+   QUANTITY
+   ========================================================= */
+
+.bag-item label {
+    margin: 4px 0 3px;
+
+    font-size: 11px;
+}
+
+
+.bag-qty {
+    width: 58px !important;
+
+    max-width: 58px !important;
+
+    height: 35px;
+
+    display: block;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    padding: 4px !important;
+
+    text-align: center;
+
+    font-size: 15px !important;
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   SUBTOTAL
+   ========================================================= */
+
+.subtotal-box {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 9px 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    background: #f5f7fa;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.subtotal-box strong {
+    color: var(--red);
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   TOTAL CARD
+   ========================================================= */
+
+.total-card {
+    background: #f8fafc;
+
+    border: 1px solid #cbd5e1;
+}
+
+
+.total-line {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    padding: 7px 0;
+
+    border-bottom: 1px solid #e4e8ed;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.total-line strong {
+    color: var(--red);
+
+    direction: ltr;
+}
+
+
+.grand-total {
+    width: 100%;
+
+    margin-top: 9px;
+
+    padding: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    background: #fff4b8;
+
+    border: 2px solid #d5ae00;
+
+    border-radius: 11px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+
+.grand-total strong {
+    color: var(--red);
+
+    font-size: 20px;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.submit-button,
+.submit-btn {
+    width: 100%;
+
+    min-height: 46px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    padding: 10px;
+
+    transition:
+        background .2s ease,
+        transform .1s ease;
+}
+
+
+.submit-button:hover,
 .submit-btn:hover {
     background: var(--primary-dark);
 }
 
 
+.submit-button:active,
 .submit-btn:active {
-    transform: scale(0.99);
+    transform: scale(.99);
 }
 
 
+.submit-button:disabled,
 .submit-btn:disabled {
-    opacity: 0.65;
+    opacity: .65;
 
     cursor: wait;
 }
 
 
 /* =========================================================
-   RESULT MESSAGE
+   RESULT
    ========================================================= */
 
+.submit-message,
 .result {
-    display: none;
-
     width: 100%;
 
-    padding: 14px;
+    margin-top: 9px;
 
-    border-radius: 11px;
+    padding: 10px;
 
-    margin-top: 15px;
+    border-radius: 9px;
+
+    text-align: center;
+
+    font-size: 13px;
 
     font-weight: 800;
 
-    text-align: center;
+    line-height: 1.5;
 
-    line-height: 1.7;
-}
-
-
-.result.success {
-    display: block;
-
-    background: var(--success-bg);
-
-    color: var(--success-text);
-
-    border: 1px solid #a9dfb5;
-}
-
-
-.result.error {
-    display: block;
-
-    background: var(--error-bg);
-
-    color: var(--error-text);
-
-    border: 1px solid #efaaaa;
+    overflow-wrap: break-word;
 }
 
 
 /* =========================================================
-   BARCODE / TRACKING
+   HELP DESK
    ========================================================= */
 
-.barcode-section {
-    text-align: center;
+.help-desk-card {
+    margin-top: 12px;
 
-    margin-top: 18px;
-}
+    background: #fffdf3;
 
-
-.barcode-box {
-    width: 100%;
-
-    min-height: 90px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #ffffff;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    padding: 12px;
-
-    overflow: hidden;
-}
-
-
-.barcode-box canvas,
-.barcode-box svg,
-.barcode-box img {
-    max-width: 100%;
-
-    height: auto;
-}
-
-
-/* =========================================================
-   TRACKING ID
-   ========================================================= */
-
-.tracking-id {
-    margin-top: 8px;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    direction: ltr;
-
-    text-align: center;
-}
-
-
-/* =========================================================
-   ADMIN PANEL
-   ========================================================= */
-
-.admin-panel {
-    display: none;
-
-    background: #fffafa;
-
-    border: 1px solid #efb2b2;
+    border: 2px solid #e3c33e;
 
     border-radius: 14px;
-
-    padding: 16px;
-
-    margin-top: 18px;
 }
 
 
-.admin-panel.active {
-    display: block;
+.help-title {
+    margin-bottom: 6px !important;
+
+    text-align: center;
+
+    color: #5f4900;
+
+    font-size: 19px !important;
+
+    font-weight: 900;
 }
 
 
-.admin-panel h3 {
+.help-desk-card > p {
+    margin: 0 0 8px;
+
+    padding: 8px;
+
+    background: #fff8d8;
+
+    border-radius: 8px;
+
+    color: #5c4b12;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+
+    text-align: center;
+}
+
+
+.help-desk-card input,
+.help-desk-card select,
+.help-desk-card textarea {
+    font-size: 15px;
+}
+
+
+.help-desk-card textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+
+.help-required {
     color: var(--red);
 
-    margin-bottom: 10px;
+    font-weight: 900;
 }
 
 
-.admin-rate-grid {
-    display: grid;
+.help-send-button {
+    margin-top: 12px;
 
-    grid-template-columns: 1fr 1fr;
+    background: #b8860b;
+}
 
-    gap: 12px;
+
+.help-send-button:hover {
+    background: #8f6908;
 }
 
 
 /* =========================================================
-   ADMIN RATE INPUT
+   AREA MESSAGE
    ========================================================= */
 
-.admin-rate-input {
-    border: 2px solid #e0a0a0;
+.area-message {
+    display: none;
+
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    font-size: 12px;
 
     font-weight: 800;
-}
-
-
-.admin-rate-input:focus {
-    border-color: var(--red);
-
-    box-shadow:
-        0 0 0 3px rgba(208, 0, 0, 0.10);
-}
-
-
-/* =========================================================
-   HIDDEN ADMIN ELEMENT
-   ========================================================= */
-
-.hidden-admin {
-    display: none !important;
 }
 
 
@@ -1035,127 +884,59 @@ textarea {
    ========================================================= */
 
 footer {
+    width: 100%;
+
+    padding: 16px 10px 22px;
+
     text-align: center;
 
-    padding: 22px 14px;
+    color: #666;
 
-    color: #555555;
+    font-size: 12px;
 
-    font-size: 14px;
+    overflow: hidden;
 }
 
 
 /* =========================================================
-   MOBILE
+   MOBILE 500PX
    ========================================================= */
 
-@media (max-width: 650px) {
+@media (max-width: 500px) {
 
-    .container {
-        width: calc(100% - 18px);
+    .main-header {
+        padding: 9px 7px 11px;
     }
 
 
-    header {
-        padding: 12px 10px 15px;
+    .brand-name {
+        font-size: 23px;
     }
 
 
-    .logo-area {
-        max-width: 150px;
-
-        min-height: 45px;
+    .brand-subtitle {
+        font-size: 12px;
     }
 
 
-    .brand {
-        font-size: 24px;
-    }
+    .instruction-card {
+        width: calc(100% - 12px);
 
+        margin: 8px auto;
 
-    .tagline {
-        font-size: 15px;
-    }
-
-
-    .card {
-        padding: 14px;
-
-        margin: 12px 0;
-
-        border-radius: 14px;
-    }
-
-
-    h1 {
-        font-size: 21px;
-    }
-
-
-    h2 {
-        font-size: 19px;
-    }
-
-
-    .bag-type-header {
         padding: 9px 10px;
     }
 
 
-    .bag-type-title {
-        font-size: 17px;
-    }
-
-
-    .admin-rate {
+    .instruction-card h2 {
         font-size: 16px;
     }
 
 
-    .bag-table {
-        min-width: 460px;
+    .instruction-list p {
+        font-size: 11px;
     }
 
-
-    .bag-table th,
-    .bag-table td {
-        padding: 6px 5px;
-    }
-
-
-    .bag-quantity {
-        width: 65px;
-
-        max-width: 65px;
-    }
-
-
-    .grand-total-label {
-        font-size: 17px;
-    }
-
-
-    .grand-total-value {
-        font-size: 20px;
-    }
-
-
-    .admin-rate-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    .submit-btn {
-        font-size: 18px;
-    }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 380px) {
 
     .container {
         width: calc(100% - 12px);
@@ -1164,44 +945,158 @@ footer {
 
     .card {
         padding: 11px;
+
+        margin: 8px 0;
+
+        border-radius: 12px;
     }
 
 
-    .brand {
-        font-size: 21px;
-    }
-
-
-    .bag-table {
-        min-width: 430px;
+    .card h2 {
+        font-size: 17px;
     }
 
 
     input,
     select,
     textarea {
-        font-size: 16px;
-
-        padding: 12px;
-    }
-
-
-    .bag-quantity {
-        width: 60px;
-
-        max-width: 60px;
+        padding: 9px;
 
         font-size: 15px;
     }
 
 
-    .bag-weight {
-        font-size: 15px;
+    .bag-grid {
+        gap: 6px;
     }
 
 
-    .bag-size {
+    .bag-item {
+        padding: 7px;
+    }
+
+
+    .bag-title strong {
+        font-size: 14px;
+    }
+
+
+    .bag-title span {
+        font-size: 10px;
+    }
+
+
+    .bag-description {
+        font-size: 9px;
+    }
+
+
+    .bag-qty {
+        width: 54px !important;
+
+        max-width: 54px !important;
+
+        height: 33px;
+
+        font-size: 14px !important;
+    }
+
+
+    .delivery-options {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 6px;
+    }
+
+
+    .delivery-option {
+        padding: 7px;
+
         font-size: 12px;
+    }
+
+
+    .delivery-option small {
+        font-size: 10px;
+    }
+
+
+    .grand-total {
+        font-size: 15px;
+    }
+
+
+    .grand-total strong {
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .brand-name {
+        font-size: 20px;
+    }
+
+
+    .brand-subtitle {
+        font-size: 11px;
+    }
+
+
+    .container {
+        width: calc(100% - 8px);
+    }
+
+
+    .instruction-card {
+        width: calc(100% - 8px);
+
+        padding: 8px;
+    }
+
+
+    .card {
+        padding: 9px;
+    }
+
+
+    .bag-grid {
+        gap: 5px;
+    }
+
+
+    .bag-item {
+        padding: 6px;
+    }
+
+
+    .bag-title {
+        display: block;
+    }
+
+
+    .bag-title strong,
+    .bag-title span {
+        display: block;
+
+        text-align: center;
+    }
+
+
+    .bag-title span {
+        margin-top: 2px;
+    }
+
+
+    .bag-qty {
+        width: 50px !important;
+
+        max-width: 50px !important;
     }
 }
 
@@ -1213,29 +1108,29 @@ footer {
 @media print {
 
     body {
-        background: #ffffff;
+        background: #fff;
     }
 
 
-    .card {
+    .main-header {
+        background: #fff;
+    }
+
+
+    .card,
+    .instruction-card {
         box-shadow: none;
-
-        border: 1px solid #cccccc;
     }
 
 
+    .submit-button,
     .submit-btn,
     .calculate-btn {
-        display: none;
-    }
-
-
-    .admin-panel {
         display: none;
     }
 }
 
 
 /* =========================================================
-   END OF PSB.CSS
+   END PSB.CSS
    ========================================================= */
