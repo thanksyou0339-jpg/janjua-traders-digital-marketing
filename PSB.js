@@ -46,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getValue(id) {
 
-        const element = get(id);
+        const el = get(id);
 
-        if (!element) {
+        if (!el) {
             return "";
         }
 
-        return clean(element.value);
+        return clean(el.value);
     }
 
 
@@ -71,14 +71,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setHidden(form, name, value) {
 
-        const field =
-            document.createElement("input");
+        let field =
+            form.querySelector(
+                'input[type="hidden"][name="' +
+                name +
+                '"]'
+            );
 
-        field.type = "hidden";
-        field.name = name;
+        if (!field) {
+
+            field =
+                document.createElement("input");
+
+            field.type = "hidden";
+            field.name = name;
+
+            form.appendChild(field);
+        }
+
         field.value = clean(value);
-
-        form.appendChild(field);
 
         return field;
     }
@@ -91,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function pakistanDateTime() {
 
         const now = new Date();
-
 
         const dateParts =
             new Intl.DateTimeFormat(
@@ -153,29 +163,262 @@ document.addEventListener("DOMContentLoaded", function () {
             part(timeParts, "dayPeriod");
 
 
+        let hour24 =
+            parseInt(hour, 10);
+
+
+        if (
+            period === "AM" &&
+            hour24 === 12
+        ) {
+            hour24 = 0;
+        }
+
+
+        if (
+            period === "PM" &&
+            hour24 !== 12
+        ) {
+            hour24 += 12;
+        }
+
+
+        const h24 =
+            String(hour24)
+                .padStart(2, "0");
+
+
+        const date =
+            `${day}-${month}-${year}`;
+
+
+        const time =
+            `${hour}:${minute}:${second} ${period}`;
+
+
         return {
 
-            date:
-                `${day}-${month}-${year}`,
+            date: date,
 
-            time:
-                `${hour}:${minute}:${second} ${period}`,
+            time: time,
 
             orderId:
-                `JT-PSB-${year}${month}${day}-${hour}${minute}${second}`
+                `JT-PSB-${year}${month}${day}-${h24}${minute}${second}`
         };
     }
 
 
     /* =====================================================
+       HEADER
+    ===================================================== */
+
+    const header =
+        document.querySelector(".main-header");
+
+
+    if (header) {
+
+        const brand =
+            header.querySelector(".brand-name");
+
+
+        if (brand) {
+
+            brand.textContent =
+                "JANJUA TRADERS";
+
+            brand.style.fontWeight = "900";
+
+            brand.style.textAlign = "center";
+
+            brand.style.animation =
+                "janjuaPulse 2.4s ease-in-out infinite";
+        }
+
+
+        const subtitle =
+            header.querySelector(".brand-subtitle");
+
+
+        if (subtitle) {
+
+            subtitle.textContent =
+                "Janjua Traders Digital Marketing Platform";
+
+            subtitle.style.fontWeight = "800";
+        }
+
+
+        const oldLogo =
+            header.querySelector(".logo-placeholder");
+
+
+        if (oldLogo) {
+
+            oldLogo.textContent =
+                "JANJUA";
+
+            oldLogo.style.fontWeight = "900";
+        }
+    }
+
+
+    /* =====================================================
+       MOBILE / ANIMATION CSS
+    ===================================================== */
+
+    if (!document.getElementById("psbAnimationStyle")) {
+
+        const style =
+            document.createElement("style");
+
+        style.id =
+            "psbAnimationStyle";
+
+
+        style.textContent = `
+
+            @keyframes janjuaPulse {
+
+                0% {
+                    transform: scale(1);
+                    opacity: .88;
+                }
+
+                50% {
+                    transform: scale(1.035);
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: scale(1);
+                    opacity: .88;
+                }
+            }
+
+
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden !important;
+            }
+
+
+            .container {
+                width: min(920px, 94%);
+                max-width: 100%;
+            }
+
+
+            .card,
+            .instruction-card {
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+
+            .help-desk-card {
+                width: 100%;
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+
+            .help-desk-card textarea {
+                width: 100%;
+                min-height: 115px;
+                resize: vertical;
+            }
+
+
+            .help-required {
+                color: #b00020;
+                font-weight: 800;
+            }
+
+
+            .help-title {
+                font-weight: 900;
+            }
+
+
+            @media (max-width: 500px) {
+
+                .main-header {
+                    padding: 12px 9px !important;
+                }
+
+
+                .brand-name {
+                    font-size: 23px !important;
+                }
+
+
+                .brand-subtitle {
+                    font-size: 13px !important;
+                }
+
+
+                .instruction-card {
+                    margin: 10px auto !important;
+                    padding: 12px !important;
+                    width: calc(100% - 16px) !important;
+                    border-radius: 13px !important;
+                }
+
+
+                .instruction-card h2 {
+                    font-size: 17px !important;
+                    margin-bottom: 7px !important;
+                }
+
+
+                .instruction-card p {
+                    font-size: 12px !important;
+                    line-height: 1.55 !important;
+                    margin: 5px 0 !important;
+                }
+
+
+                .help-desk-card {
+                    padding: 14px !important;
+                    border-radius: 14px !important;
+                }
+
+
+                .help-desk-card h2 {
+                    font-size: 19px !important;
+                }
+
+
+                .help-desk-card input,
+                .help-desk-card select,
+                .help-desk-card textarea {
+                    font-size: 15px !important;
+                    padding: 11px !important;
+                }
+
+
+                .help-send-button {
+                    font-size: 16px !important;
+                    padding: 13px !important;
+                }
+            }
+        `;
+
+
+        document.head.appendChild(style);
+    }
+
+
+    /* =====================================================
        DELIVERY AREAS
+       FINAL AREA LIST
     ===================================================== */
 
     const areas = [
 
         "VIP Town",
-
-        "Sabarwal Colony",
 
         "Fatima Jinnah Colony",
 
@@ -184,8 +427,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "Sabar Town",
 
         "Rana Town",
-
-        "Hamdia Colony",
 
         "Chakian",
 
@@ -203,44 +444,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
         "92 Mor",
 
-        "Maqam Hayat",
+        "15 Block",
 
-        "Sherpur Chowk",
+        "مقامِ یاد کالونی",
 
-        "Churanja Chak"
+        "12 Block",
+
+        "شربت چوک"
 
     ];
 
 
     /* =====================================================
-       AREA SELECT
+       MAIN DELIVERY AREA
     ===================================================== */
 
-    function fillAreaSelect(selectElement) {
+    const deliveryArea =
+        get("deliveryArea");
 
-        if (!selectElement) {
-            return;
-        }
 
+    if (deliveryArea) {
 
         const current =
-            clean(selectElement.value);
+            clean(deliveryArea.value);
 
 
-        selectElement.innerHTML = "";
+        deliveryArea.innerHTML = "";
 
 
-        const firstOption =
+        const first =
             document.createElement("option");
 
-        firstOption.value = "";
 
-        firstOption.textContent =
+        first.value = "";
+
+
+        first.textContent =
             "اپنا ایریا منتخب کریں";
 
-        selectElement.appendChild(
-            firstOption
-        );
+
+        deliveryArea.appendChild(first);
 
 
         areas.forEach(function (area) {
@@ -248,27 +491,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const option =
                 document.createElement("option");
 
-            option.value = area;
 
-            option.textContent = area;
+            option.value =
+                area;
 
-            selectElement.appendChild(
-                option
-            );
+
+            option.textContent =
+                area;
+
+
+            deliveryArea.appendChild(option);
         });
 
 
         if (current) {
-            selectElement.value = current;
+            deliveryArea.value = current;
         }
     }
-
-
-    const deliveryArea =
-        get("deliveryArea");
-
-
-    fillAreaSelect(deliveryArea);
 
 
     /* =====================================================
@@ -281,43 +520,66 @@ document.addEventListener("DOMContentLoaded", function () {
             "change",
             function () {
 
-                const message =
+                const msg =
                     get("areaMessage");
 
 
-                if (!message) {
+                if (!msg) {
                     return;
                 }
 
 
                 if (deliveryArea.value) {
 
-                    message.textContent =
+                    msg.textContent =
                         "✓ یہ ایریا ہماری Delivery List میں موجود ہے۔";
 
-                    message.style.display =
+                    msg.style.display =
                         "block";
 
-                    message.style.color =
+                    msg.style.color =
                         "#176b2c";
 
-                    message.style.background =
+                    msg.style.background =
                         "#e5f8ea";
 
-                    message.style.padding =
+                    msg.style.padding =
                         "8px";
 
-                    message.style.borderRadius =
+                    msg.style.borderRadius =
                         "8px";
 
                 } else {
 
-                    message.style.display =
+                    msg.style.display =
                         "none";
                 }
             }
         );
     }
+
+
+    /* =====================================================
+       TEXT INPUT DIRECTION
+    ===================================================== */
+
+    document
+        .querySelectorAll(
+            'input[type="text"], input[type="tel"], textarea'
+        )
+        .forEach(function (element) {
+
+            element.style.direction =
+                "ltr";
+
+            element.style.textAlign =
+                "left";
+
+            element.setAttribute(
+                "dir",
+                "ltr"
+            );
+        });
 
 
     /* =====================================================
@@ -334,13 +596,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             input.step = "1";
 
+            input.inputMode = "numeric";
+
 
             input.addEventListener(
                 "input",
                 function () {
 
                     let value =
-                        String(input.value)
+                        input.value
                             .replace(/\D/g, "");
 
 
@@ -361,9 +625,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 )
                             );
                     }
-
-
-                    calculateTotals();
                 }
             );
         });
@@ -398,25 +659,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       CALCULATE LD / HD / GRAND TOTAL
+       CALCULATION
     ===================================================== */
 
-    function calculateTotals() {
+    function calculateBagTotals() {
 
         let ldSubtotal = 0;
 
         let hdSubtotal = 0;
 
 
-        /* -------------------------------
-           LD
-        ------------------------------- */
-
         document
             .querySelectorAll(".ld-qty")
             .forEach(function (input) {
 
-                const quantity =
+                const qty =
                     parseInt(
                         input.value,
                         10
@@ -425,24 +682,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const rate =
                     parseFloat(
-                        input.dataset.rate || "0"
-                    ) || 0;
+                        input.dataset.rate || 0
+                    );
 
 
                 ldSubtotal +=
-                    quantity * rate;
+                    qty * rate;
             });
 
-
-        /* -------------------------------
-           HD
-        ------------------------------- */
 
         document
             .querySelectorAll(".hd-qty")
             .forEach(function (input) {
 
-                const quantity =
+                const qty =
                     parseInt(
                         input.value,
                         10
@@ -451,92 +704,82 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const rate =
                     parseFloat(
-                        input.dataset.rate || "0"
-                    ) || 0;
+                        input.dataset.rate || 0
+                    );
 
 
                 hdSubtotal +=
-                    quantity * rate;
+                    qty * rate;
             });
+
+
+        const ld =
+            get("ldSubtotal");
+
+
+        const hd =
+            get("hdSubtotal");
+
+
+        const finalLD =
+            get("finalLD");
+
+
+        const finalHD =
+            get("finalHD");
+
+
+        const delivery =
+            get("deliveryCharges");
+
+
+        const grand =
+            get("grandTotal");
+
+
+        if (ld) {
+            ld.textContent =
+                rupees(ldSubtotal);
+        }
+
+
+        if (hd) {
+            hd.textContent =
+                rupees(hdSubtotal);
+        }
+
+
+        if (finalLD) {
+            finalLD.textContent =
+                rupees(ldSubtotal);
+        }
+
+
+        if (finalHD) {
+            finalHD.textContent =
+                rupees(hdSubtotal);
+        }
 
 
         const deliveryCharge =
             getDeliveryCharge();
 
 
-        const grandTotal =
-            ldSubtotal +
-            hdSubtotal +
-            deliveryCharge;
+        if (delivery) {
 
-
-        /* -------------------------------
-           DISPLAY
-        ------------------------------- */
-
-        const ldSubtotalElement =
-            get("ldSubtotal");
-
-
-        const hdSubtotalElement =
-            get("hdSubtotal");
-
-
-        const finalLDElement =
-            get("finalLD");
-
-
-        const finalHDElement =
-            get("finalHD");
-
-
-        const deliveryElement =
-            get("deliveryCharges");
-
-
-        const grandElement =
-            get("grandTotal");
-
-
-        if (ldSubtotalElement) {
-
-            ldSubtotalElement.textContent =
-                rupees(ldSubtotal);
-        }
-
-
-        if (hdSubtotalElement) {
-
-            hdSubtotalElement.textContent =
-                rupees(hdSubtotal);
-        }
-
-
-        if (finalLDElement) {
-
-            finalLDElement.textContent =
-                rupees(ldSubtotal);
-        }
-
-
-        if (finalHDElement) {
-
-            finalHDElement.textContent =
-                rupees(hdSubtotal);
-        }
-
-
-        if (deliveryElement) {
-
-            deliveryElement.textContent =
+            delivery.textContent =
                 rupees(deliveryCharge);
         }
 
 
-        if (grandElement) {
+        if (grand) {
 
-            grandElement.textContent =
-                rupees(grandTotal);
+            grand.textContent =
+                rupees(
+                    ldSubtotal +
+                    hdSubtotal +
+                    deliveryCharge
+                );
         }
 
 
@@ -550,14 +793,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 deliveryCharge,
 
             total:
-                grandTotal
+                ldSubtotal +
+                hdSubtotal +
+                deliveryCharge
         };
     }
 
-
-    /* =====================================================
-       TOTAL EVENTS
-    ===================================================== */
 
     document
         .querySelectorAll(
@@ -567,105 +808,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
             element.addEventListener(
                 "input",
-                calculateTotals
+                calculateBagTotals
             );
 
 
             element.addEventListener(
                 "change",
-                calculateTotals
+                calculateBagTotals
             );
         });
 
 
-    calculateTotals();
+    calculateBagTotals();
 
 
     /* =====================================================
-       PRODUCT RATE DISPLAY
-    ===================================================== */
-
-    function updateRateDisplays() {
-
-        const ldInputs =
-            document.querySelectorAll(
-                ".ld-qty"
-            );
-
-
-        const hdInputs =
-            document.querySelectorAll(
-                ".hd-qty"
-            );
-
-
-        let ldRate = 0;
-
-        let hdRate = 0;
-
-
-        ldInputs.forEach(function (input) {
-
-            const rate =
-                parseFloat(
-                    input.dataset.rate || "0"
-                ) || 0;
-
-
-            if (rate > 0) {
-                ldRate = rate;
-            }
-        });
-
-
-        hdInputs.forEach(function (input) {
-
-            const rate =
-                parseFloat(
-                    input.dataset.rate || "0"
-                ) || 0;
-
-
-            if (rate > 0) {
-                hdRate = rate;
-            }
-        });
-
-
-        const ldDisplay =
-            get("ldRateDisplay");
-
-
-        const hdDisplay =
-            get("hdRateDisplay");
-
-
-        if (
-            ldDisplay &&
-            ldRate > 0
-        ) {
-
-            ldDisplay.textContent =
-                rupees(ldRate) + " / KG";
-        }
-
-
-        if (
-            hdDisplay &&
-            hdRate > 0
-        ) {
-
-            hdDisplay.textContent =
-                rupees(hdRate) + " / KG";
-        }
-    }
-
-
-    updateRateDisplays();
-
-
-    /* =====================================================
-       ORDER BUTTON
+       ORDER SUBMIT
     ===================================================== */
 
     const orderButton =
@@ -677,11 +835,6 @@ document.addEventListener("DOMContentLoaded", function () {
         orderButton.addEventListener(
             "click",
             async function () {
-
-
-                /* ---------------------------
-                   CUSTOMER DATA
-                --------------------------- */
 
                 const name =
                     getValue("customerName");
@@ -702,10 +855,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const area =
                     getValue("deliveryArea");
 
-
-                /* ---------------------------
-                   VALIDATION
-                --------------------------- */
 
                 if (!name) {
 
@@ -762,7 +911,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 const totals =
-                    calculateTotals();
+                    calculateBagTotals();
 
 
                 orderButton.disabled =
@@ -773,10 +922,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Order Gmail پر بھیجا جا رہا ہے...";
 
 
-                /* ---------------------------
-                   CREATE FORM
-                --------------------------- */
-
                 const form =
                     document.createElement("form");
 
@@ -784,10 +929,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 form.style.display =
                     "none";
 
-
-                /* ---------------------------
-                   ORDER DATA
-                --------------------------- */
 
                 const fields = {
 
@@ -850,41 +991,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
 
-                /* ---------------------------
-                   BAG DETAILS
-                --------------------------- */
-
                 document
                     .querySelectorAll(".bag-qty")
                     .forEach(function (input, index) {
 
-                        const type =
-                            input.dataset.type || "";
-
-
-                        const size =
-                            input.dataset.size || "";
-
-
-                        const quantity =
-                            input.value || "0";
-
-
                         fields[
-                            "Bag_" +
-                            (index + 1)
+                            "Bag_" + (index + 1)
                         ] =
-                            type +
-                            " | Size: " +
-                            size +
-                            " | Quantity: " +
-                            quantity;
+                            `${input.dataset.type || ""} | ${input.dataset.size || ""} | Quantity: ${input.value || 0}`;
                     });
 
-
-                /* ---------------------------
-                   ADD HIDDEN FIELDS
-                --------------------------- */
 
                 Object.keys(fields)
                     .forEach(function (key) {
@@ -901,10 +1017,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     form
                 );
 
-
-                /* ---------------------------
-                   SEND ORDER
-                --------------------------- */
 
                 try {
 
@@ -937,7 +1049,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (!response.ok) {
 
                         throw new Error(
-                            "Order submission failed"
+                            "Gmail submission failed"
                         );
                     }
 
@@ -957,20 +1069,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         result.style.color =
                             "#176b2c";
-
-                        result.style.background =
-                            "#e4f7e9";
                     }
-
 
                 }
 
                 catch (error) {
 
-                    console.error(
-                        "Order Error:",
-                        error
-                    );
+                    console.error(error);
 
 
                     const result =
@@ -987,12 +1092,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         result.style.color =
                             "#9a1c1c";
-
-                        result.style.background =
-                            "#ffe7e7";
                     }
-                }
 
+                }
 
                 finally {
 
@@ -1011,8 +1113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        HELP DESK
-       COMPLETELY SEPARATE FROM ORDER
-       ===================================================== */
+    ===================================================== */
 
     function createHelpDesk() {
 
@@ -1022,9 +1123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const main =
-            document.querySelector(
-                "main.container"
-            );
+            document.querySelector("main.container");
 
 
         if (!main) {
@@ -1050,21 +1149,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 Help Desk Center
             </h2>
 
+
             <p>
                 اپنی شکایت، کسی مسئلے، رابطے یا کسی جائز
-                معلومات / کام کی درخواست کے لیے نیچے
-                اپنا پیغام درج کریں۔
+                معلومات / کام کی درخواست کے لیے نیچے اپنا
+                پیغام درج کریں۔
             </p>
 
 
             <label for="helpName">
-
                 اپنا نام
-
-                <span class="help-required">
-                    *
-                </span>
-
+                <span class="help-required">*</span>
             </label>
 
 
@@ -1077,13 +1172,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             <label for="helpPhone">
-
-                موبائل / WhatsApp نمبر
-
-                <span class="help-required">
-                    *
-                </span>
-
+                Mobile / WhatsApp نمبر
+                <span class="help-required">*</span>
             </label>
 
 
@@ -1097,13 +1187,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             <label for="helpArea">
-
                 اپنا ایریا
-
-                <span class="help-required">
-                    *
-                </span>
-
+                <span class="help-required">*</span>
             </label>
 
 
@@ -1120,19 +1205,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             <label for="helpMessage">
-
-                آپ کا مسئلہ / پیغام
-
-                <span class="help-required">
-                    *
-                </span>
-
+                آپ کا پیغام
+                <span class="help-required">*</span>
             </label>
 
 
             <textarea
                 id="helpMessage"
-                placeholder="اپنی شکایت، مسئلہ، رابطے کی درخواست، اضافی معلومات یا کسی جائز کام کی درخواست یہاں لکھیں..."
+                placeholder="یہاں اپنی شکایت، مسئلہ، رابطے یا کسی جائز کام کی درخواست لکھیں..."
                 required
             ></textarea>
 
@@ -1151,41 +1231,75 @@ document.addEventListener("DOMContentLoaded", function () {
                 class="submit-message"
                 style="display:none;"
             ></div>
-
         `;
 
 
         main.appendChild(card);
 
 
-        /* =================================================
-           HELP AREA LIST
-        ================================================= */
+        /* HELP AREA LIST */
 
         const helpArea =
             get("helpArea");
 
 
-        fillAreaSelect(helpArea);
+        areas.forEach(function (area) {
+
+            const option =
+                document.createElement("option");
 
 
-        /* =================================================
-           HELP SEND
-        ================================================= */
+            option.value =
+                area;
+
+
+            option.textContent =
+                area;
+
+
+            helpArea.appendChild(
+                option
+            );
+        });
+
+
+        /* HELP TEXT DIRECTION */
+
+        [
+            "helpName",
+            "helpPhone",
+            "helpMessage"
+        ].forEach(function (id) {
+
+            const element =
+                get(id);
+
+
+            if (element) {
+
+                element.style.direction =
+                    "ltr";
+
+                element.style.textAlign =
+                    "left";
+
+                element.setAttribute(
+                    "dir",
+                    "ltr"
+                );
+            }
+        });
+
+
+        /* HELP SEND */
 
         const helpButton =
             get("helpSendButton");
 
 
-        if (!helpButton) {
-            return;
-        }
-
-
         helpButton.addEventListener(
             "click",
             async function () {
-
 
                 const name =
                     getValue("helpName");
@@ -1202,10 +1316,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const message =
                     getValue("helpMessage");
 
-
-                /* ---------------------------
-                   VALIDATION
-                --------------------------- */
 
                 if (!name) {
 
@@ -1240,7 +1350,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!message) {
 
                     alert(
-                        "براہِ کرم اپنا مسئلہ / پیغام لکھیں۔"
+                        "براہِ کرم اپنا پیغام لکھیں۔"
                     );
 
                     return;
@@ -1251,22 +1361,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     pakistanDateTime();
 
 
-                const helpId =
-                    "JT-HD-" +
-                    info.orderId;
-
-
                 helpButton.disabled =
                     true;
 
 
                 helpButton.textContent =
-                    "Help Desk Gmail پر بھیجا جا رہا ہے...";
+                    "Help Desk Message Gmail پر بھیجا جا رہا ہے...";
 
-
-                /* ---------------------------
-                   HELP FORM
-                --------------------------- */
 
                 const helpForm =
                     document.createElement("form");
@@ -1276,17 +1377,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     "none";
 
 
-                /* ---------------------------
-                   HELP DATA
-                --------------------------- */
-
                 const fields = {
 
                     Message_Type:
                         "HELP DESK MESSAGE",
 
                     Help_Desk_ID:
-                        helpId,
+                        `JT-HD-${info.orderId}`,
 
                     Date:
                         info.date,
@@ -1309,12 +1406,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     Department:
                         "Janjua Traders Help Desk",
 
-                    Platform:
-                        "Janjua Traders PSB",
-
                     _subject:
                         "HELP DESK MESSAGE | JANJUA TRADERS | " +
-                        helpId,
+                        `JT-HD-${info.orderId}`,
 
                     _template:
                         "table",
@@ -1323,10 +1417,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         "false"
                 };
 
-
-                /* ---------------------------
-                   ADD FIELDS
-                --------------------------- */
 
                 Object.keys(fields)
                     .forEach(function (key) {
@@ -1343,10 +1433,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     helpForm
                 );
 
-
-                /* ---------------------------
-                   SEND HELP DESK
-                --------------------------- */
 
                 try {
 
@@ -1390,61 +1476,29 @@ document.addEventListener("DOMContentLoaded", function () {
                         get("helpResult");
 
 
-                    if (result) {
-
-                        result.textContent =
-                            "✓ آپ کا Help Desk Message کامیابی سے Gmail پر بھیج دیا گیا ہے۔";
-
-                        result.style.display =
-                            "block";
-
-                        result.style.color =
-                            "#176b2c";
-
-                        result.style.background =
-                            "#e4f7e9";
-                    }
+                    result.textContent =
+                        "✓ آپ کا Help Desk Message کامیابی سے Gmail پر بھیج دیا گیا ہے۔";
 
 
-                    /* -----------------------
-                       CLEAR HELP FORM ONLY
-                    ----------------------- */
-
-                    const helpName =
-                        get("helpName");
+                    result.style.display =
+                        "block";
 
 
-                    const helpPhone =
-                        get("helpPhone");
+                    result.style.color =
+                        "#176b2c";
 
 
-                    const helpArea =
-                        get("helpArea");
+                    get("helpName").value =
+                        "";
 
+                    get("helpPhone").value =
+                        "";
 
-                    const helpMessage =
-                        get("helpMessage");
+                    get("helpArea").value =
+                        "";
 
-
-                    if (helpName) {
-                        helpName.value = "";
-                    }
-
-
-                    if (helpPhone) {
-                        helpPhone.value = "";
-                    }
-
-
-                    if (helpArea) {
-                        helpArea.value = "";
-                    }
-
-
-                    if (helpMessage) {
-                        helpMessage.value = "";
-                    }
-
+                    get("helpMessage").value =
+                        "";
 
                 }
 
@@ -1460,20 +1514,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         get("helpResult");
 
 
-                    if (result) {
+                    result.textContent =
+                        "✗ Help Desk Message Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
-                        result.textContent =
-                            "✗ Help Desk Message Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
-                        result.style.display =
-                            "block";
+                    result.style.display =
+                        "block";
 
-                        result.style.color =
-                            "#9a1c1c";
 
-                        result.style.background =
-                            "#ffe7e7";
-                    }
+                    result.style.color =
+                        "#9a1c1c";
                 }
 
 
@@ -1492,35 +1542,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       START HELP DESK
-    ===================================================== */
-
     createHelpDesk();
 
 
     /* =====================================================
-       FINAL STATUS
+       FINAL
     ===================================================== */
 
     console.log(
-        "Janjua Traders PSB JS loaded successfully."
+        "Janjua Traders PSB FINAL JS loaded."
     );
 
     console.log(
-        "Order System: ACTIVE"
+        "Order system: ACTIVE"
     );
 
     console.log(
-        "Help Desk: ACTIVE"
+        "Separate Help Desk: ACTIVE"
     );
 
     console.log(
-        "Delivery Areas: ACTIVE"
-    );
-
-    console.log(
-        "LD / HD Totals: ACTIVE"
+        "Final Area List: ACTIVE"
     );
 
 });
