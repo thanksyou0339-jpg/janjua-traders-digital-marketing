@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>
+        JANJUA TRADERS | Private Rate Manager
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="PRM.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="prm-header">
+
+    <div class="prm-logo">
+        JANJUA
+    </div>
+
+    <h1>
+        JANJUA TRADERS
+    </h1>
+
+    <p>
+        Private Rate Manager
+    </p>
+
+</header>
+
+
+
+<main class="prm-container">
+
+
+    <section class="prm-card">
+
+
+        <div class="private-badge">
+            PRIVATE
+        </div>
+
+
+        <h2>
+            HD / LD Rate Manager
+        </h2>
+
+
+        <p class="prm-description">
+            یہاں صرف موجودہ HD اور LD ریٹ درج کریں۔
+            ریٹ Lock کرنے کے بعد Publish کریں۔
+        </p>
+
+
+
+        <!-- =========================
+             HD RATE
+        ========================== -->
+
+        <div class="rate-section">
+
+            <label for="hdRate">
+                HD Rate / KG
+            </label>
+
+            <div class="rate-input-row">
+
+                <span class="currency">
+                    Rs.
+                </span>
+
+                <input
+                    id="hdRate"
+                    type="number"
+                    min="0"
+                    step="1"
+                    inputmode="numeric"
+                    placeholder="HD Rate درج کریں"
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             LD RATE
+        ========================== -->
+
+        <div class="rate-section">
+
+            <label for="ldRate">
+                LD Rate / KG
+            </label>
+
+            <div class="rate-input-row">
+
+                <span class="currency">
+                    Rs.
+                </span>
+
+                <input
+                    id="ldRate"
+                    type="number"
+                    min="0"
+                    step="1"
+                    inputmode="numeric"
+                    placeholder="LD Rate درج کریں"
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             LOCK STATUS
+        ========================== -->
+
+        <div
+            id="lockStatus"
+            class="lock-status"
+        >
+            🔓 ریٹ ابھی Lock نہیں ہے۔
+        </div>
+
+
+
+        <!-- =========================
+             BUTTONS
+        ========================== -->
+
+        <div class="prm-buttons">
+
+
+            <button
+                id="lockButton"
+                type="button"
+                class="prm-button prm-lock-button"
+            >
+                🔒 Rate Lock کریں
+            </button>
+
+
+            <button
+                id="publishButton"
+                type="button"
+                class="prm-button prm-publish-button"
+                disabled
+            >
+                🚀 Publish Rate
+            </button>
+
+
+            <button
+                id="refreshButton"
+                type="button"
+                class="prm-button prm-refresh-button"
+            >
+                🔄 موجودہ Rate Refresh کریں
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             MESSAGE
+        ========================== -->
+
+        <div
+            id="statusMessage"
+            class="status-message"
+            style="display:none;"
+        ></div>
+
+
+
+        <!-- =========================
+             CURRENT RATE
+        ========================== -->
+
+        <div class="current-rate-card">
+
+
+            <h3>
+                موجودہ Published Rate
+            </h3>
+
+
+            <div class="current-rate-row">
+
+                <span>
+                    HD Rate / KG
+                </span>
+
+                <strong id="currentHD">
+                    Rs. —
+                </strong>
+
+            </div>
+
+
+            <div class="current-rate-row">
+
+                <span>
+                    LD Rate / KG
+                </span>
+
+                <strong id="currentLD">
+                    Rs. —
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         INFORMATION
+    ========================== -->
+
+    <section class="prm-info-card">
+
+
+        <h2>
+            استعمال کا طریقہ
+        </h2>
+
+
+        <ol>
+
+            <li>
+                HD کا موجودہ ریٹ درج کریں۔
+            </li>
+
+            <li>
+                LD کا موجودہ ریٹ درج کریں۔
+            </li>
+
+            <li>
+                <strong>
+                    Rate Lock
+                </strong>
+                دبائیں۔
+            </li>
+
+            <li>
+                ریٹ درست ہونے کی تصدیق کے بعد
+                <strong>
+                    Publish Rate
+                </strong>
+                دبائیں۔
+            </li>
+
+            <li>
+                Public Polythene Shopper Bag App کو
+                Refresh کرنے پر نیا ریٹ استعمال ہوگا۔
+            </li>
+
+        </ol>
+
+
+        <div class="prm-warning">
+
+            ⚠️ یہ Private Rate Manager ہے۔
+            اسے عام لوگوں کے ساتھ Share نہ کریں۔
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<footer class="prm-footer">
+
+    <strong>
+        JANJUA TRADERS
+    </strong>
+
+    <br>
+
+    Private Rate Management System
+
+</footer>
+
+
+
+<script src="PRM.js"></script>
+
+</body>
+
+</html>
