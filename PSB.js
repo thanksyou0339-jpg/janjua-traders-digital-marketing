@@ -1,18 +1,14 @@
 /* =========================================================
    JANJUA TRADERS
    PSB.JS
-   FINAL POLYTHENE SHOPPER BAG SYSTEM
-
+   FINAL VERSION
    ORDER + SEPARATE HELP DESK
-
-   Gmail:
-   ORDER  -> normal order subject
-   HELP   -> separate HELP DESK MESSAGE subject
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
     "use strict";
+
 
     /* =====================================================
        SETTINGS
@@ -50,13 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getValue(id) {
 
-        const el = get(id);
+        const element = get(id);
 
-        if (!el) {
+        if (!element) {
             return "";
         }
 
-        return clean(el.value);
+        return clean(element.value);
     }
 
 
@@ -75,25 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setHidden(form, name, value) {
 
-        let field =
-            form.querySelector(
-                'input[type="hidden"][name="' +
-                name +
-                '"]'
-            );
+        const field =
+            document.createElement("input");
 
-        if (!field) {
-
-            field =
-                document.createElement("input");
-
-            field.type = "hidden";
-            field.name = name;
-
-            form.appendChild(field);
-        }
-
+        field.type = "hidden";
+        field.name = name;
         field.value = clean(value);
+
+        form.appendChild(field);
 
         return field;
     }
@@ -107,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const now = new Date();
 
+
         const dateParts =
             new Intl.DateTimeFormat(
                 "en-GB",
@@ -117,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     year: "numeric"
                 }
             ).formatToParts(now);
+
 
         const timeParts =
             new Intl.DateTimeFormat(
@@ -166,268 +153,23 @@ document.addEventListener("DOMContentLoaded", function () {
             part(timeParts, "dayPeriod");
 
 
-        let hour24 =
-            parseInt(hour, 10);
-
-
-        if (
-            period === "AM" &&
-            hour24 === 12
-        ) {
-            hour24 = 0;
-        }
-
-
-        if (
-            period === "PM" &&
-            hour24 !== 12
-        ) {
-            hour24 += 12;
-        }
-
-
-        const h24 =
-            String(hour24)
-                .padStart(2, "0");
-
-
-        const date =
-            `${day}-${month}-${year}`;
-
-
-        const time =
-            `${hour}:${minute}:${second} ${period}`;
-
-
         return {
 
-            date: date,
+            date:
+                `${day}-${month}-${year}`,
 
-            time: time,
+            time:
+                `${hour}:${minute}:${second} ${period}`,
 
             orderId:
-                `JT-PSB-${year}${month}${day}-${h24}${minute}${second}`
+                `JT-PSB-${year}${month}${day}-${hour}${minute}${second}`
         };
-    }
-
-
-    /* =====================================================
-       HEADER CLEANUP
-    ===================================================== */
-
-    const header =
-        document.querySelector(".main-header");
-
-
-    if (header) {
-
-        const brand =
-            header.querySelector(".brand-name");
-
-
-        if (brand) {
-
-            brand.textContent =
-                "JANJUA TRADERS";
-
-            brand.style.fontWeight = "900";
-            brand.style.fontSize = "28px";
-            brand.style.textAlign = "center";
-            brand.style.animation =
-                "janjuaPulse 2.4s ease-in-out infinite";
-        }
-
-
-        const subtitle =
-            header.querySelector(".brand-subtitle");
-
-
-        if (subtitle) {
-
-            subtitle.textContent =
-                "Polythene Shopper Bags";
-
-            subtitle.style.fontSize = "15px";
-        }
-
-
-        const oldLogo =
-            header.querySelector(".logo-placeholder");
-
-
-        if (oldLogo) {
-
-            oldLogo.textContent =
-                "JANJUA";
-
-            oldLogo.style.fontWeight = "900";
-        }
-    }
-
-
-    /* =====================================================
-       MOBILE HEADER ANIMATION
-    ===================================================== */
-
-    if (!document.getElementById("psbAnimationStyle")) {
-
-        const style =
-            document.createElement("style");
-
-        style.id = "psbAnimationStyle";
-
-        style.textContent = `
-
-            @keyframes janjuaPulse {
-
-                0% {
-                    transform: scale(1);
-                    opacity: .88;
-                }
-
-                50% {
-                    transform: scale(1.035);
-                    opacity: 1;
-                }
-
-                100% {
-                    transform: scale(1);
-                    opacity: .88;
-                }
-            }
-
-            html,
-            body {
-                max-width: 100%;
-                overflow-x: hidden !important;
-            }
-
-            .container {
-                width: min(920px, 94%);
-                max-width: 100%;
-            }
-
-            .card,
-            .instruction-card {
-                max-width: 100%;
-                overflow: hidden;
-            }
-
-            .help-desk-card {
-                width: 100%;
-                max-width: 100%;
-                overflow: hidden;
-            }
-
-            .help-desk-card textarea {
-                width: 100%;
-                min-height: 115px;
-                resize: vertical;
-            }
-
-            .help-required {
-                color: #b00020;
-                font-weight: 800;
-            }
-
-            .help-title {
-                font-weight: 900;
-            }
-
-            @media (max-width: 500px) {
-
-                .main-header {
-                    padding: 12px 9px !important;
-                }
-
-                .brand-name {
-                    font-size: 23px !important;
-                }
-
-                .brand-subtitle {
-                    font-size: 13px !important;
-                }
-
-                .instruction-card {
-                    margin: 10px auto !important;
-                    padding: 12px !important;
-                    width: calc(100% - 16px) !important;
-                    border-radius: 13px !important;
-                }
-
-                .instruction-card h2 {
-                    font-size: 17px !important;
-                    margin-bottom: 7px !important;
-                }
-
-                .instruction-card p {
-                    font-size: 12px !important;
-                    line-height: 1.55 !important;
-                    margin: 5px 0 !important;
-                }
-
-                .help-desk-card {
-                    padding: 14px !important;
-                    border-radius: 14px !important;
-                }
-
-                .help-desk-card h2 {
-                    font-size: 19px !important;
-                }
-
-                .help-desk-card input,
-                .help-desk-card select,
-                .help-desk-card textarea {
-                    font-size: 15px !important;
-                    padding: 11px !important;
-                }
-
-                .help-send-button {
-                    font-size: 16px !important;
-                    padding: 13px !important;
-                }
-            }
-        `;
-
-        document.head.appendChild(style);
-    }
-
-
-    /* =====================================================
-       COMPACT TERMS / INSTRUCTIONS
-    ===================================================== */
-
-    const instructionCard =
-        document.querySelector(".instruction-card");
-
-
-    if (instructionCard) {
-
-        instructionCard.style.maxWidth = "100%";
-        instructionCard.style.boxSizing = "border-box";
-
-
-        const list =
-            instructionCard.querySelector(
-                ".instruction-list"
-            );
-
-
-        if (list) {
-
-            list.style.maxWidth = "100%";
-            list.style.overflowWrap = "break-word";
-        }
     }
 
 
     /* =====================================================
        DELIVERY AREAS
     ===================================================== */
-
-    const deliveryArea =
-        get("deliveryArea");
-
 
     const areas = [
 
@@ -455,34 +197,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         "Pitpan Chak",
 
-        "Pachpan Chak Shumali",
+        "55 Chak Shumali",
 
-        "Chhappan Chak Shumali",
+        "56 Chak Shumali",
 
-        "Baanway Mor",
+        "92 Mor",
+
+        "Maqam Hayat",
+
+        "Sherpur Chowk",
 
         "Churanja Chak"
 
     ];
 
 
-    if (deliveryArea) {
+    /* =====================================================
+       AREA SELECT
+    ===================================================== */
+
+    function fillAreaSelect(selectElement) {
+
+        if (!selectElement) {
+            return;
+        }
+
 
         const current =
-            clean(deliveryArea.value);
+            clean(selectElement.value);
 
 
-        deliveryArea.innerHTML = "";
+        selectElement.innerHTML = "";
 
-        const first =
+
+        const firstOption =
             document.createElement("option");
 
-        first.value = "";
+        firstOption.value = "";
 
-        first.textContent =
+        firstOption.textContent =
             "اپنا ایریا منتخب کریں";
 
-        deliveryArea.appendChild(first);
+        selectElement.appendChild(
+            firstOption
+        );
 
 
         areas.forEach(function (area) {
@@ -494,14 +252,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
             option.textContent = area;
 
-            deliveryArea.appendChild(option);
+            selectElement.appendChild(
+                option
+            );
         });
 
 
         if (current) {
-            deliveryArea.value = current;
+            selectElement.value = current;
         }
     }
+
+
+    const deliveryArea =
+        get("deliveryArea");
+
+
+    fillAreaSelect(deliveryArea);
 
 
     /* =====================================================
@@ -514,28 +281,39 @@ document.addEventListener("DOMContentLoaded", function () {
             "change",
             function () {
 
-                const msg =
+                const message =
                     get("areaMessage");
 
-                if (!msg) {
+
+                if (!message) {
                     return;
                 }
 
 
                 if (deliveryArea.value) {
 
-                    msg.textContent =
+                    message.textContent =
                         "✓ یہ ایریا ہماری Delivery List میں موجود ہے۔";
 
-                    msg.style.display = "block";
-                    msg.style.color = "#176b2c";
-                    msg.style.background = "#e5f8ea";
-                    msg.style.padding = "8px";
-                    msg.style.borderRadius = "8px";
+                    message.style.display =
+                        "block";
+
+                    message.style.color =
+                        "#176b2c";
+
+                    message.style.background =
+                        "#e5f8ea";
+
+                    message.style.padding =
+                        "8px";
+
+                    message.style.borderRadius =
+                        "8px";
 
                 } else {
 
-                    msg.style.display = "none";
+                    message.style.display =
+                        "none";
                 }
             }
         );
@@ -543,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       QUANTITY INPUT FIX
+       QUANTITY INPUT
     ===================================================== */
 
     document
@@ -551,16 +329,20 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach(function (input) {
 
             input.type = "number";
+
             input.min = "0";
+
             input.step = "1";
+
 
             input.addEventListener(
                 "input",
                 function () {
 
                     let value =
-                        input.value
+                        String(input.value)
                             .replace(/\D/g, "");
+
 
                     if (value === "") {
 
@@ -579,13 +361,16 @@ document.addEventListener("DOMContentLoaded", function () {
                                 )
                             );
                     }
+
+
+                    calculateTotals();
                 }
             );
         });
 
 
     /* =====================================================
-       DELIVERY CHARGES
+       DELIVERY CHARGE
     ===================================================== */
 
     const URGENT_DELIVERY_FEE = 0;
@@ -613,116 +398,145 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       EXISTING CALCULATION SUPPORT
+       CALCULATE LD / HD / GRAND TOTAL
     ===================================================== */
 
-    function calculateBagTotals() {
+    function calculateTotals() {
 
         let ldSubtotal = 0;
+
         let hdSubtotal = 0;
 
+
+        /* -------------------------------
+           LD
+        ------------------------------- */
 
         document
             .querySelectorAll(".ld-qty")
             .forEach(function (input) {
 
-                const qty =
+                const quantity =
                     parseInt(
                         input.value,
                         10
                     ) || 0;
 
+
                 const rate =
                     parseFloat(
-                        input.dataset.rate || 0
-                    );
+                        input.dataset.rate || "0"
+                    ) || 0;
+
 
                 ldSubtotal +=
-                    qty * rate;
+                    quantity * rate;
             });
 
+
+        /* -------------------------------
+           HD
+        ------------------------------- */
 
         document
             .querySelectorAll(".hd-qty")
             .forEach(function (input) {
 
-                const qty =
+                const quantity =
                     parseInt(
                         input.value,
                         10
                     ) || 0;
 
+
                 const rate =
                     parseFloat(
-                        input.dataset.rate || 0
-                    );
+                        input.dataset.rate || "0"
+                    ) || 0;
+
 
                 hdSubtotal +=
-                    qty * rate;
+                    quantity * rate;
             });
-
-
-        const ld =
-            get("ldSubtotal");
-
-        const hd =
-            get("hdSubtotal");
-
-        const finalLD =
-            get("finalLD");
-
-        const finalHD =
-            get("finalHD");
-
-        const delivery =
-            get("deliveryCharges");
-
-        const grand =
-            get("grandTotal");
-
-
-        if (ld) {
-            ld.textContent =
-                rupees(ldSubtotal);
-        }
-
-
-        if (hd) {
-            hd.textContent =
-                rupees(hdSubtotal);
-        }
-
-
-        if (finalLD) {
-            finalLD.textContent =
-                rupees(ldSubtotal);
-        }
-
-
-        if (finalHD) {
-            finalHD.textContent =
-                rupees(hdSubtotal);
-        }
 
 
         const deliveryCharge =
             getDeliveryCharge();
 
 
-        if (delivery) {
-            delivery.textContent =
+        const grandTotal =
+            ldSubtotal +
+            hdSubtotal +
+            deliveryCharge;
+
+
+        /* -------------------------------
+           DISPLAY
+        ------------------------------- */
+
+        const ldSubtotalElement =
+            get("ldSubtotal");
+
+
+        const hdSubtotalElement =
+            get("hdSubtotal");
+
+
+        const finalLDElement =
+            get("finalLD");
+
+
+        const finalHDElement =
+            get("finalHD");
+
+
+        const deliveryElement =
+            get("deliveryCharges");
+
+
+        const grandElement =
+            get("grandTotal");
+
+
+        if (ldSubtotalElement) {
+
+            ldSubtotalElement.textContent =
+                rupees(ldSubtotal);
+        }
+
+
+        if (hdSubtotalElement) {
+
+            hdSubtotalElement.textContent =
+                rupees(hdSubtotal);
+        }
+
+
+        if (finalLDElement) {
+
+            finalLDElement.textContent =
+                rupees(ldSubtotal);
+        }
+
+
+        if (finalHDElement) {
+
+            finalHDElement.textContent =
+                rupees(hdSubtotal);
+        }
+
+
+        if (deliveryElement) {
+
+            deliveryElement.textContent =
                 rupees(deliveryCharge);
         }
 
 
-        if (grand) {
+        if (grandElement) {
 
-            grand.textContent =
-                rupees(
-                    ldSubtotal +
-                    hdSubtotal +
-                    deliveryCharge
-                );
+            grandElement.textContent =
+                rupees(grandTotal);
         }
 
 
@@ -736,12 +550,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 deliveryCharge,
 
             total:
-                ldSubtotal +
-                hdSubtotal +
-                deliveryCharge
+                grandTotal
         };
     }
 
+
+    /* =====================================================
+       TOTAL EVENTS
+    ===================================================== */
 
     document
         .querySelectorAll(
@@ -751,21 +567,105 @@ document.addEventListener("DOMContentLoaded", function () {
 
             element.addEventListener(
                 "input",
-                calculateBagTotals
+                calculateTotals
             );
+
 
             element.addEventListener(
                 "change",
-                calculateBagTotals
+                calculateTotals
             );
         });
 
 
-    calculateBagTotals();
+    calculateTotals();
 
 
     /* =====================================================
-       ORDER SUBMIT
+       PRODUCT RATE DISPLAY
+    ===================================================== */
+
+    function updateRateDisplays() {
+
+        const ldInputs =
+            document.querySelectorAll(
+                ".ld-qty"
+            );
+
+
+        const hdInputs =
+            document.querySelectorAll(
+                ".hd-qty"
+            );
+
+
+        let ldRate = 0;
+
+        let hdRate = 0;
+
+
+        ldInputs.forEach(function (input) {
+
+            const rate =
+                parseFloat(
+                    input.dataset.rate || "0"
+                ) || 0;
+
+
+            if (rate > 0) {
+                ldRate = rate;
+            }
+        });
+
+
+        hdInputs.forEach(function (input) {
+
+            const rate =
+                parseFloat(
+                    input.dataset.rate || "0"
+                ) || 0;
+
+
+            if (rate > 0) {
+                hdRate = rate;
+            }
+        });
+
+
+        const ldDisplay =
+            get("ldRateDisplay");
+
+
+        const hdDisplay =
+            get("hdRateDisplay");
+
+
+        if (
+            ldDisplay &&
+            ldRate > 0
+        ) {
+
+            ldDisplay.textContent =
+                rupees(ldRate) + " / KG";
+        }
+
+
+        if (
+            hdDisplay &&
+            hdRate > 0
+        ) {
+
+            hdDisplay.textContent =
+                rupees(hdRate) + " / KG";
+        }
+    }
+
+
+    updateRateDisplays();
+
+
+    /* =====================================================
+       ORDER BUTTON
     ===================================================== */
 
     const orderButton =
@@ -778,53 +678,81 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             async function () {
 
+
+                /* ---------------------------
+                   CUSTOMER DATA
+                --------------------------- */
+
                 const name =
                     getValue("customerName");
+
 
                 const shop =
                     getValue("shopName");
 
+
                 const phone =
                     getValue("phone");
 
+
                 const address =
                     getValue("address");
+
 
                 const area =
                     getValue("deliveryArea");
 
 
+                /* ---------------------------
+                   VALIDATION
+                --------------------------- */
+
                 if (!name) {
 
-                    alert("براہِ کرم اپنا نام لکھیں۔");
+                    alert(
+                        "براہِ کرم اپنا نام لکھیں۔"
+                    );
+
                     return;
                 }
 
 
                 if (!shop) {
 
-                    alert("براہِ کرم دکان کا نام لکھیں۔");
+                    alert(
+                        "براہِ کرم دکان کا نام لکھیں۔"
+                    );
+
                     return;
                 }
 
 
                 if (!phone) {
 
-                    alert("براہِ کرم موبائل / WhatsApp نمبر لکھیں۔");
+                    alert(
+                        "براہِ کرم موبائل / WhatsApp نمبر لکھیں۔"
+                    );
+
                     return;
                 }
 
 
                 if (!address) {
 
-                    alert("براہِ کرم مکمل پتہ لکھیں۔");
+                    alert(
+                        "براہِ کرم مکمل پتہ لکھیں۔"
+                    );
+
                     return;
                 }
 
 
                 if (!area) {
 
-                    alert("براہِ کرم اپنا Delivery Area منتخب کریں۔");
+                    alert(
+                        "براہِ کرم اپنا Delivery Area منتخب کریں۔"
+                    );
+
                     return;
                 }
 
@@ -834,21 +762,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 const totals =
-                    calculateBagTotals();
+                    calculateTotals();
 
 
-                orderButton.disabled = true;
+                orderButton.disabled =
+                    true;
+
 
                 orderButton.textContent =
                     "Order Gmail پر بھیجا جا رہا ہے...";
 
 
+                /* ---------------------------
+                   CREATE FORM
+                --------------------------- */
+
                 const form =
                     document.createElement("form");
 
 
-                form.style.display = "none";
+                form.style.display =
+                    "none";
 
+
+                /* ---------------------------
+                   ORDER DATA
+                --------------------------- */
 
                 const fields = {
 
@@ -911,16 +850,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
 
 
+                /* ---------------------------
+                   BAG DETAILS
+                --------------------------- */
+
                 document
                     .querySelectorAll(".bag-qty")
                     .forEach(function (input, index) {
 
+                        const type =
+                            input.dataset.type || "";
+
+
+                        const size =
+                            input.dataset.size || "";
+
+
+                        const quantity =
+                            input.value || "0";
+
+
                         fields[
-                            "Bag_" + (index + 1)
+                            "Bag_" +
+                            (index + 1)
                         ] =
-                            `${input.dataset.type || ""} | ${input.dataset.size || ""} | Quantity: ${input.value || 0}`;
+                            type +
+                            " | Size: " +
+                            size +
+                            " | Quantity: " +
+                            quantity;
                     });
 
+
+                /* ---------------------------
+                   ADD HIDDEN FIELDS
+                --------------------------- */
 
                 Object.keys(fields)
                     .forEach(function (key) {
@@ -933,8 +897,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
 
 
-                document.body.appendChild(form);
+                document.body.appendChild(
+                    form
+                );
 
+
+                /* ---------------------------
+                   SEND ORDER
+                --------------------------- */
 
                 try {
 
@@ -965,8 +935,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     if (!response.ok) {
+
                         throw new Error(
-                            "Gmail submission failed"
+                            "Order submission failed"
                         );
                     }
 
@@ -981,8 +952,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             "✓ آپ کا Order کامیابی سے Gmail پر بھیج دیا گیا ہے۔ Order ID: " +
                             info.orderId;
 
-                        result.style.display = "block";
-                        result.style.color = "#176b2c";
+                        result.style.display =
+                            "block";
+
+                        result.style.color =
+                            "#176b2c";
+
+                        result.style.background =
+                            "#e4f7e9";
                     }
 
 
@@ -990,7 +967,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 catch (error) {
 
-                    console.error(error);
+                    console.error(
+                        "Order Error:",
+                        error
+                    );
+
 
                     const result =
                         get("submitMessage");
@@ -1001,17 +982,24 @@ document.addEventListener("DOMContentLoaded", function () {
                         result.textContent =
                             "✗ Order Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
-                        result.style.display = "block";
-                        result.style.color = "#9a1c1c";
-                    }
+                        result.style.display =
+                            "block";
 
+                        result.style.color =
+                            "#9a1c1c";
+
+                        result.style.background =
+                            "#ffe7e7";
+                    }
                 }
+
 
                 finally {
 
                     form.remove();
 
-                    orderButton.disabled = false;
+                    orderButton.disabled =
+                        false;
 
                     orderButton.textContent =
                         "Order Submit کریں";
@@ -1022,9 +1010,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       CREATE HELP DESK
+       HELP DESK
        COMPLETELY SEPARATE FROM ORDER
-    ===================================================== */
+       ===================================================== */
 
     function createHelpDesk() {
 
@@ -1034,7 +1022,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const main =
-            document.querySelector("main.container");
+            document.querySelector(
+                "main.container"
+            );
 
 
         if (!main) {
@@ -1062,14 +1052,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <p>
                 اپنی شکایت، کسی مسئلے، رابطے یا کسی جائز
-                معلومات / کام کی درخواست کے لیے نیچے اپنا
-                پیغام درج کریں۔
+                معلومات / کام کی درخواست کے لیے نیچے
+                اپنا پیغام درج کریں۔
             </p>
 
+
             <label for="helpName">
+
                 اپنا نام
-                <span class="help-required">*</span>
+
+                <span class="help-required">
+                    *
+                </span>
+
             </label>
+
 
             <input
                 id="helpName"
@@ -1078,10 +1075,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 required
             >
 
+
             <label for="helpPhone">
-                Mobile / WhatsApp نمبر
-                <span class="help-required">*</span>
+
+                موبائل / WhatsApp نمبر
+
+                <span class="help-required">
+                    *
+                </span>
+
             </label>
+
 
             <input
                 id="helpPhone"
@@ -1091,30 +1095,47 @@ document.addEventListener("DOMContentLoaded", function () {
                 required
             >
 
+
             <label for="helpArea">
+
                 اپنا ایریا
-                <span class="help-required">*</span>
+
+                <span class="help-required">
+                    *
+                </span>
+
             </label>
+
 
             <select
                 id="helpArea"
                 required
             >
+
                 <option value="">
                     اپنا ایریا منتخب کریں
                 </option>
+
             </select>
 
+
             <label for="helpMessage">
-                آپ کا پیغام
-                <span class="help-required">*</span>
+
+                آپ کا مسئلہ / پیغام
+
+                <span class="help-required">
+                    *
+                </span>
+
             </label>
+
 
             <textarea
                 id="helpMessage"
-                placeholder="یہاں اپنی شکایت، مسئلہ، رابطے یا کسی جائز کام کی درخواست لکھیں..."
+                placeholder="اپنی شکایت، مسئلہ، رابطے کی درخواست، اضافی معلومات یا کسی جائز کام کی درخواست یہاں لکھیں..."
                 required
             ></textarea>
+
 
             <button
                 id="helpSendButton"
@@ -1124,61 +1145,67 @@ document.addEventListener("DOMContentLoaded", function () {
                 Help Desk Message Send کریں
             </button>
 
+
             <div
                 id="helpResult"
                 class="submit-message"
                 style="display:none;"
             ></div>
+
         `;
 
 
         main.appendChild(card);
 
 
-        /* ---------------------------------------------
-           HELP DESK AREAS
-        --------------------------------------------- */
+        /* =================================================
+           HELP AREA LIST
+        ================================================= */
 
         const helpArea =
             get("helpArea");
 
 
-        areas.forEach(function (area) {
-
-            const option =
-                document.createElement("option");
-
-            option.value = area;
-            option.textContent = area;
-
-            helpArea.appendChild(option);
-        });
+        fillAreaSelect(helpArea);
 
 
-        /* ---------------------------------------------
-           HELP DESK SEND
-        --------------------------------------------- */
+        /* =================================================
+           HELP SEND
+        ================================================= */
 
         const helpButton =
             get("helpSendButton");
+
+
+        if (!helpButton) {
+            return;
+        }
 
 
         helpButton.addEventListener(
             "click",
             async function () {
 
+
                 const name =
                     getValue("helpName");
+
 
                 const phone =
                     getValue("helpPhone");
 
+
                 const area =
                     getValue("helpArea");
+
 
                 const message =
                     getValue("helpMessage");
 
+
+                /* ---------------------------
+                   VALIDATION
+                --------------------------- */
 
                 if (!name) {
 
@@ -1213,7 +1240,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!message) {
 
                     alert(
-                        "براہِ کرم اپنا پیغام لکھیں۔"
+                        "براہِ کرم اپنا مسئلہ / پیغام لکھیں۔"
                     );
 
                     return;
@@ -1224,18 +1251,34 @@ document.addEventListener("DOMContentLoaded", function () {
                     pakistanDateTime();
 
 
-                helpButton.disabled = true;
+                const helpId =
+                    "JT-HD-" +
+                    info.orderId;
+
+
+                helpButton.disabled =
+                    true;
+
 
                 helpButton.textContent =
-                    "Help Desk Message Gmail پر بھیجا جا رہا ہے...";
+                    "Help Desk Gmail پر بھیجا جا رہا ہے...";
 
+
+                /* ---------------------------
+                   HELP FORM
+                --------------------------- */
 
                 const helpForm =
                     document.createElement("form");
 
 
-                helpForm.style.display = "none";
+                helpForm.style.display =
+                    "none";
 
+
+                /* ---------------------------
+                   HELP DATA
+                --------------------------- */
 
                 const fields = {
 
@@ -1243,7 +1286,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         "HELP DESK MESSAGE",
 
                     Help_Desk_ID:
-                        `JT-HD-${info.orderId}`,
+                        helpId,
 
                     Date:
                         info.date,
@@ -1266,9 +1309,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     Department:
                         "Janjua Traders Help Desk",
 
+                    Platform:
+                        "Janjua Traders PSB",
+
                     _subject:
                         "HELP DESK MESSAGE | JANJUA TRADERS | " +
-                        `JT-HD-${info.orderId}`,
+                        helpId,
 
                     _template:
                         "table",
@@ -1277,6 +1323,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         "false"
                 };
 
+
+                /* ---------------------------
+                   ADD FIELDS
+                --------------------------- */
 
                 Object.keys(fields)
                     .forEach(function (key) {
@@ -1293,6 +1343,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     helpForm
                 );
 
+
+                /* ---------------------------
+                   SEND HELP DESK
+                --------------------------- */
 
                 try {
 
@@ -1336,25 +1390,60 @@ document.addEventListener("DOMContentLoaded", function () {
                         get("helpResult");
 
 
-                    result.textContent =
-                        "✓ آپ کا Help Desk Message کامیابی سے Gmail پر بھیج دیا گیا ہے۔";
+                    if (result) {
 
-                    result.style.display =
-                        "block";
+                        result.textContent =
+                            "✓ آپ کا Help Desk Message کامیابی سے Gmail پر بھیج دیا گیا ہے۔";
 
-                    result.style.color =
-                        "#176b2c";
+                        result.style.display =
+                            "block";
+
+                        result.style.color =
+                            "#176b2c";
+
+                        result.style.background =
+                            "#e4f7e9";
+                    }
 
 
-                    /* Clear Help Desk only */
+                    /* -----------------------
+                       CLEAR HELP FORM ONLY
+                    ----------------------- */
 
-                    get("helpName").value = "";
+                    const helpName =
+                        get("helpName");
 
-                    get("helpPhone").value = "";
 
-                    get("helpArea").value = "";
+                    const helpPhone =
+                        get("helpPhone");
 
-                    get("helpMessage").value = "";
+
+                    const helpArea =
+                        get("helpArea");
+
+
+                    const helpMessage =
+                        get("helpMessage");
+
+
+                    if (helpName) {
+                        helpName.value = "";
+                    }
+
+
+                    if (helpPhone) {
+                        helpPhone.value = "";
+                    }
+
+
+                    if (helpArea) {
+                        helpArea.value = "";
+                    }
+
+
+                    if (helpMessage) {
+                        helpMessage.value = "";
+                    }
 
 
                 }
@@ -1371,14 +1460,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         get("helpResult");
 
 
-                    result.textContent =
-                        "✗ Help Desk Message Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
+                    if (result) {
 
-                    result.style.display =
-                        "block";
+                        result.textContent =
+                            "✗ Help Desk Message Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
-                    result.style.color =
-                        "#9a1c1c";
+                        result.style.display =
+                            "block";
+
+                        result.style.color =
+                            "#9a1c1c";
+
+                        result.style.background =
+                            "#ffe7e7";
+                    }
                 }
 
 
@@ -1397,28 +1492,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    /* =====================================================
+       START HELP DESK
+    ===================================================== */
+
     createHelpDesk();
 
 
     /* =====================================================
-       FINAL
+       FINAL STATUS
     ===================================================== */
 
     console.log(
-        "Janjua Traders PSB FINAL JS loaded."
+        "Janjua Traders PSB JS loaded successfully."
     );
 
     console.log(
-        "Order system: ACTIVE"
+        "Order System: ACTIVE"
     );
 
     console.log(
-        "Separate Help Desk: ACTIVE"
+        "Help Desk: ACTIVE"
     );
 
     console.log(
-        "Gmail destination:",
-        GMAIL_EMAIL
+        "Delivery Areas: ACTIVE"
+    );
+
+    console.log(
+        "LD / HD Totals: ACTIVE"
     );
 
 });
