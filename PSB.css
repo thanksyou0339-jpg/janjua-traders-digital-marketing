@@ -1,37 +1,43 @@
 /* =========================================================
    JANJUA TRADERS
    PSB.CSS
-   FINAL MOBILE-FIRST DESIGN
+   FINAL MOBILE RESPONSIVE VERSION
    ========================================================= */
 
 * {
     box-sizing: border-box;
 }
 
+
 :root {
-    --bg: #f3f6fa;
+
+    --bg: #f4f7fb;
+
     --card: #ffffff;
-    --text: #222;
-    --muted: #666;
+
+    --text: #222222;
+
+    --muted: #666666;
+
     --border: #d9dee7;
 
     --primary: #1565c0;
+
     --primary-dark: #0d47a1;
 
     --red: #d00000;
-    --red-dark: #a80000;
 
-    --yellow: #ffd54f;
-    --yellow-light: #fff8d8;
+    --success-bg: #dff7e5;
 
-    --success-bg: #e4f7e9;
     --success-text: #176b2c;
 
-    --error-bg: #ffe7e7;
+    --error-bg: #ffe5e5;
+
     --error-text: #9a1c1c;
 
-    --warning-bg: #fff7d6;
-    --warning-text: #735200;
+    --warning-bg: #fff4d6;
+
+    --warning-text: #795500;
 }
 
 
@@ -41,12 +47,24 @@
 
 html,
 body {
-    width: 100%;
-    min-height: 100%;
+
     margin: 0;
+
     padding: 0;
 
-    overflow-x: hidden !important;
+    width: 100%;
+
+    min-height: 100%;
+
+    overflow-x: hidden;
+}
+
+
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
 
     font-family:
         Arial,
@@ -54,10 +72,7 @@ body {
         "Noto Nastaliq Urdu",
         sans-serif;
 
-    color: var(--text);
-    background: var(--bg);
-
-    line-height: 1.55;
+    line-height: 1.6;
 
     direction: rtl;
 }
@@ -68,194 +83,98 @@ body {
    ========================================================= */
 
 .main-header {
-    width: 100%;
-    max-width: 100%;
 
-    padding: 10px 8px 12px;
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8b5,
+            #ffd83d,
+            #fff09a
+        );
+
+    padding: 13px 10px 16px;
 
     text-align: center;
 
-    background: var(--yellow);
+    border-bottom:
+        2px solid #e2b900;
 
-    border-bottom: 2px solid #e2b900;
-
-    overflow: hidden;
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.08);
 }
 
 
-/* =========================================================
-   LOGO
-   ========================================================= */
-
 .monogram-area {
+
     width: 100%;
-    max-width: 120px;
 
-    height: 32px;
-
-    margin: 0 auto 2px;
+    min-height: 35px;
 
     display: flex;
 
-    align-items: center;
     justify-content: center;
+
+    align-items: center;
 
     overflow: hidden;
 }
 
 
 .logo-placeholder {
-    font-size: 16px;
-    font-weight: 900;
-
-    color: #8a6500;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   ANIMATED BRAND
-   ========================================================= */
-
-.brand-name {
-    display: block;
-
-    width: 100%;
-
-    margin: 0;
-
-    font-size: 26px;
-    line-height: 1.15;
-
-    font-weight: 1000;
-
-    direction: ltr;
-
-    color: #111;
-
-    text-shadow:
-        1px 1px 0 #ffffff;
-
-    animation:
-        janjuaBrand 2.5s ease-in-out infinite;
-
-    transform-origin: center;
-}
-
-
-.brand-subtitle {
-    margin-top: 4px;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    color: #3d3100;
-}
-
-
-@keyframes janjuaBrand {
-
-    0% {
-        transform: scale(1);
-        opacity: 0.90;
-    }
-
-    50% {
-        transform: scale(1.035);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0.90;
-    }
-}
-
-
-/* =========================================================
-   MAIN CONTAINER
-   ========================================================= */
-
-.container {
-    width: calc(100% - 14px);
-
-    max-width: 560px;
-
-    margin: 0 auto;
-
-    padding: 0;
-}
-
-
-/* =========================================================
-   INSTRUCTION CARD
-   ========================================================= */
-
-.instruction-card {
-    width: calc(100% - 14px);
-
-    max-width: 560px;
-
-    margin: 10px auto;
-
-    padding: 11px 12px;
-
-    background: var(--yellow-light);
-
-    border: 1px solid #e7c642;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 2px 8px rgba(0,0,0,0.06);
-
-    overflow: hidden;
-}
-
-
-.instruction-card h2 {
-    margin: 0 0 7px;
 
     font-size: 17px;
 
     font-weight: 900;
 
-    text-decoration: underline;
+    color: #8a0000;
 
-    text-align: center;
+    letter-spacing: 1px;
 }
 
 
-.instruction-list {
-    width: 100%;
-}
+.brand-name {
 
-
-.instruction-list p {
-    margin: 5px 0;
-
-    font-size: 12px;
-
-    line-height: 1.55;
-
-    overflow-wrap: break-word;
-}
-
-
-.instruction-list .important {
-    margin-top: 8px;
-
-    padding: 7px;
-
-    background: #fff0a8;
-
-    border-radius: 8px;
+    font-size: 28px;
 
     font-weight: 900;
 
-    text-align: center;
+    direction: ltr;
+
+    color: #111111;
+
+    margin: 2px 0;
+
+    line-height: 1.2;
+}
+
+
+.brand-subtitle {
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #222222;
+
+    margin-top: 4px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.container {
+
+    width: min(920px, 94%);
+
+    max-width: 100%;
+
+    margin: 0 auto;
 }
 
 
@@ -263,34 +182,134 @@ body {
    CARDS
    ========================================================= */
 
-.card {
+.card,
+.instruction-card {
+
     width: 100%;
 
-    margin: 10px 0;
-
-    padding: 13px;
+    max-width: 100%;
 
     background: var(--card);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid var(--border);
 
-    border-radius: 14px;
+    border-radius: 15px;
+
+    padding: 17px;
+
+    margin: 14px 0;
 
     box-shadow:
-        0 2px 10px rgba(0,0,0,0.055);
+        0 3px 14px rgba(0,0,0,.06);
 
     overflow: hidden;
 }
 
 
-.card h2 {
-    margin: 0 0 10px;
+/* =========================================================
+   INSTRUCTIONS
+   ========================================================= */
+
+.instruction-card {
+
+    width: min(920px, 94%);
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf0,
+            #fff7c7
+        );
+
+    border:
+        1px solid #e2c64a;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.07);
+}
+
+
+.instruction-card h2 {
 
     font-size: 19px;
 
     font-weight: 900;
 
+    text-decoration: underline;
+
+    margin:
+        0 0 9px;
+
+    color: #6c4c00;
+}
+
+
+.instruction-list p {
+
+    font-size: 13px;
+
+    line-height: 1.65;
+
+    margin:
+        5px 0;
+
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+
+.instruction-list strong {
+
+    font-weight: 900;
+}
+
+
+.instruction-list .important {
+
+    color: #a00000;
+
+    font-weight: 900;
+
+    background: #fff0f0;
+
+    padding: 7px 9px;
+
+    border-radius: 8px;
+
+    border-right:
+        3px solid var(--red);
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h1,
+h2,
+h3 {
+
+    margin-top: 0;
+}
+
+
+h2 {
+
+    font-size: 20px;
+
     line-height: 1.35;
+}
+
+
+h3 {
+
+    font-size: 17px;
 }
 
 
@@ -299,17 +318,19 @@ body {
    ========================================================= */
 
 label {
+
     display: block;
 
-    margin: 9px 0 5px;
-
-    font-size: 14px;
-
     font-weight: 800;
+
+    margin:
+        12px 0 5px;
 }
 
 
-.required {
+.required,
+.help-required {
+
     color: var(--red);
 
     font-weight: 900;
@@ -323,41 +344,85 @@ label {
 input,
 select,
 textarea {
+
     width: 100%;
+
     max-width: 100%;
 
-    padding: 10px;
+    padding: 12px;
 
-    border: 1px solid #ccd3dc;
+    border:
+        1px solid #cfd6df;
 
     border-radius: 9px;
 
-    background: #fff;
+    background: #ffffff;
 
-    color: #222;
+    color: #222222;
 
     font-family: inherit;
 
-    font-size: 15px;
+    font-size: 16px;
 
     outline: none;
+}
+
+
+/*
+   English / typing fields:
+   cursor and text left-to-right
+*/
+
+input[type="text"],
+input[type="tel"],
+textarea {
+
+    direction: ltr;
+
+    text-align: left;
+
+    unicode-bidi: plaintext;
 }
 
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--primary);
+
+    border-color:
+        var(--primary);
 
     box-shadow:
-        0 0 0 2px rgba(21,101,192,0.12);
+        0 0 0 3px
+        rgba(21,101,192,.12);
 }
 
 
 textarea {
-    min-height: 82px;
+
+    min-height: 90px;
 
     resize: vertical;
+}
+
+
+/* =========================================================
+   DELIVERY AREA
+   ========================================================= */
+
+.area-message {
+
+    display: none;
+
+    margin-top: 9px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    font-weight: 800;
+
+    text-align: center;
 }
 
 
@@ -366,54 +431,50 @@ textarea {
    ========================================================= */
 
 .delivery-options {
+
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        1fr 1fr;
 
-    gap: 8px;
+    gap: 10px;
 }
 
 
 .delivery-option {
-    margin: 0;
-
-    padding: 9px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    background: #f8fafc;
 
     display: flex;
 
-    align-items: flex-start;
+    align-items: center;
 
-    gap: 7px;
+    gap: 8px;
 
-    font-size: 13px;
+    margin: 0;
 
-    font-weight: 800;
+    padding: 11px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
 }
 
 
 .delivery-option input {
-    width: auto;
 
-    margin-top: 4px;
+    width: auto;
 }
 
 
 .delivery-option small {
-    display: block;
 
-    margin-top: 2px;
+    display: block;
 
     color: var(--muted);
 
-    font-size: 11px;
-
-    font-weight: 600;
+    font-size: 12px;
 }
 
 
@@ -422,29 +483,37 @@ textarea {
    ========================================================= */
 
 .product-header {
+
     display: flex;
 
     align-items: center;
 
     justify-content: space-between;
 
-    gap: 8px;
+    gap: 10px;
 }
 
 
 .product-header h2 {
-    margin-bottom: 4px;
+
+    margin-bottom: 5px;
+
+    font-weight: 900;
 }
 
 
 .product-header p {
+
     margin: 0;
 
     font-size: 13px;
+
+    font-weight: 700;
 }
 
 
 .rate {
+
     color: var(--red);
 
     font-weight: 900;
@@ -454,13 +523,22 @@ textarea {
 
 
 .product-note {
-    margin: 7px 0 10px;
 
-    color: var(--muted);
+    background: #f8fafc;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 9px;
+
+    padding: 8px 10px;
 
     font-size: 12px;
 
-    line-height: 1.5;
+    font-weight: 600;
+
+    margin:
+        10px 0;
 }
 
 
@@ -469,13 +547,15 @@ textarea {
    ========================================================= */
 
 .bag-grid {
-    width: 100%;
 
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    gap: 8px;
+    gap: 10px;
+
+    width: 100%;
 }
 
 
@@ -484,21 +564,25 @@ textarea {
    ========================================================= */
 
 .bag-item {
+
     min-width: 0;
 
-    padding: 9px;
+    border:
+        1px solid var(--border);
 
-    background: #fafbfc;
+    border-radius: 11px;
 
-    border: 1px solid var(--border);
+    background: #ffffff;
 
-    border-radius: 10px;
+    padding: 10px;
 
-    overflow: hidden;
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.04);
 }
 
 
 .bag-title {
+
     display: flex;
 
     align-items: center;
@@ -507,23 +591,25 @@ textarea {
 
     gap: 5px;
 
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
 
 .bag-title strong {
-    font-size: 15px;
 
-    font-weight: 900;
+    font-size: 16px;
 
     direction: ltr;
+
+    white-space: nowrap;
 }
 
 
 .bag-title span {
-    color: #555;
 
-    font-size: 11px;
+    color: var(--red);
+
+    font-size: 12px;
 
     font-weight: 800;
 
@@ -532,15 +618,16 @@ textarea {
 
 
 .bag-description {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
     min-height: 30px;
 
-    margin-bottom: 3px;
-
-    color: #666;
-
-    font-size: 10px;
-
-    line-height: 1.35;
+    margin-bottom: 5px;
 }
 
 
@@ -549,33 +636,40 @@ textarea {
    ========================================================= */
 
 .bag-item label {
-    margin: 4px 0 3px;
 
-    font-size: 11px;
+    font-size: 12px;
+
+    margin:
+        5px 0 4px;
 }
 
 
 .bag-qty {
-    width: 58px !important;
 
-    max-width: 58px !important;
+    width: 64px !important;
 
-    height: 35px;
+    max-width: 64px !important;
+
+    height: 38px;
+
+    padding: 5px !important;
+
+    margin: 0;
 
     display: block;
 
-    margin-right: auto;
-    margin-left: auto;
+    text-align: center !important;
 
-    padding: 4px !important;
+    direction: ltr !important;
 
-    text-align: center;
-
-    font-size: 15px !important;
+    font-size: 16px !important;
 
     font-weight: 900;
 
-    direction: ltr;
+    border:
+        1px solid #bfc7d1;
+
+    border-radius: 7px;
 }
 
 
@@ -584,11 +678,17 @@ textarea {
    ========================================================= */
 
 .subtotal-box {
-    width: 100%;
 
-    margin-top: 10px;
+    margin-top: 11px;
 
-    padding: 9px 11px;
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    border:
+        1px solid var(--border);
 
     display: flex;
 
@@ -596,24 +696,13 @@ textarea {
 
     justify-content: space-between;
 
-    gap: 8px;
-
-    background: #f5f7fa;
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    font-size: 14px;
-
-    font-weight: 800;
+    gap: 10px;
 }
 
 
 .subtotal-box strong {
-    color: var(--red);
 
-    font-size: 16px;
+    color: var(--red);
 
     font-weight: 900;
 
@@ -622,18 +711,16 @@ textarea {
 
 
 /* =========================================================
-   TOTAL CARD
+   TOTAL
    ========================================================= */
 
-.total-card {
-    background: #f8fafc;
+.total-card h2 {
 
-    border: 1px solid #cbd5e1;
+    font-weight: 900;
 }
 
 
 .total-line {
-    width: 100%;
 
     display: flex;
 
@@ -641,31 +728,37 @@ textarea {
 
     justify-content: space-between;
 
-    gap: 8px;
+    gap: 10px;
 
-    padding: 7px 0;
+    padding: 8px 0;
 
-    border-bottom: 1px solid #e4e8ed;
-
-    font-size: 14px;
-
-    font-weight: 800;
+    border-bottom:
+        1px solid #edf0f4;
 }
 
 
 .total-line strong {
+
     color: var(--red);
 
     direction: ltr;
+
+    font-weight: 900;
 }
 
 
 .grand-total {
-    width: 100%;
 
-    margin-top: 9px;
+    margin-top: 11px;
 
-    padding: 11px;
+    padding: 13px;
+
+    border:
+        2px solid var(--primary);
+
+    border-radius: 11px;
+
+    background: #f1f5fa;
 
     display: flex;
 
@@ -673,77 +766,75 @@ textarea {
 
     justify-content: space-between;
 
-    gap: 8px;
+    gap: 10px;
+}
 
-    background: #fff4b8;
 
-    border: 2px solid #d5ae00;
+.grand-total span {
 
-    border-radius: 11px;
-
-    font-size: 17px;
+    font-size: 18px;
 
     font-weight: 900;
 }
 
 
 .grand-total strong {
+
     color: var(--red);
 
     font-size: 20px;
+
+    font-weight: 900;
 
     direction: ltr;
 }
 
 
 /* =========================================================
-   BUTTON
+   SUBMIT BUTTON
    ========================================================= */
 
-.submit-button,
-.submit-btn {
-    width: 100%;
+.submit-button {
 
-    min-height: 46px;
+    width: 100%;
 
     border: 0;
 
     border-radius: 10px;
 
-    background: var(--primary);
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-dark)
+        );
 
-    color: #fff;
+    color: #ffffff;
 
     font-family: inherit;
 
-    font-size: 17px;
+    font-size: 18px;
 
     font-weight: 900;
 
+    padding: 13px;
+
     cursor: pointer;
 
-    padding: 10px;
-
     transition:
-        background .2s ease,
-        transform .1s ease;
+        transform .1s ease,
+        opacity .2s ease;
 }
 
 
-.submit-button:hover,
-.submit-btn:hover {
-    background: var(--primary-dark);
-}
+.submit-button:active {
 
-
-.submit-button:active,
-.submit-btn:active {
     transform: scale(.99);
 }
 
 
-.submit-button:disabled,
-.submit-btn:disabled {
+.submit-button:disabled {
+
     opacity: .65;
 
     cursor: wait;
@@ -754,25 +845,21 @@ textarea {
    RESULT
    ========================================================= */
 
-.submit-message,
-.result {
-    width: 100%;
+.submit-message {
 
-    margin-top: 9px;
+    display: none;
+
+    margin-top: 10px;
 
     padding: 10px;
 
     border-radius: 9px;
 
-    text-align: center;
-
-    font-size: 13px;
-
     font-weight: 800;
 
-    line-height: 1.5;
+    text-align: center;
 
-    overflow-wrap: break-word;
+    line-height: 1.6;
 }
 
 
@@ -781,101 +868,63 @@ textarea {
    ========================================================= */
 
 .help-desk-card {
-    margin-top: 12px;
 
-    background: #fffdf3;
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f5f9ff
+        );
 
-    border: 2px solid #e3c33e;
-
-    border-radius: 14px;
+    border:
+        2px solid #9dbbe4;
 }
 
 
 .help-title {
-    margin-bottom: 6px !important;
 
-    text-align: center;
+    color:
+        var(--primary);
 
-    color: #5f4900;
-
-    font-size: 19px !important;
+    font-size: 20px;
 
     font-weight: 900;
+
+    margin-bottom: 6px;
 }
 
 
 .help-desk-card > p {
-    margin: 0 0 8px;
 
-    padding: 8px;
+    background: #f8fafc;
 
-    background: #fff8d8;
+    border:
+        1px solid var(--border);
 
-    border-radius: 8px;
+    border-radius: 9px;
 
-    color: #5c4b12;
+    padding: 9px;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    line-height: 1.55;
+    font-weight: 600;
 
-    text-align: center;
-}
+    line-height: 1.7;
 
-
-.help-desk-card input,
-.help-desk-card select,
-.help-desk-card textarea {
-    font-size: 15px;
+    margin:
+        5px 0 12px;
 }
 
 
 .help-desk-card textarea {
-    min-height: 100px;
 
-    resize: vertical;
-}
-
-
-.help-required {
-    color: var(--red);
-
-    font-weight: 900;
+    min-height: 115px;
 }
 
 
 .help-send-button {
-    margin-top: 12px;
 
-    background: #b8860b;
-}
-
-
-.help-send-button:hover {
-    background: #8f6908;
-}
-
-
-/* =========================================================
-   AREA MESSAGE
-   ========================================================= */
-
-.area-message {
-    display: none;
-
-    width: 100%;
-
-    margin-top: 7px;
-
-    padding: 8px;
-
-    border-radius: 8px;
-
-    text-align: center;
-
-    font-size: 12px;
-
-    font-weight: 800;
+    margin-top: 13px;
 }
 
 
@@ -884,149 +933,133 @@ textarea {
    ========================================================= */
 
 footer {
-    width: 100%;
-
-    padding: 16px 10px 22px;
 
     text-align: center;
 
-    color: #666;
+    padding:
+        20px 10px;
 
-    font-size: 12px;
+    color: #555555;
 
-    overflow: hidden;
+    font-size: 13px;
 }
 
 
 /* =========================================================
-   MOBILE 500PX
+   MOBILE
    ========================================================= */
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
 
-    .main-header {
-        padding: 9px 7px 11px;
-    }
+    .container {
 
-
-    .brand-name {
-        font-size: 23px;
-    }
-
-
-    .brand-subtitle {
-        font-size: 12px;
+        width:
+            calc(100% - 14px);
     }
 
 
     .instruction-card {
-        width: calc(100% - 12px);
 
-        margin: 8px auto;
+        width:
+            calc(100% - 14px);
 
-        padding: 9px 10px;
-    }
+        padding: 11px;
 
-
-    .instruction-card h2 {
-        font-size: 16px;
-    }
-
-
-    .instruction-list p {
-        font-size: 11px;
-    }
-
-
-    .container {
-        width: calc(100% - 12px);
+        margin:
+            10px auto;
     }
 
 
     .card {
-        padding: 11px;
 
-        margin: 8px 0;
+        padding: 12px;
+
+        margin:
+            10px 0;
 
         border-radius: 12px;
     }
 
 
-    .card h2 {
-        font-size: 17px;
+    .brand-name {
+
+        font-size: 23px;
     }
 
 
-    input,
-    select,
-    textarea {
-        padding: 9px;
-
-        font-size: 15px;
-    }
-
-
-    .bag-grid {
-        gap: 6px;
-    }
-
-
-    .bag-item {
-        padding: 7px;
-    }
-
-
-    .bag-title strong {
-        font-size: 14px;
-    }
-
-
-    .bag-title span {
-        font-size: 10px;
-    }
-
-
-    .bag-description {
-        font-size: 9px;
-    }
-
-
-    .bag-qty {
-        width: 54px !important;
-
-        max-width: 54px !important;
-
-        height: 33px;
-
-        font-size: 14px !important;
-    }
-
-
-    .delivery-options {
-        grid-template-columns: 1fr 1fr;
-
-        gap: 6px;
-    }
-
-
-    .delivery-option {
-        padding: 7px;
+    .brand-subtitle {
 
         font-size: 12px;
     }
 
 
-    .delivery-option small {
-        font-size: 10px;
+    .delivery-options {
+
+        grid-template-columns: 1fr;
     }
 
 
-    .grand-total {
+    .bag-grid {
+
+        gap: 8px;
+    }
+
+
+    .bag-item {
+
+        padding: 8px;
+    }
+
+
+    .bag-title strong {
+
         font-size: 15px;
     }
 
 
+    .bag-title span {
+
+        font-size: 11px;
+    }
+
+
+    .bag-description {
+
+        font-size: 10px;
+
+        min-height: 27px;
+    }
+
+
+    .bag-qty {
+
+        width: 58px !important;
+
+        max-width: 58px !important;
+
+        height: 36px;
+
+        font-size: 15px !important;
+    }
+
+
+    .subtotal-box {
+
+        padding:
+            9px 10px;
+
+        font-size: 13px;
+    }
+
+
+    .grand-total span {
+
+        font-size: 16px;
+    }
+
+
     .grand-total strong {
+
         font-size: 18px;
     }
 }
@@ -1034,69 +1067,83 @@ footer {
 
 /* =========================================================
    VERY SMALL MOBILE
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 360px) {
-
-    .brand-name {
-        font-size: 20px;
-    }
-
-
-    .brand-subtitle {
-        font-size: 11px;
-    }
-
+@media (max-width: 380px) {
 
     .container {
-        width: calc(100% - 8px);
+
+        width:
+            calc(100% - 10px);
     }
 
 
     .instruction-card {
-        width: calc(100% - 8px);
 
-        padding: 8px;
+        width:
+            calc(100% - 10px);
     }
 
 
     .card {
-        padding: 9px;
+
+        padding: 10px;
+    }
+
+
+    .brand-name {
+
+        font-size: 21px;
+    }
+
+
+    .brand-subtitle {
+
+        font-size: 11px;
     }
 
 
     .bag-grid {
-        gap: 5px;
+
+        gap: 6px;
     }
 
 
     .bag-item {
-        padding: 6px;
+
+        padding: 7px;
     }
 
 
     .bag-title {
-        display: block;
-    }
 
+        align-items: flex-start;
 
-    .bag-title strong,
-    .bag-title span {
-        display: block;
+        flex-direction: column;
 
-        text-align: center;
-    }
-
-
-    .bag-title span {
-        margin-top: 2px;
+        gap: 2px;
     }
 
 
     .bag-qty {
-        width: 50px !important;
 
-        max-width: 50px !important;
+        width: 55px !important;
+
+        max-width: 55px !important;
+
+        height: 34px;
+
+        font-size: 14px !important;
+    }
+
+
+    input,
+    select,
+    textarea {
+
+        font-size: 15px;
+
+        padding: 10px;
     }
 }
 
@@ -1108,29 +1155,28 @@ footer {
 @media print {
 
     body {
-        background: #fff;
-    }
 
-
-    .main-header {
-        background: #fff;
+        background: #ffffff;
     }
 
 
     .card,
     .instruction-card {
+
         box-shadow: none;
+
+        border:
+            1px solid #cccccc;
     }
 
 
-    .submit-button,
-    .submit-btn,
-    .calculate-btn {
+    .submit-button {
+
         display: none;
     }
 }
 
 
 /* =========================================================
-   END PSB.CSS
+   END OF FINAL PSB.CSS
    ========================================================= */
