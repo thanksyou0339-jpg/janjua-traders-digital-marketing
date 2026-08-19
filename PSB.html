@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Janjua Traders - Polythene Shopper Bags</title>
+
+    <link rel="stylesheet"
+          href="PSB.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="main-header">
+
+    <div class="monogram-area">
+
+        <!-- بعد میں اپنا Logo / Monogram یہاں لگا سکتے ہیں -->
+
+        <div class="logo-placeholder">
+            JANJUA
+        </div>
+
+    </div>
+
+
+    <div class="brand-name">
+        JANJUA TRADERS
+    </div>
+
+
+    <div class="brand-subtitle">
+        Polythene Shopper Bags
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     DELIVERY INSTRUCTIONS
+===================================================== -->
+
+<section class="instruction-card">
+
+    <h2>
+        ڈیلیوری کی اہم ہدایات
+    </h2>
+
+
+    <div class="instruction-list">
+
+        <p>
+            <strong>1۔ نارمل ڈیلیوری:</strong>
+            آج آرڈر کرنے پر مال دوسرے دن دیا جائے گا۔
+        </p>
+
+
+        <p>
+            <strong>2۔ فری ڈیلیوری:</strong>
+            دوسرے دن کی نارمل ڈیلیوری مقررہ ایریاز کے اندر
+            مفت دستیاب ہے۔
+        </p>
+
+
+        <p>
+            <strong>3۔ ارجنٹ ڈیلیوری:</strong>
+            ارجنٹ آرڈر پر فری ڈیلیوری دستیاب نہیں ہے۔
+            ارجنٹ ڈیلیوری کی اضافی فیس ادا کرنا ہوگی۔
+        </p>
+
+
+        <p>
+            <strong>4۔ مال کی واپسی:</strong>
+            اگر مال واپس کرنا ہو تو وہ اسی حالت میں ہونا چاہیے
+            جس حالت میں وصول کیا گیا تھا۔
+            کھلا ہوا یا گندا مال واپس نہیں لیا جائے گا۔
+        </p>
+
+
+        <p class="important">
+            براہِ کرم اپنا مال چیک کرکے پھر وصول کریں۔
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CUSTOMER INFORMATION
+===================================================== -->
+
+<main class="container">
+
+
+<section class="card">
+
+    <h2>
+        کسٹمر کی معلومات
+    </h2>
+
+
+    <!-- CUSTOMER NAME -->
+
+    <label for="customerName">
+
+        کسٹمر کا نام
+
+        <span class="required">
+            *
+        </span>
+
+    </label>
+
+
+    <input
+        id="customerName"
+        name="customerName"
+        type="text"
+        placeholder="اپنا نام لکھیں"
+        required
+    >
+
+
+
+    <!-- SHOP NAME -->
+
+    <label for="shopName">
+
+        دکان کا نام
+
+        <span class="required">
+            *
+        </span>
+
+    </label>
+
+
+    <input
+        id="shopName"
+        name="shopName"
+        type="text"
+        placeholder="اپنی دکان کا نام لکھیں"
+        required
+    >
+
+
+
+    <!-- PHONE -->
+
+    <label for="phone">
+
+        موبائل / WhatsApp
+
+        <span class="required">
+            *
+        </span>
+
+    </label>
+
+
+    <input
+        id="phone"
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        placeholder="03XXXXXXXXX"
+        required
+    >
+
+
+
+    <!-- ADDRESS -->
+
+    <label for="address">
+
+        مکمل پتہ
+
+        <span class="required">
+            *
+        </span>
+
+    </label>
+
+
+    <textarea
+        id="address"
+        name="address"
+        placeholder="اپنا مکمل پتہ لکھیں"
+        required
+    ></textarea>
+
+
+
+    <!-- DELIVERY AREA -->
+
+    <label for="deliveryArea">
+
+        ڈیلیوری ایریا
+
+        <span class="required">
+            *
+        </span>
+
+    </label>
+
+
+    <select
+        id="deliveryArea"
+        name="deliveryArea"
+        required
+    >
+
+        <option value="">
+            اپنا ایریا منتخب کریں
+        </option>
+
+
+        <option value="Sabarwal Colony">
+            Sabarwal Colony
+        </option>
+
+
+        <option value="Fatima Jinnah Colony">
+            Fatima Jinnah Colony
+        </option>
+
+
+        <option value="Hyderabad Town">
+            Hyderabad Town
+        </option>
+
+    </select>
+
+
+    <div
+        id="areaMessage"
+        class="area-message"
+        style="display:none;"
+    ></div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     DELIVERY TYPE
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        ڈیلیوری کی قسم
+    </h2>
+
+
+    <div class="delivery-options">
+
+
+        <label class="delivery-option">
+
+            <input
+                type="radio"
+                name="deliveryType"
+                value="normal"
+                checked
+            >
+
+            <span>
+
+                نارمل ڈیلیوری
+
+                <small>
+                    دوسرے دن — فری
+                </small>
+
+            </span>
+
+        </label>
+
+
+
+        <label class="delivery-option">
+
+            <input
+                type="radio"
+                name="deliveryType"
+                value="urgent"
+            >
+
+            <span>
+
+                ارجنٹ ڈیلیوری
+
+                <small>
+                    اضافی ڈیلیوری فیس لاگو ہوگی
+                </small>
+
+            </span>
+
+        </label>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LD SHOPPER BAGS
+===================================================== -->
+
+<section class="card">
+
+    <div class="product-header">
+
+        <div>
+
+            <h2>
+                LD Shopper Bags
+            </h2>
+
+            <p>
+                LD کا آج کا ریٹ:
+                <strong
+                    id="ldRateDisplay"
+                    class="rate"
+                >
+                    Admin Rate / KG
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <p class="product-note">
+
+        نیچے ہر سائز کے ساتھ اس کی مقدار/استعمال کی وضاحت
+        بھی دی گئی ہے تاکہ کسٹمر کو سائز سمجھنے میں آسانی ہو۔
+
+    </p>
+
+
+
+    <div class="bag-grid">
+
+
+        <!-- LD 8x11 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    8 × 11
+                </strong>
+
+                <span>
+                    ایک پاؤ
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ایک پاؤ والا Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty ld-qty"
+                data-size="8x11"
+                data-type="LD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- LD 9x12 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    9 × 12
+                </strong>
+
+                <span>
+                    آدھا کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                آدھا کلو والا Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty ld-qty"
+                data-size="9x12"
+                data-type="LD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- LD 10x14 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    10 × 14
+                </strong>
+
+                <span>
+                    ایک کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ایک کلو والا Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty ld-qty"
+                data-size="10x14"
+                data-type="LD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- LD 12x16 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    12 × 16
+                </strong>
+
+                <span>
+                    ڈیڑھ کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ڈیڑھ کلو والا Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty ld-qty"
+                data-size="12x16"
+                data-type="LD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- LD SUBTOTAL -->
+
+    <div class="subtotal-box">
+
+        <span>
+            LD Subtotal
+        </span>
+
+
+        <strong
+            id="ldSubtotal"
+        >
+            Rs. 0
+        </strong>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HD SHOPPER BAGS
+===================================================== -->
+
+<section class="card">
+
+    <div class="product-header">
+
+        <div>
+
+            <h2>
+                HD Shopper Bags
+            </h2>
+
+            <p>
+                HD کا آج کا ریٹ:
+                <strong
+                    id="hdRateDisplay"
+                    class="rate"
+                >
+                    Admin Rate / KG
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <p class="product-note">
+
+        HD میں بھی وہی سائز رکھے گئے ہیں تاکہ کسٹمر
+        LD اور HD میں آسانی سے فرق کر سکے۔
+
+    </p>
+
+
+
+    <div class="bag-grid">
+
+
+        <!-- HD 8x11 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    8 × 11
+                </strong>
+
+                <span>
+                    ایک پاؤ
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ایک پاؤ والا HD Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty hd-qty"
+                data-size="8x11"
+                data-type="HD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- HD 9x12 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    9 × 12
+                </strong>
+
+                <span>
+                    آدھا کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                آدھا کلو والا HD Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty hd-qty"
+                data-size="9x12"
+                data-type="HD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- HD 10x14 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    10 × 14
+                </strong>
+
+                <span>
+                    ایک کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ایک کلو والا HD Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty hd-qty"
+                data-size="10x14"
+                data-type="HD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+
+        <!-- HD 12x16 -->
+
+        <div class="bag-item">
+
+            <div class="bag-title">
+
+                <strong>
+                    12 × 16
+                </strong>
+
+                <span>
+                    ڈیڑھ کلو
+                </span>
+
+            </div>
+
+
+            <div class="bag-description">
+
+                ڈیڑھ کلو والا HD Shopper Bag
+
+            </div>
+
+
+            <label>
+                مقدار
+            </label>
+
+
+            <input
+                class="bag-qty hd-qty"
+                data-size="12x16"
+                data-type="HD"
+                type="number"
+                min="0"
+                step="1"
+                value="0"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- HD SUBTOTAL -->
+
+    <div class="subtotal-box">
+
+        <span>
+            HD Subtotal
+        </span>
+
+
+        <strong
+            id="hdSubtotal"
+        >
+            Rs. 0
+        </strong>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GRAND TOTAL
+===================================================== -->
+
+<section class="card total-card">
+
+    <h2>
+        آرڈر کا کل حساب
+    </h2>
+
+
+    <div class="total-line">
+
+        <span>
+            LD Subtotal
+        </span>
+
+        <strong id="finalLD">
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+    <div class="total-line">
+
+        <span>
+            HD Subtotal
+        </span>
+
+        <strong id="finalHD">
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+    <div class="total-line">
+
+        <span>
+            Delivery Charges
+        </span>
+
+        <strong id="deliveryCharges">
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+    <div class="grand-total">
+
+        <span>
+            Grand Total
+        </span>
+
+        <strong id="grandTotal">
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SUBMIT
+===================================================== -->
+
+<section class="card">
+
+    <button
+        id="submitOrder"
+        type="button"
+        class="submit-button"
+    >
+
+        Order Submit کریں
+
+    </button>
+
+
+    <div
+        id="submitMessage"
+        class="submit-message"
+    ></div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <strong>
+        JANJUA TRADERS
+    </strong>
+
+    <br>
+
+    Polythene Shopper Bags
+
+</footer>
+
+
+
+<script src="PSB.js"></script>
+
+
+</body>
+
+</html>
