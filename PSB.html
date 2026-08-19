@@ -7,10 +7,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color"
-          content="#ffd400">
-
-    <title>Janjua Traders - Polythene Shopper Bags</title>
+    <title>Janjua Traders Digital Marketing Platform</title>
 
     <link rel="stylesheet" href="PSB.css">
 </head>
@@ -23,28 +20,30 @@
 
 <header class="main-header">
 
-    <div class="brand-animation">
+    <div class="logo-placeholder">
+        JANJUA TRADERS
+    </div>
 
-        <div class="brand-name">
-            JANJUA TRADERS
-        </div>
+    <div class="brand-name">
+        JANJUA TRADERS
+    </div>
 
-        <div class="brand-subtitle">
-            Digital Marketing Platform — Polythene Shopper Bags
-        </div>
-
+    <div class="brand-subtitle">
+        Polythene Shopper Bags
     </div>
 
 </header>
 
 
 <!-- =====================================================
-     DELIVERY / TERMS
+     IMPORTANT INSTRUCTIONS
 ===================================================== -->
 
 <section class="instruction-card">
 
-    <h2>شرائط و ضوابط / ڈیلیوری ہدایات</h2>
+    <h2>
+        ڈیلیوری کی اہم ہدایات
+    </h2>
 
     <div class="instruction-list">
 
@@ -61,25 +60,29 @@
 
         <p>
             <strong>3۔ ارجنٹ ڈیلیوری:</strong>
-            ارجنٹ آرڈر پر فری ڈیلیوری دستیاب نہیں۔
-            اضافی ڈیلیوری فیس لاگو ہوگی۔
+            ارجنٹ آرڈر پر فری ڈیلیوری دستیاب نہیں ہے۔
+            ارجنٹ ڈیلیوری کی اضافی فیس ادا کرنا ہوگی۔
         </p>
 
         <p>
             <strong>4۔ مال کی واپسی:</strong>
-            واپس کیا جانے والا مال اسی حالت میں ہونا چاہیے
+            اگر مال واپس کرنا ہو تو وہ اسی حالت میں ہونا چاہیے
             جس حالت میں وصول کیا گیا تھا۔
-            کھلا یا گندا مال واپس نہیں لیا جائے گا۔
+            کھلا ہوا یا گندا مال واپس نہیں لیا جائے گا۔
         </p>
 
         <p class="important">
-            براہِ کرم مال چیک کرکے وصول کریں۔
+            براہِ کرم اپنا مال چیک کرکے پھر وصول کریں۔
         </p>
 
     </div>
 
 </section>
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main class="container">
 
@@ -90,7 +93,10 @@
 
 <section class="card">
 
-    <h2>کسٹمر کی معلومات</h2>
+    <h2>
+        کسٹمر کی معلومات
+    </h2>
+
 
     <label for="customerName">
         کسٹمر کا نام
@@ -99,6 +105,7 @@
 
     <input
         id="customerName"
+        name="customerName"
         type="text"
         placeholder="اپنا نام لکھیں"
         required
@@ -112,6 +119,7 @@
 
     <input
         id="shopName"
+        name="shopName"
         type="text"
         placeholder="اپنی دکان کا نام لکھیں"
         required
@@ -125,6 +133,7 @@
 
     <input
         id="phone"
+        name="phone"
         type="tel"
         inputmode="tel"
         placeholder="03XXXXXXXXX"
@@ -139,6 +148,7 @@
 
     <textarea
         id="address"
+        name="address"
         placeholder="اپنا مکمل پتہ لکھیں"
         required
     ></textarea>
@@ -149,16 +159,43 @@
         <span class="required">*</span>
     </label>
 
-    <select id="deliveryArea" required>
+    <select
+        id="deliveryArea"
+        name="deliveryArea"
+        required
+    >
 
         <option value="">
             اپنا ایریا منتخب کریں
         </option>
 
+        <option value="VIP Town">VIP Town</option>
+        <option value="Sabarwal Colony">Sabarwal Colony</option>
+        <option value="Fatima Jinnah Colony">Fatima Jinnah Colony</option>
+        <option value="Hyderabad Town">Hyderabad Town</option>
+        <option value="Sabar Town">Sabar Town</option>
+        <option value="Rana Town">Rana Town</option>
+        <option value="Hamdia Colony">Hamdia Colony</option>
+        <option value="Chakian">Chakian</option>
+        <option value="Dhrema">Dhrema</option>
+        <option value="Mari">Mari</option>
+        <option value="Lakhmor">Lakhmor</option>
+        <option value="Pitpan Chak">Pitpan Chak</option>
+        <option value="55 Chak Shumali">55 Chak Shumali</option>
+        <option value="56 Chak Shumali">56 Chak Shumali</option>
+        <option value="92 Mor">92 Mor</option>
+        <option value="Churanja Chak">Churanja Chak</option>
+        <option value="Maqam Hayat">مقام حیات</option>
+        <option value="Sherpur Chowk">شیرپور چوک</option>
+
     </select>
 
-    <div id="areaMessage"
-         class="area-message"></div>
+
+    <div
+        id="areaMessage"
+        class="area-message"
+        style="display:none;"
+    ></div>
 
 </section>
 
@@ -169,7 +206,9 @@
 
 <section class="card">
 
-    <h2>ڈیلیوری کی قسم</h2>
+    <h2>
+        ڈیلیوری کی قسم
+    </h2>
 
     <div class="delivery-options">
 
@@ -184,7 +223,9 @@
 
             <span>
                 نارمل ڈیلیوری
-                <small>دوسرے دن — فری</small>
+                <small>
+                    دوسرے دن — فری
+                </small>
             </span>
 
         </label>
@@ -200,7 +241,9 @@
 
             <span>
                 ارجنٹ ڈیلیوری
-                <small>اضافی ڈیلیوری فیس لاگو ہوگی</small>
+                <small>
+                    اضافی ڈیلیوری فیس لاگو ہوگی
+                </small>
             </span>
 
         </label>
@@ -211,35 +254,45 @@
 
 
 <!-- =====================================================
-     LD + HD TWO COLUMN SECTION
+     SHOPPER BAGS
+     LD LEFT / HD RIGHT
 ===================================================== -->
 
-<section class="card">
+<section class="card shopper-section">
 
-    <h2 class="section-title">
-        Polythene Shopper Bags
-    </h2>
+    <div class="shopper-main-title">
+
+        <h2>
+            Polythene Shopper Bags
+        </h2>
+
+        <p>
+            مطلوبہ سائز اور مقدار منتخب کریں
+        </p>
+
+    </div>
+
 
     <div class="bag-columns">
 
 
         <!-- =================================================
-             LD
+             LD SHOPPER BAGS — LEFT
         ================================================== -->
 
         <div class="bag-column ld-column">
 
             <div class="bag-column-header">
 
-                <h3>
+                <div class="bag-column-title">
                     LD Shopper Bags
-                </h3>
+                </div>
 
-                <div class="admin-rate-text">
-                    <span>Rate:</span>
-                    <strong id="ldRateDisplay">
+                <div class="admin-rate">
+                    Amount:
+                    <span id="ldRateDisplay">
                         Admin Rate / KG
-                    </strong>
+                    </span>
                 </div>
 
             </div>
@@ -254,7 +307,7 @@
                     <strong>8 × 11</strong>
 
                     <span>
-                        (ایک پاؤ)
+                        ¼ کلو والا سائز
                     </span>
 
                 </div>
@@ -263,11 +316,11 @@
                     class="bag-qty ld-qty"
                     data-size="8x11"
                     data-type="LD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="LD 8x11 Quantity"
                 >
 
             </div>
@@ -282,7 +335,7 @@
                     <strong>9 × 12</strong>
 
                     <span>
-                        (آدھا کلو)
+                        ½ کلو والا سائز
                     </span>
 
                 </div>
@@ -291,11 +344,11 @@
                     class="bag-qty ld-qty"
                     data-size="9x12"
                     data-type="LD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="LD 9x12 Quantity"
                 >
 
             </div>
@@ -310,7 +363,7 @@
                     <strong>10 × 14</strong>
 
                     <span>
-                        (ایک کلو)
+                        1 کلو والا سائز
                     </span>
 
                 </div>
@@ -319,11 +372,11 @@
                     class="bag-qty ld-qty"
                     data-size="10x14"
                     data-type="LD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="LD 10x14 Quantity"
                 >
 
             </div>
@@ -338,7 +391,7 @@
                     <strong>12 × 16</strong>
 
                     <span>
-                        (ڈیڑھ کلو)
+                        1½ کلو والا سائز
                     </span>
 
                 </div>
@@ -347,19 +400,21 @@
                     class="bag-qty ld-qty"
                     data-size="12x16"
                     data-type="LD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="LD 12x16 Quantity"
                 >
 
             </div>
 
 
-            <div class="subtotal-box">
+            <div class="column-subtotal">
 
-                <span>LD Total</span>
+                <span>
+                    LD Total
+                </span>
 
                 <strong id="ldSubtotal">
                     Rs. 0
@@ -370,24 +425,23 @@
         </div>
 
 
-
         <!-- =================================================
-             HD
+             HD SHOPPER BAGS — RIGHT
         ================================================== -->
 
         <div class="bag-column hd-column">
 
             <div class="bag-column-header">
 
-                <h3>
+                <div class="bag-column-title">
                     HD Shopper Bags
-                </h3>
+                </div>
 
-                <div class="admin-rate-text">
-                    <span>Rate:</span>
-                    <strong id="hdRateDisplay">
+                <div class="admin-rate">
+                    Amount:
+                    <span id="hdRateDisplay">
                         Admin Rate / KG
-                    </strong>
+                    </span>
                 </div>
 
             </div>
@@ -402,7 +456,7 @@
                     <strong>8 × 11</strong>
 
                     <span>
-                        (ایک پاؤ)
+                        ¼ کلو والا سائز
                     </span>
 
                 </div>
@@ -411,11 +465,11 @@
                     class="bag-qty hd-qty"
                     data-size="8x11"
                     data-type="HD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="HD 8x11 Quantity"
                 >
 
             </div>
@@ -430,7 +484,7 @@
                     <strong>9 × 12</strong>
 
                     <span>
-                        (آدھا کلو)
+                        ½ کلو والا سائز
                     </span>
 
                 </div>
@@ -439,11 +493,11 @@
                     class="bag-qty hd-qty"
                     data-size="9x12"
                     data-type="HD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="HD 9x12 Quantity"
                 >
 
             </div>
@@ -458,7 +512,7 @@
                     <strong>10 × 14</strong>
 
                     <span>
-                        (ایک کلو)
+                        1 کلو والا سائز
                     </span>
 
                 </div>
@@ -467,11 +521,11 @@
                     class="bag-qty hd-qty"
                     data-size="10x14"
                     data-type="HD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="HD 10x14 Quantity"
                 >
 
             </div>
@@ -486,7 +540,7 @@
                     <strong>12 × 16</strong>
 
                     <span>
-                        (ڈیڑھ کلو)
+                        1½ کلو والا سائز
                     </span>
 
                 </div>
@@ -495,19 +549,21 @@
                     class="bag-qty hd-qty"
                     data-size="12x16"
                     data-type="HD"
+                    data-rate="0"
                     type="number"
                     min="0"
                     step="1"
                     value="0"
-                    aria-label="HD 12x16 Quantity"
                 >
 
             </div>
 
 
-            <div class="subtotal-box">
+            <div class="column-subtotal">
 
-                <span>HD Total</span>
+                <span>
+                    HD Total
+                </span>
 
                 <strong id="hdSubtotal">
                     Rs. 0
@@ -519,62 +575,63 @@
 
     </div>
 
-</section>
+
+    <!-- =================================================
+         FINAL TOTAL
+    ================================================== -->
+
+    <div class="all-total-box">
+
+        <div>
+
+            <span>
+                LD Total
+            </span>
+
+            <strong id="finalLD">
+                Rs. 0
+            </strong>
+
+        </div>
 
 
-<!-- =====================================================
-     GRAND TOTAL
-===================================================== -->
+        <div>
 
-<section class="card total-card">
+            <span>
+                HD Total
+            </span>
 
-    <h2>
-        آرڈر کا مکمل حساب
-    </h2>
+            <strong id="finalHD">
+                Rs. 0
+            </strong>
 
-
-    <div class="total-line">
-
-        <span>LD Total</span>
-
-        <strong id="finalLD">
-            Rs. 0
-        </strong>
-
-    </div>
+        </div>
 
 
-    <div class="total-line">
+        <div>
 
-        <span>HD Total</span>
+            <span>
+                Delivery Charges
+            </span>
 
-        <strong id="finalHD">
-            Rs. 0
-        </strong>
+            <strong id="deliveryCharges">
+                Rs. 0
+            </strong>
 
-    </div>
-
-
-    <div class="total-line">
-
-        <span>Delivery Charges</span>
-
-        <strong id="deliveryCharges">
-            Rs. 0
-        </strong>
-
-    </div>
+        </div>
 
 
-    <div class="grand-total-line">
+        <div class="grand-total-line">
 
-        <span>
-            Grand Total
-        </span>
+            <span>
+                Grand Total
+            </span>
 
-        <strong id="grandTotal">
-            Rs. 0
-        </strong>
+            <strong id="grandTotal">
+                Rs. 0
+            </strong>
+
+        </div>
 
     </div>
 
@@ -595,9 +652,11 @@
         Order Submit کریں
     </button>
 
+
     <div
         id="submitMessage"
         class="submit-message"
+        style="display:none;"
     ></div>
 
 </section>
@@ -612,7 +671,9 @@
 
 <footer>
 
-    <strong>JANJUA TRADERS</strong>
+    <strong>
+        JANJUA TRADERS
+    </strong>
 
     <br>
 
@@ -621,7 +682,12 @@
 </footer>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script src="PSB.js"></script>
 
 </body>
+
 </html>
