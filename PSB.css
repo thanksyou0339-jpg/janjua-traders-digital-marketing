@@ -1,0 +1,1241 @@
+/* =========================================================
+   JANJUA TRADERS
+   PSB.CSS
+   POLYTHENE SHOPPER BAGS
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #222222;
+    --muted: #666666;
+    --border: #d9dee7;
+
+    --primary: #1565c0;
+    --primary-dark: #0d47a1;
+
+    --red: #d00000;
+    --red-dark: #a80000;
+
+    --success-bg: #dff7e5;
+    --success-text: #176b2c;
+
+    --error-bg: #ffe5e5;
+    --error-text: #9a1c1c;
+
+    --warning-bg: #fff4d6;
+    --warning-text: #795500;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family:
+        Arial,
+        "Noto Naskh Arabic",
+        "Noto Nastaliq Urdu",
+        sans-serif;
+
+    line-height: 1.6;
+
+    direction: rtl;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+    width: 100%;
+
+    background: #ffffff;
+
+    padding: 16px 14px 18px;
+
+    text-align: center;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   MONOGRAM / LOGO AREA
+   ========================================================= */
+
+.logo-area {
+    width: 100%;
+
+    max-width: 180px;
+
+    min-height: 55px;
+
+    margin: 0 auto 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.logo-area img {
+    max-width: 100%;
+
+    max-height: 65px;
+
+    object-fit: contain;
+}
+
+
+/*
+   اگر بعد میں لوگو لگانا ہو تو
+   PSB.html میں logo image یہاں رکھی جا سکتی ہے۔
+*/
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+    font-size: 28px;
+
+    font-weight: 900;
+
+    direction: ltr;
+
+    letter-spacing: 0.5px;
+
+    margin: 2px 0;
+}
+
+
+.tagline {
+    margin: 4px 0;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+.subtag {
+    margin: 3px 0 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    width: min(920px, 94%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+    width: 100%;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 17px;
+
+    padding: 20px;
+
+    margin: 16px 0;
+
+    box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+
+h1 {
+    font-size: 24px;
+
+    line-height: 1.4;
+}
+
+
+h2 {
+    font-size: 21px;
+
+    line-height: 1.4;
+}
+
+
+h3 {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   DELIVERY INSTRUCTIONS
+   ========================================================= */
+
+.delivery-instructions {
+    background: #f8fafc;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    padding: 13px 15px;
+
+    margin-bottom: 16px;
+
+    line-height: 1.8;
+}
+
+
+.delivery-instructions h3 {
+    margin-bottom: 8px;
+
+    font-size: 18px;
+}
+
+
+.delivery-instructions ul {
+    margin: 0;
+
+    padding-right: 22px;
+}
+
+
+.delivery-instructions li {
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   DELIVERY WARNING
+   ========================================================= */
+
+.delivery-warning {
+    background: var(--warning-bg);
+
+    color: var(--warning-text);
+
+    border: 1px solid #efd58a;
+
+    border-radius: 11px;
+
+    padding: 11px 13px;
+
+    margin-top: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   AREA SELECTION
+   ========================================================= */
+
+.area-box {
+    background: #f8fafc;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 15px;
+
+    margin-bottom: 18px;
+}
+
+
+.area-box label {
+    margin-top: 0;
+}
+
+
+.area-message {
+    display: none;
+
+    margin-top: 10px;
+
+    padding: 11px;
+
+    border-radius: 10px;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+.area-message.available {
+    display: block;
+
+    background: var(--success-bg);
+
+    color: var(--success-text);
+
+    border: 1px solid #a9dfb5;
+}
+
+
+.area-message.unavailable {
+    display: block;
+
+    background: var(--error-bg);
+
+    color: var(--error-text);
+
+    border: 1px solid #efaaaa;
+}
+
+
+/* =========================================================
+   SHOP NAME
+   ========================================================= */
+
+.shop-section {
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+label {
+    display: block;
+
+    font-weight: 700;
+
+    margin: 14px 0 6px;
+}
+
+
+.required {
+    color: var(--red);
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #cfd6df;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #222222;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(21, 101, 192, 0.12);
+}
+
+
+textarea {
+    min-height: 95px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   SHOPPER BAG SECTION
+   ========================================================= */
+
+.bag-section {
+    margin-top: 18px;
+}
+
+
+.bag-section-title {
+    text-align: center;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   BAG TYPE BLOCK
+   ========================================================= */
+
+.bag-type {
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    margin-bottom: 16px;
+
+    overflow: hidden;
+}
+
+
+.bag-type-header {
+    padding: 11px 14px;
+
+    background: #f3f6fa;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.bag-type-title {
+    font-size: 19px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   ADMIN RATE DISPLAY
+   ========================================================= */
+
+.admin-rate {
+    color: var(--red);
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+
+    direction: ltr;
+}
+
+
+.admin-rate span {
+    color: var(--red);
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   BAG TABLE
+   ========================================================= */
+
+.bag-table-wrap {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.bag-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 500px;
+}
+
+
+.bag-table th {
+    background: #fafbfc;
+
+    font-weight: 900;
+
+    padding: 9px 7px;
+
+    border-bottom: 1px solid var(--border);
+
+    text-align: center;
+}
+
+
+.bag-table td {
+    padding: 7px;
+
+    border-bottom: 1px solid #e7ebf0;
+
+    text-align: center;
+
+    vertical-align: middle;
+}
+
+
+.bag-table tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   BAG SIZE TEXT
+   ========================================================= */
+
+.bag-weight {
+    font-weight: 900;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+}
+
+
+.bag-size {
+    color: #555555;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   QUANTITY INPUT
+   ========================================================= */
+
+.bag-quantity {
+    width: 75px;
+
+    max-width: 75px;
+
+    padding: 8px 5px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    border-radius: 8px;
+}
+
+
+/*
+   Quantity ہمیشہ اصل مقدار دکھائے گی۔
+
+   مثال:
+   2 = 2
+   4 = 4
+
+   20 یا 40 نہیں بنے گی۔
+*/
+
+
+/* =========================================================
+   KG / PRICE INFORMATION
+   ========================================================= */
+
+.kg-info {
+    font-size: 13px;
+
+    color: var(--muted);
+
+    line-height: 1.4;
+}
+
+
+.rate-value {
+    color: var(--red);
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   SUBTOTAL BOX
+   ========================================================= */
+
+.subtotal-box {
+    margin-top: 12px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid var(--border);
+}
+
+
+.subtotal-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 6px 0;
+}
+
+
+.subtotal-row strong {
+    font-size: 17px;
+}
+
+
+.ld-subtotal {
+    color: var(--red);
+
+    font-weight: 900;
+}
+
+
+.hd-subtotal {
+    color: var(--red);
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   GRAND TOTAL
+   ========================================================= */
+
+.grand-total {
+    margin-top: 18px;
+
+    background: #f1f5fa;
+
+    border: 2px solid var(--primary);
+
+    border-radius: 14px;
+
+    padding: 15px;
+}
+
+
+.grand-total-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+
+.grand-total-label {
+    font-size: 19px;
+
+    font-weight: 900;
+}
+
+
+.grand-total-value {
+    color: var(--red);
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    direction: ltr;
+}
+
+
+/* =========================================================
+   CALCULATOR
+   ========================================================= */
+
+.calculate-btn {
+    width: 100%;
+
+    border: 0;
+
+    border-radius: 11px;
+
+    background: var(--primary);
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    padding: 13px;
+
+    margin-top: 15px;
+
+    cursor: pointer;
+}
+
+
+.calculate-btn:hover {
+    background: var(--primary-dark);
+}
+
+
+.calculate-btn:active {
+    transform: scale(0.99);
+}
+
+
+/* =========================================================
+   CUSTOMER FORM
+   ========================================================= */
+
+.customer-form {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   CHECKBOX / RETURN INSTRUCTION
+   ========================================================= */
+
+.agreement-box {
+    background: #fafafa;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    margin-top: 16px;
+
+    line-height: 1.7;
+}
+
+
+.agreement-box label {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin: 0;
+
+    font-weight: 600;
+}
+
+
+.agreement-box input[type="checkbox"] {
+    width: auto;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.submit-btn {
+    width: 100%;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: var(--primary);
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+    padding: 15px;
+
+    margin-top: 20px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+
+.submit-btn:hover {
+    background: var(--primary-dark);
+}
+
+
+.submit-btn:active {
+    transform: scale(0.99);
+}
+
+
+.submit-btn:disabled {
+    opacity: 0.65;
+
+    cursor: wait;
+}
+
+
+/* =========================================================
+   RESULT MESSAGE
+   ========================================================= */
+
+.result {
+    display: none;
+
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 11px;
+
+    margin-top: 15px;
+
+    font-weight: 800;
+
+    text-align: center;
+
+    line-height: 1.7;
+}
+
+
+.result.success {
+    display: block;
+
+    background: var(--success-bg);
+
+    color: var(--success-text);
+
+    border: 1px solid #a9dfb5;
+}
+
+
+.result.error {
+    display: block;
+
+    background: var(--error-bg);
+
+    color: var(--error-text);
+
+    border: 1px solid #efaaaa;
+}
+
+
+/* =========================================================
+   BARCODE / TRACKING
+   ========================================================= */
+
+.barcode-section {
+    text-align: center;
+
+    margin-top: 18px;
+}
+
+
+.barcode-box {
+    width: 100%;
+
+    min-height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    overflow: hidden;
+}
+
+
+.barcode-box canvas,
+.barcode-box svg,
+.barcode-box img {
+    max-width: 100%;
+
+    height: auto;
+}
+
+
+/* =========================================================
+   TRACKING ID
+   ========================================================= */
+
+.tracking-id {
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    direction: ltr;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   ADMIN PANEL
+   ========================================================= */
+
+.admin-panel {
+    display: none;
+
+    background: #fffafa;
+
+    border: 1px solid #efb2b2;
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    margin-top: 18px;
+}
+
+
+.admin-panel.active {
+    display: block;
+}
+
+
+.admin-panel h3 {
+    color: var(--red);
+
+    margin-bottom: 10px;
+}
+
+
+.admin-rate-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   ADMIN RATE INPUT
+   ========================================================= */
+
+.admin-rate-input {
+    border: 2px solid #e0a0a0;
+
+    font-weight: 800;
+}
+
+
+.admin-rate-input:focus {
+    border-color: var(--red);
+
+    box-shadow:
+        0 0 0 3px rgba(208, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   HIDDEN ADMIN ELEMENT
+   ========================================================= */
+
+.hidden-admin {
+    display: none !important;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    text-align: center;
+
+    padding: 22px 14px;
+
+    color: #555555;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .container {
+        width: calc(100% - 18px);
+    }
+
+
+    header {
+        padding: 12px 10px 15px;
+    }
+
+
+    .logo-area {
+        max-width: 150px;
+
+        min-height: 45px;
+    }
+
+
+    .brand {
+        font-size: 24px;
+    }
+
+
+    .tagline {
+        font-size: 15px;
+    }
+
+
+    .card {
+        padding: 14px;
+
+        margin: 12px 0;
+
+        border-radius: 14px;
+    }
+
+
+    h1 {
+        font-size: 21px;
+    }
+
+
+    h2 {
+        font-size: 19px;
+    }
+
+
+    .bag-type-header {
+        padding: 9px 10px;
+    }
+
+
+    .bag-type-title {
+        font-size: 17px;
+    }
+
+
+    .admin-rate {
+        font-size: 16px;
+    }
+
+
+    .bag-table {
+        min-width: 460px;
+    }
+
+
+    .bag-table th,
+    .bag-table td {
+        padding: 6px 5px;
+    }
+
+
+    .bag-quantity {
+        width: 65px;
+
+        max-width: 65px;
+    }
+
+
+    .grand-total-label {
+        font-size: 17px;
+    }
+
+
+    .grand-total-value {
+        font-size: 20px;
+    }
+
+
+    .admin-rate-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .submit-btn {
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .container {
+        width: calc(100% - 12px);
+    }
+
+
+    .card {
+        padding: 11px;
+    }
+
+
+    .brand {
+        font-size: 21px;
+    }
+
+
+    .bag-table {
+        min-width: 430px;
+    }
+
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+
+        padding: 12px;
+    }
+
+
+    .bag-quantity {
+        width: 60px;
+
+        max-width: 60px;
+
+        font-size: 15px;
+    }
+
+
+    .bag-weight {
+        font-size: 15px;
+    }
+
+
+    .bag-size {
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    body {
+        background: #ffffff;
+    }
+
+
+    .card {
+        box-shadow: none;
+
+        border: 1px solid #cccccc;
+    }
+
+
+    .submit-btn,
+    .calculate-btn {
+        display: none;
+    }
+
+
+    .admin-panel {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   END OF PSB.CSS
+   ========================================================= */
