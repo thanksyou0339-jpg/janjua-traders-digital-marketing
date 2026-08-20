@@ -1,0 +1,87 @@
+name: Update PSB Rates
+
+on:
+  workflow_dispatch:
+    inputs:
+      ld_rate:
+        description: "LD Rate per KG"
+        required: true
+        type: string
+
+      hd_rate:
+        description: "HD Rate per KG"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-rates:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate rates
+        env:
+          LD_RATE: ${{ inputs.ld_rate }}
+          HD_RATE: ${{ inputs.hd_rate }}
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+
+          ld = os.environ["LD_RATE"]
+          hd = os.environ["HD_RATE"]
+
+          try:
+              ld_value = float(ld)
+              hd_value = float(hd)
+          except ValueError:
+              print("ERROR: Rates must be numbers.")
+              sys.exit(1)
+
+          if ld_value < 0 or hd_value < 0:
+              print("ERROR: Rates cannot be negative.")
+              sys.exit(1)
+
+          print("LD Rate:", ld_value)
+          print("HD Rate:", hd_value)
+          PY
+
+      - name: Update rates.json
+        env:
+          LD_RATE: ${{ inputs.ld_rate }}
+          HD_RATE: ${{ inputs.hd_rate }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          data = {
+              "ldRate": float(os.environ["LD_RATE"]),
+              "hdRate": float(os.environ["HD_RATE"])
+          }
+
+          with open("rates.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, indent=2)
+              f.write("\n")
+          PY
+
+      - name: Commit updated rates
+        run: |
+          git config user.name "Janjua Traders Rate Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add rates.json
+
+          git diff --cached --quiet || \
+          git commit -m "Update LD and HD rates"
+
+      - name: Push changes
+        run: |
+          git push
