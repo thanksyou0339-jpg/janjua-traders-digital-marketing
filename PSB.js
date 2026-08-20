@@ -2,11 +2,13 @@
    JANJUA TRADERS
    PSB.JS
    FINAL VERSION
+   CENTRAL LD / HD RATE SYSTEM
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
     "use strict";
+
 
     /* =====================================================
        SETTINGS
@@ -16,6 +18,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const FORM_SUBMIT_URL =
         "https://formsubmit.co/ajax/" + GMAIL_EMAIL;
+
+
+    /* =====================================================
+       CENTRAL RATE SETTINGS
+    ===================================================== */
+
+    let CURRENT_LD_RATE = 0;
+
+    let CURRENT_HD_RATE = 0;
+
+    let RATES_LOADED = false;
 
 
     /* =====================================================
@@ -35,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function get(id) {
+
         return document.getElementById(id);
     }
 
@@ -67,17 +81,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 'input[type="hidden"][name="' + name + '"]'
             );
 
+
         if (!field) {
 
-            field = document.createElement("input");
+            field =
+                document.createElement("input");
 
             field.type = "hidden";
+
             field.name = name;
 
             form.appendChild(field);
         }
 
-        field.value = clean(value);
+
+        field.value =
+            clean(value);
+
 
         return field;
     }
@@ -89,7 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function pakistanDateTime() {
 
-        const now = new Date();
+        const now =
+            new Date();
+
 
         const dateParts =
             new Intl.DateTimeFormat(
@@ -101,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     year: "numeric"
                 }
             ).formatToParts(now);
+
 
         const timeParts =
             new Intl.DateTimeFormat(
@@ -118,37 +141,64 @@ document.addEventListener("DOMContentLoaded", function () {
         function part(parts, type) {
 
             const item =
-                parts.find(x => x.type === type);
+                parts.find(
+                    x => x.type === type
+                );
 
-            return item ? item.value : "";
+            return item
+                ? item.value
+                : "";
         }
 
 
-        const day = part(dateParts, "day");
-        const month = part(dateParts, "month");
-        const year = part(dateParts, "year");
+        const day =
+            part(dateParts, "day");
 
-        const hour = part(timeParts, "hour");
-        const minute = part(timeParts, "minute");
-        const second = part(timeParts, "second");
-        const period = part(timeParts, "dayPeriod");
+        const month =
+            part(dateParts, "month");
 
-
-        let hour24 = parseInt(hour, 10);
+        const year =
+            part(dateParts, "year");
 
 
-        if (period === "AM" && hour24 === 12) {
+        const hour =
+            part(timeParts, "hour");
+
+        const minute =
+            part(timeParts, "minute");
+
+        const second =
+            part(timeParts, "second");
+
+        const period =
+            part(timeParts, "dayPeriod");
+
+
+        let hour24 =
+            parseInt(hour, 10);
+
+
+        if (
+            period === "AM" &&
+            hour24 === 12
+        ) {
+
             hour24 = 0;
         }
 
 
-        if (period === "PM" && hour24 !== 12) {
+        if (
+            period === "PM" &&
+            hour24 !== 12
+        ) {
+
             hour24 += 12;
         }
 
 
         const h24 =
-            String(hour24).padStart(2, "0");
+            String(hour24)
+                .padStart(2, "0");
 
 
         return {
@@ -167,17 +217,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        FINAL DELIVERY AREAS
-       
-       Sabarwal Colony = KEEP
-       Sabar Town      = REMOVE
-       Sherpur Chowk   = REMOVE
-       Churanja Chak   = REMOVE
-       
-       NEW:
-       15 Block
-       مقامِ حیات کالونی
-       12 Block
-       Sharb​​at Chowk
     ===================================================== */
 
     const areas = [
@@ -241,29 +280,44 @@ document.addEventListener("DOMContentLoaded", function () {
         const first =
             document.createElement("option");
 
+
         first.value = "";
+
 
         first.textContent =
             "اپنا ایریا منتخب کریں";
 
+
         select.appendChild(first);
 
 
-        areas.forEach(function (area) {
+        areas.forEach(
+            function (area) {
 
-            const option =
-                document.createElement("option");
-
-            option.value = area;
-
-            option.textContent = area;
-
-            select.appendChild(option);
-        });
+                const option =
+                    document.createElement("option");
 
 
-        if (current && areas.includes(current)) {
-            select.value = current;
+                option.value =
+                    area;
+
+
+                option.textContent =
+                    area;
+
+
+                select.appendChild(option);
+            }
+        );
+
+
+        if (
+            current &&
+            areas.includes(current)
+        ) {
+
+            select.value =
+                current;
         }
     }
 
@@ -276,7 +330,9 @@ document.addEventListener("DOMContentLoaded", function () {
         get("deliveryArea");
 
 
-    fillAreaSelect(deliveryArea);
+    fillAreaSelect(
+        deliveryArea
+    );
 
 
     if (deliveryArea) {
@@ -299,15 +355,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     msg.textContent =
                         "✓ یہ ایریا ہماری Delivery List میں موجود ہے۔";
 
-                    msg.style.display = "block";
-                    msg.style.color = "#176b2c";
-                    msg.style.background = "#e5f8ea";
-                    msg.style.padding = "8px";
-                    msg.style.borderRadius = "8px";
 
-                } else {
+                    msg.style.display =
+                        "block";
 
-                    msg.style.display = "none";
+
+                    msg.style.color =
+                        "#176b2c";
+
+
+                    msg.style.background =
+                        "#e5f8ea";
+
+
+                    msg.style.padding =
+                        "8px";
+
+
+                    msg.style.borderRadius =
+                        "8px";
+
+                }
+
+                else {
+
+                    msg.style.display =
+                        "none";
                 }
             }
         );
@@ -316,28 +389,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        TEXT INPUT DIRECTION FIX
-       
-       English / numbers:
-       LEFT TO RIGHT
-
-       Urdu:
-       browser can still display naturally,
-       but cursor will remain usable.
     ===================================================== */
 
     document
         .querySelectorAll(
             "input[type='text'], input[type='tel'], textarea"
         )
-        .forEach(function (field) {
+        .forEach(
+            function (field) {
 
-            field.style.direction = "ltr";
+                field.style.direction =
+                    "ltr";
 
-            field.style.textAlign = "left";
 
-            field.style.unicodeBidi = "plaintext";
+                field.style.textAlign =
+                    "left";
 
-        });
+
+                field.style.unicodeBidi =
+                    "plaintext";
+            }
+        );
 
 
     /* =====================================================
@@ -346,53 +418,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document
         .querySelectorAll(".bag-qty")
-        .forEach(function (input) {
+        .forEach(
+            function (input) {
 
-            input.type = "number";
-
-            input.min = "0";
-
-            input.step = "1";
-
-            input.inputMode = "numeric";
-
-            input.style.width = "60px";
-
-            input.style.maxWidth = "60px";
-
-            input.style.textAlign = "center";
-
-            input.style.direction = "ltr";
+                input.type =
+                    "number";
 
 
-            input.addEventListener(
-                "input",
-                function () {
-
-                    let value =
-                        input.value.replace(/\D/g, "");
+                input.min =
+                    "0";
 
 
-                    if (value === "") {
+                input.step =
+                    "1";
 
-                        input.value = "0";
 
-                    } else {
+                input.inputMode =
+                    "numeric";
 
-                        input.value =
-                            String(
-                                Math.max(
-                                    0,
-                                    parseInt(value, 10)
-                                )
-                            );
+
+                input.style.width =
+                    "60px";
+
+
+                input.style.maxWidth =
+                    "60px";
+
+
+                input.style.textAlign =
+                    "center";
+
+
+                input.style.direction =
+                    "ltr";
+
+
+                input.addEventListener(
+                    "input",
+                    function () {
+
+                        let value =
+                            input.value
+                                .replace(/\D/g, "");
+
+
+                        if (value === "") {
+
+                            input.value =
+                                "0";
+                        }
+
+                        else {
+
+                            input.value =
+                                String(
+                                    Math.max(
+                                        0,
+                                        parseInt(
+                                            value,
+                                            10
+                                        )
+                                    )
+                                );
+                        }
+
+
+                        calculateBagTotals();
                     }
-
-
-                    calculateBagTotals();
-                }
-            );
-        });
+                );
+            }
+        );
 
 
     /* =====================================================
@@ -425,6 +520,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        CALCULATE LD / HD
+       CENTRAL RATES ARE USED HERE
     ===================================================== */
 
     function calculateBagTotals() {
@@ -434,36 +530,64 @@ document.addEventListener("DOMContentLoaded", function () {
         let hdSubtotal = 0;
 
 
+        /* ---------------------------------------------
+           LD
+        --------------------------------------------- */
+
         document
             .querySelectorAll(".ld-qty")
-            .forEach(function (input) {
+            .forEach(
+                function (input) {
 
-                const qty =
-                    parseInt(input.value, 10) || 0;
+                    const qty =
+                        parseInt(
+                            input.value,
+                            10
+                        ) || 0;
 
-                const rate =
-                    parseFloat(
-                        input.dataset.rate || 0
-                    );
 
-                ldSubtotal += qty * rate;
-            });
+                    input.dataset.rate =
+                        CURRENT_LD_RATE;
 
+
+                    const rate =
+                        CURRENT_LD_RATE;
+
+
+                    ldSubtotal +=
+                        qty * rate;
+                }
+            );
+
+
+        /* ---------------------------------------------
+           HD
+        --------------------------------------------- */
 
         document
             .querySelectorAll(".hd-qty")
-            .forEach(function (input) {
+            .forEach(
+                function (input) {
 
-                const qty =
-                    parseInt(input.value, 10) || 0;
+                    const qty =
+                        parseInt(
+                            input.value,
+                            10
+                        ) || 0;
 
-                const rate =
-                    parseFloat(
-                        input.dataset.rate || 0
-                    );
 
-                hdSubtotal += qty * rate;
-            });
+                    input.dataset.rate =
+                        CURRENT_HD_RATE;
+
+
+                    const rate =
+                        CURRENT_HD_RATE;
+
+
+                    hdSubtotal +=
+                        qty * rate;
+                }
+            );
 
 
         const delivery =
@@ -476,7 +600,9 @@ document.addEventListener("DOMContentLoaded", function () {
             delivery;
 
 
-        /* LD */
+        /* ---------------------------------------------
+           LD DISPLAY
+        --------------------------------------------- */
 
         if (get("ldSubtotal")) {
 
@@ -492,7 +618,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* HD */
+        /* ---------------------------------------------
+           HD DISPLAY
+        --------------------------------------------- */
 
         if (get("hdSubtotal")) {
 
@@ -508,7 +636,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* DELIVERY */
+        /* ---------------------------------------------
+           DELIVERY
+        --------------------------------------------- */
 
         if (get("deliveryCharges")) {
 
@@ -517,7 +647,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /* FINAL */
+        /* ---------------------------------------------
+           FINAL TOTAL
+        --------------------------------------------- */
 
         if (get("grandTotal")) {
 
@@ -528,14 +660,349 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return {
 
-            ld: ldSubtotal,
+            ld:
+                ldSubtotal,
 
-            hd: hdSubtotal,
+            hd:
+                hdSubtotal,
 
-            delivery: delivery,
+            delivery:
+                delivery,
 
-            total: grandTotal
+            total:
+                grandTotal
         };
+    }
+
+
+    /* =====================================================
+       CUSTOMER RATE DISPLAY
+    ===================================================== */
+
+    function createRateDisplay() {
+
+        if (get("todayRateCard")) {
+            return;
+        }
+
+
+        const main =
+            document.querySelector(
+                "main.container"
+            );
+
+
+        if (!main) {
+            return;
+        }
+
+
+        const card =
+            document.createElement(
+                "section"
+            );
+
+
+        card.id =
+            "todayRateCard";
+
+
+        card.className =
+            "card";
+
+
+        card.style.marginBottom =
+            "15px";
+
+
+        card.style.textAlign =
+            "center";
+
+
+        card.innerHTML = `
+
+            <h2 style="
+                margin-bottom:10px;
+            ">
+                آج کے ریٹس
+            </h2>
+
+
+            <div style="
+                display:flex;
+                gap:10px;
+                justify-content:center;
+                flex-wrap:wrap;
+            ">
+
+
+                <div style="
+                    padding:12px 18px;
+                    border-radius:10px;
+                    background:#e8f5e9;
+                    min-width:120px;
+                ">
+
+                    <strong>
+                        LD Rate
+                    </strong>
+
+
+                    <div
+                        id="ldRateDisplay"
+                        style="
+                            font-size:18px;
+                            font-weight:bold;
+                            margin-top:5px;
+                        "
+                    >
+                        ریٹ لوڈ ہو رہا ہے...
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    padding:12px 18px;
+                    border-radius:10px;
+                    background:#e8f5e9;
+                    min-width:120px;
+                ">
+
+                    <strong>
+                        HD Rate
+                    </strong>
+
+
+                    <div
+                        id="hdRateDisplay"
+                        style="
+                            font-size:18px;
+                            font-weight:bold;
+                            margin-top:5px;
+                        "
+                    >
+                        ریٹ لوڈ ہو رہا ہے...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p style="
+                margin-top:10px;
+                margin-bottom:0;
+            ">
+                تازہ ریٹ کے مطابق آپ کا آرڈر calculate ہوگا۔
+            </p>
+        `;
+
+
+        main.prepend(card);
+    }
+
+
+    /* =====================================================
+       LOAD CENTRAL RATES
+       SOURCE: rates.json
+    ===================================================== */
+
+    async function loadRates() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "rates.json?v=" +
+                    Date.now(),
+                    {
+                        cache:
+                            "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "rates.json could not be loaded."
+                );
+            }
+
+
+            const rates =
+                await response.json();
+
+
+            const ldRate =
+                Number(
+                    rates.ldRate
+                );
+
+
+            const hdRate =
+                Number(
+                    rates.hdRate
+                );
+
+
+            if (
+                !Number.isFinite(ldRate) ||
+                ldRate < 0
+            ) {
+
+                throw new Error(
+                    "Invalid LD rate."
+                );
+            }
+
+
+            if (
+                !Number.isFinite(hdRate) ||
+                hdRate < 0
+            ) {
+
+                throw new Error(
+                    "Invalid HD rate."
+                );
+            }
+
+
+            CURRENT_LD_RATE =
+                ldRate;
+
+
+            CURRENT_HD_RATE =
+                hdRate;
+
+
+            RATES_LOADED =
+                true;
+
+
+            /* -----------------------------------------
+               SHOW LD RATE
+            ----------------------------------------- */
+
+            if (
+                get("ldRateDisplay")
+            ) {
+
+                get(
+                    "ldRateDisplay"
+                ).textContent =
+                    rupees(
+                        CURRENT_LD_RATE
+                    ) +
+                    " / KG";
+            }
+
+
+            /* -----------------------------------------
+               SHOW HD RATE
+            ----------------------------------------- */
+
+            if (
+                get("hdRateDisplay")
+            ) {
+
+                get(
+                    "hdRateDisplay"
+                ).textContent =
+                    rupees(
+                        CURRENT_HD_RATE
+                    ) +
+                    " / KG";
+            }
+
+
+            /* -----------------------------------------
+               APPLY LD RATE
+            ----------------------------------------- */
+
+            document
+                .querySelectorAll(".ld-qty")
+                .forEach(
+                    function (input) {
+
+                        input.dataset.rate =
+                            CURRENT_LD_RATE;
+                    }
+                );
+
+
+            /* -----------------------------------------
+               APPLY HD RATE
+            ----------------------------------------- */
+
+            document
+                .querySelectorAll(".hd-qty")
+                .forEach(
+                    function (input) {
+
+                        input.dataset.rate =
+                            CURRENT_HD_RATE;
+                    }
+                );
+
+
+            /* Recalculate everything */
+
+            calculateBagTotals();
+
+
+            console.log(
+                "Central rates loaded successfully."
+            );
+
+
+            console.log(
+                "LD Rate:",
+                CURRENT_LD_RATE
+            );
+
+
+            console.log(
+                "HD Rate:",
+                CURRENT_HD_RATE
+            );
+        }
+
+
+        catch (error) {
+
+            RATES_LOADED =
+                false;
+
+
+            console.error(
+                "Rate loading error:",
+                error
+            );
+
+
+            if (
+                get("ldRateDisplay")
+            ) {
+
+                get(
+                    "ldRateDisplay"
+                ).textContent =
+                    "ریٹ دستیاب نہیں";
+            }
+
+
+            if (
+                get("hdRateDisplay")
+            ) {
+
+                get(
+                    "hdRateDisplay"
+                ).textContent =
+                    "ریٹ دستیاب نہیں";
+            }
+        }
     }
 
 
@@ -547,18 +1014,21 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelectorAll(
             ".bag-qty, input[name='deliveryType']"
         )
-        .forEach(function (element) {
+        .forEach(
+            function (element) {
 
-            element.addEventListener(
-                "input",
-                calculateBagTotals
-            );
+                element.addEventListener(
+                    "input",
+                    calculateBagTotals
+                );
 
-            element.addEventListener(
-                "change",
-                calculateBagTotals
-            );
-        });
+
+                element.addEventListener(
+                    "change",
+                    calculateBagTotals
+                );
+            }
+        );
 
 
     calculateBagTotals();
@@ -578,20 +1048,58 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             async function () {
 
+                /* -----------------------------------------
+                   RATE CHECK
+                ----------------------------------------- */
+
+                if (!RATES_LOADED) {
+
+                    alert(
+                        "براہِ کرم چند سیکنڈ انتظار کریں۔ آج کے ریٹس لوڈ ہو رہے ہیں۔"
+                    );
+
+                    await loadRates();
+
+
+                    if (!RATES_LOADED) {
+
+                        alert(
+                            "آج کے ریٹس لوڈ نہیں ہو سکے۔ براہِ کرم کچھ دیر بعد دوبارہ کوشش کریں۔"
+                        );
+
+                        return;
+                    }
+                }
+
+
                 const name =
-                    getValue("customerName");
+                    getValue(
+                        "customerName"
+                    );
+
 
                 const shop =
-                    getValue("shopName");
+                    getValue(
+                        "shopName"
+                    );
+
 
                 const phone =
-                    getValue("phone");
+                    getValue(
+                        "phone"
+                    );
+
 
                 const address =
-                    getValue("address");
+                    getValue(
+                        "address"
+                    );
+
 
                 const area =
-                    getValue("deliveryArea");
+                    getValue(
+                        "deliveryArea"
+                    );
 
 
                 if (!name) {
@@ -652,17 +1160,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     calculateBagTotals();
 
 
-                orderButton.disabled = true;
+                orderButton.disabled =
+                    true;
+
 
                 orderButton.textContent =
                     "Order Gmail پر بھیجا جا رہا ہے...";
 
 
                 const form =
-                    document.createElement("form");
+                    document.createElement(
+                        "form"
+                    );
 
 
-                form.style.display = "none";
+                form.style.display =
+                    "none";
 
 
                 const fields = {
@@ -697,19 +1210,38 @@ document.addEventListener("DOMContentLoaded", function () {
                     Delivery_Type:
                         document.querySelector(
                             'input[name="deliveryType"]:checked'
-                        )?.value || "normal",
+                        )?.value ||
+                        "normal",
+
+                    LD_Rate_Per_KG:
+                        rupees(
+                            CURRENT_LD_RATE
+                        ),
+
+                    HD_Rate_Per_KG:
+                        rupees(
+                            CURRENT_HD_RATE
+                        ),
 
                     LD_Subtotal:
-                        rupees(totals.ld),
+                        rupees(
+                            totals.ld
+                        ),
 
                     HD_Subtotal:
-                        rupees(totals.hd),
+                        rupees(
+                            totals.hd
+                        ),
 
                     Delivery_Charges:
-                        rupees(totals.delivery),
+                        rupees(
+                            totals.delivery
+                        ),
 
                     Grand_Total:
-                        rupees(totals.total),
+                        rupees(
+                            totals.total
+                        ),
 
                     Platform:
                         "Janjua Traders PSB",
@@ -727,28 +1259,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 document
-                    .querySelectorAll(".bag-qty")
-                    .forEach(function (input, index) {
+                    .querySelectorAll(
+                        ".bag-qty"
+                    )
+                    .forEach(
+                        function (
+                            input,
+                            index
+                        ) {
 
-                        fields[
-                            "Bag_" + (index + 1)
-                        ] =
-                            `${input.dataset.type || ""} | ${input.dataset.size || ""} | Quantity: ${input.value || 0}`;
-                    });
+                            fields[
+                                "Bag_" +
+                                (index + 1)
+                            ] =
+
+                                `${input.dataset.type || ""} | ${input.dataset.size || ""} | Quantity: ${input.value || 0}`;
+                        }
+                    );
 
 
                 Object.keys(fields)
-                    .forEach(function (key) {
+                    .forEach(
+                        function (key) {
 
-                        setHidden(
-                            form,
-                            key,
-                            fields[key]
-                        );
-                    });
+                            setHidden(
+                                form,
+                                key,
+                                fields[key]
+                            );
+                        }
+                    );
 
 
-                document.body.appendChild(form);
+                document.body.appendChild(
+                    form
+                );
 
 
                 try {
@@ -758,7 +1303,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             FORM_SUBMIT_URL,
                             {
 
-                                method: "POST",
+                                method:
+                                    "POST",
 
                                 headers: {
 
@@ -772,7 +1318,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                 body:
                                     JSON.stringify(
                                         Object.fromEntries(
-                                            new FormData(form)
+                                            new FormData(
+                                                form
+                                            )
                                         )
                                     )
                             }
@@ -788,7 +1336,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     const result =
-                        get("submitMessage");
+                        get(
+                            "submitMessage"
+                        );
 
 
                     if (result) {
@@ -797,8 +1347,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             "✓ آپ کا Order کامیابی سے Gmail پر بھیج دیا گیا ہے۔ Order ID: " +
                             info.orderId;
 
+
                         result.style.display =
                             "block";
+
 
                         result.style.color =
                             "#176b2c";
@@ -806,13 +1358,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
 
+
                 catch (error) {
 
-                    console.error(error);
+                    console.error(
+                        error
+                    );
 
 
                     const result =
-                        get("submitMessage");
+                        get(
+                            "submitMessage"
+                        );
 
 
                     if (result) {
@@ -820,8 +1377,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         result.textContent =
                             "✗ Order Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
+
                         result.style.display =
                             "block";
+
 
                         result.style.color =
                             "#9a1c1c";
@@ -829,12 +1388,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
 
+
                 finally {
 
                     form.remove();
 
+
                     orderButton.disabled =
                         false;
+
 
                     orderButton.textContent =
                         "Order Submit کریں";
@@ -850,13 +1412,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function createHelpDesk() {
 
-        if (get("helpDeskCard")) {
+        if (
+            get("helpDeskCard")
+        ) {
+
             return;
         }
 
 
         const main =
-            document.querySelector("main.container");
+            document.querySelector(
+                "main.container"
+            );
 
 
         if (!main) {
@@ -865,7 +1432,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const card =
-            document.createElement("section");
+            document.createElement(
+                "section"
+            );
 
 
         card.id =
@@ -882,16 +1451,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 Help Desk Center
             </h2>
 
+
             <p>
                 اپنی شکایت، کسی مسئلے، رابطے یا کسی جائز
                 معلومات / کام کی درخواست کے لیے نیچے اپنا
                 پیغام درج کریں۔
             </p>
 
+
             <label for="helpName">
                 اپنا نام
                 <span class="help-required">*</span>
             </label>
+
 
             <input
                 id="helpName"
@@ -900,10 +1472,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 required
             >
 
+
             <label for="helpPhone">
                 Mobile / WhatsApp نمبر
                 <span class="help-required">*</span>
             </label>
+
 
             <input
                 id="helpPhone"
@@ -913,30 +1487,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 required
             >
 
+
             <label for="helpArea">
                 اپنا ایریا
                 <span class="help-required">*</span>
             </label>
 
+
             <select
                 id="helpArea"
                 required
             >
+
                 <option value="">
                     اپنا ایریا منتخب کریں
                 </option>
+
             </select>
+
 
             <label for="helpMessage">
                 آپ کا پیغام
                 <span class="help-required">*</span>
             </label>
 
+
             <textarea
                 id="helpMessage"
                 placeholder="یہاں اپنی شکایت، مسئلہ، رابطے یا کسی جائز کام کی درخواست لکھیں..."
                 required
             ></textarea>
+
 
             <button
                 id="helpSendButton"
@@ -946,6 +1527,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 Help Desk Message Send کریں
             </button>
 
+
             <div
                 id="helpResult"
                 class="submit-message"
@@ -954,32 +1536,49 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
 
-        main.appendChild(card);
+        main.appendChild(
+            card
+        );
 
 
         const helpArea =
-            get("helpArea");
+            get(
+                "helpArea"
+            );
 
 
-        fillAreaSelect(helpArea);
+        fillAreaSelect(
+            helpArea
+        );
 
 
-        /* Text cursor fix for Help Desk */
+        /* ---------------------------------------------
+           TEXT CURSOR FIX
+        --------------------------------------------- */
 
         [
             get("helpName"),
             get("helpPhone"),
             get("helpMessage")
         ]
+
         .filter(Boolean)
-        .forEach(function (field) {
 
-            field.style.direction = "ltr";
+        .forEach(
+            function (field) {
 
-            field.style.textAlign = "left";
+                field.style.direction =
+                    "ltr";
 
-            field.style.unicodeBidi = "plaintext";
-        });
+
+                field.style.textAlign =
+                    "left";
+
+
+                field.style.unicodeBidi =
+                    "plaintext";
+            }
+        );
 
 
         /* ---------------------------------------------
@@ -987,7 +1586,9 @@ document.addEventListener("DOMContentLoaded", function () {
         --------------------------------------------- */
 
         const helpButton =
-            get("helpSendButton");
+            get(
+                "helpSendButton"
+            );
 
 
         helpButton.addEventListener(
@@ -995,16 +1596,27 @@ document.addEventListener("DOMContentLoaded", function () {
             async function () {
 
                 const name =
-                    getValue("helpName");
+                    getValue(
+                        "helpName"
+                    );
+
 
                 const phone =
-                    getValue("helpPhone");
+                    getValue(
+                        "helpPhone"
+                    );
+
 
                 const area =
-                    getValue("helpArea");
+                    getValue(
+                        "helpArea"
+                    );
+
 
                 const message =
-                    getValue("helpMessage");
+                    getValue(
+                        "helpMessage"
+                    );
 
 
                 if (!name) {
@@ -1051,17 +1663,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     pakistanDateTime();
 
 
-                helpButton.disabled = true;
+                helpButton.disabled =
+                    true;
+
 
                 helpButton.textContent =
                     "Help Desk Message Gmail پر بھیجا جا رہا ہے...";
 
 
                 const helpForm =
-                    document.createElement("form");
+                    document.createElement(
+                        "form"
+                    );
 
 
-                helpForm.style.display = "none";
+                helpForm.style.display =
+                    "none";
 
 
                 const helpId =
@@ -1110,14 +1727,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 Object.keys(fields)
-                    .forEach(function (key) {
+                    .forEach(
+                        function (key) {
 
-                        setHidden(
-                            helpForm,
-                            key,
-                            fields[key]
-                        );
-                    });
+                            setHidden(
+                                helpForm,
+                                key,
+                                fields[key]
+                            );
+                        }
+                    );
 
 
                 document.body.appendChild(
@@ -1132,7 +1751,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             FORM_SUBMIT_URL,
                             {
 
-                                method: "POST",
+                                method:
+                                    "POST",
 
                                 headers: {
 
@@ -1164,7 +1784,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     const result =
-                        get("helpResult");
+                        get(
+                            "helpResult"
+                        );
 
 
                     if (result) {
@@ -1172,23 +1794,36 @@ document.addEventListener("DOMContentLoaded", function () {
                         result.textContent =
                             "✓ آپ کا Help Desk Message کامیابی سے Gmail پر بھیج دیا گیا ہے۔";
 
+
                         result.style.display =
                             "block";
+
 
                         result.style.color =
                             "#176b2c";
                     }
 
 
-                    get("helpName").value = "";
+                    get(
+                        "helpName"
+                    ).value = "";
 
-                    get("helpPhone").value = "";
 
-                    get("helpArea").value = "";
+                    get(
+                        "helpPhone"
+                    ).value = "";
 
-                    get("helpMessage").value = "";
 
+                    get(
+                        "helpArea"
+                    ).value = "";
+
+
+                    get(
+                        "helpMessage"
+                    ).value = "";
                 }
+
 
                 catch (error) {
 
@@ -1199,7 +1834,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     const result =
-                        get("helpResult");
+                        get(
+                            "helpResult"
+                        );
 
 
                     if (result) {
@@ -1207,8 +1844,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         result.textContent =
                             "✗ Help Desk Message Gmail پر نہیں بھیجا جا سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
 
+
                         result.style.display =
                             "block";
+
 
                         result.style.color =
                             "#9a1c1c";
@@ -1220,8 +1859,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     helpForm.remove();
 
+
                     helpButton.disabled =
                         false;
+
 
                     helpButton.textContent =
                         "Help Desk Message Send کریں";
@@ -1232,6 +1873,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
+       START RATE SYSTEM
+    ===================================================== */
+
+    createRateDisplay();
+
+
+    loadRates();
+
+
+    /* =====================================================
        START HELP DESK
     ===================================================== */
 
@@ -1239,24 +1890,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FINAL
+       FINAL CONSOLE
     ===================================================== */
 
     console.log(
         "Janjua Traders PSB FINAL JS loaded."
     );
 
+
+    console.log(
+        "Central LD / HD Rate System ACTIVE."
+    );
+
+
+    console.log(
+        "Customer Rate Display ACTIVE."
+    );
+
+
     console.log(
         "Delivery areas updated."
     );
+
 
     console.log(
         "Quantity alignment fixed."
     );
 
+
     console.log(
         "Text cursor direction fixed."
     );
+
 
     console.log(
         "Separate Help Desk ACTIVE."
