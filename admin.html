@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Janjua Traders - Admin Rate Panel</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                "Noto Nastaliq Urdu",
+                sans-serif;
+
+            background: #f4f7f5;
+
+            color: #1d2b22;
+
+            padding: 20px;
+        }
+
+        .container {
+
+            width: 100%;
+
+            max-width: 520px;
+
+            margin: 30px auto;
+        }
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .logo-title {
+
+            text-align: center;
+
+            margin-bottom: 24px;
+        }
+
+        .logo-title h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 25px;
+        }
+
+        .logo-title p {
+
+            margin: 0;
+
+            color: #68736d;
+        }
+
+        .rate-box {
+
+            margin-bottom: 18px;
+        }
+
+        .rate-box label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            font-size: 17px;
+        }
+
+        .rate-box input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #ccd5cf;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            direction: ltr;
+
+            text-align: left;
+
+            outline: none;
+        }
+
+        .rate-box input:focus {
+
+            border-color: #287a45;
+        }
+
+        .current {
+
+            margin-top: 7px;
+
+            color: #68736d;
+
+            font-size: 14px;
+        }
+
+        .save-button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            background: #176b2c;
+
+            color: white;
+
+            margin-top: 8px;
+        }
+
+        .save-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+        }
+
+        .status {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        .info {
+
+            margin-top: 20px;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            background: #f1f6f2;
+
+            line-height: 1.8;
+
+            font-size: 14px;
+        }
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #68736d;
+
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo-title">
+
+            <h1>
+                JANJUA TRADERS
+            </h1>
+
+            <p>
+                PSB Admin Rate Panel
+            </p>
+
+        </div>
+
+
+        <div class="rate-box">
+
+            <label for="ldRate">
+                LD Rate / KG
+            </label>
+
+            <input
+                id="ldRate"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                placeholder="مثلاً 290"
+            >
+
+            <div
+                id="currentLD"
+                class="current"
+            >
+                موجودہ LD Rate: لوڈ ہو رہا ہے...
+            </div>
+
+        </div>
+
+
+        <div class="rate-box">
+
+            <label for="hdRate">
+                HD Rate / KG
+            </label>
+
+            <input
+                id="hdRate"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+                placeholder="مثلاً 305"
+            >
+
+            <div
+                id="currentHD"
+                class="current"
+            >
+                موجودہ HD Rate: لوڈ ہو رہا ہے...
+            </div>
+
+        </div>
+
+
+        <button
+            id="saveButton"
+            class="save-button"
+            type="button"
+        >
+            ریٹ محفوظ کریں
+        </button>
+
+
+        <div
+            id="status"
+            class="status"
+        ></div>
+
+
+        <div class="info">
+
+            <strong>
+                اہم:
+            </strong>
+
+            یہ Panel ابھی صرف موجودہ
+            <strong>rates.json</strong>
+            سے ریٹ پڑھتا ہے۔
+
+            محفوظ طریقے سے نیا ریٹ GitHub پر
+            لکھنے والا حصہ اگلے مرحلے میں
+            جوڑا جائے گا۔
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        Janjua Traders PSB
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+const RATES_URL =
+    "rates.json?v=" + Date.now();
+
+
+const ldInput =
+    document.getElementById(
+        "ldRate"
+    );
+
+
+const hdInput =
+    document.getElementById(
+        "hdRate"
+    );
+
+
+const currentLD =
+    document.getElementById(
+        "currentLD"
+    );
+
+
+const currentHD =
+    document.getElementById(
+        "currentHD"
+    );
+
+
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
+
+
+const status =
+    document.getElementById(
+        "status"
+    );
+
+
+function showStatus(
+    message,
+    success
+) {
+
+    status.textContent =
+        message;
+
+    status.style.display =
+        "block";
+
+    if (success) {
+
+        status.style.color =
+            "#176b2c";
+
+        status.style.background =
+            "#e5f8ea";
+
+    } else {
+
+        status.style.color =
+            "#9a1c1c";
+
+        status.style.background =
+            "#fde8e8";
+    }
+}
+
+
+async function loadCurrentRates() {
+
+    try {
+
+        const response =
+            await fetch(
+                RATES_URL,
+                {
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Rates file could not be loaded."
+            );
+        }
+
+
+        const rates =
+            await response.json();
+
+
+        const ld =
+            Number(
+                rates.ldRate
+            ) || 0;
+
+
+        const hd =
+            Number(
+                rates.hdRate
+            ) || 0;
+
+
+        ldInput.value =
+            ld;
+
+
+        hdInput.value =
+            hd;
+
+
+        currentLD.textContent =
+            "موجودہ LD Rate: Rs. " +
+            ld.toLocaleString(
+                "en-PK"
+            ) +
+            " / KG";
+
+
+        currentHD.textContent =
+            "موجودہ HD Rate: Rs. " +
+            hd.toLocaleString(
+                "en-PK"
+            ) +
+            " / KG";
+
+
+        console.log(
+            "Current rates loaded:",
+            rates
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        currentLD.textContent =
+            "LD Rate لوڈ نہیں ہو سکا";
+
+
+        currentHD.textContent =
+            "HD Rate لوڈ نہیں ہو سکا";
+
+
+        showStatus(
+            "Rates file لوڈ نہیں ہو سکی۔",
+            false
+        );
+    }
+}
+
+
+saveButton.addEventListener(
+    "click",
+    function () {
+
+        const ld =
+            Number(
+                ldInput.value
+            );
+
+
+        const hd =
+            Number(
+                hdInput.value
+            );
+
+
+        if (
+            !Number.isFinite(ld) ||
+            ld < 0
+        ) {
+
+            showStatus(
+                "براہِ کرم درست LD Rate لکھیں۔",
+                false
+            );
+
+            return;
+        }
+
+
+        if (
+            !Number.isFinite(hd) ||
+            hd < 0
+        ) {
+
+            showStatus(
+                "براہِ کرم درست HD Rate لکھیں۔",
+                false
+            );
+
+            return;
+        }
+
+
+        /*
+         * SECURITY NOTE:
+         *
+         * یہاں browser سے GitHub پر براہِ راست
+         * rates.json نہیں لکھ رہے۔
+         *
+         * اگلے مرحلے میں محفوظ backend/API
+         * connection لگایا جائے گا۔
+         */
+
+
+        showStatus(
+            "ریٹ چیک ہو گئے ہیں۔ محفوظ Update System اگلے مرحلے میں جوڑا جائے گا۔",
+            true
+        );
+
+
+        console.log(
+            "New LD Rate:",
+            ld
+        );
+
+
+        console.log(
+            "New HD Rate:",
+            hd
+        );
+
+    }
+);
+
+
+loadCurrentRates();
+
+</script>
+
+</body>
+
+</html>
