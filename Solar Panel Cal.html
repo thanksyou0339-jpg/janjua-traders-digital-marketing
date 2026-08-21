@@ -2,411 +2,175 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Solar Panel Calculation Part 2</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Waqar Ali Janjua - Solar Panel Calculation Part 2</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#f2f7f4;
-    color:#17202a;
-}
-
-.container{
-    max-width:1150px;
-    margin:auto;
-    padding:15px;
-}
-
-/* HEADER */
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f2f7f4;color:#17202a}
+.container{max-width:1150px;margin:auto;padding:14px}
 
 .header{
-    position:relative;
-    overflow:hidden;
-    text-align:center;
-    color:white;
-    padding:28px 15px;
-    border-radius:20px;
-    margin-bottom:15px;
-    background:linear-gradient(135deg,#034d2d,#087443,#12a866);
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
+background:linear-gradient(135deg,#034d2d,#087443,#12a866);
+color:white;text-align:center;padding:28px 12px;
+border-radius:20px;margin-bottom:15px;position:relative;
+overflow:hidden
 }
 
-.header h1{
-    margin:0;
-    font-size:clamp(30px,7vw,52px);
-    animation:nameAnimation 3s infinite;
+.header h1{margin:0;font-size:42px;animation:pulse 3s infinite}
+.header h2{margin:8px 0;color:white;font-size:25px}
+.header p{margin:5px;font-size:13px}
+
+@keyframes pulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04);text-shadow:0 0 20px white}
 }
 
-.header h2{
-    margin:8px 0;
-    color:white;
-    font-size:clamp(18px,4vw,28px);
-}
-
-.header p{
-    margin:5px 0;
-    font-size:13px;
-}
-
-.sun{
-    position:absolute;
-    font-size:80px;
-    opacity:.12;
-    animation:sunAnimation 5s infinite;
-}
-
-.sun1{
-    left:5px;
-    top:-15px;
-}
-
-.sun2{
-    right:5px;
-    bottom:-20px;
-}
-
-@keyframes nameAnimation{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.04);
-        text-shadow:0 0 20px white;
-    }
-
-}
-
-@keyframes sunAnimation{
-
-    50%{
-        transform:rotate(20deg) translateY(-10px);
-    }
-
-}
-
-/* CARD */
+.sun{position:absolute;font-size:80px;opacity:.12}
+.sun1{left:5px;top:-20px}
+.sun2{right:5px;bottom:-20px}
 
 .card{
-    background:white;
-    padding:18px;
-    border-radius:15px;
-    margin-bottom:15px;
-    box-shadow:0 3px 15px rgba(0,0,0,.07);
+background:white;border-radius:15px;padding:17px;
+margin-bottom:15px;box-shadow:0 3px 15px rgba(0,0,0,.07)
 }
 
-h3{
-    margin-top:0;
-    color:#087443;
-}
-
-/* GRID */
+h3{margin-top:0;color:#087443}
 
 .grid{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:10px
 }
 
-label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:5px;
-}
+label{display:block;font-weight:bold;margin-bottom:5px}
 
-input,
-select{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccd5d9;
-    border-radius:8px;
-    background:white;
-    font-size:14px;
+input,select{
+width:100%;padding:10px;border:1px solid #ccd5d9;
+border-radius:8px;background:white;font-size:14px
 }
-
-/* BUTTONS */
 
 button{
-    border:0;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
+border:0;border-radius:8px;padding:9px 13px;
+cursor:pointer;font-weight:bold
 }
 
-.green{
-    background:#087443;
-    color:white;
-}
-
-.red{
-    background:#d93636;
-    color:white;
-}
-
-.gray{
-    background:#e6ebee;
-    color:#222;
-}
-
-.blue{
-    background:#1769aa;
-    color:white;
-}
-
-/* METRICS */
+.green{background:#087443;color:white}
+.red{background:#d93636;color:white}
+.gray{background:#e6ebee;color:#222}
+.blue{background:#1769aa;color:white}
 
 .metrics{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(160px,1fr));
-    gap:10px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:10px;margin-top:14px
 }
 
 .metric{
-    background:#f4faf7;
-    border:1px solid #d5e8dd;
-    padding:14px;
-    border-radius:11px;
+background:#f4faf7;border:1px solid #d5e8dd;
+padding:14px;border-radius:11px
 }
 
-.metric span{
-    display:block;
-    font-size:13px;
-}
-
-.metric strong{
-    display:block;
-    color:#087443;
-    font-size:22px;
-    margin-top:5px;
-}
-
-/* RESULT */
+.metric span{display:block;font-size:13px}
+.metric strong{display:block;color:#087443;font-size:22px;margin-top:5px}
 
 .result{
-    margin-top:12px;
-    padding:14px;
-    border-radius:12px;
-    line-height:1.9;
+margin-top:12px;padding:14px;border-radius:12px;
+line-height:1.9
 }
 
-.good{
-    background:#e7f7ed;
-    color:#087443;
-    border:1px solid #b9dfc7;
-}
-
-.bad{
-    background:#fff0f0;
-    color:#c62828;
-    border:1px solid #efbcbc;
-}
-
-.warning{
-    background:#fff8e8;
-    color:#a86600;
-    border:1px solid #efd69a;
-}
-
-/* LOAD LIST */
+.good{background:#e7f7ed;color:#087443;border:1px solid #b9dfc7}
+.bad{background:#fff0f0;color:#c62828;border:1px solid #efbcbc}
+.warning{background:#fff8e8;color:#a86600;border:1px solid #efd69a}
 
 .loadList{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(310px,1fr));
-    gap:10px;
-    margin-top:12px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+gap:10px
 }
 
 .loadRow{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:11px;
-    background:#f8fbf9;
-    border:1px solid #d8e7df;
-    border-radius:12px;
+display:flex;align-items:center;gap:7px;
+padding:10px;background:#f8fbf9;
+border:1px solid #d8e7df;border-radius:12px
 }
 
 .loadRow.active{
-    background:#eaf7ef;
-    border-color:#9bcfb0;
+background:#eaf7ef;border-color:#9bcfb0
 }
 
 .check{
-    width:22px !important;
-    height:22px;
-    accent-color:#087443;
-    flex-shrink:0;
+width:22px!important;height:22px;
+accent-color:#087443;flex-shrink:0
 }
 
-.loadName{
-    flex:1;
-    min-width:80px;
-}
-
-.loadName strong{
-    display:block;
-    color:#087443;
-}
-
-.loadName small{
-    color:#68737b;
-}
+.loadName{flex:1;min-width:80px}
+.loadName strong{display:block;color:#087443}
+.loadName small{color:#68737b}
 
 .qty{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    direction:ltr;
+display:flex;align-items:center;gap:4px;direction:ltr
 }
 
 .qty button{
-    width:32px;
-    height:32px;
-    font-size:20px;
-    padding:0;
-    background:#087443;
-    color:white;
+width:31px;height:31px;padding:0;
+font-size:20px;background:#087443;color:white
 }
 
 .qtyValue{
-    min-width:30px;
-    text-align:center;
-    font-size:17px;
-    font-weight:bold;
+min-width:28px;text-align:center;
+font-weight:bold;font-size:16px
 }
 
-.wattBox,
-.totalBox{
-    min-width:70px;
-    text-align:center;
-    font-weight:bold;
+.wattBox,.totalBox{
+min-width:65px;text-align:center;font-weight:bold
 }
 
-.totalBox{
-    color:#087443;
-}
+.totalBox{color:#087443}
 
 .statusMini{
-    min-width:80px;
-    text-align:center;
-    font-size:12px;
-    font-weight:bold;
+min-width:75px;text-align:center;
+font-size:12px;font-weight:bold
 }
 
-.ok{
-    color:#087443;
+.ok{color:#087443}
+.no{color:#c62828}
+
+table{
+width:100%;border-collapse:collapse;margin-top:12px
 }
 
-.no{
-    color:#c62828;
+th,td{
+border:1px solid #d8e2dd;padding:8px;text-align:center
 }
 
-/* TABLE */
-
-.controllerTable{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:12px;
-}
-
-.controllerTable th,
-.controllerTable td{
-    border:1px solid #d8e2dd;
-    padding:8px;
-    text-align:center;
-}
-
-.controllerTable th{
-    background:#e9f5ef;
-}
-
-/* CUSTOM */
-
-.customBox{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(150px,1fr));
-    gap:8px;
-}
+th{background:#e9f5ef}
 
 .note{
-    color:#68737b;
-    font-size:13px;
-    line-height:1.8;
+color:#68737b;font-size:13px;line-height:1.8
 }
-
-/* MOBILE */
 
 @media(max-width:650px){
-
-    .loadList{
-        grid-template-columns:1fr;
-    }
-
-    .loadRow{
-        flex-wrap:wrap;
-    }
-
-    .statusMini{
-        width:100%;
-        text-align:right;
-    }
-
-    .controllerTable{
-        font-size:12px;
-    }
-
+.header h1{font-size:30px}
+.header h2{font-size:19px}
+.loadList{grid-template-columns:1fr}
+.loadRow{flex-wrap:wrap}
+.statusMini{width:100%;text-align:right}
 }
-
-/* PRINT */
 
 @media print{
-
-    body{
-        background:white;
-    }
-
-    .noPrint{
-        display:none !important;
-    }
-
-    .card{
-        box-shadow:none;
-        border:1px solid #ddd;
-    }
-
-    .header{
-        background:white;
-        color:black;
-        border:1px solid #ddd;
-    }
-
-    .header h2{
-        color:black;
-    }
-
+body{background:white}
+.noPrint{display:none!important}
+.card{box-shadow:none;border:1px solid #ddd}
+.header{background:white;color:black;border:1px solid #ddd}
+.header h2{color:black}
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
-
 
 <!-- HEADER -->
 
@@ -415,38 +179,29 @@ button{
 <div class="sun sun1">☀️</div>
 <div class="sun sun2">☀️</div>
 
-<h1>
-Waqar Ali Janjua
-</h1>
+<h1>Waqar Ali Janjua</h1>
 
 <h2>
 ☀️ Solar Panel Calculation — Part 2
 </h2>
 
 <p>
-Solar Capacity • PWM / MPPT • AC/DC Load • Quantity • Automatic Calculation
+Solar Capacity • PWM / MPPT • AC/DC Load • Quantity • Offline
 </p>
 
 </div>
 
 
-<!-- SOLAR SETUP -->
+<!-- SOLAR -->
 
 <div class="card">
 
-<h3>
-☀️ Solar Panel + Battery + Controller
-</h3>
-
+<h3>☀️ Solar Panel Setup</h3>
 
 <div class="grid">
 
-
 <div>
-
-<label>
-ایک Solar Plate کتنے Watt کی ہے؟
-</label>
+<label>Solar Plate Watt</label>
 
 <select id="panelWatt">
 
@@ -468,247 +223,106 @@ Solar Capacity • PWM / MPPT • AC/DC Load • Quantity • Automatic Calculat
 <option value="900">900W</option>
 
 </select>
-
 </div>
 
 
 <div>
-
-<label>
-کل Solar Plates
-</label>
-
-<input
-id="panelQty"
-type="number"
-min="0"
-value="2"
->
-
+<label>Total Solar Plates</label>
+<input id="panelQty" type="number" min="0" value="2">
 </div>
 
 
 <div>
-
-<label>
-Battery / System Voltage
-</label>
+<label>Battery / System Voltage</label>
 
 <select id="systemVoltage">
 
-<option value="12">
-12V
-</option>
-
-<option value="24" selected>
-24V
-</option>
-
-<option value="48">
-48V
-</option>
+<option value="12">12V</option>
+<option value="24" selected>24V</option>
+<option value="48">48V</option>
 
 </select>
-
 </div>
 
 
 <div>
-
-<label>
-Controller Type
-</label>
+<label>Controller</label>
 
 <select id="controllerType">
 
-<option value="MPPT" selected>
-MPPT
-</option>
-
-<option value="PWM">
-PWM
-</option>
+<option value="MPPT" selected>MPPT</option>
+<option value="PWM">PWM</option>
 
 </select>
-
 </div>
 
 
 <div>
-
-<label>
-Solar Planning Efficiency %
-</label>
-
-<input
-id="solarEfficiency"
-type="number"
-min="1"
-max="100"
-value="80"
->
-
+<label>Solar Efficiency %</label>
+<input id="solarEfficiency" type="number" min="1" max="100" value="80">
 </div>
 
 
 <div>
-
-<label>
-Panel Vmp
-</label>
-
-<input
-id="panelVmp"
-type="number"
-value="41"
-step="0.1"
->
+<label>Daily Sun Hours</label>
+<input id="sunHours" type="number" min="0" step="0.1" value="5">
+</div>
 
 </div>
 
 
-<div>
-
-<label>
-Panel Voc
-</label>
-
-<input
-id="panelVoc"
-type="number"
-value="49"
-step="0.1"
->
-
-</div>
-
-
-</div>
-
-
-<div class="metrics" style="margin-top:15px">
-
+<div class="metrics">
 
 <div class="metric">
-
-<span>
-Total Solar Capacity
-</span>
-
-<strong id="solarCapacity">
-0 W
-</strong>
-
+<span>Total Solar</span>
+<strong id="solarCapacity">0 W</strong>
 </div>
-
 
 <div class="metric">
-
-<span>
-Solar kW
-</span>
-
-<strong id="solarKW">
-0 kW
-</strong>
-
+<span>Solar kW</span>
+<strong id="solarKW">0 kW</strong>
 </div>
-
 
 <div class="metric">
-
-<span>
-Planning Usable Power
-</span>
-
-<strong id="usableSolar">
-0 W
-</strong>
-
+<span>Usable Solar Power</span>
+<strong id="usableSolar">0 W</strong>
 </div>
-
 
 <div class="metric">
+<span>Controller Current</span>
+<strong id="controllerCurrent">0 A</strong>
+</div>
 
-<span>
-Estimated Controller Current
-</span>
-
-<strong id="controllerCurrent">
-0 A
-</strong>
+<div class="metric">
+<span>Daily Solar Units</span>
+<strong id="solarUnits">0.00</strong>
+</div>
 
 </div>
 
 
-</div>
-
-
-<div
-id="controllerResult"
-class="result good"
->
-
-Controller calculation یہاں ظاہر ہوگی۔
-
-</div>
-
-
-<div class="result">
-
-<strong>
-⚠️ Controller Note
-</strong>
-
-<br>
-
-MPPT کے لیے planning current =
-Solar Watts ÷ Battery Voltage۔
-
-اصل controller خریدتے وقت
-PV Voltage، PV Current، Voc، Vmp،
-Isc اور manufacturer specifications ضرور دیکھیں۔
-
-PWM میں panel voltage compatibility بہت اہم ہے۔
-
+<div id="controllerResult" class="result good">
+Controller calculation
 </div>
 
 
 <div style="overflow-x:auto">
 
-<table class="controllerTable">
+<table>
 
 <thead>
 
 <tr>
-
-<th>
-System
-</th>
-
-<th>
-Solar
-</th>
-
-<th>
-Controller
-</th>
-
-<th>
-Estimated Current
-</th>
-
-<th>
-Suggested Size
-</th>
-
+<th>System</th>
+<th>Solar</th>
+<th>Controller</th>
+<th>Estimated Amp</th>
+<th>Suggested Size</th>
 </tr>
 
 </thead>
 
-<tbody id="controllerTableBody">
-
-</tbody>
+<tbody id="controllerTable"></tbody>
 
 </table>
 
@@ -721,29 +335,18 @@ Suggested Size
 
 <div class="card">
 
-<h3>
-☑️ Solar پر چلنے والے Load
-</h3>
+<h3>☑️ Solar پر چلنے والے Load</h3>
 
 <p class="note">
 
-صرف Tick کریں۔
-
-Quantity کے
+صرف Tick کریں۔ Quantity کے
 <strong>− / +</strong>
-سے تعداد تبدیل کریں۔
-
-کوئی الگ Selected Load box نہیں ہے۔
+سے تعداد بدلیں۔
+Tick کرنے پر load خود calculation میں شامل ہوگا۔
 
 </p>
 
-
-<div
-id="loadList"
-class="loadList"
->
-
-</div>
+<div id="loadList" class="loadList"></div>
 
 </div>
 
@@ -752,197 +355,90 @@ class="loadList"
 
 <div class="card noPrint">
 
-<h3>
-➕ اپنا نیا Load شامل کریں
-</h3>
+<h3>➕ اپنا Load شامل کریں</h3>
 
-
-<div class="customBox">
-
+<div class="grid">
 
 <div>
-
-<label>
-Load Name
-</label>
-
-<input
-id="customName"
-placeholder="مثلاً Deep Freezer"
->
-
+<label>Load Name</label>
+<input id="customName" placeholder="مثلاً Deep Freezer">
 </div>
 
-
 <div>
-
-<label>
-Watts
-</label>
-
-<input
-id="customWatts"
-type="number"
-placeholder="500"
->
-
+<label>Watts</label>
+<input id="customWatts" type="number">
 </div>
 
-
 <div>
-
-<label>
-Quantity
-</label>
-
-<input
-id="customQty"
-type="number"
-min="1"
-value="1"
->
-
+<label>Quantity</label>
+<input id="customQty" type="number" min="1" value="1">
 </div>
 
-
 <div>
-
-<label>
-AC / DC
-</label>
+<label>AC / DC</label>
 
 <select id="customType">
-
-<option>
-AC
-</option>
-
-<option>
-DC
-</option>
-
+<option>AC</option>
+<option>DC</option>
 </select>
 
 </div>
 
-
 <div>
-
-<label>
-روزانہ گھنٹے
-</label>
-
-<input
-id="customHours"
-type="number"
-min="0"
-step="0.5"
-value="1"
->
-
+<label>روزانہ گھنٹے</label>
+<input id="customHours" type="number" min="0" value="1">
 </div>
 
-
 </div>
-
 
 <button
 class="green"
-style="padding:10px 18px;margin-top:10px"
-onclick="addCustomLoad()"
->
+style="margin-top:10px"
+onclick="addCustomLoad()">
 
-+ Load شامل کریں
++ Add Load
 
 </button>
 
 </div>
 
 
-<!-- SUMMARY -->
+<!-- LOAD RESULT -->
 
 <div class="card">
 
-<h3>
-📊 Solar Load کا مکمل حساب
-</h3>
-
+<h3>📊 Solar Load Calculation</h3>
 
 <div class="metrics">
 
+<div class="metric">
+<span>Total Running Load</span>
+<strong id="runningLoad">0 W</strong>
+</div>
 
 <div class="metric">
-
-<span>
-Running Load
-</span>
-
-<strong id="runningLoad">
-0 W
-</strong>
-
+<span>Daily Energy</span>
+<strong id="dailyEnergy">0 Wh</strong>
 </div>
-
 
 <div class="metric">
-
-<span>
-Daily Energy
-</span>
-
-<strong id="dailyEnergy">
-0 Wh
-</strong>
-
+<span>Daily Units</span>
+<strong id="dailyUnits">0.00</strong>
 </div>
-
 
 <div class="metric">
-
-<span>
-Daily Units
-</span>
-
-<strong id="dailyUnits">
-0.00
-</strong>
-
+<span>Maximum Surge</span>
+<strong id="surgeLoad">0 W</strong>
 </div>
-
 
 <div class="metric">
-
-<span>
-Maximum Surge
-</span>
-
-<strong id="surgeLoad">
-0 W
-</strong>
+<span>Solar Capacity</span>
+<strong id="solarCompare">0 W</strong>
+</div>
 
 </div>
 
-
-<div class="metric">
-
-<span>
-Solar Capacity
-</span>
-
-<strong id="solarForCompare">
-0 W
-</strong>
-
-</div>
-
-
-</div>
-
-
-<div
-id="overallStatus"
-class="result good"
->
+<div id="overallStatus" class="result good">
 
 🟢 ابھی کوئی Load منتخب نہیں ہے۔
 
@@ -955,52 +451,24 @@ class="result good"
 
 <div class="card">
 
-<h3>
-⏱️ Solar Load — 1، 2 اور 4 گھنٹے
-</h3>
-
+<h3>⏱️ 1 / 2 / 4 Hours Consumption</h3>
 
 <div class="metrics">
 
-
 <div class="metric">
-
-<span>
-1 Hour
-</span>
-
-<strong id="oneHour">
-0 Units
-</strong>
-
+<span>1 Hour</span>
+<strong id="hour1">0 Units</strong>
 </div>
 
-
 <div class="metric">
-
-<span>
-2 Hours
-</span>
-
-<strong id="twoHours">
-0 Units
-</strong>
-
+<span>2 Hours</span>
+<strong id="hour2">0 Units</strong>
 </div>
 
-
 <div class="metric">
-
-<span>
-4 Hours
-</span>
-
-<strong id="fourHours">
-0 Units
-</strong>
-
+<span>4 Hours</span>
+<strong id="hour4">0 Units</strong>
 </div>
-
 
 </div>
 
@@ -1011,96 +479,57 @@ class="result good"
 
 <div class="card noPrint">
 
-<button
-class="green"
-style="padding:10px 18px"
-onclick="saveData()"
->
-
-💾 Save Data
-
+<button class="green" onclick="saveData()">
+💾 Save
 </button>
 
-
-<button
-class="blue"
-style="padding:10px 18px"
-onclick="loadData()"
->
-
-📂 Load Data
-
+<button class="blue" onclick="loadData()">
+📂 Load
 </button>
 
-
-<button
-class="gray"
-style="padding:10px 18px"
-onclick="window.print()"
->
-
+<button class="gray" onclick="window.print()">
 🖨️ A4 Print
-
 </button>
 
-
-<button
-class="red"
-style="padding:10px 18px"
-onclick="clearAll()"
->
-
-🗑️ Clear All
-
+<button class="red" onclick="clearAll()">
+🗑️ Clear
 </button>
 
 </div>
 
-
-<!-- NOTE -->
 
 <div class="card">
 
 <p class="note">
 
-<strong>
-اہم نوٹ:
-</strong>
+<strong>اہم:</strong>
 
-<br>
+یہ ایک planning calculator ہے۔
+اصل Solar production موسم، دھوپ، temperature،
+shading، panel angle، wiring، inverter اور controller
+losses کی وجہ سے مختلف ہو سکتی ہے۔
 
-یہ Calculator planning اور estimation کے لیے ہے۔
+AC، refrigerator، pump اور motor کے starting surge
+کو inverter sizing میں ضرور دیکھیں۔
 
-اصل Solar output موسم، shading، temperature،
-panel angle، wiring losses، inverter losses اور
-controller losses کی وجہ سے مختلف ہو سکتا ہے۔
-
-AC، refrigerator، pump، motor اور compressor
-والے آلات کے starting surge کو ضرور دیکھیں۔
-
-Controller، inverter، battery، cables، breakers
-اور protection equipment خریدنے سے پہلے
-manufacturer specifications اور qualified
-solar technician سے final verification کریں۔
+PWM/MPPT خریدنے سے پہلے panel voltage/current،
+Voc، Vmp، Isc اور manufacturer specifications
+ضرور verify کریں۔
 
 </p>
 
 </div>
-
 
 </div>
 
 
 <script>
 
-
-/* =========================
+/* =================================
    DEFAULT LOADS
-========================= */
-
+================================= */
 
 const loads = [
-
 
 {
 id:"acFan",
@@ -1112,7 +541,6 @@ hours:8,
 surge:1.5
 },
 
-
 {
 id:"dcFan",
 name:"DC Fan",
@@ -1122,7 +550,6 @@ qty:2,
 hours:8,
 surge:1.2
 },
-
 
 {
 id:"acLight",
@@ -1134,7 +561,6 @@ hours:6,
 surge:1.1
 },
 
-
 {
 id:"dcLight",
 name:"DC Light",
@@ -1144,7 +570,6 @@ qty:4,
 hours:6,
 surge:1.1
 },
-
 
 {
 id:"tv",
@@ -1156,7 +581,6 @@ hours:5,
 surge:1.3
 },
 
-
 {
 id:"fridge",
 name:"Fridge",
@@ -1166,7 +590,6 @@ qty:1,
 hours:8,
 surge:3
 },
-
 
 {
 id:"ac",
@@ -1178,7 +601,6 @@ hours:6,
 surge:2.5
 },
 
-
 {
 id:"acPump",
 name:"AC Water Pump",
@@ -1188,7 +610,6 @@ qty:1,
 hours:1,
 surge:3
 },
-
 
 {
 id:"dcPump",
@@ -1200,7 +621,6 @@ hours:2,
 surge:1.3
 },
 
-
 {
 id:"washing",
 name:"Washing Machine",
@@ -1210,7 +630,6 @@ qty:1,
 hours:1,
 surge:2
 },
-
 
 {
 id:"iron",
@@ -1222,7 +641,6 @@ hours:1,
 surge:1.2
 },
 
-
 {
 id:"computer",
 name:"Computer",
@@ -1232,7 +650,6 @@ qty:1,
 hours:5,
 surge:1.5
 },
-
 
 {
 id:"router",
@@ -1244,7 +661,6 @@ hours:24,
 surge:1.1
 },
 
-
 {
 id:"otherAC",
 name:"Other AC Load",
@@ -1254,7 +670,6 @@ qty:1,
 hours:2,
 surge:1.5
 },
-
 
 {
 id:"otherDC",
@@ -1266,63 +681,53 @@ hours:2,
 surge:1.2
 }
 
-
 ];
 
-
-let selected = {};
-
-
-/* =========================
-   NUMBER
-========================= */
+let selected={};
 
 
-function num(id){
+/* =================================
+   NUMBER FUNCTION
+================================= */
 
-return Math.max(
-0,
-parseFloat(
+function n(id){
+
+let x=parseFloat(
 document.getElementById(id).value
-) || 0
 );
+
+return isNaN(x) || x<0 ? 0 : x;
 
 }
 
 
-/* =========================
-   BUILD LOAD CHECKLIST
-========================= */
+/* =================================
+   LOAD LIST
+================================= */
 
+function drawLoads(){
 
-function buildLoadList(){
+let box=document.getElementById(
+"loadList"
+);
 
-const box =
-document.getElementById("loadList");
-
-box.innerHTML = "";
+box.innerHTML="";
 
 
 loads.forEach(load=>{
 
-const active =
-!!selected[load.id];
+let active=!!selected[load.id];
 
-const quantity =
-active
+let q=active
 ?
 selected[load.id].qty
 :
 load.qty;
 
 
-box.innerHTML += `
+box.innerHTML+=`
 
-<div
-class="loadRow ${active ? "active" : ""}"
-id="row_${load.id}"
->
-
+<div class="loadRow ${active?"active":""}">
 
 <input
 
@@ -1330,9 +735,7 @@ class="check"
 
 type="checkbox"
 
-id="check_${load.id}"
-
-${active ? "checked" : ""}
+${active?"checked":""}
 
 onchange="toggleLoad('${load.id}')"
 
@@ -1346,7 +749,7 @@ ${load.name}
 </strong>
 
 <small>
-${load.type} • ${load.watts} W
+${load.type} • ${load.watts}W
 </small>
 
 </div>
@@ -1355,22 +758,17 @@ ${load.type} • ${load.watts} W
 <div class="qty">
 
 <button
-onclick="changeQty('${load.id}',-1)"
+onclick="quantity('${load.id}',-1)"
 >
 −
 </button>
 
-
-<span
-class="qtyValue"
-id="qty_${load.id}"
->
-${quantity}
+<span class="qtyValue">
+${q}
 </span>
 
-
 <button
-onclick="changeQty('${load.id}',1)"
+onclick="quantity('${load.id}',1)"
 >
 +
 </button>
@@ -1380,7 +778,7 @@ onclick="changeQty('${load.id}',1)"
 
 <div class="wattBox">
 
-${load.watts} W
+${load.watts}W
 
 </div>
 
@@ -1390,11 +788,7 @@ class="totalBox"
 id="total_${load.id}"
 >
 
-${active
-?
-(load.watts * quantity)+" W"
-:
-"—"}
+${active ? load.watts*q+"W":"—"}
 
 </div>
 
@@ -1403,8 +797,8 @@ ${active
 class="statusMini"
 id="status_${load.id}"
 >
-</div>
 
+</div>
 
 </div>
 
@@ -1415,29 +809,22 @@ id="status_${load.id}"
 }
 
 
-/* =========================
-   CHECK / UNCHECK
-========================= */
-
+/* =================================
+   CHECKBOX
+================================= */
 
 function toggleLoad(id){
 
-const load =
-loads.find(x=>x.id===id);
-
-const checkbox =
-document.getElementById(
-"check_"+id
+let load=loads.find(
+x=>x.id===id
 );
+
+let checkbox=event.target;
 
 
 if(checkbox.checked){
 
-selected[id] = {
-
-...load
-
-};
+selected[id]={...load};
 
 }
 
@@ -1447,199 +834,176 @@ delete selected[id];
 
 }
 
-
-buildLoadList();
+drawLoads();
 
 calculate();
 
 }
 
 
-/* =========================
-   QUANTITY + / -
-========================= */
+/* =================================
+   QUANTITY
+================================= */
 
+function quantity(id,change){
 
-function changeQty(id,delta){
+let load=loads.find(
+x=>x.id===id
+);
 
-const load =
-loads.find(x=>x.id===id);
-
-
-if(!load){
-
-return;
-
-}
+if(!load)return;
 
 
 if(!selected[id]){
 
-selected[id] = {
-
-...load
-
-};
+selected[id]={...load};
 
 }
 
 
-selected[id].qty =
-Math.max(
+selected[id].qty=Math.max(
 1,
-(selected[id].qty || 1) + delta
+selected[id].qty+change
 );
 
 
-buildLoadList();
+drawLoads();
 
 calculate();
 
 }
 
 
-/* =========================
-   SOLAR + CONTROLLER
-========================= */
+/* =================================
+   SOLAR CALCULATION
+================================= */
+
+function calculateSolar(){
+
+let watt=n("panelWatt");
+
+let plates=n("panelQty");
+
+let voltage=n("systemVoltage");
+
+let efficiency=
+n("solarEfficiency")/100;
+
+let sunHours=n("sunHours");
 
 
-function controllerCalc(){
+let solar=
+watt*plates;
 
-const solar =
-num("panelWatt") *
-num("panelQty");
+let usable=
+solar*efficiency;
+
+let amps=
+solar/(voltage||1);
+
+let controllerSize=
+Math.ceil(
+(amps*1.25)/10
+)*10;
 
 
-const voltage =
-num("systemVoltage");
+document.getElementById(
+"solarCapacity"
+).textContent=
+solar.toFixed(0)+" W";
 
 
-const type =
+document.getElementById(
+"solarKW"
+).textContent=
+(solar/1000).toFixed(2)+" kW";
+
+
+document.getElementById(
+"usableSolar"
+).textContent=
+usable.toFixed(0)+" W";
+
+
+document.getElementById(
+"controllerCurrent"
+).textContent=
+amps.toFixed(1)+" A";
+
+
+document.getElementById(
+"solarUnits"
+).textContent=
+(
+solar*
+sunHours*
+efficiency/1000
+).toFixed(2);
+
+
+let type=
 document.getElementById(
 "controllerType"
 ).value;
 
 
-const current =
-solar / (voltage || 1);
-
-
-/*
-25% design margin
-*/
-
-const suggested =
-Math.ceil(
-(current * 1.25) / 10
-) * 10;
-
-
-document.getElementById(
-"controllerCurrent"
-).textContent =
-current.toFixed(1)+" A";
-
-
 document.getElementById(
 "controllerResult"
-).className =
-"result "+
-(
-current <= 200
-?
-"good"
-:
-"warning"
-);
-
-
-document.getElementById(
-"controllerResult"
-).innerHTML = `
+).innerHTML=`
 
 <strong>
-${type} Selected
+${type} Controller
 </strong>
 
 <br>
 
-Solar Array:
-
-<b>
-${solar.toFixed(0)}W
-</b>
+Solar Capacity:
+<b>${solar.toFixed(0)}W</b>
 
 <br>
 
-System:
-
-<b>
-${voltage}V
-</b>
+System Voltage:
+<b>${voltage}V</b>
 
 <br>
 
-Planning Controller Current:
-
-<b>
-${current.toFixed(1)}A
-</b>
+Estimated Controller Current:
+<b>${amps.toFixed(1)}A</b>
 
 <br>
 
-Suggested Controller:
-
-<b>
-${suggested}A یا اس سے اوپر
-</b>
-
-<br>
-
-Final controller selection میں
-PV voltage/current limits ضرور چیک کریں۔
+Suggested Size:
+<b>${controllerSize}A یا اس سے اوپر</b>
 
 `;
 
 
-let rows = "";
+let table="";
 
 
-[12,24,48].forEach(voltageValue=>{
+[12,24,48].forEach(v=>{
 
+let a=solar/v;
 
-const amps =
-solar / voltageValue;
-
-
-const suggestedSize =
+let s=
 Math.ceil(
-(amps * 1.25) / 10
-) * 10;
+(a*1.25)/10
+)*10;
 
 
-rows += `
+table+=`
 
 <tr>
 
-<td>
-${voltageValue}V
-</td>
+<td>${v}V</td>
 
-<td>
-${solar.toFixed(0)}W
-</td>
+<td>${solar.toFixed(0)}W</td>
 
-<td>
-${type}
-</td>
+<td>${type}</td>
 
-<td>
-${amps.toFixed(1)}A
-</td>
+<td>${a.toFixed(1)}A</td>
 
-<td>
-${suggestedSize}A+
-</td>
+<td>${s}A+</td>
 
 </tr>
 
@@ -1649,189 +1013,143 @@ ${suggestedSize}A+
 
 
 document.getElementById(
-"controllerTableBody"
-).innerHTML =
-rows;
+"controllerTable"
+).innerHTML=
+table;
+
+
+return usable;
 
 }
 
 
-/* =========================
-   MAIN CALCULATION
-========================= */
-
+/* =================================
+   LOAD CALCULATION
+================================= */
 
 function calculate(){
 
-const panel =
-num("panelWatt");
+let usable=
+calculateSolar();
 
 
-const quantity =
-num("panelQty");
+let running=0;
 
+let dailyWh=0;
 
-const solar =
-panel * quantity;
-
-
-const efficiency =
-num("solarEfficiency") / 100;
-
-
-const usableSolar =
-solar * efficiency;
-
-
-document.getElementById(
-"solarCapacity"
-).textContent =
-solar.toFixed(0)+" W";
-
-
-document.getElementById(
-"solarKW"
-).textContent =
-(solar/1000).toFixed(2)+" kW";
-
-
-document.getElementById(
-"usableSolar"
-).textContent =
-usableSolar.toFixed(0)+" W";
-
-
-document.getElementById(
-"solarForCompare"
-).textContent =
-solar.toFixed(0)+" W";
-
-
-let runningLoad = 0;
-
-let dailyEnergy = 0;
-
-let maximumSurge = 0;
+let surge=0;
 
 
 Object.values(selected)
 .forEach(load=>{
 
+let total=
+load.watts*
+load.qty;
 
-const totalWatts =
-load.watts * load.qty;
+running+=total;
 
+dailyWh+=
+total*
+load.hours;
 
-runningLoad +=
-totalWatts;
-
-
-dailyEnergy +=
-totalWatts * load.hours;
-
-
-const surge =
-totalWatts * load.surge;
-
-
-maximumSurge =
-Math.max(
-maximumSurge,
-surge
+surge=Math.max(
+surge,
+total*load.surge
 );
-
 
 });
 
 
 document.getElementById(
 "runningLoad"
-).textContent =
-runningLoad.toFixed(0)+" W";
+).textContent=
+running.toFixed(0)+" W";
 
 
 document.getElementById(
 "dailyEnergy"
-).textContent =
-dailyEnergy.toFixed(0)+" Wh";
+).textContent=
+dailyWh.toFixed(0)+" Wh";
 
 
 document.getElementById(
 "dailyUnits"
-).textContent =
-(dailyEnergy/1000).toFixed(2);
+).textContent=
+(dailyWh/1000).toFixed(2);
 
 
 document.getElementById(
 "surgeLoad"
-).textContent =
-maximumSurge.toFixed(0)+" W";
+).textContent=
+surge.toFixed(0)+" W";
+
+
+document.getElementById(
+"solarCompare"
+).textContent=
+(
+n("panelWatt")*
+n("panelQty")
+).toFixed(0)+" W";
 
 
 /* HOURS */
 
-
 document.getElementById(
-"oneHour"
-).textContent =
-(runningLoad/1000).toFixed(2)
+"hour1"
+).textContent=
+(running/1000).toFixed(2)
 +" Units";
 
 
 document.getElementById(
-"twoHours"
-).textContent =
-(runningLoad*2/1000).toFixed(2)
+"hour2"
+).textContent=
+(running*2/1000).toFixed(2)
 +" Units";
 
 
 document.getElementById(
-"fourHours"
-).textContent =
-(runningLoad*4/1000).toFixed(2)
+"hour4"
+).textContent=
+(running*4/1000).toFixed(2)
 +" Units";
 
 
-/* EACH LOAD STATUS */
-
+/* INDIVIDUAL LOAD STATUS */
 
 Object.values(selected)
 .forEach(load=>{
 
+let total=
+load.watts*
+load.qty;
 
-const totalWatts =
-load.watts * load.qty;
-
-
-const status =
+let element=
 document.getElementById(
 "status_"+load.id
 );
 
-
-if(!status){
-
-return;
-
-}
+if(!element)return;
 
 
-if(totalWatts <= usableSolar){
+if(total<=usable){
 
-status.className =
+element.className=
 "statusMini ok";
 
-status.textContent =
+element.textContent=
 "✓ چل سکتا";
 
 }
 
 else{
 
-status.className =
+element.className=
 "statusMini no";
 
-status.textContent =
+element.textContent=
 "✕ نہیں چل سکتا";
 
 }
@@ -1839,31 +1157,30 @@ status.textContent =
 });
 
 
-/* OVERALL STATUS */
+/* OVERALL */
 
-
-const overall =
+let result=
 document.getElementById(
 "overallStatus"
 );
 
 
-if(runningLoad === 0){
+if(running===0){
 
-overall.className =
+result.className=
 "result good";
 
-overall.innerHTML =
+result.innerHTML=
 "🟢 ابھی کوئی Load منتخب نہیں ہے۔";
 
 }
 
-else if(runningLoad <= usableSolar){
+else if(running<=usable){
 
-overall.className =
+result.className=
 "result good";
 
-overall.innerHTML = `
+result.innerHTML=`
 
 🟢 <strong>
 پورا منتخب Load Solar پر چل سکتا ہے۔
@@ -1872,20 +1189,17 @@ overall.innerHTML = `
 <br>
 
 Usable Solar:
-
-${usableSolar.toFixed(0)}W
-
-<br>
-
-Load:
-
-${runningLoad.toFixed(0)}W
+${usable.toFixed(0)}W
 
 <br>
 
-باقی Margin:
+Total Load:
+${running.toFixed(0)}W
 
-${(usableSolar-runningLoad).toFixed(0)}W
+<br>
+
+Remaining:
+${(usable-running).toFixed(0)}W
 
 `;
 
@@ -1893,10 +1207,10 @@ ${(usableSolar-runningLoad).toFixed(0)}W
 
 else{
 
-overall.className =
+result.className=
 "result bad";
 
-overall.innerHTML = `
+result.innerHTML=`
 
 🔴 <strong>
 پورا Load Solar پر نہیں چل سکتا۔
@@ -1905,70 +1219,59 @@ overall.innerHTML = `
 <br>
 
 Usable Solar:
-
-${usableSolar.toFixed(0)}W
+${usable.toFixed(0)}W
 
 <br>
 
-Load:
-
-${runningLoad.toFixed(0)}W
+Total Load:
+${running.toFixed(0)}W
 
 <br>
 
 کمی:
+${(running-usable).toFixed(0)}W
 
-${(runningLoad-usableSolar).toFixed(0)}W
+<br><br>
 
-<br>
-
-Quantity کم کریں یا مزید Solar Plates شامل کریں۔
+Quantity کم کریں یا Solar Plates بڑھائیں۔
 
 `;
 
 }
 
-
-controllerCalc();
-
 }
 
 
-/* =========================
+/* =================================
    CUSTOM LOAD
-========================= */
-
+================================= */
 
 function addCustomLoad(){
 
-const name =
+let name=
 document.getElementById(
 "customName"
 ).value.trim();
 
+let watts=
+n("customWatts");
 
-const watts =
-num("customWatts");
-
-
-const quantity =
+let qty=
 Math.max(
 1,
-num("customQty")
+n("customQty")
 );
 
-
-const type =
+let type=
 document.getElementById(
 "customType"
 ).value;
 
+let hours=
+n("customHours");
 
-const hours =
-num("customHours");
 
-
-if(!name || watts <= 0){
+if(!name || watts<=0){
 
 alert(
 "Load Name اور Watts درج کریں۔"
@@ -1979,11 +1282,11 @@ return;
 }
 
 
-const id =
+let id=
 "custom_"+Date.now();
 
 
-loads.push({
+let load={
 
 id:id,
 
@@ -1993,52 +1296,47 @@ type:type,
 
 watts:watts,
 
-qty:quantity,
+qty:qty,
 
 hours:hours,
 
-surge:
-type === "AC"
+surge:type==="AC"
 ?
 1.5
 :
 1.2
 
-});
-
-
-selected[id] = {
-
-...loads[loads.length-1]
-
 };
 
 
-buildLoadList();
+loads.push(load);
 
-calculate();
+selected[id]={...load};
 
 
 document.getElementById(
 "customName"
 ).value="";
 
-
 document.getElementById(
 "customWatts"
 ).value="";
 
+
+drawLoads();
+
+calculate();
+
 }
 
 
-/* =========================
+/* =================================
    SAVE
-========================= */
-
+================================= */
 
 function saveData(){
 
-const data = {
+let data={
 
 panelWatt:
 document.getElementById(
@@ -2065,14 +1363,9 @@ document.getElementById(
 "solarEfficiency"
 ).value,
 
-panelVmp:
+sunHours:
 document.getElementById(
-"panelVmp"
-).value,
-
-panelVoc:
-document.getElementById(
-"panelVoc"
+"sunHours"
 ).value,
 
 selected:selected
@@ -2081,35 +1374,33 @@ selected:selected
 
 
 localStorage.setItem(
-"waqarSolarPart2Final",
+"solarOfflineData",
 JSON.stringify(data)
 );
 
 
 alert(
-"Data محفوظ ہوگیا۔"
+"Data Offline محفوظ ہوگیا۔"
 );
 
 }
 
 
-/* =========================
-   LOAD
-========================= */
-
+/* =================================
+   LOAD SAVED
+================================= */
 
 function loadData(){
 
-const saved =
+let data=
 JSON.parse(
 localStorage.getItem(
-"waqarSolarPart2Final"
-)
-|| "null"
+"solarOfflineData"
+) || "null"
 );
 
 
-if(!saved){
+if(!data){
 
 alert(
 "کوئی Saved Data نہیں ملا۔"
@@ -2120,38 +1411,47 @@ return;
 }
 
 
-const fields = [
-
-"panelWatt",
-"panelQty",
-"systemVoltage",
-"controllerType",
-"solarEfficiency",
-"panelVmp",
-"panelVoc"
-
-];
+document.getElementById(
+"panelWatt"
+).value=
+data.panelWatt;
 
 
-fields.forEach(id=>{
+document.getElementById(
+"panelQty"
+).value=
+data.panelQty;
 
 
-if(saved[id] !== undefined){
-
-document.getElementById(id)
-.value =
-saved[id];
-
-}
-
-});
+document.getElementById(
+"systemVoltage"
+).value=
+data.systemVoltage;
 
 
-selected =
-saved.selected || {};
+document.getElementById(
+"controllerType"
+).value=
+data.controllerType;
 
 
-buildLoadList();
+document.getElementById(
+"solarEfficiency"
+).value=
+data.solarEfficiency;
+
+
+document.getElementById(
+"sunHours"
+).value=
+data.sunHours;
+
+
+selected=
+data.selected || {};
+
+
+drawLoads();
 
 calculate();
 
@@ -2163,16 +1463,15 @@ alert(
 }
 
 
-/* =========================
+/* =================================
    CLEAR
-========================= */
-
+================================= */
 
 function clearAll(){
 
 if(
 !confirm(
-"تمام Tick اور Saved Data صاف کریں؟"
+"کیا تمام selected loads اور saved data صاف کرنا ہے؟"
 )
 ){
 
@@ -2181,46 +1480,40 @@ return;
 }
 
 
-selected = {};
+selected={};
 
 
 localStorage.removeItem(
-"waqarSolarPart2Final"
+"solarOfflineData"
 );
 
 
-buildLoadList();
+drawLoads();
 
 calculate();
 
 }
 
 
-/* =========================
-   LIVE CALCULATION
-========================= */
-
+/* =================================
+   LIVE UPDATE
+================================= */
 
 [
-
 "panelWatt",
 "panelQty",
 "systemVoltage",
 "controllerType",
 "solarEfficiency",
-"panelVmp",
-"panelVoc"
-
+"sunHours"
 ]
 .forEach(id=>{
-
 
 document.getElementById(id)
 .addEventListener(
 "input",
 calculate
 );
-
 
 document.getElementById(id)
 .addEventListener(
@@ -2231,9 +1524,11 @@ calculate
 });
 
 
-/* START */
+/* =================================
+   START
+================================= */
 
-buildLoadList();
+drawLoads();
 
 calculate();
 
