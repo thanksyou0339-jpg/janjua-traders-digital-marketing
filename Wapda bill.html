@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GENEVA Bill Calculator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f2f5f8;
+    color:#17202a;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:14px;
+}
+
+.header{
+    background:linear-gradient(135deg,#071525,#142b44,#087443);
+    color:white;
+    text-align:center;
+    padding:25px 12px;
+    border-radius:18px;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0;
+    font-size:38px;
+}
+
+.header h2{
+    margin:8px 0 0;
+    color:#fff;
+    font-size:22px;
+}
+
+.header p{
+    margin:7px 0 0;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:17px;
+    margin-bottom:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+h3{
+    color:#087443;
+    margin-top:0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:11px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccd5dc;
+    border-radius:8px;
+    background:white;
+    font-size:14px;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:10px 14px;
+    margin:4px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.green{
+    background:#087443;
+    color:white;
+}
+
+.blue{
+    background:#1769aa;
+    color:white;
+}
+
+.gray{
+    background:#e7ecef;
+    color:#222;
+}
+
+.red{
+    background:#d93636;
+    color:white;
+}
+
+.metrics{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(165px,1fr));
+    gap:10px;
+    margin-top:15px;
+}
+
+.metric{
+    background:#f5faf7;
+    border:1px solid #d7e9df;
+    border-radius:11px;
+    padding:13px;
+}
+
+.metric span{
+    display:block;
+    font-size:13px;
+}
+
+.metric strong{
+    display:block;
+    margin-top:5px;
+    color:#087443;
+    font-size:22px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+
+th,td{
+    border:1px solid #d9e0e5;
+    padding:8px;
+    text-align:center;
+}
+
+th{
+    background:#0d1b2a;
+    color:white;
+}
+
+.rateInput{
+    min-width:90px;
+}
+
+.result{
+    margin-top:14px;
+    padding:15px;
+    border-radius:12px;
+    line-height:1.9;
+}
+
+.good{
+    background:#eaf8ef;
+    border:1px solid #b9dfc6;
+    color:#087443;
+}
+
+.warning{
+    background:#fff8e8;
+    border:1px solid #efd69a;
+    color:#8a5a00;
+}
+
+.compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.compareBox{
+    padding:15px;
+    border-radius:12px;
+    background:#f7f9fa;
+    border:1px solid #dce3e7;
+}
+
+.compareBox h4{
+    margin-top:0;
+}
+
+.note{
+    color:#68737b;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.bigTotal{
+    font-size:30px;
+    color:#087443;
+    font-weight:bold;
+}
+
+@media(max-width:650px){
+
+    .header h1{
+        font-size:29px;
+    }
+
+    .header h2{
+        font-size:18px;
+    }
+
+    .compare{
+        grid-template-columns:1fr;
+    }
+
+    table{
+        font-size:12px;
+        min-width:650px;
+    }
+
+    .tableScroll{
+        overflow-x:auto;
+    }
+}
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .noPrint{
+        display:none!important;
+    }
+
+    .card{
+        box-shadow:none;
+        border:1px solid #ddd;
+    }
+
+    .header{
+        background:white;
+        color:black;
+        border:1px solid #ddd;
+    }
+
+    .header h2{
+        color:black;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>💰 GENEVA Bill Calculator</h1>
+
+<h2>Electricity Unit & Bill Calculator</h2>
+
+<p>
+Units • Slab Rates • Fixed Charges • GST • FCA • Other Charges
+</p>
+
+</div>
+
+
+<!-- BASIC INPUT -->
+
+<div class="card">
+
+<h3>⚡ 1۔ بنیادی معلومات</h3>
+
+<div class="grid">
+
+<div>
+<label>ماہانہ Units</label>
+<input
+id="units"
+type="number"
+min="0"
+step="0.01"
+value="180"
+>
+</div>
+
+<div>
+<label>Consumer Type</label>
+
+<select id="consumerType">
+
+<option value="protected">
+Protected
+</option>
+
+<option value="nonprotected">
+Non-Protected
+</option>
+
+</select>
+
+</div>
+
+<div>
+<label>GST %</label>
+<input
+id="gst"
+type="number"
+min="0"
+step="0.01"
+value="18"
+>
+</div>
+
+<div>
+<label>FCA فی Unit (Rs)</label>
+<input
+id="fca"
+type="number"
+min="0"
+step="0.01"
+value="3.30"
+>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- RATE TABLE -->
+
+<div class="card">
+
+<h3>📊 2۔ Unit Slab Rates</h3>
+
+<p class="note">
+یہ rates screenshot کے مطابق رکھے گئے ہیں۔ آپ ہر rate کو manually تبدیل بھی کر سکتے ہیں۔
+</p>
+
+<div class="tableScroll">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Slab</th>
+<th>Units</th>
+<th>Protected Rate</th>
+<th>Non-Protected Rate</th>
+<th>اس Slab کے Units</th>
+<th>Energy Cost</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>1–50</td>
+
+<td>
+<input class="rateInput" id="p1" type="number" value="3.95">
+</td>
+
+<td>
+<input class="rateInput" id="np1" type="number" value="3.95">
+</td>
+
+<td id="used1">0</td>
+<td id="cost1">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>2</td>
+<td>51–100</td>
+
+<td>
+<input class="rateInput" id="p2" type="number" value="7.74">
+</td>
+
+<td>
+<input class="rateInput" id="np2" type="number" value="7.74">
+</td>
+
+<td id="used2">0</td>
+<td id="cost2">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>3</td>
+<td>101–200</td>
+
+<td>
+<input class="rateInput" id="p3" type="number" value="13.01">
+</td>
+
+<td>
+<input class="rateInput" id="np3" type="number" value="13.01">
+</td>
+
+<td id="used3">0</td>
+<td id="cost3">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>4</td>
+<td>201–300</td>
+
+<td>
+<input class="rateInput" id="p4" type="number" value="0">
+</td>
+
+<td>
+<input class="rateInput" id="np4" type="number" value="33.10">
+</td>
+
+<td id="used4">0</td>
+<td id="cost4">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>5</td>
+<td>301–400</td>
+
+<td>
+<input class="rateInput" id="p5" type="number" value="0">
+</td>
+
+<td>
+<input class="rateInput" id="np5" type="number" value="37.99">
+</td>
+
+<td id="used5">0</td>
+<td id="cost5">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>6</td>
+<td>401–500</td>
+
+<td>
+<input class="rateInput" id="p6" type="number" value="0">
+</td>
+
+<td>
+<input class="rateInput" id="np6" type="number" value="40.22">
+</td>
+
+<td id="used6">0</td>
+<td id="cost6">Rs 0</td>
+</tr>
+
+
+<tr>
+<td>7</td>
+<td>500+</td>
+
+<td>
+<input class="rateInput" id="p7" type="number" value="0">
+</td>
+
+<td>
+<input class="rateInput" id="np7" type="number" value="42.50">
+</td>
+
+<td id="used7">0</td>
+<td id="cost7">Rs 0</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- ENERGY SUMMARY -->
+
+<div class="card">
+
+<h3>🧮 3۔ Units کا حساب</h3>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Total Units</span>
+<strong id="totalUnits">0</strong>
+</div>
+
+<div class="metric">
+<span>Energy Charges</span>
+<strong id="energyCharges">Rs 0</strong>
+</div>
+
+<div class="metric">
+<span>Average Rate</span>
+<strong id="averageRate">Rs 0</strong>
+</div>
+
+</div>
+
+<div id="slabMessage" class="result good">
+Slab calculation
+</div>
+
+</div>
+
+
+<!-- FIXED CHARGES -->
+
+<div class="card">
+
+<h3>🏠 4۔ Fixed Charges</h3>
+
+<div class="grid">
+
+<div>
+<label>
+Protected Fixed Charges (Rs)
+</label>
+
+<input
+id="protectedFixed"
+type="number"
+value="300"
+>
+</div>
+
+<div>
+<label>
+Non-Protected Fixed Charges (Rs)
+</label>
+
+<input
+id="nonProtectedFixed"
+type="number"
+value="400"
+>
+</div>
+
+</div>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Applied Fixed Charges</span>
+<strong id="fixedCharges">Rs 0</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- OTHER CHARGES -->
+
+<div class="card">
+
+<h3>🧾 5۔ Other Charges</h3>
+
+<p class="note">
+یہ charges الگ رکھے گئے ہیں تاکہ آپ اصل bill کے مطابق manually داخل کرکے
+Energy + Fixed + Other Charges کو compare کر سکیں۔
+</p>
+
+<div class="grid">
+
+<div>
+<label>Electricity Duty / ED</label>
+<input id="ed" type="number" value="0">
+</div>
+
+<div>
+<label>TV Fee</label>
+<input id="tvFee" type="number" value="0">
+</div>
+
+<div>
+<label>Meter / Service Charges</label>
+<input id="meterCharges" type="number" value="0">
+</div>
+
+<div>
+<label>Other Charges</label>
+<input id="otherCharges" type="number" value="0">
+</div>
+
+</div>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Total Other Charges</span>
+<strong id="totalOther">Rs 0</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TAX / FCA -->
+
+<div class="card">
+
+<h3>💰 6۔ GST اور FCA</h3>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Taxable Amount</span>
+<strong id="taxable">Rs 0</strong>
+</div>
+
+<div class="metric">
+<span>GST</span>
+<strong id="gstAmount">Rs 0</strong>
+</div>
+
+<div class="metric">
+<span>Base Bill</span>
+<strong id="baseBill">Rs 0</strong>
+</div>
+
+<div class="metric">
+<span>FCA</span>
+<strong id="fcaAmount">Rs 0</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FINAL BILL -->
+
+<div class="card">
+
+<h3>🧮 7۔ Final Bill Calculation</h3>
+
+<div class="compare">
+
+<div class="compareBox">
+
+<h4>📌 Calculator Result</h4>
+
+<p>
+Energy Charges:
+<strong id="finalEnergy">Rs 0</strong>
+</p>
+
+<p>
+Fixed Charges:
+<strong id="finalFixed">Rs 0</strong>
+</p>
+
+<p>
+Other Charges:
+<strong id="finalOther">Rs 0</strong>
+</p>
+
+<p>
+GST:
+<strong id="finalGST">Rs 0</strong>
+</p>
+
+<p>
+FCA:
+<strong id="finalFCA">Rs 0</strong>
+</p>
+
+<hr>
+
+<div class="bigTotal" id="finalBill">
+Rs 0
+</div>
+
+</div>
+
+
+<div class="compareBox">
+
+<h4>🧾 اصل Bill سے Compare کریں</h4>
+
+<label>اصل بجلی کا Bill (Rs)</label>
+
+<input
+id="actualBill"
+type="number"
+placeholder="مثلاً 2866"
+>
+
+<div class="metrics">
+
+<div class="metric">
+
+<span>Difference</span>
+
+<strong id="difference">
+Rs 0
+</strong>
+
+</div>
+
+<div class="metric">
+
+<span>Status</span>
+
+<strong id="matchStatus">
+-
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div id="finalMessage" class="result good">
+Calculation Ready
+</div>
+
+</div>
+
+
+<!-- EXAMPLE -->
+
+<div class="card">
+
+<h3>📖 8۔ Screenshot Example Check</h3>
+
+<p class="note">
+آپ screenshot کے examples کو بھی یہاں test کر سکتے ہیں:
+</p>
+
+<button class="green noPrint" onclick="example180()">
+Example: 180 Units
+</button>
+
+<button class="blue noPrint" onclick="example350()">
+Example: 350 Units
+</button>
+
+<div id="exampleResult" class="result good">
+Example result یہاں آئے گا۔
+</div>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="card noPrint">
+
+<button class="green" onclick="saveData()">
+💾 Save
+</button>
+
+<button class="blue" onclick="loadData()">
+📂 Load
+</button>
+
+<button class="gray" onclick="window.print()">
+🖨️ A4 Print
+</button>
+
+<button class="red" onclick="clearData()">
+🗑️ Clear
+</button>
+
+</div>
+
+
+<div class="card">
+
+<p class="note">
+
+<strong>اہم وضاحت:</strong><br>
+
+یہ calculator progressive slab calculation کرتا ہے۔
+مثلاً اگر 180 units ہوں تو پہلے 50 units پہلے rate پر،
+اگلے 50 دوسرے rate پر اور باقی 80 تیسرے rate پر calculate ہوں گے۔
+
+Screenshot میں دی گئی 350-unit example کی arithmetic میں بھی
+فرق نظر آتا ہے، اس لیے یہ calculator اصل slab formula سے دوبارہ
+حساب کرکے difference دکھائے گا۔
+
+اصل سرکاری bill میں tariff، GST، FCA، duties اور دیگر charges
+وقت کے ساتھ تبدیل ہو سکتے ہیں۔ Rates اوپر manually edit کیے جا سکتے ہیں۔
+
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function num(id){
+
+    const value =
+        parseFloat(
+            document.getElementById(id).value
+        );
+
+    return isNaN(value) ? 0 : Math.max(0,value);
+}
+
+
+function money(value){
+
+    return "Rs " +
+        Number(value).toLocaleString(
+            "en-PK",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+}
+
+
+/* =========================================
+   SLAB CALCULATION
+========================================= */
+
+function calculate(){
+
+    const units = num("units");
+
+    const protectedType =
+        document.getElementById(
+            "consumerType"
+        ).value === "protected";
+
+
+    const rates = protectedType
+        ?
+        [
+            num("p1"),
+            num("p2"),
+            num("p3"),
+            num("p4"),
+            num("p5"),
+            num("p6"),
+            num("p7")
+        ]
+        :
+        [
+            num("np1"),
+            num("np2"),
+            num("np3"),
+            num("np4"),
+            num("np5"),
+            num("np6"),
+            num("np7")
+        ];
+
+
+    const limits = [
+        50,
+        100,
+        200,
+        300,
+        400,
+        500,
+        Infinity
+    ];
+
+
+    let remaining = units;
+    let previous = 0;
+    let energy = 0;
+
+
+    for(let i=0;i<7;i++){
+
+        let slabUnits = 0;
+
+        if(remaining > 0){
+
+            if(limits[i] === Infinity){
+
+                slabUnits =
+                    remaining;
+
+            }else{
+
+                slabUnits =
+                    Math.min(
+                        remaining,
+                        limits[i]-previous
+                    );
+
+            }
+
+        }
+
+
+        const cost =
+            slabUnits * rates[i];
+
+
+        document.getElementById(
+            "used"+(i+1)
+        ).textContent =
+            slabUnits.toFixed(2);
+
+
+        document.getElementById(
+            "cost"+(i+1)
+        ).textContent =
+            money(cost);
+
+
+        energy += cost;
+
+        remaining -= slabUnits;
+
+        previous = limits[i];
+
+    }
+
+
+    /* Fixed */
+
+    const fixed =
+        protectedType
+        ?
+        num("protectedFixed")
+        :
+        num("nonProtectedFixed");
+
+
+    /* Other */
+
+    const other =
+        num("ed") +
+        num("tvFee") +
+        num("meterCharges") +
+        num("otherCharges");
+
+
+    /*
+       GST:
+       Screenshot examples show GST
+       calculated on Energy + Fixed.
+    */
+
+    const taxable =
+        energy + fixed;
+
+
+    const gstRate =
+        num("gst") / 100;
+
+
+    const gstAmount =
+        taxable * gstRate;
+
+
+    const baseBill =
+        taxable + gstAmount;
+
+
+    /* FCA */
+
+    const fcaAmount =
+        units * num("fca");
+
+
+    /*
+       Final:
+       Energy + Fixed + Other + GST + FCA
+    */
+
+    const finalBill =
+        energy +
+        fixed +
+        other +
+        gstAmount +
+        fcaAmount;
+
+
+    /* Average */
+
+    const average =
+        units > 0
+        ?
+        energy / units
+        :
+        0;
+
+
+    /* Display */
+
+    document.getElementById(
+        "totalUnits"
+    ).textContent =
+        units.toFixed(2);
+
+
+    document.getElementById(
+        "energyCharges"
+    ).textContent =
+        money(energy);
+
+
+    document.getElementById(
+        "averageRate"
+    ).textContent =
+        money(average);
+
+
+    document.getElementById(
+        "fixedCharges"
+    ).textContent =
+        money(fixed);
+
+
+    document.getElementById(
+        "totalOther"
+    ).textContent =
+        money(other);
+
+
+    document.getElementById(
+        "taxable"
+    ).textContent =
+        money(taxable);
+
+
+    document.getElementById(
+        "gstAmount"
+    ).textContent =
+        money(gstAmount);
+
+
+    document.getElementById(
+        "baseBill"
+    ).textContent =
+        money(baseBill);
+
+
+    document.getElementById(
+        "fcaAmount"
+    ).textContent =
+        money(fcaAmount);
+
+
+    document.getElementById(
+        "finalEnergy"
+    ).textContent =
+        money(energy);
+
+
+    document.getElementById(
+        "finalFixed"
+    ).textContent =
+        money(fixed);
+
+
+    document.getElementById(
+        "finalOther"
+    ).textContent =
+        money(other);
+
+
+    document.getElementById(
+        "finalGST"
+    ).textContent =
+        money(gstAmount);
+
+
+    document.getElementById(
+        "finalFCA"
+    ).textContent =
+        money(fcaAmount);
+
+
+    document.getElementById(
+        "finalBill"
+    ).textContent =
+        money(finalBill);
+
+
+    /* Slab message */
+
+    let message =
+        "Consumer: " +
+        (protectedType
+        ?
+        "Protected"
+        :
+        "Non-Protected");
+
+
+    message +=
+        "<br>Units: " +
+        units.toFixed(2);
+
+
+    message +=
+        "<br>Energy Charges: " +
+        money(energy);
+
+
+    document.getElementById(
+        "slabMessage"
+    ).innerHTML =
+        message;
+
+
+    /* Compare actual bill */
+
+    compareBill(finalBill);
+
+}
+
+
+/* =========================================
+   COMPARE
+========================================= */
+
+function compareBill(calculated){
+
+    const actual =
+        num("actualBill");
+
+
+    const difference =
+        actual - calculated;
+
+
+    document.getElementById(
+        "difference"
+    ).textContent =
+        money(difference);
+
+
+    const status =
+        document.getElementById(
+            "matchStatus"
+        );
+
+
+    if(actual <= 0){
+
+        status.textContent =
+            "-";
+
+        status.style.color =
+            "#087443";
+
+        return;
+
+    }
+
+
+    if(Math.abs(difference) < 1){
+
+        status.textContent =
+            "✓ Match";
+
+        status.style.color =
+            "#087443";
+
+    }
+
+    else if(Math.abs(difference) <= 100){
+
+        status.textContent =
+            "تقریباً برابر";
+
+        status.style.color =
+            "#a86600";
+
+    }
+
+    else if(difference > 0){
+
+        status.textContent =
+            "اصل Bill زیادہ ہے";
+
+        status.style.color =
+            "#c62828";
+
+    }
+
+    else{
+
+        status.textContent =
+            "Calculator زیادہ ہے";
+
+        status.style.color =
+            "#c62828";
+
+    }
+
+}
+
+
+/* =========================================
+   EXAMPLE 180
+========================================= */
+
+function example180(){
+
+    document.getElementById(
+        "units"
+    ).value = 180;
+
+    document.getElementById(
+        "consumerType"
+    ).value = "protected";
+
+    document.getElementById(
+        "actualBill"
+    ).value = 2866;
+
+    calculate();
+
+
+    const text =
+        "180 Units Example" +
+        "<br>50 × 3.95" +
+        "<br>50 × 7.74" +
+        "<br>80 × 13.01" +
+        "<br><br>" +
+        "Screenshot Formula کے مطابق " +
+        "Energy + Fixed + GST + FCA calculate کیا گیا ہے۔";
+
+
+    document.getElementById(
+        "exampleResult"
+    ).innerHTML =
+        text;
+
+}
+
+
+/* =========================================
+   EXAMPLE 350
+========================================= */
+
+function example350(){
+
+    document.getElementById(
+        "units"
+    ).value = 350;
+
+    document.getElementById(
+        "consumerType"
+    ).value = "nonprotected";
+
+    document.getElementById(
+        "actualBill"
+    ).value = 9908;
+
+    calculate();
+
+
+    const text =
+        "350 Units Example" +
+        "<br>50 × 3.95" +
+        "<br>50 × 7.74" +
+        "<br>100 × 13.01" +
+        "<br>150 × 33.10" +
+        "<br><br>" +
+        "Calculator اصل progressive slab formula استعمال کرے گا۔";
+
+
+    document.getElementById(
+        "exampleResult"
+    ).innerHTML =
+        text;
+
+}
+
+
+/* =========================================
+   SAVE
+========================================= */
+
+function saveData(){
+
+    const ids = [
+
+        "units",
+        "consumerType",
+        "gst",
+        "fca",
+
+        "p1","p2","p3",
+        "p4","p5","p6","p7",
+
+        "np1","np2","np3",
+        "np4","np5","np6","np7",
+
+        "protectedFixed",
+        "nonProtectedFixed",
+
+        "ed",
+        "tvFee",
+        "meterCharges",
+        "otherCharges",
+
+        "actualBill"
+
+    ];
+
+
+    const data = {};
+
+
+    ids.forEach(id=>{
+
+        data[id] =
+            document.getElementById(id).value;
+
+    });
+
+
+    localStorage.setItem(
+        "genevaBillCalculator",
+        JSON.stringify(data)
+    );
+
+
+    alert(
+        "Calculator data محفوظ ہوگیا۔"
+    );
+
+}
+
+
+/* =========================================
+   LOAD
+========================================= */
+
+function loadData(){
+
+    const data =
+        JSON.parse(
+            localStorage.getItem(
+                "genevaBillCalculator"
+            ) || "null"
+        );
+
+
+    if(!data){
+
+        alert(
+            "کوئی Saved Data نہیں ملا۔"
+        );
+
+        return;
+
+    }
+
+
+    Object.keys(data).forEach(id=>{
+
+        const element =
+            document.getElementById(id);
+
+
+        if(element){
+
+            element.value =
+                data[id];
+
+        }
+
+    });
+
+
+    calculate();
+
+
+    alert(
+        "Saved Data Load ہوگیا۔"
+    );
+
+}
+
+
+/* =========================================
+   CLEAR
+========================================= */
+
+function clearData(){
+
+    if(
+        !confirm(
+            "کیا تمام input اور saved data صاف کرنا ہے؟"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "genevaBillCalculator"
+    );
+
+
+    location.reload();
+
+}
+
+
+/* =========================================
+   LIVE CALCULATION
+========================================= */
+
+const allInputs =
+    document.querySelectorAll(
+        "input, select"
+    );
+
+
+allInputs.forEach(element=>{
+
+    element.addEventListener(
+        "input",
+        calculate
+    );
+
+    element.addEventListener(
+        "change",
+        calculate
+    );
+
+});
+
+
+/* START */
+
+calculate();
+
+</script>
+
+</body>
+</html>
