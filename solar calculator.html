@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Solar & Home Load Calculator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f3f6f8;
+    color:#17202a;
+}
+
+.container{
+    max-width:1150px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:linear-gradient(135deg,#087443,#12a05f);
+    color:white;
+    padding:25px;
+    border-radius:18px;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0 0 8px;
+    font-size:28px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+h2{
+    color:#087443;
+    margin-top:0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:12px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    border:1px solid #cbd5dc;
+    border-radius:8px;
+    background:white;
+}
+
+button{
+    border:0;
+    border-radius:8px;
+    padding:10px 15px;
+    margin:5px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.green{
+    background:#087443;
+    color:white;
+}
+
+.gray{
+    background:#e8edf1;
+}
+
+.red{
+    background:#d93636;
+    color:white;
+}
+
+.metrics{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:10px;
+}
+
+.metric{
+    background:#f6faf8;
+    border:1px solid #dcebe3;
+    padding:14px;
+    border-radius:12px;
+}
+
+.metric span{
+    display:block;
+    font-size:13px;
+}
+
+.metric strong{
+    display:block;
+    color:#087443;
+    font-size:23px;
+    margin-top:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+
+th,td{
+    border-bottom:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+
+th{
+    background:#e9f5ef;
+}
+
+.good{
+    color:#087443;
+    font-weight:bold;
+}
+
+.warning{
+    color:#d17a00;
+    font-weight:bold;
+}
+
+.bad{
+    color:#c62828;
+    font-weight:bold;
+}
+
+.note{
+    font-size:13px;
+    color:#5d6975;
+    line-height:1.7;
+}
+
+.result-box{
+    background:#eef8f2;
+    border:1px solid #cde7d8;
+    padding:15px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+@media(max-width:650px){
+
+    .header h1{
+        font-size:22px;
+    }
+
+    table{
+        font-size:12px;
+        min-width:700px;
+    }
+
+    .table-scroll{
+        overflow-x:auto;
+    }
+}
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .no-print{
+        display:none !important;
+    }
+
+    .card{
+        box-shadow:none;
+        border:1px solid #ddd;
+    }
+
+    .header{
+        background:white;
+        color:black;
+        border:1px solid #ddd;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>☀️ Solar & Home Load Calculator</h1>
+<div>
+گھر کا Load، روزانہ/ماہانہ Units، Solar Panels، Battery، Inverter اور بجلی کا خرچ
+</div>
+</div>
+
+
+<!-- ELECTRICITY / LOAD -->
+
+<div class="card">
+
+<h2>🏠 گھر کا بجلی کا Load</h2>
+
+<div class="grid no-print">
+
+<div>
+<label>آلے کا نام</label>
+<input id="deviceName" placeholder="مثلاً پنکھا">
+</div>
+
+<div>
+<label>Watts</label>
+<input id="deviceWatts" type="number" placeholder="80">
+</div>
+
+<div>
+<label>تعداد</label>
+<input id="deviceQty" type="number" value="1">
+</div>
+
+<div>
+<label>روزانہ کتنے گھنٹے؟</label>
+<input id="deviceHours" type="number" value="1" step="0.1">
+</div>
+
+<div>
+<label>مہینے میں کتنے دن؟</label>
+<input id="deviceDays" type="number" value="30">
+</div>
+
+</div>
+
+<div class="no-print">
+<button class="green" onclick="addDevice()">+ Load شامل کریں</button>
+
+<button class="gray" onclick="addCommonLoads()">
+عام گھریلو Load
+</button>
+</div>
+
+<div class="table-scroll">
+
+<table>
+
+<thead>
+
+<tr>
+<th>آلہ</th>
+<th>Watts</th>
+<th>تعداد</th>
+<th>گھنٹے</th>
+<th>دن</th>
+<th>Total W</th>
+<th>Daily Units</th>
+<th>Monthly Units</th>
+<th class="no-print">حذف</th>
+</tr>
+
+</thead>
+
+<tbody id="deviceTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- SUMMARY -->
+
+<div class="card">
+
+<h2>📊 بجلی کا خلاصہ</h2>
+
+<div class="metrics">
+
+<div class="metric">
+<span>کل Running Load</span>
+<strong id="totalLoad">0 W</strong>
+</div>
+
+<div class="metric">
+<span>روزانہ Units</span>
+<strong id="dailyUnits">0.00</strong>
+</div>
+
+<div class="metric">
+<span>ماہانہ Units</span>
+<strong id="monthlyUnits">0.00</strong>
+</div>
+
+<div class="metric">
+<span>Peak Load</span>
+<strong id="peakLoad">0 W</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ELECTRICITY BILL -->
+
+<div class="card">
+
+<h2>⚡ Grid / WAPDA بجلی کا حساب</h2>
+
+<div class="grid">
+
+<div>
+<label>فی Unit Rate (Rs)</label>
+<input id="electricRate" type="number" value="50">
+</div>
+
+<div>
+<label>Fixed / Other Charges</label>
+<input id="fixedCharges" type="number" value="0">
+</div>
+
+</div>
+
+<div class="metrics" style="margin-top:15px">
+
+<div class="metric">
+<span>ماہانہ Units</span>
+<strong id="billUnits">0.00</strong>
+</div>
+
+<div class="metric">
+<span>Energy Cost</span>
+<strong id="energyCost">Rs 0</strong>
+</div>
+
+<div class="metric">
+<span>Estimated Monthly Bill</span>
+<strong id="monthlyBill">Rs 0</strong>
+</div>
+
+</div>
+
+<p class="note">
+یہ ایک estimated calculation ہے۔ اصل بجلی کے بل میں taxes، slabs، fuel adjustments،
+meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہیں۔
+</p>
+
+</div>
+
+
+<!-- SOLAR -->
+
+<div class="card">
+
+<h2>☀️ Solar Panel System</h2>
+
+<div class="grid">
+
+<div>
+<label>Panel Watt</label>
+
+<select id="panelWatt">
+
+<option value="150">150W</option>
+<option value="200">200W</option>
+<option value="250">250W</option>
+<option value="300">300W</option>
+<option value="350">350W</option>
+<option value="400">400W</option>
+<option value="450">450W</option>
+<option value="500">500W</option>
+<option value="550" selected>550W</option>
+<option value="600">600W</option>
+<option value="650">650W</option>
+<option value="700">700W</option>
+<option value="750">750W</option>
+<option value="800">800W</option>
+<option value="850">850W</option>
+<option value="900">900W</option>
+
+</select>
+
+</div>
+
+<div>
+<label>Panels کی تعداد</label>
+<input id="panelQty" type="number" value="6">
+</div>
+
+<div>
+<label>روزانہ مؤثر دھوپ</label>
+<input id="sunHours" type="number" value="5" step="0.1">
+</div>
+
+<div>
+<label>System Efficiency %</label>
+<input id="solarEfficiency" type="number" value="80">
+</div>
+
+</div>
+
+<div class="metrics" style="margin-top:15px">
+
+<div class="metric">
+<span>Solar Capacity</span>
+<strong id="solarCapacity">0 W</strong>
+</div>
+
+<div class="metric">
+<span>Solar Capacity</span>
+<strong id="solarKW">0 kW</strong>
+</div>
+
+<div class="metric">
+<span>روزانہ Solar Units</span>
+<strong id="solarDaily">0.00</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SOLAR HOURS -->
+
+<div class="card">
+
+<h2>⏱️ Solar 1 / 2 / 4 Hours</h2>
+
+<div class="metrics">
+
+<div class="metric">
+<span>1 Hour</span>
+<strong id="solar1">0.00 Units</strong>
+</div>
+
+<div class="metric">
+<span>2 Hours</span>
+<strong id="solar2">0.00 Units</strong>
+</div>
+
+<div class="metric">
+<span>4 Hours</span>
+<strong id="solar4">0.00 Units</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SOLAR REQUIRED -->
+
+<div class="card">
+
+<h2>🔢 مطلوبہ Solar Panels</h2>
+
+<div class="grid">
+
+<div>
+<label>آپ کو روزانہ کتنی Solar Units چاہیے؟</label>
+<input id="requiredSolarUnits" type="number" value="10">
+</div>
+
+</div>
+
+<div class="result-box">
+
+<strong id="requiredPanelResult">
+Required Panels: 0
+</strong>
+
+<br>
+
+<span id="requiredPanelDetails"></span>
+
+</div>
+
+</div>
+
+
+<!-- BATTERY -->
+
+<div class="card">
+
+<h2>🔋 Battery Sizing</h2>
+
+<div class="grid">
+
+<div>
+<label>Backup Load Watts</label>
+<input id="backupLoad" type="number" value="1000">
+</div>
+
+<div>
+<label>Backup Hours</label>
+<input id="backupHours" type="number" value="4">
+</div>
+
+<div>
+<label>Battery Voltage</label>
+
+<select id="batteryVoltage">
+
+<option value="12">12V</option>
+<option value="24">24V</option>
+<option value="48">48V</option>
+
+</select>
+
+</div>
+
+<div>
+<label>ایک Battery کی Ah</label>
+<input id="batteryAh" type="number" value="200">
+</div>
+
+<div>
+<label>Battery DoD %</label>
+<input id="batteryDod" type="number" value="80">
+</div>
+
+<div>
+<label>Inverter Efficiency %</label>
+<input id="inverterEfficiency" type="number" value="90">
+</div>
+
+</div>
+
+<div class="metrics" style="margin-top:15px">
+
+<div class="metric">
+<span>Required Energy</span>
+<strong id="batteryEnergy">0 Wh</strong>
+</div>
+
+<div class="metric">
+<span>Required Battery Ah</span>
+<strong id="requiredAh">0 Ah</strong>
+</div>
+
+<div class="metric">
+<span>Series Batteries</span>
+<strong id="seriesBatteries">0</strong>
+</div>
+
+<div class="metric">
+<span>Parallel Strings</span>
+<strong id="parallelBatteries">0</strong>
+</div>
+
+<div class="metric">
+<span>Total Batteries</span>
+<strong id="totalBatteries">0</strong>
+</div>
+
+</div>
+
+<p class="note">
+Battery calculation planning estimate ہے۔ Lithium اور Lead-Acid batteries کے
+usable capacity اور manufacturer specifications مختلف ہو سکتے ہیں۔
+</p>
+
+</div>
+
+
+<!-- INVERTER -->
+
+<div class="card">
+
+<h2>⚡ Inverter Selection</h2>
+
+<div class="grid">
+
+<div>
+<label>Inverter Size</label>
+
+<select id="inverterSize">
+
+<option value="1000">1000W</option>
+<option value="2000">2000W</option>
+<option value="3000">3000W</option>
+<option value="4000">4000W</option>
+<option value="5000">5000W</option>
+<option value="6000">6000W</option>
+
+</select>
+
+</div>
+
+<div>
+<label>Estimated Surge Factor</label>
+<input id="surgeFactor" type="number" value="1.5" step="0.1">
+</div>
+
+</div>
+
+<div class="result-box">
+
+<strong id="inverterResult">
+Inverter Result
+</strong>
+
+<br>
+
+<span id="inverterDetails"></span>
+
+</div>
+
+</div>
+
+
+<!-- MPPT PWM -->
+
+<div class="card">
+
+<h2>🔌 MPPT یا PWM</h2>
+
+<div class="result-box">
+
+<strong id="controllerRecommendation">
+Controller Recommendation
+</strong>
+
+<br>
+
+<span id="controllerDetails"></span>
+
+</div>
+
+<p class="note">
+
+بڑے Solar systems میں MPPT عموماً زیادہ مناسب ہوتا ہے کیونکہ یہ panel voltage
+کو بہتر طریقے سے battery charging کے لیے استعمال کرتا ہے۔ PWM چھوٹے اور
+سادہ systems میں مناسب ہو سکتا ہے۔
+
+Final controller خریدتے وقت Panel Voc، Isc، maximum PV voltage اور charging
+current کی manufacturer specification لازماً چیک کریں۔
+
+</p>
+
+</div>
+
+
+<!-- COMPARISON -->
+
+<div class="card">
+
+<h2>💰 Solar vs Grid</h2>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Home Monthly Units</span>
+<strong id="compareHome">0</strong>
+</div>
+
+<div class="metric">
+<span>Solar Monthly Production</span>
+<strong id="compareSolar">0</strong>
+</div>
+
+<div class="metric">
+<span>Grid Units Remaining</span>
+<strong id="remainingGrid">0</strong>
+</div>
+
+<div class="metric">
+<span>Possible Monthly Saving</span>
+<strong id="monthlySaving">Rs 0</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="card no-print">
+
+<button class="green" onclick="window.print()">
+🖨️ A4 Print
+</button>
+
+<button class="gray" onclick="downloadCSV()">
+⬇️ Download CSV
+</button>
+
+<button class="gray" onclick="saveData()">
+💾 Save Data
+</button>
+
+<button class="gray" onclick="loadSavedData()">
+📂 Load Saved
+</button>
+
+<button class="red" onclick="resetAll()">
+Reset
+</button>
+
+</div>
+
+
+<div class="card">
+
+<p class="note">
+
+<strong>اہم نوٹ:</strong><br>
+
+یہ Calculator planning اور estimation کے لیے ہے۔
+اصل Solar production موسم، دھوپ، temperature، shading، panel angle،
+inverter losses اور wiring losses سے مختلف ہو سکتی ہے۔
+
+AC، refrigerator، pump، motor وغیرہ کے starting surge کو inverter sizing
+میں الگ سے consider کرنا ضروری ہے۔
+
+Battery، inverter، MPPT/PWM، cables، breakers اور protection equipment
+خریدنے سے پہلے متعلقہ manufacturer specifications اور qualified solar
+installer/electrician سے final verification کریں۔
+
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+let devices =
+JSON.parse(localStorage.getItem("solarDevices") || "null") || [
+
+{
+name:"پنکھا",
+watts:80,
+qty:2,
+hours:8,
+days:30
+},
+
+{
+name:"LED بلب",
+watts:10,
+qty:4,
+hours:6,
+days:30
+}
+
+];
+
+
+function num(id){
+
+return Math.max(
+0,
+parseFloat(document.getElementById(id).value) || 0
+);
+
+}
+
+
+function addDevice(){
+
+let name =
+document.getElementById("deviceName").value.trim()
+|| "نیا آلہ";
+
+let watts=num("deviceWatts");
+
+let qty=Math.max(1,num("deviceQty"));
+
+let hours=num("deviceHours");
+
+let days=Math.max(1,num("deviceDays"));
+
+if(watts<=0){
+
+alert("Watts درج کریں");
+
+return;
+
+}
+
+devices.push({
+
+name:name,
+watts:watts,
+qty:qty,
+hours:hours,
+days:days
+
+});
+
+render();
+
+document.getElementById("deviceName").value="";
+document.getElementById("deviceWatts").value="";
+
+}
+
+
+function addCommonLoads(){
+
+devices.push(
+
+{
+name:"پنکھا",
+watts:80,
+qty:2,
+hours:8,
+days:30
+},
+
+{
+name:"LED بلب",
+watts:10,
+qty:4,
+hours:6,
+days:30
+},
+
+{
+name:"TV",
+watts:100,
+qty:1,
+hours:5,
+days:30
+},
+
+{
+name:"فریج",
+watts:150,
+qty:1,
+hours:8,
+days:30
+},
+
+{
+name:"Water Pump",
+watts:750,
+qty:1,
+hours:1,
+days:30
+}
+
+);
+
+render();
+
+}
+
+
+function deleteDevice(index){
+
+devices.splice(index,1);
+
+render();
+
+}
+
+
+function render(){
+
+let table =
+document.getElementById("deviceTable");
+
+table.innerHTML="";
+
+let totalLoad=0;
+
+let dailyUnits=0;
+
+let monthlyUnits=0;
+
+
+devices.forEach((d,index)=>{
+
+let totalWatts =
+d.watts*d.qty;
+
+let dailyWh =
+totalWatts*d.hours;
+
+let dUnits =
+dailyWh/1000;
+
+let mUnits =
+dUnits*d.days;
+
+totalLoad+=totalWatts;
+
+dailyUnits+=dUnits;
+
+monthlyUnits+=mUnits;
+
+
+table.innerHTML += `
+
+<tr>
+
+<td>${escapeHTML(d.name)}</td>
+
+<td>${d.watts}</td>
+
+<td>${d.qty}</td>
+
+<td>${d.hours}</td>
+
+<td>${d.days}</td>
+
+<td>${totalWatts.toFixed(0)}</td>
+
+<td>${dUnits.toFixed(2)}</td>
+
+<td>${mUnits.toFixed(2)}</td>
+
+<td class="no-print">
+
+<button
+class="red"
+onclick="deleteDevice(${index})">
+
+حذف
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("totalLoad")
+.textContent=totalLoad.toFixed(0)+" W";
+
+document.getElementById("peakLoad")
+.textContent=totalLoad.toFixed(0)+" W";
+
+document.getElementById("dailyUnits")
+.textContent=dailyUnits.toFixed(2);
+
+document.getElementById("monthlyUnits")
+.textContent=monthlyUnits.toFixed(2);
+
+
+calculateBill(monthlyUnits);
+
+calculateSolar(monthlyUnits);
+
+calculateBattery();
+
+calculateInverter(totalLoad);
+
+calculateController();
+
+}
+
+
+function calculateBill(monthlyUnits){
+
+let rate=num("electricRate");
+
+let fixed=num("fixedCharges");
+
+let energyCost=
+monthlyUnits*rate;
+
+let total=
+energyCost+fixed;
+
+
+document.getElementById("billUnits")
+.textContent=monthlyUnits.toFixed(2);
+
+document.getElementById("energyCost")
+.textContent=
+"Rs "+energyCost.toFixed(2);
+
+document.getElementById("monthlyBill")
+.textContent=
+"Rs "+total.toFixed(2);
+
+}
+
+
+function calculateSolar(monthlyUnits){
+
+let panelW=num("panelWatt");
+
+let panelQty=num("panelQty");
+
+let sun=num("sunHours");
+
+let efficiency=
+num("solarEfficiency")/100;
+
+
+let capacity=
+panelW*panelQty;
+
+
+let dailySolar=
+capacity*sun*efficiency/1000;
+
+
+let monthlySolar=
+dailySolar*30;
+
+
+document.getElementById("solarCapacity")
+.textContent=
+capacity.toFixed(0)+" W";
+
+
+document.getElementById("solarKW")
+.textContent=
+(capacity/1000).toFixed(2)+" kW";
+
+
+document.getElementById("solarDaily")
+.textContent=
+dailySolar.toFixed(2);
+
+
+document.getElementById("solar1")
+.textContent=
+(capacity*1*efficiency/1000)
+.toFixed(2)+" Units";
+
+
+document.getElementById("solar2")
+.textContent=
+(capacity*2*efficiency/1000)
+.toFixed(2)+" Units";
+
+
+document.getElementById("solar4")
+.textContent=
+(capacity*4*efficiency/1000)
+.toFixed(2)+" Units";
+
+
+let required=
+num("requiredSolarUnits");
+
+
+let requiredPanels=
+Math.ceil(
+(required*1000)/
+(panelW*sun*efficiency)
+);
+
+
+document.getElementById("requiredPanelResult")
+.textContent=
+"Required Panels: "+requiredPanels;
+
+
+document.getElementById("requiredPanelDetails")
+.textContent=
+requiredPanels+
+" × "+
+panelW+
+"W = "+
+(requiredPanels*panelW)+
+"W Solar Array";
+
+
+document.getElementById("compareHome")
+.textContent=
+monthlyUnits.toFixed(2);
+
+
+document.getElementById("compareSolar")
+.textContent=
+monthlySolar.toFixed(2);
+
+
+let remaining=
+Math.max(
+0,
+monthlyUnits-monthlySolar
+);
+
+
+document.getElementById("remainingGrid")
+.textContent=
+remaining.toFixed(2);
+
+
+let rate=num("electricRate");
+
+
+let saving=
+Math.min(
+monthlyUnits,
+monthlySolar
+)*rate;
+
+
+document.getElementById("monthlySaving")
+.textContent=
+"Rs "+saving.toFixed(2);
+
+}
+
+
+function calculateBattery(){
+
+let load=num("backupLoad");
+
+let hours=num("backupHours");
+
+let voltage=num("batteryVoltage");
+
+let batteryAh=num("batteryAh");
+
+let dod=num("batteryDod")/100;
+
+let invEff=
+num("inverterEfficiency")/100;
+
+
+if(
+load<=0 ||
+hours<=0 ||
+voltage<=0 ||
+batteryAh<=0
+){
+
+return;
+
+}
+
+
+let energy=
+(load*hours)/invEff;
+
+
+let requiredAh=
+energy/(voltage*dod);
+
+
+let series=
+voltage/12;
+
+
+let parallel=
+Math.ceil(
+requiredAh/batteryAh
+);
+
+
+let total=
+series*parallel;
+
+
+document.getElementById("batteryEnergy")
+.textContent=
+energy.toFixed(0)+" Wh";
+
+
+document.getElementById("requiredAh")
+.textContent=
+requiredAh.toFixed(0)+" Ah";
+
+
+document.getElementById("seriesBatteries")
+.textContent=
+series.toFixed(0);
+
+
+document.getElementById("parallelBatteries")
+.textContent=
+parallel;
+
+
+document.getElementById("totalBatteries")
+.textContent=
+total;
+
+}
+
+
+function calculateInverter(totalLoad){
+
+let inverter=
+num("inverterSize");
+
+let surge=
+num("surgeFactor");
+
+let required=
+totalLoad*surge;
+
+
+let result="";
+
+let cls="";
+
+
+if(inverter>=required){
+
+result="🟢 Inverter مناسب";
+
+cls="good";
+
+}
+
+else if(inverter>=totalLoad){
+
+result="🟡 Inverter Running Load کے لیے مناسب، مگر Surge margin کم ہے";
+
+cls="warning";
+
+}
+
+else{
+
+result="🔴 Inverter ناکافی ہے";
+
+cls="bad";
+
+}
+
+
+let element=
+document.getElementById("inverterResult");
+
+element.textContent=result;
+
+element.className=cls;
+
+
+document.getElementById("inverterDetails")
+.textContent=
+"Running Load: "+
+totalLoad.toFixed(0)+
+"W | Estimated Surge Requirement: "+
+required.toFixed(0)+
+"W | Selected Inverter: "+
+inverter+
+"W";
+
+}
+
+
+function calculateController(){
+
+let panelW=num("panelWatt");
+
+let qty=num("panelQty");
+
+let capacity=
+panelW*qty;
+
+
+let recommendation;
+
+let details;
+
+
+if(capacity>=1000){
+
+recommendation=
+"🟢 MPPT Recommended";
+
+details=
+"یہ Solar array "+capacity+
+"W ہے، اس لیے MPPT controller عام طور پر زیادہ مناسب انتخاب ہے۔";
+
+}
+
+else{
+
+recommendation=
+"🟡 MPPT بہتر، PWM بھی چھوٹے system میں ممکن";
+
+details=
+"چھوٹے system میں PWM استعمال ہوسکتا ہے، لیکن بہتر efficiency اور panel voltage flexibility کے لیے MPPT پر غور کریں۔";
+
+}
+
+
+document.getElementById("controllerRecommendation")
+.textContent=recommendation;
+
+
+document.getElementById("controllerDetails")
+.textContent=details;
+
+}
+
+
+function saveData(){
+
+let settings={
+
+panelWatt:document.getElementById("panelWatt").value,
+
+panelQty:document.getElementById("panelQty").value,
+
+sunHours:document.getElementById("sunHours").value,
+
+solarEfficiency:document.getElementById("solarEfficiency").value,
+
+electricRate:document.getElementById("electricRate").value,
+
+fixedCharges:document.getElementById("fixedCharges").value,
+
+requiredSolarUnits:document.getElementById("requiredSolarUnits").value,
+
+backupLoad:document.getElementById("backupLoad").value,
+
+backupHours:document.getElementById("backupHours").value,
+
+batteryVoltage:document.getElementById("batteryVoltage").value,
+
+batteryAh:document.getElementById("batteryAh").value,
+
+batteryDod:document.getElementById("batteryDod").value,
+
+inverterEfficiency:document.getElementById("inverterEfficiency").value,
+
+inverterSize:document.getElementById("inverterSize").value
+
+};
+
+
+localStorage.setItem(
+"solarDevices",
+JSON.stringify(devices)
+);
+
+localStorage.setItem(
+"solarSettings",
+JSON.stringify(settings)
+);
+
+alert("Data محفوظ ہوگیا۔");
+
+}
+
+
+function loadSavedData(){
+
+let saved=
+JSON.parse(
+localStorage.getItem("solarSettings") || "null"
+);
+
+
+if(!saved){
+
+alert("کوئی saved data نہیں ملا۔");
+
+return;
+
+}
+
+
+Object.keys(saved).forEach(key=>{
+
+if(document.getElementById(key)){
+
+document.getElementById(key).value=
+saved[key];
+
+}
+
+});
+
+
+devices=
+JSON.parse(
+localStorage.getItem("solarDevices") || "[]"
+);
+
+
+render();
+
+alert("Saved Data load ہوگیا۔");
+
+}
+
+
+function resetAll(){
+
+if(
+!confirm(
+"کیا آپ تمام Load اور Saved Data ختم کرنا چاہتے ہیں؟"
+)
+){
+
+return;
+
+}
+
+devices=[];
+
+localStorage.removeItem("solarDevices");
+
+localStorage.removeItem("solarSettings");
+
+render();
+
+}
+
+
+function downloadCSV(){
+
+let csv=
+"Appliance,Watts,Quantity,Hours,Days,Total Watts,Daily Units,Monthly Units\n";
+
+
+devices.forEach(d=>{
+
+let total=d.watts*d.qty;
+
+let daily=total*d.hours/1000;
+
+let monthly=daily*d.days;
+
+
+csv +=
+`"${d.name}",${d.watts},${d.qty},${d.hours},${d.days},${total},${daily.toFixed(2)},${monthly.toFixed(2)}\n`;
+
+});
+
+
+let blob=
+new Blob(
+["\ufeff"+csv],
+{type:"text/csv;charset=utf-8"}
+);
+
+
+let link=
+document.createElement("a");
+
+
+link.href=
+URL.createObjectURL(blob);
+
+
+link.download=
+"solar-home-load-calculation.csv";
+
+
+link.click();
+
+}
+
+
+function escapeHTML(text){
+
+return text
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* LIVE CALCULATION */
+
+[
+"panelWatt",
+"panelQty",
+"sunHours",
+"solarEfficiency",
+"electricRate",
+"fixedCharges",
+"requiredSolarUnits",
+"backupLoad",
+"backupHours",
+"batteryVoltage",
+"batteryAh",
+"batteryDod",
+"inverterEfficiency",
+"inverterSize",
+"surgeFactor"
+]
+.forEach(id=>{
+
+document.getElementById(id)
+.addEventListener("input",render);
+
+document.getElementById(id)
+.addEventListener("change",render);
+
+});
+
+
+render();
+
+</script>
+
+</body>
+</html>
