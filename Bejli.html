@@ -1,0 +1,537 @@
+ایک مکمل OFFLINE "Solar + Home Load Calculator" ویب ایپ بنائیں۔
+
+مقصد:
+یہ ٹول گھر کے صارف کو یہ حساب بتائے کہ:
+1. گھر میں موجود تمام آلات کا کل لوڈ کتنے Watts ہے۔
+2. یہ آلات روزانہ کتنے kWh/Units استعمال کرتے ہیں۔
+3. موجودہ Solar Panels کتنے Watts کے ہیں۔
+4. Solar کتنی دیر میں کتنی Energy پیدا کرتا ہے۔
+5. 1، 2 اور 4 گھنٹے کی Solar پیداوار کتنی Units بنتی ہے۔
+6. اگر یہی Load WAPDA/Grid بجلی سے چلے تو کتنی Units اور کتنے روپے خرچ ہوں گے۔
+7. Solar سے اندازاً کتنی Grid electricity بچ سکتی ہے۔
+8. صارف اپنا موجودہ بجلی کا فی Unit Rate خود ڈال سکے۔
+
+IMPORTANT:
+یہ مکمل OFFLINE ویب ایپ ہو۔
+Internet، API یا Online Database کی ضرورت نہ ہو۔
+تمام calculation browser کے اندر JavaScript سے ہو۔
+Data localStorage میں محفوظ کیا جا سکے۔
+
+========================
+1. SOLAR PANEL SECTION
+========================
+
+Fields:
+
+- ایک Solar Panel کی طاقت (Watts)
+- Solar Panels کی تعداد
+- روزانہ مؤثر دھوپ کے گھنٹے
+- System Efficiency %
+
+Example:
+
+Panel Watt = 550W
+Panel Quantity = 6
+
+Calculation:
+
+Total Solar Capacity =
+Panel Watt × Panel Quantity
+
+مثال:
+
+550 × 6 = 3300W
+
+یعنی Solar Array = 3300 Watts یا 3.3 kW
+
+========================
+2. SOLAR ENERGY CALCULATION
+========================
+
+Formula:
+
+Solar Energy (kWh) =
+Total Solar Watts × Sun Hours × Efficiency ÷ 1000
+
+مثال:
+
+3300W × 5 hours × 80% ÷ 1000
+= 13.20 kWh
+
+یعنی تقریباً 13.20 Units/day
+
+User کو یہ result واضح طور پر دکھائیں۔
+
+========================
+3. 1، 2 اور 4 HOURS CALCULATION
+========================
+
+Solar کے لیے الگ cards بنائیں:
+
+1 Hour
+2 Hours
+4 Hours
+
+Formula:
+
+Energy =
+Total Solar Watts × Hours × Efficiency ÷ 1000
+
+مثال 3300W اور 80% efficiency:
+
+1 Hour:
+3300 × 1 × 0.80 ÷ 1000
+= 2.64 Units
+
+2 Hours:
+3300 × 2 × 0.80 ÷ 1000
+= 5.28 Units
+
+4 Hours:
+3300 × 4 × 0.80 ÷ 1000
+= 10.56 Units
+
+========================
+4. HOME LOAD SECTION
+========================
+
+User مختلف appliances شامل کر سکے:
+
+مثلاً:
+
+Fan
+Light
+TV
+Fridge
+AC
+Water Pump
+Washing Machine
+Iron
+Computer
+Refrigerator
+Other
+
+ہر appliance کے لیے:
+
+- Appliance Name
+- Watts
+- Quantity
+- Hours per Day
+
+Button:
+
+"+ Add Load"
+
+ہر appliance table میں نظر آئے۔
+
+Columns:
+
+Appliance
+Watts
+Quantity
+Hours
+Total Watts
+Daily Wh
+Delete
+
+========================
+5. HOME LOAD FORMULA
+========================
+
+ہر appliance کا:
+
+Total Appliance Watts =
+Watts × Quantity
+
+Daily Energy =
+Watts × Quantity × Hours
+
+Daily kWh/Units =
+Daily Wh ÷ 1000
+
+مثال:
+
+Fan = 80W
+Quantity = 2
+Hours = 8
+
+80 × 2 = 160W
+
+160 × 8 = 1280Wh
+
+1280 ÷ 1000
+= 1.28 Units/day
+
+========================
+6. TOTAL HOME LOAD
+========================
+
+تمام appliances کے Watts جمع کریں:
+
+Total Load Watts =
+Appliance 1 Watts
++ Appliance 2 Watts
++ Appliance 3 Watts
+...
+
+Example:
+
+Fans = 160W
+Lights = 40W
+TV = 100W
+Fridge = 150W
+
+Total =
+450W
+
+Result واضح طور پر:
+
+"Current Total Load: 450W"
+
+دکھائیں۔
+
+========================
+7. TOTAL DAILY CONSUMPTION
+========================
+
+تمام appliances کی Daily Units جمع کریں۔
+
+Formula:
+
+Daily Home Consumption =
+Sum of all Appliance Daily kWh
+
+Result:
+
+"Daily Consumption: XX.XX Units"
+
+========================
+8. GRID / WAPDA CALCULATION
+========================
+
+ایک الگ section بنائیں:
+
+"اگر یہی Load Grid بجلی سے چلے"
+
+Fields:
+
+Electricity Rate:
+Rs per Unit
+
+مثلاً:
+
+Rate = Rs 50 / Unit
+
+اور:
+
+Load Running Hours
+
+Formula:
+
+Grid Energy =
+Total Load Watts × Running Hours ÷ 1000
+
+مثال:
+
+1000W Load
+× 5 Hours
+÷ 1000
+
+= 5 Units
+
+Cost:
+
+Grid Cost =
+Units × Electricity Rate
+
+مثال:
+
+5 × Rs 50
+= Rs 250
+
+Result:
+
+Load = 1000W
+Energy = 5 Units
+Cost = Rs 250
+
+========================
+9. DAILY GRID COST
+========================
+
+Home کے Daily Consumption کو Grid Rate سے multiply کریں۔
+
+Formula:
+
+Daily Grid Cost =
+Daily Units × Rate
+
+مثال:
+
+10 Units × Rs 50
+= Rs 500/day
+
+========================
+10. SOLAR VS GRID COMPARISON
+========================
+
+ایک comparison section بنائیں:
+
+Solar Daily Production
+Home Daily Consumption
+Grid Daily Consumption
+Grid Daily Cost
+Potential Solar Saving
+
+مثال:
+
+Home Consumption = 10 Units
+Solar Production = 13.20 Units
+
+Potential Solar Offset =
+minimum(Home Consumption, Solar Production)
+
+یعنی:
+
+min(10, 13.20)
+= 10 Units
+
+Potential Saving:
+
+10 × Rs 50
+= Rs 500/day
+
+اگر Solar production کم ہو:
+
+Home = 15 Units
+Solar = 10 Units
+
+تو Solar صرف:
+
+10 Units
+
+offset کرے گا۔
+
+Remaining Grid Requirement:
+
+15 - 10
+= 5 Units
+
+Grid Cost:
+
+5 × Rs 50
+= Rs 250
+
+========================
+11. IMPORTANT REAL-WORLD NOTE
+========================
+
+Interface میں یہ واضح کریں:
+
+"Solar production ایک estimated calculation ہے۔
+اصل پیداوار موسم، دھوپ، Panel temperature، shading، panel angle، inverter efficiency اور system losses کی وجہ سے مختلف ہو سکتی ہے۔"
+
+اور:
+
+"AC، motor، refrigerator اور دوسرے inductive loads کے starting surge کو inverter sizing میں الگ سے consider کرنا ضروری ہے۔"
+
+========================
+12. DASHBOARD
+========================
+
+اوپر ایک خوبصورت Dashboard بنائیں:
+
+☀️ Solar Capacity
+مثلاً 3.30 kW
+
+🏠 Total Home Load
+مثلاً 1,250 W
+
+⚡ Daily Consumption
+مثلاً 8.50 Units
+
+☀️ Solar Daily Production
+مثلاً 13.20 Units
+
+💰 Grid Daily Cost
+مثلاً Rs 425
+
+💵 Estimated Solar Saving
+مثلاً Rs 425
+
+📊 Remaining Grid Units
+مثلاً 0 Units
+
+========================
+13. DATA STORAGE
+========================
+
+User کا Load Data browser کے localStorage میں save ہو۔
+
+Buttons:
+
+Save
+Load Saved Data
+Clear Data
+
+Page reload ہونے کے بعد بھی data واپس آ جائے۔
+
+========================
+14. EXPORT / PRINT
+========================
+
+یہ buttons لازمی ہوں:
+
+🖨 Print A4
+
+⬇ Download CSV
+
+💾 Save Calculation
+
+A4 Print میں:
+
+Solar Details
+Home Load Table
+Total Load
+Daily Units
+Solar Production
+Grid Calculation
+Electricity Rate
+Estimated Cost
+Estimated Saving
+
+سب صاف print ہو۔
+
+========================
+15. MOBILE DESIGN
+========================
+
+Tool Android mobile پر بھی آسانی سے استعمال ہو۔
+
+Responsive design بنائیں۔
+
+Buttons بڑے ہوں۔
+
+Table mobile پر horizontal scroll ہو سکے۔
+
+Urdu RTL interface رکھیں۔
+
+ساتھ English technical terms بھی استعمال کیے جا سکتے ہیں، مثلاً:
+
+Watts
+kWh
+Units
+Solar
+Grid
+Efficiency
+
+========================
+16. COMMON PRESET LOADS
+========================
+
+ایک button:
+
+"Common Appliances"
+
+دبانے پر یہ example appliances add کرنے کا option ہو:
+
+Fan = 80W
+LED Bulb = 10W
+TV = 100W
+Refrigerator = 150W
+Water Pump = 750W
+Iron = 1000W
+Washing Machine = 500W
+AC = 1200W
+
+یہ صرف default/example values ہوں۔
+User ہر value کو edit کر سکے۔
+
+========================
+17. CALCULATION RULE
+========================
+
+تمام calculations decimal کے ساتھ ہوں۔
+
+Units:
+2 decimal places
+
+Cost:
+2 decimal places
+
+Watts:
+nearest whole number
+
+kW:
+2 decimal places
+
+1 Unit = 1 kWh
+
+========================
+18. RESET
+========================
+
+"Reset All" button ہو۔
+
+Confirmation message آئے:
+
+"کیا آپ تمام Load Data ختم کرنا چاہتے ہیں؟"
+
+Yes کرنے پر تمام appliances clear ہو جائیں۔
+
+========================
+19. IMPORTANT
+========================
+
+کسی بھی calculation کو hard-code نہ کریں۔
+
+User اگر:
+
+Panel = 450W
+Quantity = 10
+Efficiency = 75%
+Sun Hours = 6
+
+ڈالے تو تمام results فوراً خود calculate ہوں۔
+
+User اگر:
+
+Panel = 550W
+Quantity = 12
+
+کرے تو Solar Capacity خود:
+
+550 × 12
+= 6600W
+
+ہو جائے۔
+
+اسی طرح Load میں کوئی بھی appliance add/delete/edit کرنے سے تمام totals فوراً update ہوں۔
+
+========================
+FINAL UI
+
+ایپ کا نام:
+
+"Solar & Home Load Calculator"
+
+Header:
+
+☀️ Solar & Home Load Calculator
+
+Subheading:
+
+"اپنے گھر کا Load، Solar Production، Units اور بجلی کا خرچ آسانی سے معلوم کریں"
+
+Design:
+Clean
+Professional
+Green/White
+Mobile Friendly
+RTL Urdu
+Offline First
+
+تمام calculation client-side JavaScript سے ہو۔
+کسی external API کی ضرورت نہ ہو۔
+ایپ مکمل functional ہو، صرف design/mockup نہ ہو۔
+"""
