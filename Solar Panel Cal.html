@@ -10,317 +10,347 @@
 *{box-sizing:border-box}
 
 body{
-    margin:0;
-    font-family:Tahoma,Arial,sans-serif;
-    background:#f1f6f3;
-    color:#17202a;
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:#f1f6f3;
+color:#17202a;
 }
 
 .container{
-    max-width:1050px;
-    margin:auto;
-    padding:14px;
+max-width:1050px;
+margin:auto;
+padding:14px;
 }
 
 .header{
-    background:linear-gradient(135deg,#034d2d,#087443,#13a866);
-    color:white;
-    text-align:center;
-    padding:28px 15px;
-    border-radius:20px;
-    margin-bottom:15px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 5px 20px #0002;
+background:linear-gradient(135deg,#034d2d,#087443,#13a866);
+color:white;
+text-align:center;
+padding:28px 15px;
+border-radius:20px;
+margin-bottom:15px;
+position:relative;
+overflow:hidden;
+box-shadow:0 5px 20px #0002;
 }
 
 .header h1{
-    margin:0;
-    font-size:clamp(30px,7vw,52px);
-    animation:nameAnim 3s infinite;
+margin:0;
+font-size:clamp(30px,7vw,52px);
+animation:nameAnim 3s infinite;
 }
 
 .header h2{
-    margin:8px 0 0;
-    color:white;
-    font-size:clamp(19px,4vw,28px);
+margin:8px 0 0;
+color:white;
+font-size:clamp(19px,4vw,28px);
 }
 
 .header p{
-    margin:8px 0 0;
-    font-size:13px;
+margin:8px 0 0;
+font-size:13px;
 }
 
 .sun{
-    position:absolute;
-    font-size:80px;
-    opacity:.12;
-    animation:sunAnim 5s infinite;
+position:absolute;
+font-size:80px;
+opacity:.12;
+animation:sunAnim 5s infinite;
 }
 
 .sun1{left:5px;top:-15px}
 .sun2{right:5px;bottom:-20px}
 
 @keyframes nameAnim{
-    0%,100%{transform:scale(1)}
-    50%{
-        transform:scale(1.04);
-        text-shadow:0 0 20px white;
-    }
+0%,100%{transform:scale(1)}
+50%{
+transform:scale(1.04);
+text-shadow:0 0 20px white;
+}
 }
 
 @keyframes sunAnim{
-    50%{
-        transform:rotate(20deg) translateY(-10px);
-    }
+50%{
+transform:rotate(20deg) translateY(-10px);
+}
 }
 
 .card{
-    background:white;
-    padding:17px;
-    border-radius:15px;
-    margin-bottom:14px;
-    box-shadow:0 3px 12px #00000010;
+background:white;
+padding:17px;
+border-radius:15px;
+margin-bottom:14px;
+box-shadow:0 3px 12px #00000010;
 }
 
 h3{
-    color:#087443;
-    margin-top:0;
+color:#087443;
+margin-top:0;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-    gap:10px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+gap:10px;
 }
 
 label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:5px;
+display:block;
+font-weight:bold;
+margin-bottom:5px;
 }
 
 input,select{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccd5d9;
-    border-radius:8px;
-    font-size:14px;
+width:100%;
+padding:10px;
+border:1px solid #ccd5d9;
+border-radius:8px;
+font-size:14px;
 }
 
 button{
-    border:0;
-    padding:9px 14px;
-    margin:4px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
+border:0;
+padding:8px 12px;
+margin:3px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
 }
 
 .green{
-    background:#087443;
-    color:white;
+background:#087443;
+color:white;
 }
 
 .blue{
-    background:#1769aa;
-    color:white;
+background:#1769aa;
+color:white;
 }
 
 .red{
-    background:#d93636;
-    color:white;
+background:#d93636;
+color:white;
 }
 
 .gray{
-    background:#555;
-    color:white;
+background:#555;
+color:white;
 }
 
 .light{
-    background:#e5eaed;
+background:#e5eaed;
 }
 
-/* CHECKLIST */
+/* LOAD CHECKLIST */
 
 .checklist{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:10px;
-    margin-top:12px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:10px;
+margin-top:12px;
 }
 
 .loadCheck{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    background:#f7faf8;
-    border:1px solid #d7e7de;
-    border-radius:10px;
-    padding:11px;
-    cursor:pointer;
-    transition:.2s;
+display:flex;
+align-items:center;
+gap:8px;
+background:#f7faf8;
+border:1px solid #d7e7de;
+border-radius:12px;
+padding:10px;
+cursor:pointer;
+transition:.2s;
 }
 
 .loadCheck:hover{
-    background:#eaf6ef;
-    transform:translateY(-1px);
+background:#eaf6ef;
 }
 
-.loadCheck input{
-    width:20px;
-    height:20px;
-    accent-color:#087443;
-    cursor:pointer;
+.loadCheck>input[type="checkbox"]{
+width:20px;
+height:20px;
+accent-color:#087443;
+flex-shrink:0;
 }
 
 .loadInfo{
-    flex:1;
+flex:1;
 }
 
 .loadInfo strong{
-    display:block;
-    color:#087443;
+display:block;
+color:#087443;
 }
 
 .loadInfo small{
-    color:#68737b;
+display:block;
+color:#68737b;
+margin-top:2px;
+}
+
+.qtyBox{
+display:flex;
+align-items:center;
+gap:3px;
+direction:ltr;
+}
+
+.qtyBox button{
+width:30px;
+height:30px;
+padding:0;
+margin:0;
+font-size:18px;
+background:#087443;
+color:white;
+}
+
+.qtyNumber{
+min-width:32px;
+text-align:center;
+font-weight:bold;
+font-size:16px;
 }
 
 /* METRICS */
 
 .metrics{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:10px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:10px;
 }
 
 .metric{
-    background:#f4faf7;
-    border:1px solid #d5e8dd;
-    padding:14px;
-    border-radius:11px;
+background:#f4faf7;
+border:1px solid #d5e8dd;
+padding:14px;
+border-radius:11px;
 }
 
 .metric span{
-    display:block;
-    font-size:13px;
+display:block;
+font-size:13px;
 }
 
 .metric strong{
-    display:block;
-    color:#087443;
-    font-size:22px;
-    margin-top:5px;
+display:block;
+color:#087443;
+font-size:22px;
+margin-top:5px;
 }
 
 /* TABLE */
 
 .tableScroll{
-    overflow-x:auto;
+overflow-x:auto;
 }
 
 table{
-    width:100%;
-    min-width:850px;
-    border-collapse:collapse;
-    margin-top:12px;
+width:100%;
+min-width:850px;
+border-collapse:collapse;
+margin-top:12px;
 }
 
 th,td{
-    border-bottom:1px solid #ddd;
-    padding:9px;
-    text-align:center;
+border-bottom:1px solid #ddd;
+padding:9px;
+text-align:center;
 }
 
 th{
-    background:#e8f5ee;
+background:#e8f5ee;
 }
 
 td input{
-    width:75px;
-    padding:6px;
-    text-align:center;
+width:75px;
+padding:6px;
+text-align:center;
 }
 
 /* STATUS */
 
 .status{
-    margin-top:15px;
-    padding:16px;
-    border-radius:12px;
-    text-align:center;
-    font-size:17px;
-    font-weight:bold;
+margin-top:15px;
+padding:16px;
+border-radius:12px;
+text-align:center;
+font-size:17px;
+font-weight:bold;
 }
 
 .good{
-    background:#e7f7ed;
-    color:#087443;
-    border:1px solid #b9dfc7;
+background:#e7f7ed;
+color:#087443;
+border:1px solid #b9dfc7;
 }
 
 .bad{
-    background:#fff0f0;
-    color:#c62828;
-    border:1px solid #efbcbc;
+background:#fff0f0;
+color:#c62828;
+border:1px solid #efbcbc;
 }
 
 .warning{
-    background:#fff8e8;
-    color:#b56a00;
-    border:1px solid #efd69a;
+background:#fff8e8;
+color:#b56a00;
+border:1px solid #efd69a;
 }
 
 .resultItem{
-    padding:13px;
-    margin-top:8px;
-    border-radius:10px;
-    background:#f8faf9;
-    border:1px solid #e0e8e3;
+padding:13px;
+margin-top:8px;
+border-radius:10px;
+background:#f8faf9;
+border:1px solid #e0e8e3;
 }
 
 .note{
-    font-size:13px;
-    color:#68737b;
-    line-height:1.8;
+font-size:13px;
+color:#68737b;
+line-height:1.8;
 }
 
 @media(max-width:600px){
 
-    .header h1{
-        font-size:32px;
-    }
+.header h1{
+font-size:32px;
+}
 
-    .header h2{
-        font-size:19px;
-    }
+.header h2{
+font-size:19px;
+}
+
+.checklist{
+grid-template-columns:1fr;
+}
+
 }
 
 @media print{
 
-    body{
-        background:white;
-    }
+body{
+background:white;
+}
 
-    .noPrint{
-        display:none!important;
-    }
+.noPrint{
+display:none!important;
+}
 
-    .card{
-        box-shadow:none;
-        border:1px solid #ddd;
-    }
+.card{
+box-shadow:none;
+border:1px solid #ddd;
+}
 
-    .header{
-        background:white;
-        color:black;
-        border:1px solid #ddd;
-    }
+.header{
+background:white;
+color:black;
+border:1px solid #ddd;
+}
 
-    .header h2{
-        color:black;
-    }
+.header h2{
+color:black;
+}
 }
 </style>
 </head>
@@ -341,13 +371,13 @@ td input{
 <h2>☀️ Solar Panel Calculation — Part 2</h2>
 
 <p>
-Solar Capacity • Load Checklist • Automatic Calculation
+Solar Capacity • Load Checklist • Quantity • Automatic Calculation
 </p>
 
 </div>
 
 
-<!-- SOLAR PANEL -->
+<!-- SOLAR -->
 
 <div class="card">
 
@@ -356,6 +386,7 @@ Solar Capacity • Load Checklist • Automatic Calculation
 <div class="grid">
 
 <div>
+
 <label>ایک Solar Panel کتنے Watt کا ہے؟</label>
 
 <select id="panelWatt" onchange="calculate()">
@@ -378,8 +409,8 @@ Solar Capacity • Load Checklist • Automatic Calculation
 <option value="900">900 W</option>
 
 </select>
-</div>
 
+</div>
 
 <div>
 
@@ -419,27 +450,23 @@ oninput="calculate()">
 </div>
 
 
-<!-- LOAD CHECKLIST -->
+<!-- CHECKLIST -->
 
 <div class="card">
 
 <h3>☑️ Solar پر کون کون سا Load چلانا ہے؟</h3>
 
 <p class="note">
-صرف جس appliance کے سامنے tick کریں، وہ خود نیچے Load Table میں شامل ہو جائے گا۔
-Tick ختم کریں تو وہ خود remove ہو جائے گا۔
+آلے کے سامنے Tick کریں۔ Quantity کو + / − سے کم یا زیادہ کریں۔
+Tick کرتے ہی وہ Load نیچے خود calculate ہوگا۔
 </p>
 
-<div class="checklist" id="loadChecklist">
-
-<!-- JS سے بنے گا -->
-
-</div>
+<div class="checklist" id="loadChecklist"></div>
 
 </div>
 
 
-<!-- SELECTED LOAD TABLE -->
+<!-- SELECTED LOAD -->
 
 <div class="card">
 
@@ -476,7 +503,7 @@ Tick ختم کریں تو وہ خود remove ہو جائے گا۔
 <div class="noPrint">
 
 <button class="green" onclick="addCustomLoad()">
-➕ اپنا Load شامل کریں
+➕ اپنا Load
 </button>
 
 <button class="gray" onclick="clearAll()">
@@ -518,7 +545,6 @@ Tick ختم کریں تو وہ خود remove ہو جائے گا۔
 
 </div>
 
-
 <div id="mainStatus" class="status good">
 🟢 ابھی کوئی Load منتخب نہیں کیا گیا۔
 </div>
@@ -526,7 +552,7 @@ Tick ختم کریں تو وہ خود remove ہو جائے گا۔
 </div>
 
 
-<!-- INDIVIDUAL CHECK -->
+<!-- INDIVIDUAL RESULT -->
 
 <div class="card">
 
@@ -543,7 +569,7 @@ Tick ختم کریں تو وہ خود remove ہو جائے گا۔
 </div>
 
 
-<!-- SAVE -->
+<!-- BUTTONS -->
 
 <div class="card noPrint">
 
@@ -572,10 +598,9 @@ Reset
 
 <strong>اہم:</strong><br>
 
-یہ calculator planning/estimate کے لیے ہے۔ Solar panel کی اصل output
-دھوپ، temperature، shading، panel angle، wiring اور inverter losses
-کی وجہ سے مختلف ہوسکتی ہے۔ Fridge، AC، Pump اور Motor جیسے appliances
-کا starting surge بھی ضروری ہے۔
+یہ Calculator planning/estimate کے لیے ہے۔ اصل Solar output موسم،
+temperature، shading، panel angle، wiring اور inverter losses کی وجہ سے
+مختلف ہوسکتی ہے۔ AC، Fridge، Pump اور Motor میں starting surge زیادہ ہوسکتا ہے۔
 
 </p>
 
@@ -587,38 +612,48 @@ Reset
 <script>
 
 /* =========================================
-   DEFAULT APPLIANCES
+   APPLIANCES
 ========================================= */
 
 const appliances=[
 
 {
-id:"fan",
-name:"پنکھا",
+id:"fan_ac",
+name:"AC Fan",
 type:"AC",
 watts:80,
-defaultQty:1,
-defaultHours:8,
+qty:2,
+hours:8,
 surge:1.5
 },
 
 {
-id:"dcfan",
+id:"fan_dc",
 name:"DC Fan",
 type:"DC",
 watts:50,
-defaultQty:1,
-defaultHours:8,
+qty:2,
+hours:8,
 surge:1.2
 },
 
 {
-id:"led",
-name:"LED بلب",
+id:"led_ac",
+name:"AC LED Bulb",
 type:"AC",
 watts:10,
-defaultQty:1,
-defaultHours:6,
+qty:4,
+hours:6,
+surge:1.1
+},
+
+{
+id:"led_dc",
+name:"DC LED Light",
+type:"DC",
+watts:10,
+qty:4,
+hours:6,
 surge:1.1
 },
 
@@ -627,8 +662,8 @@ id:"tv",
 name:"TV",
 type:"AC",
 watts:100,
-defaultQty:1,
-defaultHours:5,
+qty:1,
+hours:5,
 surge:1.3
 },
 
@@ -637,8 +672,8 @@ id:"fridge",
 name:"Fridge",
 type:"AC",
 watts:150,
-defaultQty:1,
-defaultHours:8,
+qty:1,
+hours:8,
 surge:3
 },
 
@@ -647,19 +682,29 @@ id:"ac",
 name:"AC",
 type:"AC",
 watts:1200,
-defaultQty:1,
-defaultHours:6,
+qty:1,
+hours:6,
 surge:2.5
 },
 
 {
-id:"pump",
-name:"Water Pump",
+id:"pump_ac",
+name:"AC Water Pump",
 type:"AC",
 watts:750,
-defaultQty:1,
-defaultHours:1,
+qty:1,
+hours:1,
 surge:3
+},
+
+{
+id:"pump_dc",
+name:"DC Water Pump",
+type:"DC",
+watts:100,
+qty:1,
+hours:2,
+surge:1.3
 },
 
 {
@@ -667,18 +712,18 @@ id:"washing",
 name:"Washing Machine",
 type:"AC",
 watts:500,
-defaultQty:1,
-defaultHours:1,
+qty:1,
+hours:1,
 surge:2
 },
 
 {
 id:"iron",
-name:"استری",
+name:"Iron",
 type:"AC",
 watts:1000,
-defaultQty:1,
-defaultHours:1,
+qty:1,
+hours:1,
 surge:1.2
 },
 
@@ -687,8 +732,8 @@ id:"computer",
 name:"Computer",
 type:"AC",
 watts:250,
-defaultQty:1,
-defaultHours:5,
+qty:1,
+hours:5,
 surge:1.5
 },
 
@@ -697,49 +742,53 @@ id:"router",
 name:"WiFi Router",
 type:"DC",
 watts:15,
-defaultQty:1,
-defaultHours:24,
+qty:1,
+hours:24,
 surge:1.1
 },
 
 {
 id:"lights",
-name:"گھر کی Lights",
+name:"AC House Lights",
 type:"AC",
 watts:100,
-defaultQty:1,
-defaultHours:6,
+qty:1,
+hours:6,
 surge:1.2
+},
+
+{
+id:"dc_load",
+name:"Other DC Load",
+type:"DC",
+watts:100,
+qty:1,
+hours:4,
+surge:1.2
+},
+
+{
+id:"ac_load",
+name:"Other AC Load",
+type:"AC",
+watts:200,
+qty:1,
+hours:4,
+surge:1.5
 }
 
 ];
 
 
 /* =========================================
-   SELECTED LOADS
+   SELECTED
 ========================================= */
 
 let selected=[];
 
 
 /* =========================================
-   NUMBER
-========================================= */
-
-function n(id){
-
-return Math.max(
-0,
-parseFloat(
-document.getElementById(id).value
-)||0
-);
-
-}
-
-
-/* =========================================
-   BUILD CHECKLIST
+   BUILD CHECKBOX LIST
 ========================================= */
 
 function buildChecklist(){
@@ -752,8 +801,14 @@ box.innerHTML="";
 
 appliances.forEach((a)=>{
 
+let current=
+selected.find(x=>x.id===a.id);
+
 let checked=
-selected.some(x=>x.id===a.id);
+current ? "checked" : "";
+
+let quantity=
+current ? current.qty : a.qty;
 
 
 box.innerHTML+=`
@@ -762,8 +817,7 @@ box.innerHTML+=`
 
 <input
 type="checkbox"
-value="${a.id}"
-${checked ? "checked":""}
+${checked}
 onchange="toggleLoad('${a.id}',this.checked)"
 >
 
@@ -772,8 +826,31 @@ onchange="toggleLoad('${a.id}',this.checked)"
 <strong>${a.name}</strong>
 
 <small>
-${a.watts}W • ${a.type} • Surge ${a.surge}×
+${a.watts}W • ${a.type}
 </small>
+
+</div>
+
+
+<div class="qtyBox">
+
+<button
+type="button"
+onclick="changeChecklistQty(event,'${a.id}',-1)">
+−
+</button>
+
+<span
+class="qtyNumber"
+id="qty_${a.id}">
+${quantity}
+</span>
+
+<button
+type="button"
+onclick="changeChecklistQty(event,'${a.id}',1)">
++
+</button>
 
 </div>
 
@@ -796,26 +873,22 @@ let appliance=
 appliances.find(a=>a.id===id);
 
 
-if(!appliance){
-return;
-}
+if(!appliance)return;
 
 
 if(checked){
-
-/* اگر پہلے سے موجود ہے تو دوبارہ نہ ڈالیں */
 
 if(!selected.some(x=>x.id===id)){
 
 selected.push({
 
-id:appliance.id,
-name:appliance.name,
-type:appliance.type,
-watts:appliance.watts,
-qty:appliance.defaultQty,
-hours:appliance.defaultHours,
-surge:appliance.surge
+id:a.id,
+name:a.name,
+type:a.type,
+watts:a.watts,
+qty:a.qty,
+hours:a.hours,
+surge:a.surge
 
 });
 
@@ -837,63 +910,66 @@ calculate();
 
 
 /* =========================================
-   ADD CUSTOM LOAD
+   QUANTITY + / -
 ========================================= */
 
-function addCustomLoad(){
+function changeChecklistQty(event,id,change){
 
-let name=
-prompt("آلے کا نام لکھیں:");
+event.preventDefault();
+event.stopPropagation();
 
-if(!name){
-return;
+
+let appliance=
+appliances.find(a=>a.id===id);
+
+if(!appliance)return;
+
+
+let item=
+selected.find(x=>x.id===id);
+
+
+/* اگر ابھی tick نہیں کیا تو پہلے شامل کریں */
+
+if(!item){
+
+item={
+
+id:appliance.id,
+name:appliance.name,
+type:appliance.type,
+watts:appliance.watts,
+qty:Math.max(1,appliance.qty+change),
+hours:appliance.hours,
+surge:appliance.surge
+
+};
+
+selected.push(item);
+
 }
 
+else{
 
-let watts=
-parseFloat(
-prompt("Watts لکھیں:")
+item.qty=
+Math.max(
+1,
+item.qty+change
 );
 
-
-if(!watts || watts<=0){
-
-alert("درست Watt لکھیں۔");
-
-return;
-
 }
 
 
-let type=
-prompt("AC یا DC؟","AC")
-.toUpperCase();
+/* checkbox ON */
 
+let checkbox=
+event.currentTarget
+.closest(".loadCheck")
+.querySelector('input[type="checkbox"]');
 
-if(type!=="DC"){
-type="AC";
+if(checkbox){
+checkbox.checked=true;
 }
-
-
-selected.push({
-
-id:"custom_"+Date.now(),
-
-name:name,
-
-type:type,
-
-watts:watts,
-
-qty:1,
-
-hours:1,
-
-surge:1.5,
-
-custom:true
-
-});
 
 
 calculate();
@@ -979,17 +1055,13 @@ ${surge.toFixed(0)} W
 <button
 class="blue"
 onclick="editLoad(${index})">
-
 Edit
-
 </button>
 
 <button
 class="red"
 onclick="deleteLoad(${index})">
-
 Delete
-
 </button>
 
 </td>
@@ -1004,13 +1076,21 @@ Delete
 
 
 /* =========================================
-   QUANTITY
+   TABLE QUANTITY
 ========================================= */
 
 function changeQty(index,value){
 
 selected[index].qty=
-Math.max(1,parseFloat(value)||1);
+Math.max(
+1,
+parseFloat(value)||1
+);
+
+syncCheckboxQuantity(
+selected[index].id,
+selected[index].qty
+);
 
 calculate();
 
@@ -1018,15 +1098,36 @@ calculate();
 
 
 /* =========================================
-   HOURS
+   TABLE HOURS
 ========================================= */
 
 function changeHours(index,value){
 
 selected[index].hours=
-Math.max(0,parseFloat(value)||0);
+Math.max(
+0,
+parseFloat(value)||0
+);
 
 calculate();
+
+}
+
+
+/* =========================================
+   SYNC CHECKBOX
+========================================= */
+
+function syncCheckboxQuantity(id,qty){
+
+let span=
+document.getElementById(
+"qty_"+id
+);
+
+if(span){
+span.textContent=qty;
+}
 
 }
 
@@ -1046,22 +1147,16 @@ d.name+" کے Watts:",
 d.watts
 );
 
-
-if(watts===null){
-return;
-}
+if(watts===null)return;
 
 
 let qty=
 prompt(
-"تعداد:",
+"Quantity:",
 d.qty
 );
 
-
-if(qty===null){
-return;
-}
+if(qty===null)return;
 
 
 let hours=
@@ -1070,10 +1165,7 @@ prompt(
 d.hours
 );
 
-
-if(hours===null){
-return;
-}
+if(hours===null)return;
 
 
 let surge=
@@ -1082,10 +1174,7 @@ prompt(
 d.surge
 );
 
-
-if(surge===null){
-return;
-}
+if(surge===null)return;
 
 
 d.watts=
@@ -1101,6 +1190,11 @@ d.surge=
 Math.max(1,parseFloat(surge)||d.surge);
 
 
+syncCheckboxQuantity(
+d.id,
+d.qty
+);
+
 calculate();
 
 }
@@ -1112,23 +1206,70 @@ calculate();
 
 function deleteLoad(index){
 
-let d=selected[index];
-
-
-/* custom کو صرف list سے ختم کریں */
+let id=
+selected[index].id;
 
 selected.splice(index,1);
 
 
-/* اگر default appliance ہے تو checkbox بھی untick */
+/* checkbox OFF */
 
-let checkbox=
-document.querySelector(
-`input[value="${d.id}"]`
+let checks=
+document.querySelectorAll(
+".loadCheck input[type='checkbox']"
 );
 
-if(checkbox){
-checkbox.checked=false;
+checks.forEach(c=>{
+
+if(
+c.parentElement &&
+c.parentElement.innerHTML.includes(
+id
+)
+){
+c.checked=false;
+}
+
+});
+
+
+/* زیادہ reliable ID lookup */
+let applianceIndex=
+appliances.findIndex(
+a=>a.id===id
+);
+
+if(applianceIndex>=0){
+
+let labels=
+document.querySelectorAll(".loadCheck");
+
+labels.forEach(label=>{
+
+let text=
+label.textContent;
+
+let appliance=
+appliances.find(
+a=>a.id===id
+);
+
+if(
+appliance &&
+text.includes(appliance.name)
+){
+
+let cb=
+label.querySelector(
+'input[type="checkbox"]'
+);
+
+if(cb)cb.checked=false;
+
+}
+
+});
+
 }
 
 
@@ -1138,19 +1279,17 @@ calculate();
 
 
 /* =========================================
-   CLEAR ALL
+   CLEAR
 ========================================= */
 
 function clearAll(){
 
-if(selected.length===0){
-return;
-}
+if(selected.length===0)return;
 
 
 if(
 !confirm(
-"کیا تمام منتخب Load ختم کرنا چاہتے ہیں؟"
+"کیا تمام منتخب Solar Load ختم کرنا چاہتے ہیں؟"
 )
 ){
 return;
@@ -1167,29 +1306,91 @@ calculate();
 
 
 /* =========================================
+   CUSTOM LOAD
+========================================= */
+
+function addCustomLoad(){
+
+let name=
+prompt("آلے کا نام:");
+
+if(!name)return;
+
+
+let watts=
+parseFloat(
+prompt("Watts:")
+);
+
+if(!watts || watts<=0){
+
+alert("درست Watts لکھیں۔");
+return;
+
+}
+
+
+let type=
+(prompt("AC یا DC؟","AC")||"AC")
+.toUpperCase();
+
+if(type!=="DC")type="AC";
+
+
+let id=
+"custom_"+Date.now();
+
+
+selected.push({
+
+id:id,
+name:name,
+type:type,
+watts:watts,
+qty:1,
+hours:1,
+surge:1.5,
+custom:true
+
+});
+
+
+calculate();
+
+}
+
+
+/* =========================================
    CALCULATE
 ========================================= */
 
 function calculate(){
 
 let panelWatt=
-n("panelWatt");
+Math.max(
+0,
+parseFloat(
+document.getElementById("panelWatt").value
+)||0
+);
 
 let panelQty=
-n("panelQty");
+Math.max(
+0,
+parseFloat(
+document.getElementById("panelQty").value
+)||0
+);
 
 
 let solarCapacity=
 panelWatt*panelQty;
 
 
-/*
-Planning usable capacity.
-یہ safety margin ہے۔
-*/
+/* 80% planning usable power */
 
 let usableSolar=
-solarCapacity*0.80;
+solarCapacity*.80;
 
 
 document.getElementById("totalSolar")
@@ -1199,15 +1400,14 @@ solarCapacity.toFixed(0)+" W";
 
 document.getElementById("solarKW")
 .textContent=
-(solarCapacity/1000).toFixed(2)+" kW";
+(solarCapacity/1000)
+.toFixed(2)+" kW";
 
 
 document.getElementById("usableSolar")
 .textContent=
 usableSolar.toFixed(0)+" W";
 
-
-/* LOAD */
 
 let running=0;
 
@@ -1263,24 +1463,20 @@ document.getElementById("mainStatus");
 
 if(selected.length===0){
 
-status.className=
-"status good";
+status.className="status good";
 
 status.innerHTML=
-"🟢 ابھی کوئی Solar Load منتخب نہیں کیا گیا۔";
+"🟢 ابھی کوئی Load منتخب نہیں کیا گیا۔";
 
 }
 
 else if(running<=usableSolar){
 
-status.className=
-"status good";
+status.className="status good";
 
 status.innerHTML=
 "🟢 موجودہ Load Solar پر چل سکتا ہے۔<br>"+
-"Solar Capacity: "+
-solarCapacity.toFixed(0)+
-"W | Usable: "+
+"Solar Usable: "+
 usableSolar.toFixed(0)+
 "W | Load: "+
 running.toFixed(0)+"W";
@@ -1289,17 +1485,15 @@ running.toFixed(0)+"W";
 
 else{
 
-status.className=
-"status bad";
+status.className="status bad";
 
 status.innerHTML=
-"🔴 موجودہ Solar Capacity پر پورا Load نہیں چل سکتا۔<br>"+
+"🔴 پورا Load موجودہ Solar پر نہیں چل سکتا۔<br>"+
 "Solar Usable: "+
 usableSolar.toFixed(0)+
-"W | موجودہ Load: "+
-running.toFixed(0)+
-"W<br>"+
-"کچھ Load Delete کریں یا Solar Panels بڑھائیں۔";
+"W | Load: "+
+running.toFixed(0)+"W<br>"+
+"کچھ Load کم کریں یا Solar Panels بڑھائیں۔";
 
 }
 
@@ -1312,13 +1506,15 @@ renderIndividual();
 
 
 /* =========================================
-   INDIVIDUAL RESULTS
+   INDIVIDUAL
 ========================================= */
 
 function renderIndividual(){
 
 let box=
-document.getElementById("individualResults");
+document.getElementById(
+"individualResults"
+);
 
 box.innerHTML="";
 
@@ -1338,11 +1534,21 @@ return;
 
 
 let solar=
-n("panelWatt")*
-n("panelQty");
+parseFloat(
+document.getElementById("panelWatt").value
+)||0;
+
+let qty=
+parseFloat(
+document.getElementById("panelQty").value
+)||0;
+
+
+let capacity=
+solar*qty;
 
 let usable=
-solar*.80;
+capacity*.80;
 
 
 selected.forEach(d=>{
@@ -1354,50 +1560,37 @@ let surge=
 total*d.surge;
 
 
-let runningOK=
-total<=usable;
-
-let surgeOK=
-surge<=solar;
-
-
 let div=
 document.createElement("div");
 
 div.className="resultItem";
 
 
-if(runningOK && surgeOK){
+if(total<=usable && surge<=capacity){
 
 div.innerHTML=
 `
 <strong style="color:#087443">
-🟢 ${escapeHTML(d.name)} — مناسب
-</strong>
-<br>
-Running: ${total.toFixed(0)}W
-<br>
-Surge: ${surge.toFixed(0)}W
-<br>
-Solar Capacity: ${solar.toFixed(0)}W
+🟢 ${escapeHTML(d.name)} — چل سکتا ہے
+</strong><br>
+Running Load: ${total.toFixed(0)} W<br>
+Starting Surge: ${surge.toFixed(0)} W<br>
+Solar Capacity: ${capacity.toFixed(0)} W
 `;
 
 }
 
-else if(runningOK && !surgeOK){
+else if(total<=usable){
 
 div.innerHTML=
 `
 <strong style="color:#b56a00">
-🟡 ${escapeHTML(d.name)} — Running Load چل سکتا ہے،
+🟡 ${escapeHTML(d.name)} — Running Load ٹھیک،
 لیکن Starting Surge زیادہ ہے
-</strong>
-<br>
-Running: ${total.toFixed(0)}W
-<br>
-Starting Surge: ${surge.toFixed(0)}W
-<br>
-Solar Capacity: ${solar.toFixed(0)}W
+</strong><br>
+Running Load: ${total.toFixed(0)} W<br>
+Starting Surge: ${surge.toFixed(0)} W<br>
+Solar Capacity: ${capacity.toFixed(0)} W
 `;
 
 }
@@ -1407,14 +1600,11 @@ else{
 div.innerHTML=
 `
 <strong style="color:#c62828">
-🔴 ${escapeHTML(d.name)} — موجودہ Solar پر نہیں چل سکتا
-</strong>
-<br>
-Required: ${total.toFixed(0)}W
-<br>
-Solar Usable: ${usable.toFixed(0)}W
-<br>
-مزید Solar Panels یا کم Load درکار ہے۔
+🔴 ${escapeHTML(d.name)} — نہیں چل سکتا
+</strong><br>
+Required: ${total.toFixed(0)} W<br>
+Solar Usable: ${usable.toFixed(0)} W<br>
+مزید Panels یا کم Quantity/Load درکار ہے۔
 `;
 
 }
@@ -1451,7 +1641,6 @@ localStorage.setItem(
 JSON.stringify(data)
 );
 
-
 alert("Data محفوظ ہوگیا۔");
 
 }
@@ -1472,7 +1661,6 @@ localStorage.getItem("waqarSolarPart2")
 if(!data){
 
 alert("کوئی Saved Data نہیں ملا۔");
-
 return;
 
 }
@@ -1484,12 +1672,13 @@ document.getElementById("panelWatt")
 document.getElementById("panelQty")
 .value=data.panelQty;
 
-selected=data.selected||[];
+selected=
+data.selected||[];
+
 
 buildChecklist();
 
 calculate();
-
 
 alert("Saved Data Load ہوگیا۔");
 
@@ -1513,11 +1702,11 @@ return;
 
 selected=[];
 
-document.getElementById("panelQty")
-.value=2;
-
 document.getElementById("panelWatt")
 .value=550;
+
+document.getElementById("panelQty")
+.value=2;
 
 localStorage.removeItem(
 "waqarSolarPart2"
@@ -1531,7 +1720,7 @@ calculate();
 
 
 /* =========================================
-   SECURITY
+   ESCAPE
 ========================================= */
 
 function escapeHTML(text){
