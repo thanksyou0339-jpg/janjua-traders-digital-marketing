@@ -3,51 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Solar & Home Load Calculator</title>
+<title>Waqar Ali Janjua - Solar Calculator</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
     font-family:Tahoma,Arial,sans-serif;
-    background:#f3f6f8;
+    background:#f2f6f4;
     color:#17202a;
 }
 
 .container{
-    max-width:1150px;
+    max-width:1200px;
     margin:auto;
     padding:15px;
 }
 
 .header{
-    background:linear-gradient(135deg,#087443,#12a05f);
+    position:relative;
+    overflow:hidden;
+    text-align:center;
     color:white;
-    padding:25px;
-    border-radius:18px;
-    margin-bottom:15px;
+    padding:35px 15px;
+    border-radius:20px;
+    margin-bottom:18px;
+    background:linear-gradient(135deg,#034d2d,#087443,#14a866);
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
 .header h1{
-    margin:0 0 8px;
-    font-size:28px;
+    margin:0;
+    font-size:clamp(30px,7vw,58px);
+    font-weight:900;
+    animation:glow 2.5s infinite;
+}
+
+.header h2{
+    color:white;
+    margin:10px 0 0;
+    font-size:clamp(19px,4vw,30px);
+}
+
+.header p{
+    margin:10px 0 0;
+    font-size:14px;
+}
+
+.sun{
+    position:absolute;
+    font-size:100px;
+    opacity:.12;
+    animation:float 5s infinite ease-in-out;
+}
+
+.sun.one{left:5%;top:-25px}
+.sun.two{right:5%;bottom:-30px;animation-delay:1s}
+
+@keyframes glow{
+    50%{
+        text-shadow:0 0 25px white;
+        transform:scale(1.02);
+    }
+}
+
+@keyframes float{
+    50%{transform:translateY(-15px) rotate(10deg)}
 }
 
 .card{
     background:white;
-    border-radius:15px;
+    border-radius:16px;
     padding:18px;
-    margin-bottom:15px;
+    margin-bottom:16px;
     box-shadow:0 3px 15px rgba(0,0,0,.07);
 }
 
-h2{
-    color:#087443;
+h3{
     margin-top:0;
+    color:#087443;
 }
 
 .grid{
@@ -64,34 +99,26 @@ label{
 
 input,select{
     width:100%;
-    padding:10px;
+    padding:11px;
     border:1px solid #cbd5dc;
     border-radius:8px;
     background:white;
+    font-size:14px;
 }
 
 button{
     border:0;
-    border-radius:8px;
     padding:10px 15px;
     margin:5px;
+    border-radius:8px;
     cursor:pointer;
     font-weight:bold;
 }
 
-.green{
-    background:#087443;
-    color:white;
-}
-
-.gray{
-    background:#e8edf1;
-}
-
-.red{
-    background:#d93636;
-    color:white;
-}
+.green{background:#087443;color:white}
+.gray{background:#e7ecef}
+.red{background:#d93636;color:white}
+.blue{background:#1769aa;color:white}
 
 .metrics{
     display:grid;
@@ -100,9 +127,9 @@ button{
 }
 
 .metric{
-    background:#f6faf8;
-    border:1px solid #dcebe3;
-    padding:14px;
+    background:#f4faf7;
+    border:1px solid #d8e9df;
+    padding:15px;
     border-radius:12px;
 }
 
@@ -114,89 +141,62 @@ button{
 .metric strong{
     display:block;
     color:#087443;
-    font-size:23px;
-    margin-top:5px;
+    font-size:22px;
+    margin-top:6px;
+}
+
+.table-scroll{
+    overflow-x:auto;
 }
 
 table{
     width:100%;
+    min-width:850px;
     border-collapse:collapse;
     margin-top:12px;
 }
 
 th,td{
     border-bottom:1px solid #ddd;
-    padding:8px;
+    padding:9px;
     text-align:center;
 }
 
 th{
-    background:#e9f5ef;
+    background:#e8f5ee;
 }
 
-.good{
-    color:#087443;
-    font-weight:bold;
+.result{
+    padding:15px;
+    margin-top:12px;
+    border-radius:12px;
+    background:#eef8f2;
+    border:1px solid #cce6d7;
+    line-height:1.9;
 }
 
-.warning{
-    color:#d17a00;
-    font-weight:bold;
-}
-
-.bad{
-    color:#c62828;
-    font-weight:bold;
-}
+.good{color:#087443;font-weight:bold}
+.warn{color:#c77700;font-weight:bold}
+.bad{color:#c62828;font-weight:bold}
 
 .note{
     font-size:13px;
-    color:#5d6975;
-    line-height:1.7;
+    line-height:1.8;
+    color:#5c6870;
 }
 
-.result-box{
-    background:#eef8f2;
-    border:1px solid #cde7d8;
-    padding:15px;
-    border-radius:12px;
-    margin-top:12px;
-}
-
-@media(max-width:650px){
-
-    .header h1{
-        font-size:22px;
-    }
-
-    table{
-        font-size:12px;
-        min-width:700px;
-    }
-
-    .table-scroll{
-        overflow-x:auto;
-    }
+@media(max-width:600px){
+    .header h1{font-size:32px}
+    .header h2{font-size:19px}
 }
 
 @media print{
-
-    body{
-        background:white;
-    }
-
-    .no-print{
-        display:none !important;
-    }
-
-    .card{
-        box-shadow:none;
-        border:1px solid #ddd;
-    }
-
+    body{background:white}
+    .no-print{display:none!important}
+    .card{box-shadow:none;border:1px solid #ddd}
     .header{
-        background:white;
         color:black;
+        background:white;
         border:1px solid #ddd;
     }
 }
@@ -207,25 +207,35 @@ th{
 
 <div class="container">
 
+<!-- HEADER -->
+
 <div class="header">
-<h1>☀️ Solar & Home Load Calculator</h1>
-<div>
-گھر کا Load، روزانہ/ماہانہ Units، Solar Panels، Battery، Inverter اور بجلی کا خرچ
-</div>
+
+<div class="sun one">☀️</div>
+<div class="sun two">☀️</div>
+
+<h1>Waqar Ali Janjua</h1>
+
+<h2>☀️ سولر پینل کیلکولیٹنگ آف لائن ایپ</h2>
+
+<p>
+Solar • Home Load • Units • Battery • Inverter • MPPT/PWM
+</p>
+
 </div>
 
 
-<!-- ELECTRICITY / LOAD -->
+<!-- HOME LOAD -->
 
 <div class="card">
 
-<h2>🏠 گھر کا بجلی کا Load</h2>
+<h3>🏠 1۔ گھر کا بجلی / Grid Load</h3>
 
 <div class="grid no-print">
 
 <div>
 <label>آلے کا نام</label>
-<input id="deviceName" placeholder="مثلاً پنکھا">
+<input id="deviceName" placeholder="پنکھا">
 </div>
 
 <div>
@@ -239,23 +249,27 @@ th{
 </div>
 
 <div>
-<label>روزانہ کتنے گھنٹے؟</label>
+<label>روزانہ Hours</label>
 <input id="deviceHours" type="number" value="1" step="0.1">
 </div>
 
 <div>
-<label>مہینے میں کتنے دن؟</label>
+<label>مہینے کے Days</label>
 <input id="deviceDays" type="number" value="30">
 </div>
 
 </div>
 
 <div class="no-print">
-<button class="green" onclick="addDevice()">+ Load شامل کریں</button>
 
-<button class="gray" onclick="addCommonLoads()">
-عام گھریلو Load
+<button class="green" onclick="addGridLoad()">
++ Load شامل کریں
 </button>
+
+<button class="gray" onclick="commonGridLoads()">
+عام گھر کا Load
+</button>
+
 </div>
 
 <div class="table-scroll">
@@ -266,19 +280,19 @@ th{
 
 <tr>
 <th>آلہ</th>
-<th>Watts</th>
-<th>تعداد</th>
-<th>گھنٹے</th>
-<th>دن</th>
+<th>W</th>
+<th>Qty</th>
+<th>Hours</th>
+<th>Days</th>
 <th>Total W</th>
 <th>Daily Units</th>
 <th>Monthly Units</th>
-<th class="no-print">حذف</th>
+<th class="no-print">Delete</th>
 </tr>
 
 </thead>
 
-<tbody id="deviceTable"></tbody>
+<tbody id="gridTable"></tbody>
 
 </table>
 
@@ -287,32 +301,32 @@ th{
 </div>
 
 
-<!-- SUMMARY -->
+<!-- GRID SUMMARY -->
 
 <div class="card">
 
-<h2>📊 بجلی کا خلاصہ</h2>
+<h3>📊 2۔ بجلی کا خلاصہ</h3>
 
 <div class="metrics">
 
 <div class="metric">
 <span>کل Running Load</span>
-<strong id="totalLoad">0 W</strong>
+<strong id="gridWatts">0 W</strong>
 </div>
 
 <div class="metric">
 <span>روزانہ Units</span>
-<strong id="dailyUnits">0.00</strong>
+<strong id="gridDaily">0</strong>
 </div>
 
 <div class="metric">
 <span>ماہانہ Units</span>
-<strong id="monthlyUnits">0.00</strong>
+<strong id="gridMonthly">0</strong>
 </div>
 
 <div class="metric">
 <span>Peak Load</span>
-<strong id="peakLoad">0 W</strong>
+<strong id="gridPeak">0 W</strong>
 </div>
 
 </div>
@@ -320,22 +334,22 @@ th{
 </div>
 
 
-<!-- ELECTRICITY BILL -->
+<!-- BILL -->
 
 <div class="card">
 
-<h2>⚡ Grid / WAPDA بجلی کا حساب</h2>
+<h3>⚡ 3۔ Grid / WAPDA Bill</h3>
 
 <div class="grid">
 
 <div>
-<label>فی Unit Rate (Rs)</label>
-<input id="electricRate" type="number" value="50">
+<label>فی Unit Rate Rs</label>
+<input id="unitRate" type="number" value="50">
 </div>
 
 <div>
-<label>Fixed / Other Charges</label>
-<input id="fixedCharges" type="number" value="0">
+<label>Fixed Charges Rs</label>
+<input id="fixedCharge" type="number" value="0">
 </div>
 
 </div>
@@ -343,8 +357,8 @@ th{
 <div class="metrics" style="margin-top:15px">
 
 <div class="metric">
-<span>ماہانہ Units</span>
-<strong id="billUnits">0.00</strong>
+<span>Monthly Units</span>
+<strong id="billUnits">0</strong>
 </div>
 
 <div class="metric">
@@ -353,25 +367,25 @@ th{
 </div>
 
 <div class="metric">
-<span>Estimated Monthly Bill</span>
-<strong id="monthlyBill">Rs 0</strong>
+<span>Estimated Bill</span>
+<strong id="estimatedBill">Rs 0</strong>
 </div>
 
 </div>
 
 <p class="note">
-یہ ایک estimated calculation ہے۔ اصل بجلی کے بل میں taxes، slabs، fuel adjustments،
-meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہیں۔
+یہ estimated حساب ہے۔ اصل بل میں slab، taxes، fuel adjustment اور
+دوسرے charges مختلف ہوسکتے ہیں۔
 </p>
 
 </div>
 
 
-<!-- SOLAR -->
+<!-- SOLAR PANEL -->
 
 <div class="card">
 
-<h2>☀️ Solar Panel System</h2>
+<h3>☀️ 4۔ Solar Panels</h3>
 
 <div class="grid">
 
@@ -407,7 +421,7 @@ meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہ
 </div>
 
 <div>
-<label>روزانہ مؤثر دھوپ</label>
+<label>Effective Sun Hours</label>
 <input id="sunHours" type="number" value="5" step="0.1">
 </div>
 
@@ -426,13 +440,13 @@ meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہ
 </div>
 
 <div class="metric">
-<span>Solar Capacity</span>
+<span>Solar kW</span>
 <strong id="solarKW">0 kW</strong>
 </div>
 
 <div class="metric">
-<span>روزانہ Solar Units</span>
-<strong id="solarDaily">0.00</strong>
+<span>Daily Solar Units</span>
+<strong id="solarDaily">0</strong>
 </div>
 
 </div>
@@ -440,27 +454,27 @@ meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہ
 </div>
 
 
-<!-- SOLAR HOURS -->
+<!-- SOLAR TIME -->
 
 <div class="card">
 
-<h2>⏱️ Solar 1 / 2 / 4 Hours</h2>
+<h3>⏱️ 5۔ Solar سے 1 / 2 / 4 گھنٹے کی Energy</h3>
 
 <div class="metrics">
 
 <div class="metric">
 <span>1 Hour</span>
-<strong id="solar1">0.00 Units</strong>
+<strong id="oneHour">0 Units</strong>
 </div>
 
 <div class="metric">
 <span>2 Hours</span>
-<strong id="solar2">0.00 Units</strong>
+<strong id="twoHour">0 Units</strong>
 </div>
 
 <div class="metric">
 <span>4 Hours</span>
-<strong id="solar4">0.00 Units</strong>
+<strong id="fourHour">0 Units</strong>
 </div>
 
 </div>
@@ -468,30 +482,157 @@ meter charges اور دوسرے سرکاری charges مختلف ہو سکتے ہ
 </div>
 
 
-<!-- SOLAR REQUIRED -->
+<!-- SOLAR LOAD -->
 
 <div class="card">
 
-<h2>🔢 مطلوبہ Solar Panels</h2>
+<h3>🔆 6۔ Solar پر چلنے والا الگ Load</h3>
+
+<p class="note">
+یہاں صرف وہ سامان ڈالیں جو آپ Solar پر چلانا چاہتے ہیں۔
+AC اور DC دونوں Load شامل ہوسکتے ہیں۔
+مثلاً Fridge، TV، Fan، AC، Pump وغیرہ۔
+</p>
+
+<div class="grid no-print">
+
+<div>
+<label>آلے کا نام</label>
+<input id="solarName" placeholder="Fridge">
+</div>
+
+<div>
+<label>Load Type</label>
+
+<select id="solarType">
+
+<option>AC</option>
+<option>DC</option>
+
+</select>
+
+</div>
+
+<div>
+<label>Watts</label>
+<input id="solarWatts" type="number" placeholder="150">
+</div>
+
+<div>
+<label>تعداد</label>
+<input id="solarQty" type="number" value="1">
+</div>
+
+<div>
+<label>کتنے گھنٹے؟</label>
+<input id="solarHours" type="number" value="4" step="0.1">
+</div>
+
+</div>
+
+<div class="no-print">
+
+<button class="green" onclick="addSolarLoad()">
++ Solar Load
+</button>
+
+<button class="gray" onclick="commonSolarLoads()">
+عام Solar Loads
+</button>
+
+</div>
+
+<div class="table-scroll">
+
+<table>
+
+<thead>
+
+<tr>
+<th>آلہ</th>
+<th>Type</th>
+<th>W</th>
+<th>Qty</th>
+<th>Hours</th>
+<th>Total W</th>
+<th>Energy</th>
+<th>Required Panels</th>
+<th>Status</th>
+<th class="no-print">Delete</th>
+</tr>
+
+</thead>
+
+<tbody id="solarTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- SOLAR ANALYSIS -->
+
+<div class="card">
+
+<h3>🔎 7۔ Solar Load Analysis</h3>
+
+<div class="metrics">
+
+<div class="metric">
+<span>Solar Running Load</span>
+<strong id="solarLoadW">0 W</strong>
+</div>
+
+<div class="metric">
+<span>Solar Load Energy</span>
+<strong id="solarLoadUnits">0 Units</strong>
+</div>
+
+<div class="metric">
+<span>Available Solar Power</span>
+<strong id="availablePower">0 W</strong>
+</div>
+
+<div class="metric">
+<span>Available 4-Hour Energy</span>
+<strong id="availableEnergy">0 Units</strong>
+</div>
+
+</div>
+
+<div id="solarResult" class="result">
+Analysis
+</div>
+
+</div>
+
+
+<!-- REQUIRED PANELS -->
+
+<div class="card">
+
+<h3>🔢 8۔ مطلوبہ Solar Panels</h3>
 
 <div class="grid">
 
 <div>
-<label>آپ کو روزانہ کتنی Solar Units چاہیے؟</label>
-<input id="requiredSolarUnits" type="number" value="10">
+<label>روزانہ مطلوبہ Solar Units</label>
+<input id="requiredUnits" type="number" value="10">
 </div>
 
 </div>
 
-<div class="result-box">
+<div class="result">
 
-<strong id="requiredPanelResult">
+<strong id="requiredPanels">
 Required Panels: 0
 </strong>
 
 <br>
 
-<span id="requiredPanelDetails"></span>
+<span id="requiredDetails"></span>
 
 </div>
 
@@ -502,7 +643,7 @@ Required Panels: 0
 
 <div class="card">
 
-<h2>🔋 Battery Sizing</h2>
+<h3>🔋 9۔ Battery Calculator</h3>
 
 <div class="grid">
 
@@ -517,7 +658,7 @@ Required Panels: 0
 </div>
 
 <div>
-<label>Battery Voltage</label>
+<label>System Voltage</label>
 
 <select id="batteryVoltage">
 
@@ -530,7 +671,7 @@ Required Panels: 0
 </div>
 
 <div>
-<label>ایک Battery کی Ah</label>
+<label>Battery Ah</label>
 <input id="batteryAh" type="number" value="200">
 </div>
 
@@ -541,7 +682,7 @@ Required Panels: 0
 
 <div>
 <label>Inverter Efficiency %</label>
-<input id="inverterEfficiency" type="number" value="90">
+<input id="inverterEff" type="number" value="90">
 </div>
 
 </div>
@@ -554,31 +695,26 @@ Required Panels: 0
 </div>
 
 <div class="metric">
-<span>Required Battery Ah</span>
+<span>Required Ah</span>
 <strong id="requiredAh">0 Ah</strong>
 </div>
 
 <div class="metric">
 <span>Series Batteries</span>
-<strong id="seriesBatteries">0</strong>
+<strong id="seriesBat">0</strong>
 </div>
 
 <div class="metric">
 <span>Parallel Strings</span>
-<strong id="parallelBatteries">0</strong>
+<strong id="parallelBat">0</strong>
 </div>
 
 <div class="metric">
 <span>Total Batteries</span>
-<strong id="totalBatteries">0</strong>
+<strong id="totalBat">0</strong>
 </div>
 
 </div>
-
-<p class="note">
-Battery calculation planning estimate ہے۔ Lithium اور Lead-Acid batteries کے
-usable capacity اور manufacturer specifications مختلف ہو سکتے ہیں۔
-</p>
 
 </div>
 
@@ -587,7 +723,7 @@ usable capacity اور manufacturer specifications مختلف ہو سکتے ہی
 
 <div class="card">
 
-<h2>⚡ Inverter Selection</h2>
+<h3>⚡ 10۔ Inverter Calculator</h3>
 
 <div class="grid">
 
@@ -608,13 +744,13 @@ usable capacity اور manufacturer specifications مختلف ہو سکتے ہی
 </div>
 
 <div>
-<label>Estimated Surge Factor</label>
+<label>Surge Factor</label>
 <input id="surgeFactor" type="number" value="1.5" step="0.1">
 </div>
 
 </div>
 
-<div class="result-box">
+<div class="result">
 
 <strong id="inverterResult">
 Inverter Result
@@ -633,12 +769,12 @@ Inverter Result
 
 <div class="card">
 
-<h2>🔌 MPPT یا PWM</h2>
+<h3>🔌 11۔ MPPT یا PWM</h3>
 
-<div class="result-box">
+<div class="result">
 
-<strong id="controllerRecommendation">
-Controller Recommendation
+<strong id="controllerResult">
+Controller
 </strong>
 
 <br>
@@ -648,14 +784,10 @@ Controller Recommendation
 </div>
 
 <p class="note">
-
-بڑے Solar systems میں MPPT عموماً زیادہ مناسب ہوتا ہے کیونکہ یہ panel voltage
-کو بہتر طریقے سے battery charging کے لیے استعمال کرتا ہے۔ PWM چھوٹے اور
-سادہ systems میں مناسب ہو سکتا ہے۔
-
-Final controller خریدتے وقت Panel Voc، Isc، maximum PV voltage اور charging
-current کی manufacturer specification لازماً چیک کریں۔
-
+عام طور پر بڑے Solar systems کے لیے MPPT زیادہ مناسب ہوتا ہے۔
+PWM چھوٹے اور سادہ systems میں استعمال ہوسکتا ہے۔
+Final controller کے لیے Panel Voc، Isc، PV voltage اور charging current
+کی manufacturer specification ضرور دیکھیں۔
 </p>
 
 </div>
@@ -665,13 +797,13 @@ current کی manufacturer specification لازماً چیک کریں۔
 
 <div class="card">
 
-<h2>💰 Solar vs Grid</h2>
+<h3>💰 12۔ Solar vs Grid</h3>
 
 <div class="metrics">
 
 <div class="metric">
 <span>Home Monthly Units</span>
-<strong id="compareHome">0</strong>
+<strong id="compareGrid">0</strong>
 </div>
 
 <div class="metric">
@@ -680,13 +812,13 @@ current کی manufacturer specification لازماً چیک کریں۔
 </div>
 
 <div class="metric">
-<span>Grid Units Remaining</span>
-<strong id="remainingGrid">0</strong>
+<span>Remaining Grid Units</span>
+<strong id="remainingUnits">0</strong>
 </div>
 
 <div class="metric">
-<span>Possible Monthly Saving</span>
-<strong id="monthlySaving">Rs 0</strong>
+<span>Estimated Saving</span>
+<strong id="saving">Rs 0</strong>
 </div>
 
 </div>
@@ -702,16 +834,16 @@ current کی manufacturer specification لازماً چیک کریں۔
 🖨️ A4 Print
 </button>
 
-<button class="gray" onclick="downloadCSV()">
-⬇️ Download CSV
+<button class="blue" onclick="downloadCSV()">
+⬇️ CSV Download
 </button>
 
-<button class="gray" onclick="saveData()">
-💾 Save Data
+<button class="gray" onclick="saveAll()">
+💾 Save
 </button>
 
-<button class="gray" onclick="loadSavedData()">
-📂 Load Saved
+<button class="gray" onclick="loadAll()">
+📂 Load
 </button>
 
 <button class="red" onclick="resetAll()">
@@ -725,18 +857,16 @@ Reset
 
 <p class="note">
 
-<strong>اہم نوٹ:</strong><br>
+<strong>اہم احتیاط:</strong><br>
 
-یہ Calculator planning اور estimation کے لیے ہے۔
-اصل Solar production موسم، دھوپ، temperature، shading، panel angle،
-inverter losses اور wiring losses سے مختلف ہو سکتی ہے۔
+یہ Calculator صرف planning اور estimation کے لیے ہے۔
+اصل Solar generation موسم، shading، temperature، panel angle،
+wiring losses، inverter losses اور battery condition سے مختلف ہوسکتی ہے۔
 
-AC، refrigerator، pump، motor وغیرہ کے starting surge کو inverter sizing
-میں الگ سے consider کرنا ضروری ہے۔
-
-Battery، inverter، MPPT/PWM، cables، breakers اور protection equipment
-خریدنے سے پہلے متعلقہ manufacturer specifications اور qualified solar
-installer/electrician سے final verification کریں۔
+Fridge، AC، pump اور motors میں starting surge زیادہ ہوسکتا ہے۔
+حتمی Solar، battery، inverter، cable اور protection sizing سے پہلے
+manufacturer specifications اور qualified electrician/solar technician
+سے verification کروائیں۔
 
 </p>
 
@@ -747,8 +877,8 @@ installer/electrician سے final verification کریں۔
 
 <script>
 
-let devices =
-JSON.parse(localStorage.getItem("solarDevices") || "null") || [
+let gridLoads =
+JSON.parse(localStorage.getItem("gridLoads") || "null") || [
 
 {
 name:"پنکھا",
@@ -769,7 +899,21 @@ days:30
 ];
 
 
-function num(id){
+let solarLoads =
+JSON.parse(localStorage.getItem("solarLoads") || "null") || [
+
+{
+name:"Fridge",
+type:"AC",
+watts:150,
+qty:1,
+hours:4
+}
+
+];
+
+
+function N(id){
 
 return Math.max(
 0,
@@ -779,19 +923,23 @@ parseFloat(document.getElementById(id).value) || 0
 }
 
 
-function addDevice(){
+function esc(text){
 
-let name =
-document.getElementById("deviceName").value.trim()
-|| "نیا آلہ";
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
-let watts=num("deviceWatts");
+}
 
-let qty=Math.max(1,num("deviceQty"));
 
-let hours=num("deviceHours");
+/* GRID LOAD */
 
-let days=Math.max(1,num("deviceDays"));
+function addGridLoad(){
+
+let watts=N("deviceWatts");
 
 if(watts<=0){
 
@@ -801,27 +949,33 @@ return;
 
 }
 
-devices.push({
+gridLoads.push({
 
-name:name,
+name:
+document.getElementById("deviceName").value.trim()
+|| "نیا آلہ",
+
 watts:watts,
-qty:qty,
-hours:hours,
-days:days
+
+qty:Math.max(1,N("deviceQty")),
+
+hours:N("deviceHours"),
+
+days:Math.max(1,N("deviceDays"))
 
 });
-
-render();
 
 document.getElementById("deviceName").value="";
 document.getElementById("deviceWatts").value="";
 
+calculate();
+
 }
 
 
-function addCommonLoads(){
+function commonGridLoads(){
 
-devices.push(
+gridLoads.push(
 
 {
 name:"پنکھا",
@@ -861,64 +1015,172 @@ watts:750,
 qty:1,
 hours:1,
 days:30
+},
+
+{
+name:"AC",
+watts:1200,
+qty:1,
+hours:4,
+days:30
 }
 
 );
 
-render();
+calculate();
 
 }
 
 
-function deleteDevice(index){
+function deleteGrid(i){
 
-devices.splice(index,1);
+gridLoads.splice(i,1);
 
-render();
+calculate();
 
 }
 
 
-function render(){
+/* SOLAR LOAD */
 
-let table =
-document.getElementById("deviceTable");
+function addSolarLoad(){
+
+let watts=N("solarWatts");
+
+if(watts<=0){
+
+alert("Solar Load Watts درج کریں");
+
+return;
+
+}
+
+solarLoads.push({
+
+name:
+document.getElementById("solarName").value.trim()
+|| "Solar Appliance",
+
+type:
+document.getElementById("solarType").value,
+
+watts:watts,
+
+qty:Math.max(1,N("solarQty")),
+
+hours:N("solarHours")
+
+});
+
+document.getElementById("solarName").value="";
+document.getElementById("solarWatts").value="";
+
+calculate();
+
+}
+
+
+function commonSolarLoads(){
+
+solarLoads.push(
+
+{
+name:"Fridge 1",
+type:"AC",
+watts:150,
+qty:1,
+hours:4
+},
+
+{
+name:"Fridge 2",
+type:"AC",
+watts:150,
+qty:1,
+hours:4
+},
+
+{
+name:"TV",
+type:"AC",
+watts:100,
+qty:1,
+hours:4
+},
+
+{
+name:"Fan",
+type:"AC",
+watts:80,
+qty:2,
+hours:6
+},
+
+{
+name:"DC Fan",
+type:"DC",
+watts:40,
+qty:2,
+hours:6
+},
+
+{
+name:"AC",
+type:"AC",
+watts:1200,
+qty:1,
+hours:4
+}
+
+);
+
+calculate();
+
+}
+
+
+function deleteSolar(i){
+
+solarLoads.splice(i,1);
+
+calculate();
+
+}
+
+
+/* MAIN CALCULATION */
+
+function calculate(){
+
+let totalW=0;
+let daily=0;
+let monthly=0;
+
+let table=document.getElementById("gridTable");
 
 table.innerHTML="";
 
-let totalLoad=0;
 
-let dailyUnits=0;
+gridLoads.forEach((d,i)=>{
 
-let monthlyUnits=0;
+let W=d.watts*d.qty;
 
+let dailyWh=W*d.hours;
 
-devices.forEach((d,index)=>{
+let dailyUnits=dailyWh/1000;
 
-let totalWatts =
-d.watts*d.qty;
+let monthlyUnits=dailyUnits*d.days;
 
-let dailyWh =
-totalWatts*d.hours;
-
-let dUnits =
-dailyWh/1000;
-
-let mUnits =
-dUnits*d.days;
-
-totalLoad+=totalWatts;
-
-dailyUnits+=dUnits;
-
-monthlyUnits+=mUnits;
+totalW+=W;
+daily+=dailyUnits;
+monthly+=monthlyUnits;
 
 
-table.innerHTML += `
+table.innerHTML+=`
 
 <tr>
 
-<td>${escapeHTML(d.name)}</td>
+<td>${esc(d.name)}</td>
 
 <td>${d.watts}</td>
 
@@ -928,17 +1190,16 @@ table.innerHTML += `
 
 <td>${d.days}</td>
 
-<td>${totalWatts.toFixed(0)}</td>
+<td>${W.toFixed(0)}</td>
 
-<td>${dUnits.toFixed(2)}</td>
+<td>${dailyUnits.toFixed(2)}</td>
 
-<td>${mUnits.toFixed(2)}</td>
+<td>${monthlyUnits.toFixed(2)}</td>
 
 <td class="no-print">
 
-<button
-class="red"
-onclick="deleteDevice(${index})">
+<button class="red"
+onclick="deleteGrid(${i})">
 
 حذف
 
@@ -953,78 +1214,54 @@ onclick="deleteDevice(${index})">
 });
 
 
-document.getElementById("totalLoad")
-.textContent=totalLoad.toFixed(0)+" W";
+document.getElementById("gridWatts")
+.textContent=totalW.toFixed(0)+" W";
 
-document.getElementById("peakLoad")
-.textContent=totalLoad.toFixed(0)+" W";
+document.getElementById("gridPeak")
+.textContent=totalW.toFixed(0)+" W";
 
-document.getElementById("dailyUnits")
-.textContent=dailyUnits.toFixed(2);
+document.getElementById("gridDaily")
+.textContent=daily.toFixed(2);
 
-document.getElementById("monthlyUnits")
-.textContent=monthlyUnits.toFixed(2);
-
-
-calculateBill(monthlyUnits);
-
-calculateSolar(monthlyUnits);
-
-calculateBattery();
-
-calculateInverter(totalLoad);
-
-calculateController();
-
-}
+document.getElementById("gridMonthly")
+.textContent=monthly.toFixed(2);
 
 
-function calculateBill(monthlyUnits){
+/* BILL */
 
-let rate=num("electricRate");
+let rate=N("unitRate");
 
-let fixed=num("fixedCharges");
+let fixed=N("fixedCharge");
 
-let energyCost=
-monthlyUnits*rate;
-
-let total=
-energyCost+fixed;
-
+let energyCost=monthly*rate;
 
 document.getElementById("billUnits")
-.textContent=monthlyUnits.toFixed(2);
+.textContent=monthly.toFixed(2);
 
 document.getElementById("energyCost")
+.textContent="Rs "+energyCost.toFixed(2);
+
+document.getElementById("estimatedBill")
 .textContent=
-"Rs "+energyCost.toFixed(2);
-
-document.getElementById("monthlyBill")
-.textContent=
-"Rs "+total.toFixed(2);
-
-}
+"Rs "+(energyCost+fixed).toFixed(2);
 
 
-function calculateSolar(monthlyUnits){
+/* SOLAR */
 
-let panelW=num("panelWatt");
+let panel=N("panelWatt");
 
-let panelQty=num("panelQty");
+let panelQty=N("panelQty");
 
-let sun=num("sunHours");
+let sun=N("sunHours");
 
-let efficiency=
-num("solarEfficiency")/100;
+let efficiency=N("solarEfficiency")/100;
 
+let capacity=panel*panelQty;
 
-let capacity=
-panelW*panelQty;
-
+let availablePower=capacity*efficiency;
 
 let dailySolar=
 capacity*sun*efficiency/1000;
-
 
 let monthlySolar=
 dailySolar*30;
@@ -1034,145 +1271,231 @@ document.getElementById("solarCapacity")
 .textContent=
 capacity.toFixed(0)+" W";
 
-
 document.getElementById("solarKW")
 .textContent=
 (capacity/1000).toFixed(2)+" kW";
-
 
 document.getElementById("solarDaily")
 .textContent=
 dailySolar.toFixed(2);
 
 
-document.getElementById("solar1")
+document.getElementById("oneHour")
 .textContent=
-(capacity*1*efficiency/1000)
-.toFixed(2)+" Units";
+(capacity*efficiency/1000).toFixed(2)+" Units";
 
-
-document.getElementById("solar2")
+document.getElementById("twoHour")
 .textContent=
-(capacity*2*efficiency/1000)
-.toFixed(2)+" Units";
+(capacity*2*efficiency/1000).toFixed(2)+" Units";
 
-
-document.getElementById("solar4")
+document.getElementById("fourHour")
 .textContent=
-(capacity*4*efficiency/1000)
-.toFixed(2)+" Units";
+(capacity*4*efficiency/1000).toFixed(2)+" Units";
 
 
-let required=
-num("requiredSolarUnits");
+/* REQUIRED PANELS */
 
+let requiredUnits=N("requiredUnits");
+
+let panelEnergy=
+panel*sun*efficiency/1000;
 
 let requiredPanels=
-Math.ceil(
-(required*1000)/
-(panelW*sun*efficiency)
-);
+panelEnergy>0
+?Math.ceil(requiredUnits/panelEnergy)
+:0;
 
 
-document.getElementById("requiredPanelResult")
+document.getElementById("requiredPanels")
 .textContent=
 "Required Panels: "+requiredPanels;
 
-
-document.getElementById("requiredPanelDetails")
+document.getElementById("requiredDetails")
 .textContent=
 requiredPanels+
 " × "+
-panelW+
+panel+
 "W = "+
-(requiredPanels*panelW)+
+(requiredPanels*panel)+
 "W Solar Array";
 
 
-document.getElementById("compareHome")
+/* SOLAR LOAD TABLE */
+
+let solarTable=
+document.getElementById("solarTable");
+
+solarTable.innerHTML="";
+
+let solarRunning=0;
+let solarEnergy=0;
+
+
+solarLoads.forEach((d,i)=>{
+
+let W=d.watts*d.qty;
+
+let energyWh=W*d.hours;
+
+solarRunning+=W;
+
+solarEnergy+=energyWh;
+
+
+/*
+Effective panel power is used for planning.
+This is not a replacement for actual inverter sizing.
+*/
+
+let panelsNeeded=
+availablePower>0
+?Math.ceil(W/availablePower*panelQty)
+:0;
+
+let status=
+availablePower>=W
+?"چل سکتا ہے"
+:"ناکافی";
+
+let statusClass=
+availablePower>=W
+?"good"
+:"bad";
+
+
+solarTable.innerHTML+=`
+
+<tr>
+
+<td>${esc(d.name)}</td>
+
+<td>${d.type}</td>
+
+<td>${d.watts}</td>
+
+<td>${d.qty}</td>
+
+<td>${d.hours}</td>
+
+<td>${W.toFixed(0)}</td>
+
+<td>${(energyWh/1000).toFixed(2)} Units</td>
+
+<td>${panelsNeeded}</td>
+
+<td class="${statusClass}">
+${status}
+</td>
+
+<td class="no-print">
+
+<button class="red"
+onclick="deleteSolar(${i})">
+
+حذف
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+let available4=
+capacity*4*efficiency/1000;
+
+document.getElementById("solarLoadW")
 .textContent=
-monthlyUnits.toFixed(2);
+solarRunning.toFixed(0)+" W";
 
-
-document.getElementById("compareSolar")
+document.getElementById("solarLoadUnits")
 .textContent=
-monthlySolar.toFixed(2);
+(solarEnergy/1000).toFixed(2)+" Units";
 
-
-let remaining=
-Math.max(
-0,
-monthlyUnits-monthlySolar
-);
-
-
-document.getElementById("remainingGrid")
+document.getElementById("availablePower")
 .textContent=
-remaining.toFixed(2);
+availablePower.toFixed(0)+" W";
 
-
-let rate=num("electricRate");
-
-
-let saving=
-Math.min(
-monthlyUnits,
-monthlySolar
-)*rate;
-
-
-document.getElementById("monthlySaving")
+document.getElementById("availableEnergy")
 .textContent=
-"Rs "+saving.toFixed(2);
+available4.toFixed(2)+" Units";
+
+
+let result=
+document.getElementById("solarResult");
+
+if(
+availablePower>=solarRunning &&
+available4>=solarEnergy/1000
+){
+
+result.innerHTML=
+"<span class='good'>🟢 موجودہ Solar system یہ Load planning کے حساب سے چلا سکتا ہے۔</span><br>"+
+"Solar power اور 4-hour energy دونوں کافی ہیں۔";
+
+}
+
+else if(
+availablePower>=solarRunning
+){
+
+result.innerHTML=
+"<span class='warn'>🟡 Running power کافی ہے لیکن 4 گھنٹے کی Energy کم پڑ سکتی ہے۔</span><br>"+
+"Battery یا Grid backup کی ضرورت ہوسکتی ہے۔";
+
+}
+
+else{
+
+result.innerHTML=
+"<span class='bad'>🔴 موجودہ Solar power ناکافی ہے۔</span><br>"+
+"مزید panels، load reduction یا مناسب battery/inverter sizing درکار ہے۔";
 
 }
 
 
-function calculateBattery(){
+/* BATTERY */
 
-let load=num("backupLoad");
+let backupLoad=N("backupLoad");
 
-let hours=num("backupHours");
+let backupHours=N("backupHours");
 
-let voltage=num("batteryVoltage");
+let batteryVoltage=N("batteryVoltage");
 
-let batteryAh=num("batteryAh");
+let batteryAh=N("batteryAh");
 
-let dod=num("batteryDod")/100;
+let dod=N("batteryDod")/100;
 
-let invEff=
-num("inverterEfficiency")/100;
+let inverterEfficiency=
+N("inverterEff")/100;
 
 
 if(
-load<=0 ||
-hours<=0 ||
-voltage<=0 ||
-batteryAh<=0
+backupLoad>0 &&
+backupHours>0 &&
+batteryVoltage>0 &&
+batteryAh>0 &&
+dod>0 &&
+inverterEfficiency>0
 ){
 
-return;
-
-}
-
-
 let energy=
-(load*hours)/invEff;
-
+backupLoad*backupHours/
+inverterEfficiency;
 
 let requiredAh=
-energy/(voltage*dod);
-
+energy/
+(batteryVoltage*dod);
 
 let series=
-voltage/12;
-
+batteryVoltage/12;
 
 let parallel=
-Math.ceil(
-requiredAh/batteryAh
-);
-
+Math.ceil(requiredAh/batteryAh);
 
 let total=
 series*parallel;
@@ -1182,236 +1505,214 @@ document.getElementById("batteryEnergy")
 .textContent=
 energy.toFixed(0)+" Wh";
 
-
 document.getElementById("requiredAh")
 .textContent=
 requiredAh.toFixed(0)+" Ah";
 
-
-document.getElementById("seriesBatteries")
+document.getElementById("seriesBat")
 .textContent=
 series.toFixed(0);
 
-
-document.getElementById("parallelBatteries")
+document.getElementById("parallelBat")
 .textContent=
 parallel;
 
-
-document.getElementById("totalBatteries")
+document.getElementById("totalBat")
 .textContent=
 total;
 
 }
 
 
-function calculateInverter(totalLoad){
+/* INVERTER */
 
-let inverter=
-num("inverterSize");
+let inverter=N("inverterSize");
 
-let surge=
-num("surgeFactor");
+let surge=N("surgeFactor");
 
-let required=
-totalLoad*surge;
+let runningLoad=
+Math.max(
+totalW,
+solarRunning
+);
+
+let surgeNeed=
+runningLoad*surge;
+
+let inverterResult=
+document.getElementById("inverterResult");
 
 
-let result="";
+if(inverter>=surgeNeed){
 
-let cls="";
+inverterResult.textContent=
+"🟢 Inverter مناسب";
 
-
-if(inverter>=required){
-
-result="🟢 Inverter مناسب";
-
-cls="good";
+inverterResult.className="good";
 
 }
 
-else if(inverter>=totalLoad){
+else if(inverter>=runningLoad){
 
-result="🟡 Inverter Running Load کے لیے مناسب، مگر Surge margin کم ہے";
+inverterResult.textContent=
+"🟡 Running Load چل سکتا ہے، Surge margin کم ہے";
 
-cls="warning";
+inverterResult.className="warn";
 
 }
 
 else{
 
-result="🔴 Inverter ناکافی ہے";
+inverterResult.textContent=
+"🔴 Inverter ناکافی ہے";
 
-cls="bad";
+inverterResult.className="bad";
 
 }
-
-
-let element=
-document.getElementById("inverterResult");
-
-element.textContent=result;
-
-element.className=cls;
 
 
 document.getElementById("inverterDetails")
 .textContent=
 "Running Load: "+
-totalLoad.toFixed(0)+
-"W | Estimated Surge Requirement: "+
-required.toFixed(0)+
-"W | Selected Inverter: "+
+runningLoad.toFixed(0)+
+"W | Estimated Surge: "+
+surgeNeed.toFixed(0)+
+"W | Selected: "+
 inverter+
 "W";
 
-}
 
+/* MPPT / PWM */
 
-function calculateController(){
+let controller=
+document.getElementById("controllerResult");
 
-let panelW=num("panelWatt");
-
-let qty=num("panelQty");
-
-let capacity=
-panelW*qty;
-
-
-let recommendation;
-
-let details;
+let controllerDetails=
+document.getElementById("controllerDetails");
 
 
 if(capacity>=1000){
 
-recommendation=
+controller.textContent=
 "🟢 MPPT Recommended";
 
-details=
-"یہ Solar array "+capacity+
-"W ہے، اس لیے MPPT controller عام طور پر زیادہ مناسب انتخاب ہے۔";
+controller.className="good";
+
+controllerDetails.textContent=
+"Solar array "+capacity+
+"W ہے۔ اس size کے system میں MPPT عموماً بہتر انتخاب ہے۔";
 
 }
 
 else{
 
-recommendation=
+controller.textContent=
 "🟡 MPPT بہتر، PWM بھی چھوٹے system میں ممکن";
 
-details=
-"چھوٹے system میں PWM استعمال ہوسکتا ہے، لیکن بہتر efficiency اور panel voltage flexibility کے لیے MPPT پر غور کریں۔";
+controller.className="warn";
+
+controllerDetails.textContent=
+"چھوٹے system میں PWM استعمال ہوسکتا ہے، مگر MPPT efficiency اور voltage flexibility کے لیے بہتر ہوسکتا ہے۔";
 
 }
 
 
-document.getElementById("controllerRecommendation")
-.textContent=recommendation;
+/* SOLAR VS GRID */
+
+let remaining=
+Math.max(
+0,
+monthly-monthlySolar
+);
+
+let saving=
+Math.min(
+monthly,
+monthlySolar
+)*rate;
 
 
-document.getElementById("controllerDetails")
-.textContent=details;
+document.getElementById("compareGrid")
+.textContent=
+monthly.toFixed(2);
 
-}
+document.getElementById("compareSolar")
+.textContent=
+monthlySolar.toFixed(2);
+
+document.getElementById("remainingUnits")
+.textContent=
+remaining.toFixed(2);
+
+document.getElementById("saving")
+.textContent=
+"Rs "+saving.toFixed(2);
 
 
-function saveData(){
-
-let settings={
-
-panelWatt:document.getElementById("panelWatt").value,
-
-panelQty:document.getElementById("panelQty").value,
-
-sunHours:document.getElementById("sunHours").value,
-
-solarEfficiency:document.getElementById("solarEfficiency").value,
-
-electricRate:document.getElementById("electricRate").value,
-
-fixedCharges:document.getElementById("fixedCharges").value,
-
-requiredSolarUnits:document.getElementById("requiredSolarUnits").value,
-
-backupLoad:document.getElementById("backupLoad").value,
-
-backupHours:document.getElementById("backupHours").value,
-
-batteryVoltage:document.getElementById("batteryVoltage").value,
-
-batteryAh:document.getElementById("batteryAh").value,
-
-batteryDod:document.getElementById("batteryDod").value,
-
-inverterEfficiency:document.getElementById("inverterEfficiency").value,
-
-inverterSize:document.getElementById("inverterSize").value
-
-};
-
+/* LOCAL STORAGE */
 
 localStorage.setItem(
-"solarDevices",
-JSON.stringify(devices)
+"gridLoads",
+JSON.stringify(gridLoads)
 );
 
 localStorage.setItem(
-"solarSettings",
-JSON.stringify(settings)
+"solarLoads",
+JSON.stringify(solarLoads)
 );
-
-alert("Data محفوظ ہوگیا۔");
 
 }
 
 
-function loadSavedData(){
+/* SAVE */
 
-let saved=
+function saveAll(){
+
+localStorage.setItem(
+"gridLoads",
+JSON.stringify(gridLoads)
+);
+
+localStorage.setItem(
+"solarLoads",
+JSON.stringify(solarLoads)
+);
+
+alert("تمام Data محفوظ ہوگیا۔");
+
+}
+
+
+/* LOAD */
+
+function loadAll(){
+
+gridLoads=
 JSON.parse(
-localStorage.getItem("solarSettings") || "null"
+localStorage.getItem("gridLoads") ||
+"[]"
 );
 
-
-if(!saved){
-
-alert("کوئی saved data نہیں ملا۔");
-
-return;
-
-}
-
-
-Object.keys(saved).forEach(key=>{
-
-if(document.getElementById(key)){
-
-document.getElementById(key).value=
-saved[key];
-
-}
-
-});
-
-
-devices=
+solarLoads=
 JSON.parse(
-localStorage.getItem("solarDevices") || "[]"
+localStorage.getItem("solarLoads") ||
+"[]"
 );
 
+calculate();
 
-render();
-
-alert("Saved Data load ہوگیا۔");
+alert("Saved Data Load ہوگیا۔");
 
 }
 
+
+/* RESET */
 
 function resetAll(){
 
 if(
 !confirm(
-"کیا آپ تمام Load اور Saved Data ختم کرنا چاہتے ہیں؟"
+"کیا تمام Load Data ختم کرنا چاہتے ہیں؟"
 )
 ){
 
@@ -1419,34 +1720,52 @@ return;
 
 }
 
-devices=[];
+gridLoads=[];
 
-localStorage.removeItem("solarDevices");
+solarLoads=[];
 
-localStorage.removeItem("solarSettings");
+localStorage.removeItem("gridLoads");
 
-render();
+localStorage.removeItem("solarLoads");
+
+calculate();
 
 }
 
 
+/* CSV */
+
 function downloadCSV(){
 
 let csv=
-"Appliance,Watts,Quantity,Hours,Days,Total Watts,Daily Units,Monthly Units\n";
+"Section,Name,Type,Watts,Quantity,Hours,Days,Energy Units\n";
 
 
-devices.forEach(d=>{
+gridLoads.forEach(d=>{
 
-let total=d.watts*d.qty;
+let energy=
+d.watts*
+d.qty*
+d.hours*
+d.days/
+1000;
 
-let daily=total*d.hours/1000;
+csv+=
+`Grid,"${d.name}","AC",${d.watts},${d.qty},${d.hours},${d.days},${energy.toFixed(2)}\n`;
 
-let monthly=daily*d.days;
+});
 
 
-csv +=
-`"${d.name}",${d.watts},${d.qty},${d.hours},${d.days},${total},${daily.toFixed(2)},${monthly.toFixed(2)}\n`;
+solarLoads.forEach(d=>{
+
+let energy=
+d.watts*
+d.qty*
+d.hours/
+1000;
+
+csv+=
+`Solar,"${d.name}","${d.type}",${d.watts},${d.qty},${d.hours},"",${energy.toFixed(2)}\n`;
 
 });
 
@@ -1454,70 +1773,45 @@ csv +=
 let blob=
 new Blob(
 ["\ufeff"+csv],
-{type:"text/csv;charset=utf-8"}
+{
+type:"text/csv;charset=utf-8"
+}
 );
-
 
 let link=
 document.createElement("a");
 
-
 link.href=
 URL.createObjectURL(blob);
 
-
 link.download=
-"solar-home-load-calculation.csv";
-
+"Waqar_Ali_Janjua_Solar_Calculator.csv";
 
 link.click();
 
 }
 
 
-function escapeHTML(text){
-
-return text
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
 /* LIVE CALCULATION */
 
-[
-"panelWatt",
-"panelQty",
-"sunHours",
-"solarEfficiency",
-"electricRate",
-"fixedCharges",
-"requiredSolarUnits",
-"backupLoad",
-"backupHours",
-"batteryVoltage",
-"batteryAh",
-"batteryDod",
-"inverterEfficiency",
-"inverterSize",
-"surgeFactor"
-]
-.forEach(id=>{
+document
+.querySelectorAll("input,select")
+.forEach(el=>{
 
-document.getElementById(id)
-.addEventListener("input",render);
+el.addEventListener(
+"input",
+calculate
+);
 
-document.getElementById(id)
-.addEventListener("change",render);
+el.addEventListener(
+"change",
+calculate
+);
 
 });
 
 
-render();
+calculate();
 
 </script>
 
