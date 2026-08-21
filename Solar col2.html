@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Waqar Ali Janjua - Solar Panel Calculation Part 2</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Tahoma,Arial,sans-serif;
+    background:#f1f6f3;
+    color:#17202a;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:14px;
+}
+
+/* HEADER */
+
+.header{
+    background:linear-gradient(135deg,#034d2d,#087443,#13a866);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+    border-radius:20px;
+    margin-bottom:15px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 5px 20px #0002;
+}
+
+.header h1{
+    margin:0;
+    font-size:clamp(30px,7vw,52px);
+    animation:nameAnim 3s infinite;
+}
+
+.header h2{
+    margin:8px 0 0;
+    color:white;
+    font-size:clamp(19px,4vw,28px);
+}
+
+.header p{
+    margin:8px 0 0;
+    font-size:13px;
+}
+
+.sun{
+    position:absolute;
+    font-size:80px;
+    opacity:.12;
+    animation:sunAnim 5s infinite;
+}
+
+.sun1{
+    left:5px;
+    top:-15px;
+}
+
+.sun2{
+    right:5px;
+    bottom:-20px;
+}
+
+@keyframes nameAnim{
+    0%,100%{transform:scale(1)}
+    50%{
+        transform:scale(1.04);
+        text-shadow:0 0 20px white;
+    }
+}
+
+@keyframes sunAnim{
+    50%{
+        transform:rotate(20deg) translateY(-10px);
+    }
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    padding:17px;
+    border-radius:15px;
+    margin-bottom:14px;
+    box-shadow:0 3px 12px #00000010;
+}
+
+h3{
+    color:#087443;
+    margin-top:0;
+}
+
+/* INPUT */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:10px;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+input,select{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd5d9;
+    border-radius:8px;
+    font-size:14px;
+}
+
+/* BUTTONS */
+
+button{
+    border:0;
+    padding:9px 14px;
+    margin:4px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.add{
+    background:#087443;
+    color:white;
+}
+
+.edit{
+    background:#1769aa;
+    color:white;
+}
+
+.delete{
+    background:#d93636;
+    color:white;
+}
+
+.clear{
+    background:#555;
+    color:white;
+}
+
+.cancel{
+    background:#ddd;
+}
+
+/* RESULT */
+
+.metrics{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:10px;
+}
+
+.metric{
+    background:#f4faf7;
+    border:1px solid #d5e8dd;
+    padding:14px;
+    border-radius:11px;
+}
+
+.metric span{
+    display:block;
+    font-size:13px;
+}
+
+.metric strong{
+    display:block;
+    color:#087443;
+    font-size:23px;
+    margin-top:5px;
+}
+
+/* TABLE */
+
+.tableScroll{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:720px;
+    border-collapse:collapse;
+    margin-top:12px;
+}
+
+th,td{
+    border-bottom:1px solid #ddd;
+    padding:9px;
+    text-align:center;
+}
+
+th{
+    background:#e8f5ee;
+}
+
+/* STATUS */
+
+.status{
+    margin-top:15px;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.good{
+    background:#e7f7ed;
+    color:#087443;
+    border:1px solid #b9dfc7;
+}
+
+.bad{
+    background:#fff0f0;
+    color:#c62828;
+    border:1px solid #efbcbc;
+}
+
+.warning{
+    background:#fff8e8;
+    color:#b56a00;
+    border:1px solid #efd69a;
+}
+
+.note{
+    font-size:13px;
+    color:#68737b;
+    line-height:1.8;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .header h1{
+        font-size:32px;
+    }
+
+    .header h2{
+        font-size:19px;
+    }
+}
+
+/* PRINT */
+
+@media print{
+
+    body{
+        background:white;
+    }
+
+    .noPrint{
+        display:none!important;
+    }
+
+    .card{
+        box-shadow:none;
+        border:1px solid #ddd;
+    }
+
+    .header{
+        background:white;
+        color:black;
+        border:1px solid #ddd;
+    }
+
+    .header h2{
+        color:black;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="sun sun1">☀️</div>
+<div class="sun sun2">☀️</div>
+
+<h1>Waqar Ali Janjua</h1>
+
+<h2>☀️ Solar Panel Calculation — Part 2</h2>
+
+<p>
+Solar Capacity • Load Checking • Add • Edit • Delete • Clear
+</p>
+
+</div>
+
+
+<!-- SOLAR CAPACITY -->
+
+<div class="card">
+
+<h3>☀️ Solar کی کل Capacity</h3>
+
+<div class="grid">
+
+<div>
+
+<label>ایک Solar Panel کتنے Watt کا ہے؟</label>
+
+<input
+id="panelWatt"
+type="number"
+value="550"
+min="1"
+oninput="calculate()">
+
+</div>
+
+
+<div>
+
+<label>Total Solar Panels</label>
+
+<input
+id="panelQty"
+type="number"
+value="2"
+min="0"
+oninput="calculate()">
+
+</div>
+
+</div>
+
+
+<div class="metrics" style="margin-top:15px">
+
+<div class="metric">
+
+<span>Total Solar Capacity</span>
+
+<strong id="totalSolar">
+0 W
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>Solar Capacity</span>
+
+<strong id="solarKW">
+0 kW
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>Effective Power</span>
+
+<strong id="effectivePower">
+0 W
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- LOAD ADD -->
+
+<div class="card">
+
+<h3>🔌 Solar پر چلنے والا Load</h3>
+
+<div class="grid">
+
+<div>
+
+<label>آلے کا نام</label>
+
+<input
+id="loadName"
+placeholder="مثلاً Fridge">
+
+</div>
+
+
+<div>
+
+<label>AC / DC</label>
+
+<select id="loadType">
+
+<option value="AC">AC</option>
+<option value="DC">DC</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Watts</label>
+
+<input
+id="loadWatts"
+type="number"
+placeholder="150">
+
+</div>
+
+
+<div>
+
+<label>تعداد</label>
+
+<input
+id="loadQty"
+type="number"
+value="1"
+min="1">
+
+</div>
+
+
+<div>
+
+<label>کتنے گھنٹے چلانا ہے؟</label>
+
+<input
+id="loadHours"
+type="number"
+value="1"
+step="0.1">
+
+</div>
+
+
+<div>
+
+<label>Starting Surge Factor</label>
+
+<input
+id="loadSurge"
+type="number"
+value="1.5"
+step="0.1">
+
+</div>
+
+</div>
+
+
+<div class="noPrint">
+
+<button
+class="add"
+onclick="addLoad()">
+
+➕ Load شامل کریں
+
+</button>
+
+
+<button
+class="cancel"
+onclick="cancelEdit()">
+
+↩️ Cancel
+
+</button>
+
+
+<button
+class="clear"
+onclick="clearLoads()">
+
+🗑️ Clear All
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- LOAD TABLE -->
+
+<div class="card">
+
+<h3>📋 Load Table</h3>
+
+<div class="tableScroll">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>آلہ</th>
+<th>Type</th>
+<th>W</th>
+<th>Qty</th>
+<th>Total W</th>
+<th>Hours</th>
+<th>Energy</th>
+<th>Surge W</th>
+<th class="noPrint">Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="loadTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- CALCULATION -->
+
+<div class="card">
+
+<h3>📊 موجودہ Load کا حساب</h3>
+
+<div class="metrics">
+
+<div class="metric">
+
+<span>Running Load</span>
+
+<strong id="runningLoad">
+0 W
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>Total Energy</span>
+
+<strong id="totalEnergy">
+0 Wh
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>Total Energy</span>
+
+<strong id="totalUnits">
+0 Units
+</strong>
+
+</div>
+
+
+<div class="metric">
+
+<span>Maximum Surge</span>
+
+<strong id="maxSurge">
+0 W
+</strong>
+
+</div>
+
+</div>
+
+
+<div
+id="mainStatus"
+class="status good">
+
+🟢 ابھی کوئی Load شامل نہیں
+
+</div>
+
+</div>
+
+
+<!-- WHAT CAN RUN -->
+
+<div class="card">
+
+<h3>🔎 Solar کے اوپر کون سا Load چل سکتا ہے؟</h3>
+
+<div
+id="individualResults">
+</div>
+
+<p class="note">
+
+ہر appliance کا حساب موجودہ Solar capacity کے مقابلے میں کیا جاتا ہے۔
+کسی appliance کو Delete کرتے ہی نیچے کا پورا حساب دوبارہ بن جائے گا۔
+اسی طرح آپ ایک ایک Load کم کرکے دیکھ سکتے ہیں کہ Solar system
+کب مناسب capacity تک پہنچتا ہے۔
+
+</p>
+
+</div>
+
+
+<!-- CLEAR / PRINT -->
+
+<div class="card noPrint">
+
+<button
+class="add"
+onclick="window.print()">
+
+🖨️ A4 Print
+
+</button>
+
+
+<button
+class="edit"
+onclick="saveData()">
+
+💾 Save
+
+</button>
+
+
+<button
+class="cancel"
+onclick="loadData()">
+
+📂 Load
+
+</button>
+
+</div>
+
+
+<div class="card">
+
+<p class="note">
+
+<strong>اہم نوٹ:</strong><br>
+
+یہ Calculator planning estimate کے لیے ہے۔ اصل Solar output موسم،
+temperature، shading، panel angle، wiring اور inverter losses سے مختلف
+ہوسکتا ہے۔ AC، Fridge، Pump اور Motor میں starting surge زیادہ ہوسکتا ہے۔
+
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let loads=[];
+
+let editIndex=-1;
+
+
+/* =========================
+   SHORTCUT
+========================= */
+
+function n(id){
+
+return Math.max(
+0,
+parseFloat(
+document.getElementById(id).value
+)||0
+);
+
+}
+
+
+/* =========================
+   ADD LOAD
+========================= */
+
+function addLoad(){
+
+let name=
+document.getElementById("loadName")
+.value
+.trim();
+
+let type=
+document.getElementById("loadType")
+.value;
+
+let watts=n("loadWatts");
+
+let qty=Math.max(
+1,
+n("loadQty")
+);
+
+let hours=n("loadHours");
+
+let surge=Math.max(
+1,
+n("loadSurge")
+);
+
+
+if(!name){
+
+alert("آلے کا نام لکھیں");
+
+return;
+
+}
+
+
+if(watts<=0){
+
+alert("Watts لکھیں");
+
+return;
+
+}
+
+
+/* EDIT */
+
+if(editIndex>=0){
+
+loads[editIndex]={
+
+name:name,
+type:type,
+watts:watts,
+qty:qty,
+hours:hours,
+surge:surge
+
+};
+
+editIndex=-1;
+
+}
+
+else{
+
+loads.push({
+
+name:name,
+type:type,
+watts:watts,
+qty:qty,
+hours:hours,
+surge:surge
+
+});
+
+}
+
+
+clearForm();
+
+calculate();
+
+}
+
+
+/* =========================
+   EDIT
+========================= */
+
+function editLoad(index){
+
+let d=loads[index];
+
+document.getElementById("loadName")
+.value=d.name;
+
+document.getElementById("loadType")
+.value=d.type;
+
+document.getElementById("loadWatts")
+.value=d.watts;
+
+document.getElementById("loadQty")
+.value=d.qty;
+
+document.getElementById("loadHours")
+.value=d.hours;
+
+document.getElementById("loadSurge")
+.value=d.surge;
+
+editIndex=index;
+
+window.scrollTo({
+top:document.querySelector(".card").offsetTop,
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteLoad(index){
+
+loads.splice(index,1);
+
+editIndex=-1;
+
+calculate();
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearLoads(){
+
+if(loads.length===0){
+
+return;
+
+}
+
+if(
+!confirm(
+"کیا تمام Solar Load ختم کرنا چاہتے ہیں؟"
+)
+){
+
+return;
+
+}
+
+loads=[];
+
+editIndex=-1;
+
+calculate();
+
+}
+
+
+/* =========================
+   CANCEL
+========================= */
+
+function cancelEdit(){
+
+editIndex=-1;
+
+clearForm();
+
+}
+
+
+function clearForm(){
+
+document.getElementById("loadName").value="";
+
+document.getElementById("loadWatts").value="";
+
+document.getElementById("loadQty").value="1";
+
+document.getElementById("loadHours").value="1";
+
+document.getElementById("loadSurge").value="1.5";
+
+}
+
+
+/* =========================
+   MAIN CALCULATE
+========================= */
+
+function calculate(){
+
+let panelWatt=n("panelWatt");
+
+let panelQty=n("panelQty");
+
+
+/* SOLAR */
+
+let solarCapacity=
+panelWatt*panelQty;
+
+
+/*
+Planning efficiency.
+80% means actual usable power estimate.
+*/
+
+let effectivePower=
+solarCapacity*0.80;
+
+
+/* DISPLAY */
+
+document.getElementById("totalSolar")
+.textContent=
+solarCapacity.toFixed(0)+" W";
+
+
+document.getElementById("solarKW")
+.textContent=
+(solarCapacity/1000)
+.toFixed(2)+" kW";
+
+
+document.getElementById("effectivePower")
+.textContent=
+effectivePower.toFixed(0)+" W";
+
+
+/* LOAD */
+
+let running=0;
+
+let energyWh=0;
+
+let maxSurge=0;
+
+
+let table=
+document.getElementById("loadTable");
+
+table.innerHTML="";
+
+
+loads.forEach((d,i)=>{
+
+let totalW=
+d.watts*d.qty;
+
+let energy=
+totalW*d.hours;
+
+let surgeW=
+totalW*d.surge;
+
+
+running+=totalW;
+
+energyWh+=energy;
+
+maxSurge=
+Math.max(
+maxSurge,
+surgeW
+);
+
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${i+1}</td>
+
+<td>${escapeHTML(d.name)}</td>
+
+<td>${d.type}</td>
+
+<td>${d.watts}</td>
+
+<td>${d.qty}</td>
+
+<td>
+<strong>${totalW}</strong>
+</td>
+
+<td>${d.hours}</td>
+
+<td>${energy.toFixed(0)} Wh</td>
+
+<td>${surgeW.toFixed(0)} W</td>
+
+<td class="noPrint">
+
+<button
+class="edit"
+onclick="editLoad(${i})">
+
+Edit
+
+</button>
+
+<button
+class="delete"
+onclick="deleteLoad(${i})">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+/* SUMMARY */
+
+document.getElementById("runningLoad")
+.textContent=
+running.toFixed(0)+" W";
+
+
+document.getElementById("totalEnergy")
+.textContent=
+energyWh.toFixed(0)+" Wh";
+
+
+document.getElementById("totalUnits")
+.textContent=
+(energyWh/1000)
+.toFixed(2)+" Units";
+
+
+document.getElementById("maxSurge")
+.textContent=
+maxSurge.toFixed(0)+" W";
+
+
+/* OVERALL STATUS */
+
+let status=
+document.getElementById("mainStatus");
+
+
+if(loads.length===0){
+
+status.className=
+"status good";
+
+status.innerHTML=
+"🟢 ابھی کوئی Load شامل نہیں۔";
+
+}
+
+else if(running<=effectivePower){
+
+status.className=
+"status good";
+
+status.innerHTML=
+"🟢 موجودہ Solar capacity کے حساب سے یہ Running Load چل سکتا ہے۔<br>"+
+"Solar Usable Power: "+
+effectivePower.toFixed(0)+
+"W | Load: "+
+running.toFixed(0)+"W";
+
+}
+
+else{
+
+status.className=
+"status bad";
+
+status.innerHTML=
+"🔴 موجودہ Solar capacity کے حساب سے پورا Load نہیں چل سکتا۔<br>"+
+"Solar Usable Power: "+
+effectivePower.toFixed(0)+
+"W | Load: "+
+running.toFixed(0)+"W<br>"+
+"آپ Load کو Edit یا Delete کرکے دوبارہ Check کر سکتے ہیں۔";
+
+}
+
+
+/* INDIVIDUAL */
+
+let results=
+document.getElementById("individualResults");
+
+results.innerHTML="";
+
+
+if(loads.length===0){
+
+results.innerHTML=
+"<div class='status good'>کوئی appliance موجود نہیں۔</div>";
+
+}
+
+
+loads.forEach((d,i)=>{
+
+let totalW=
+d.watts*d.qty;
+
+let surgeW=
+totalW*d.surge;
+
+
+let canRun=
+totalW<=effectivePower;
+
+
+let surgePossible=
+surgeW<=solarCapacity;
+
+
+let html=
+document.createElement("div");
+
+html.className=
+"result";
+
+
+if(canRun){
+
+html.innerHTML=
+"<strong class='good'>🟢 "+
+escapeHTML(d.name)+
+" — Running Load چل سکتا ہے</strong><br>"+
+"Load: "+
+totalW+
+"W | Solar Usable: "+
+effectivePower.toFixed(0)+
+"W<br>"+
+"Starting Surge: "+
+surgeW.toFixed(0)+
+"W | Panel Capacity: "+
+solarCapacity+
+"W";
+
+}
+else{
+
+html.innerHTML=
+"<strong class='bad'>🔴 "+
+escapeHTML(d.name)+
+" — موجودہ Solar پر Running Load نہیں چل سکتا</strong><br>"+
+"Load: "+
+totalW+
+"W | Solar Usable: "+
+effectivePower.toFixed(0)+
+"W<br>"+
+"مزید Solar Panels یا Load کم کرنا ہوگا۔";
+
+}
+
+
+results.appendChild(html);
+
+});
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveData(){
+
+localStorage.setItem(
+"waqarSolarPart2",
+JSON.stringify(loads)
+);
+
+alert("Solar Load محفوظ ہوگیا۔");
+
+}
+
+
+/* =========================
+   LOAD
+========================= */
+
+function loadData(){
+
+let saved=
+localStorage.getItem(
+"waqarSolarPart2"
+);
+
+if(!saved){
+
+alert("کوئی Saved Data نہیں ملا۔");
+
+return;
+
+}
+
+loads=
+JSON.parse(saved);
+
+calculate();
+
+alert("Saved Load واپس آ گیا۔");
+
+}
+
+
+/* =========================
+   LIVE SOLAR INPUT
+========================= */
+
+document
+.getElementById("panelWatt")
+.addEventListener(
+"input",
+calculate
+);
+
+
+document
+.getElementById("panelQty")
+.addEventListener(
+"input",
+calculate
+);
+
+
+/* =========================
+   START
+========================= */
+
+calculate();
+
+</script>
+
+</body>
+</html>
