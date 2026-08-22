@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TAPE JANJUA Digital Marketing Platform</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+    font-family:Arial,"Noto Naskh Arabic",sans-serif;
+    background:#050b18;
+    color:white;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+.topbar{
+    text-align:center;
+    padding:18px 10px;
+    background:linear-gradient(135deg,#061329,#142e5d);
+    border-bottom:1px solid #315c91;
+}
+
+.logo{
+    font-size:clamp(28px,6vw,52px);
+    font-weight:900;
+    color:#ffd43b;
+    text-shadow:0 4px 18px #000;
+}
+
+.subtitle{
+    font-size:clamp(15px,3vw,23px);
+    margin-top:5px;
+}
+
+.english{
+    color:#42d6ff;
+    font-weight:bold;
+}
+
+.container{
+    width:min(1250px,96%);
+    margin:auto;
+    padding:15px 0 30px;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:220px minmax(300px,1fr) 250px;
+    gap:14px;
+}
+
+.panel{
+    background:rgba(11,29,59,.96);
+    border:1px solid #28578c;
+    border-radius:18px;
+    padding:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,.45);
+}
+
+.panel h3{
+    margin-top:0;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin:5px 0;
+    border:0;
+    border-radius:11px;
+    cursor:pointer;
+    background:#10477e;
+    color:white;
+    font-size:15px;
+}
+
+button:hover{
+    filter:brightness(1.25);
+}
+
+.blue{
+    background:#078cff;
+}
+
+.green{
+    background:#168d63;
+}
+
+.red{
+    background:#b52c39;
+}
+
+.gold{
+    background:#b8890a;
+}
+
+/* ================= FRAME ================= */
+
+.frame-wrapper{
+    width:100%;
+}
+
+.frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    border-radius:22px;
+    border:3px solid #39c9ff;
+
+    background:
+    radial-gradient(circle at 50% 50%,rgba(0,180,255,.22),transparent 35%),
+    linear-gradient(135deg,#07152e,#102f62);
+
+    box-shadow:
+    0 0 0 2px #0b294d,
+    0 0 35px rgba(0,180,255,.35);
+}
+
+#backgroundCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+.frameVideo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+    display:none;
+}
+
+.frameOverlay{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+}
+
+.productArea{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:38%;
+    aspect-ratio:1/1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    perspective:1000px;
+}
+
+.productImage{
+    width:80%;
+    height:80%;
+    object-fit:contain;
+
+    animation:
+    rotateProduct 18s linear infinite;
+
+    filter:
+    drop-shadow(0 15px 18px rgba(0,0,0,.8));
+}
+
+@keyframes rotateProduct{
+
+    0%{
+        transform:rotateY(0deg);
+    }
+
+    50%{
+        transform:rotateY(180deg);
+    }
+
+    100%{
+        transform:rotateY(360deg);
+    }
+
+}
+
+.placeholder{
+    font-size:80px;
+    opacity:.7;
+}
+
+.offer{
+    position:absolute;
+    bottom:5%;
+    left:5%;
+    right:5%;
+    padding:10px;
+    text-align:center;
+    border-radius:15px;
+    background:linear-gradient(90deg,#9b1010,#ef3939,#9b1010);
+    font-size:clamp(14px,2.5vw,25px);
+    font-weight:bold;
+    z-index:5;
+    border:1px solid #ff8585;
+    text-shadow:0 2px 5px #000;
+}
+
+.discount{
+    position:absolute;
+    top:5%;
+    right:5%;
+    padding:8px 15px;
+    border-radius:12px;
+    background:#113d83;
+    border:2px solid #ffd43b;
+    color:#ffd43b;
+    font-weight:bold;
+    z-index:5;
+}
+
+.brandWatermark{
+    position:absolute;
+    top:5%;
+    left:5%;
+    font-weight:bold;
+    font-size:clamp(11px,2vw,18px);
+    color:#ffffff;
+    text-shadow:0 2px 7px #000;
+    z-index:5;
+}
+
+/* ================= CONTROLS ================= */
+
+label{
+    display:block;
+    font-size:13px;
+    color:#a9d7f2;
+    margin-top:8px;
+}
+
+input[type="text"],
+input[type="number"],
+select{
+    width:100%;
+    padding:9px;
+    border-radius:8px;
+    border:1px solid #37628d;
+    background:#06172e;
+    color:white;
+    margin-top:4px;
+}
+
+input[type="color"]{
+    width:100%;
+    height:42px;
+    border:0;
+    background:none;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.admin{
+    margin-top:15px;
+}
+
+.row{
+    display:flex;
+    gap:10px;
+}
+
+.row>*{
+    flex:1;
+}
+
+.info{
+    color:#a9cce5;
+    font-size:12px;
+    line-height:1.7;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .menu{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:5px;
+    }
+
+    .productArea{
+        width:42%;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .container{
+        width:98%;
+    }
+
+    .panel{
+        padding:10px;
+    }
+
+    .frame{
+        border-radius:13px;
+    }
+
+    .offer{
+        bottom:3%;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo" id="brandName">
+        ٹیپے جَنجوا
+    </div>
+
+    <div class="subtitle" id="platformName">
+        ڈیجیٹل مارکیٹنگ پلیٹ فارم
+        •
+        <span class="english">
+            TAPE JANJUA DIGITAL MARKETING PLATFORM
+        </span>
+    </div>
+
+</header>
+
+
+<div class="container">
+
+<div class="layout">
+
+<!-- ================= LEFT MENU ================= -->
+
+<div class="panel menu">
+
+    <button class="blue" onclick="openImage()">
+        🖼️ پروڈکٹ تصویر
+    </button>
+
+    <button class="blue" onclick="openVideo()">
+        🎬 ویڈیو شامل کریں
+    </button>
+
+    <button onclick="toggleAdmin()">
+        ⚙️ Admin Settings
+    </button>
+
+    <button class="green" onclick="downloadFrame()">
+        📸 Frame Screenshot
+    </button>
+
+    <button class="red" onclick="startRecording()">
+        🔴 Frame Recording
+    </button>
+
+    <button class="gold" onclick="stopRecording()">
+        ⏹️ Stop Recording
+    </button>
+
+    <input
+        id="imageInput"
+        type="file"
+        accept="image/*"
+        class="hidden"
+    >
+
+    <input
+        id="videoInput"
+        type="file"
+        accept="video/*"
+        class="hidden"
+    >
+
+</div>
+
+
+<!-- ================= MAIN FRAME ================= -->
+
+<div class="frame-wrapper">
+
+    <div
+        class="frame"
+        id="recordFrame"
+    >
+
+        <canvas id="backgroundCanvas"></canvas>
+
+        <video
+            id="frameVideo"
+            class="frameVideo"
+            controls
+            playsinline
+        ></video>
+
+        <div class="frameOverlay">
+
+            <div
+                class="brandWatermark"
+                id="watermark"
+            >
+                TAPE JANJUA
+            </div>
+
+            <div
+                class="discount"
+                id="discountText"
+            >
+                خصوصی رعایت
+            </div>
+
+            <div class="productArea">
+
+                <img
+                    id="productImage"
+                    class="productImage hidden"
+                >
+
+                <div
+                    id="placeholder"
+                    class="placeholder"
+                >
+                    🪐
+                </div>
+
+            </div>
+
+            <div
+                class="offer"
+                id="offerText"
+            >
+                ⭐ خصوصی آفر — محدود وقت کے لیے ⭐
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= RIGHT CONTROL ================= -->
+
+<div class="panel">
+
+    <h3>
+        🎛️ Frame Control
+    </h3>
+
+    <label>
+        360° Rotation Speed
+    </label>
+
+    <select
+        id="rotationSpeed"
+        onchange="changeSpeed()"
+    >
+
+        <option value="18">
+            بہت آہستہ
+        </option>
+
+        <option value="12">
+            آہستہ
+        </option>
+
+        <option value="8">
+            درمیانی
+        </option>
+
+        <option value="4">
+            تیز
+        </option>
+
+    </select>
+
+
+    <button
+        onclick="playVideo()"
+        class="blue"
+    >
+        ▶️ Play Video
+    </button>
+
+
+    <button
+        onclick="pauseVideo()"
+    >
+        ⏸️ Pause Video
+    </button>
+
+
+    <button
+        onclick="downloadFrame()"
+        class="green"
+    >
+        📥 تصویر Download
+    </button>
+
+
+    <p class="info">
+
+        Screenshot صرف Frame Area کا بنے گا۔
+        پوری Screen کا Screenshot نہیں ہوگا۔
+
+        <br><br>
+
+        Recording بھی صرف Frame Area
+        کو record کرے گی۔
+
+    </p>
+
+</div>
+
+</div>
+
+
+<!-- ================= ADMIN ================= -->
+
+<div
+    id="adminPanel"
+    class="panel admin hidden"
+>
+
+    <h2>
+        ⚙️ Admin Control Panel
+    </h2>
+
+    <div class="row">
+
+        <div>
+
+            <label>
+                برانڈ نام
+            </label>
+
+            <input
+                id="adminBrand"
+                type="text"
+                value="ٹیپے جَنجوا"
+            >
+
+        </div>
+
+        <div>
+
+            <label>
+                پلیٹ فارم نام
+            </label>
+
+            <input
+                id="adminPlatform"
+                type="text"
+                value="ڈیجیٹل مارکیٹنگ پلیٹ فارم"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+
+            <label>
+                خصوصی آفر
+            </label>
+
+            <input
+                id="adminOffer"
+                type="text"
+                value="⭐ خصوصی آفر — محدود وقت کے لیے ⭐"
+            >
+
+        </div>
+
+        <div>
+
+            <label>
+                خصوصی رعایت / Discount
+            </label>
+
+            <input
+                id="adminDiscount"
+                type="text"
+                value="خصوصی رعایت"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+
+            <label>
+                Background Color 1
+            </label>
+
+            <input
+                id="color1"
+                type="color"
+                value="#061329"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Background Color 2
+            </label>
+
+            <input
+                id="color2"
+                type="color"
+                value="#102b55"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                Offer Color
+            </label>
+
+            <input
+                id="offerColor"
+                type="color"
+                value="#e93636"
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div>
+
+            <label>
+                Product Size %
+            </label>
+
+            <input
+                id="productSize"
+                type="number"
+                value="38"
+                min="10"
+                max="80"
+            >
+
+        </div>
+
+        <div>
+
+            <label>
+                Offer Position
+            </label>
+
+            <select id="offerPosition">
+
+                <option value="bottom">
+                    نیچے
+                </option>
+
+                <option value="top">
+                    اوپر
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="blue"
+        onclick="applyAdmin()"
+    >
+        💾 Save / Apply
+    </button>
+
+
+    <button
+        onclick="resetAdmin()"
+    >
+        ↺ Reset
+    </button>
+
+
+    <p class="info">
+
+        Admin کی یہ settings اسی browser میں محفوظ ہوں گی۔
+        کسی server یا database کی ضرورت نہیں۔
+
+    </p>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FILE INPUT
+===================================================== */
+
+const imageInput =
+    document.getElementById("imageInput");
+
+const videoInput =
+    document.getElementById("videoInput");
+
+const productImage =
+    document.getElementById("productImage");
+
+const placeholder =
+    document.getElementById("placeholder");
+
+const frameVideo =
+    document.getElementById("frameVideo");
+
+
+function openImage(){
+
+    imageInput.click();
+
+}
+
+
+function openVideo(){
+
+    videoInput.click();
+
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+imageInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(!file) return;
+
+        productImage.src =
+            URL.createObjectURL(file);
+
+        productImage.classList.remove("hidden");
+
+        placeholder.classList.add("hidden");
+
+    }
+);
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+videoInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files[0];
+
+        if(!file) return;
+
+        frameVideo.src =
+            URL.createObjectURL(file);
+
+        frameVideo.style.display =
+            "block";
+
+        frameVideo.load();
+
+    }
+);
+
+
+function playVideo(){
+
+    frameVideo.play();
+
+}
+
+
+function pauseVideo(){
+
+    frameVideo.pause();
+
+}
+
+
+/* =====================================================
+   ROTATION
+===================================================== */
+
+function changeSpeed(){
+
+    const speed =
+        document.getElementById(
+            "rotationSpeed"
+        ).value;
+
+    productImage.style.animationDuration =
+        speed + "s";
+
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function toggleAdmin(){
+
+    document
+        .getElementById("adminPanel")
+        .classList.toggle("hidden");
+
+}
+
+
+function applyAdmin(){
+
+    const brand =
+        document.getElementById("adminBrand").value;
+
+    const platform =
+        document.getElementById("adminPlatform").value;
+
+    const offer =
+        document.getElementById("adminOffer").value;
+
+    const discount =
+        document.getElementById("adminDiscount").value;
+
+    const color1 =
+        document.getElementById("color1").value;
+
+    const color2 =
+        document.getElementById("color2").value;
+
+    const offerColor =
+        document.getElementById("offerColor").value;
+
+    const size =
+        document.getElementById("productSize").value;
+
+    const position =
+        document.getElementById("offerPosition").value;
+
+
+    document.getElementById(
+        "brandName"
+    ).textContent = brand;
+
+
+    document.getElementById(
+        "platformName"
+    ).innerHTML =
+        platform +
+        ' • <span class="english">' +
+        'TAPE JANJUA DIGITAL MARKETING PLATFORM' +
+        '</span>';
+
+
+    document.getElementById(
+        "watermark"
+    ).textContent = brand;
+
+
+    document.getElementById(
+        "offerText"
+    ).textContent = offer;
+
+
+    document.getElementById(
+        "discountText"
+    ).textContent = discount;
+
+
+    document.documentElement.style
+        .setProperty(
+            "--bg1",
+            color1
+        );
+
+
+    document.documentElement.style
+        .setProperty(
+            "--bg2",
+            color2
+        );
+
+
+    document.documentElement.style
+        .setProperty(
+            "--offer",
+            offerColor
+        );
+
+
+    document.querySelector(
+        ".productArea"
+    ).style.width =
+        size + "%";
+
+
+    const offerBox =
+        document.getElementById(
+            "offerText"
+        );
+
+
+    if(position === "top"){
+
+        offerBox.style.top = "5%";
+        offerBox.style.bottom = "auto";
+
+    }else{
+
+        offerBox.style.bottom = "5%";
+        offerBox.style.top = "auto";
+
+    }
+
+
+    localStorage.setItem(
+        "tapeJanjuaSettings",
+        JSON.stringify({
+
+            brand,
+            platform,
+            offer,
+            discount,
+            color1,
+            color2,
+            offerColor,
+            size,
+            position
+
+        })
+    );
+
+    alert(
+        "Admin Settings محفوظ ہوگئیں۔"
+    );
+
+}
+
+
+function loadAdmin(){
+
+    const data =
+        localStorage.getItem(
+            "tapeJanjuaSettings"
+        );
+
+    if(!data) return;
+
+    try{
+
+        const s =
+            JSON.parse(data);
+
+        document.getElementById(
+            "adminBrand"
+        ).value = s.brand;
+
+        document.getElementById(
+            "adminPlatform"
+        ).value = s.platform;
+
+        document.getElementById(
+            "adminOffer"
+        ).value = s.offer;
+
+        document.getElementById(
+            "adminDiscount"
+        ).value = s.discount;
+
+        document.getElementById(
+            "color1"
+        ).value = s.color1;
+
+        document.getElementById(
+            "color2"
+        ).value = s.color2;
+
+        document.getElementById(
+            "offerColor"
+        ).value = s.offerColor;
+
+        document.getElementById(
+            "productSize"
+        ).value = s.size;
+
+        document.getElementById(
+            "offerPosition"
+        ).value = s.position;
+
+        applyAdmin();
+
+    }catch(e){}
+
+}
+
+
+function resetAdmin(){
+
+    localStorage.removeItem(
+        "tapeJanjuaSettings"
+    );
+
+    location.reload();
+
+}
+
+
+/* =====================================================
+   FRAME SCREENSHOT
+===================================================== */
+
+/*
+   Important:
+   ہم پوری screen capture نہیں کرتے۔
+   Frame کو canvas میں draw کرتے ہیں۔
+*/
+
+async function downloadFrame(){
+
+    const frame =
+        document.getElementById(
+            "recordFrame"
+        );
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+    const width = 1280;
+    const height = 720;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx =
+        canvas.getContext("2d");
+
+    /*
+       Background
+    */
+
+    const gradient =
+        ctx.createLinearGradient(
+            0,
+            0,
+            width,
+            height
+        );
+
+    gradient.addColorStop(
+        0,
+        getComputedStyle(
+            document.documentElement
+        ).getPropertyValue("--bg1")
+    );
+
+    gradient.addColorStop(
+        1,
+        getComputedStyle(
+            document.documentElement
+        ).getPropertyValue("--bg2")
+    );
+
+    ctx.fillStyle =
+        gradient;
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /*
+       Video
+    */
+
+    if(
+        frameVideo.src &&
+        frameVideo.readyState >= 2
+    ){
+
+        try{
+
+            ctx.drawImage(
+                frameVideo,
+                0,
+                0,
+                width,
+                height
+            );
+
+        }catch(e){}
+
+    }
+
+
+    /*
+       Product image
+    */
+
+    if(
+        productImage.src &&
+        !productImage.classList.contains(
+            "hidden"
+        )
+    ){
+
+        try{
+
+            const imgWidth =
+                width * 0.30;
+
+            const imgHeight =
+                height * 0.30;
+
+            const x =
+                (width - imgWidth) / 2;
+
+            const y =
+                (height - imgHeight) / 2;
+
+            ctx.drawImage(
+                productImage,
+                x,
+                y,
+                imgWidth,
+                imgHeight
+            );
+
+        }catch(e){}
+
+    }
+
+
+    /*
+       Brand
+    */
+
+    ctx.font =
+        "bold 32px Arial";
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.fillText(
+        document.getElementById(
+            "watermark"
+        ).textContent,
+        45,
+        55
+    );
+
+
+    /*
+       Discount
+    */
+
+    ctx.font =
+        "bold 28px Arial";
+
+    ctx.fillStyle =
+        "#ffd43b";
+
+    ctx.fillText(
+        document.getElementById(
+            "discountText"
+        ).textContent,
+        width - 300,
+        55
+    );
+
+
+    /*
+       Offer
+    */
+
+    ctx.fillStyle =
+        "#ffffff";
+
+    ctx.fillText(
+        document.getElementById(
+            "offerText"
+        ).textContent,
+        80,
+        height - 45
+    );
+
+
+    /*
+       Download PNG
+    */
+
+    canvas.toBlob(
+        function(blob){
+
+            const url =
+                URL.createObjectURL(blob);
+
+            const a =
+                document.createElement(
+                    "a"
+                );
+
+            a.href = url;
+
+            a.download =
+                "TAPE-JANJUA-FRAME.png";
+
+            a.click();
+
+            setTimeout(
+                ()=>URL.revokeObjectURL(url),
+                2000
+            );
+
+        },
+        "image/png"
+    );
+
+}
+
+
+/* =====================================================
+   FRAME RECORDING
+===================================================== */
+
+let recorder = null;
+
+let recordedChunks = [];
+
+
+function createRecordingCanvas(){
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+    canvas.width =
+        1280;
+
+    canvas.height =
+        720;
+
+    return canvas;
+
+}
+
+
+function startRecording(){
+
+    if(
+        !window.MediaRecorder
+    ){
+
+        alert(
+            "اس browser میں recording support نہیں ہے۔ Chrome استعمال کریں۔"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        recorder &&
+        recorder.state === "recording"
+    ){
+
+        alert(
+            "Recording پہلے سے چل رہی ہے۔"
+        );
+
+        return;
+
+    }
+
+
+    const canvas =
+        createRecordingCanvas();
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    /*
+       صرف Frame canvas کی stream
+       بنائی جا رہی ہے۔
+    */
+
+    const stream =
+        canvas.captureStream(30);
+
+
+    recordedChunks = [];
+
+
+    recorder =
+        new MediaRecorder(
+            stream,
+            {
+                mimeType:
+                    "video/webm"
+            }
+        );
+
+
+    recorder.ondataavailable =
+        function(event){
+
+            if(
+                event.data.size > 0
+            ){
+
+                recordedChunks.push(
+                    event.data
+                );
+
+            }
+
+        };
+
+
+    recorder.onstop =
+        function(){
+
+            const blob =
+                new Blob(
+                    recordedChunks,
+                    {
+                        type:
+                            "video/webm"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+
+            const a =
+                document.createElement(
+                    "a"
+                );
+
+            a.href = url;
+
+            a.download =
+                "TAPE-JANJUA-FRAME-RECORDING.webm";
+
+            a.click();
+
+
+            setTimeout(
+                ()=>{
+                    URL.revokeObjectURL(
+                        url
+                    );
+                },
+                5000
+            );
+
+        };
+
+
+    recorder.start();
+
+
+    /*
+       Frame render loop
+    */
+
+    function render(){
+
+        if(
+            !recorder ||
+            recorder.state !==
+            "recording"
+        ){
+
+            return;
+
+        }
+
+
+        const w =
+            canvas.width;
+
+        const h =
+            canvas.height;
+
+
+        /*
+           Background
+        */
+
+        const gradient =
+            ctx.createLinearGradient(
+                0,
+                0,
+                w,
+                h
+            );
+
+
+        gradient.addColorStop(
+            0,
+            getComputedStyle(
+                document.documentElement
+            ).getPropertyValue("--bg1")
+        );
+
+
+        gradient.addColorStop(
+            1,
+            getComputedStyle(
+                document.documentElement
+            ).getPropertyValue("--bg2")
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.fillRect(
+            0,
+            0,
+            w,
+            h
+        );
+
+
+        /*
+           Video
+        */
+
+        if(
+            frameVideo.src &&
+            frameVideo.readyState >= 2
+        ){
+
+            try{
+
+                ctx.drawImage(
+                    frameVideo,
+                    0,
+                    0,
+                    w,
+                    h
+                );
+
+            }catch(e){}
+
+        }
+
+
+        /*
+           Product image
+        */
+
+        if(
+            productImage.src &&
+            !productImage.classList.contains(
+                "hidden"
+            )
+        ){
+
+            try{
+
+                const size =
+                    w * 0.30;
+
+                ctx.drawImage(
+                    productImage,
+                    (w-size)/2,
+                    (h-size)/2,
+                    size,
+                    size
+                );
+
+            }catch(e){}
+
+        }
+
+
+        /*
+           Text
+        */
+
+        ctx.font =
+            "bold 32px Arial";
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.fillText(
+            document.getElementById(
+                "watermark"
+            ).textContent,
+            45,
+            55
+        );
+
+
+        ctx.fillStyle =
+            "#ffd43b";
+
+        ctx.fillText(
+            document.getElementById(
+                "discountText"
+            ).textContent,
+            w - 300,
+            55
+        );
+
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.fillText(
+            document.getElementById(
+                "offerText"
+            ).textContent,
+            80,
+            h - 45
+        );
+
+
+        requestAnimationFrame(
+            render
+        );
+
+    }
+
+
+    render();
+
+
+    alert(
+        "Frame Recording شروع ہوگئی ہے۔ Stop Recording دبائیں۔"
+    );
+
+}
+
+
+function stopRecording(){
+
+    if(
+        recorder &&
+        recorder.state === "recording"
+    ){
+
+        recorder.stop();
+
+        alert(
+            "Recording مکمل ہوگئی۔ WebM فائل Download ہوگی۔"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   BACKGROUND ANIMATION
+===================================================== */
+
+const bgCanvas =
+    document.getElementById(
+        "backgroundCanvas"
+    );
+
+const bgCtx =
+    bgCanvas.getContext("2d");
+
+
+function resizeBackground(){
+
+    const rect =
+        bgCanvas.parentElement
+        .getBoundingClientRect();
+
+    bgCanvas.width =
+        rect.width;
+
+    bgCanvas.height =
+        rect.height;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeBackground
+);
+
+resizeBackground();
+
+
+let starMove = 0;
+
+
+function animateBackground(){
+
+    bgCtx.clearRect(
+        0,
+        0,
+        bgCanvas.width,
+        bgCanvas.height
+    );
+
+
+    for(
+        let i=0;
+        i<80;
+        i++
+    ){
+
+        const x =
+            (
+                i * 91 +
+                starMove * .12
+            )
+            %
+            bgCanvas.width;
+
+
+        const y =
+            (
+                i * 47
+            )
+            %
+            bgCanvas.height;
+
+
+        bgCtx.beginPath();
+
+        bgCtx.arc(
+            x,
+            y,
+            1.2,
+            0,
+            Math.PI * 2
+        );
+
+        bgCtx.fillStyle =
+            "rgba(255,255,255,.7)";
+
+        bgCtx.fill();
+
+    }
+
+
+    starMove++;
+
+    requestAnimationFrame(
+        animateBackground
+    );
+
+}
+
+
+animateBackground();
+
+
+/* =====================================================
+   LOAD SETTINGS
+===================================================== */
+
+loadAdmin();
+
+</script>
+
+</body>
+</html>
