@@ -3,329 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TAPE JANJUA Digital Marketing Platform</title>
 
 <style>
-*{
-    box-sizing:border-box;
+:root{
+  --bg1:#061329;
+  --bg2:#123566;
+  --offer:#e83b3b;
+  --gold:#ffd43b;
+  --blue:#20baff;
 }
 
-html,body{
-    margin:0;
-    padding:0;
-    min-height:100%;
-    font-family:Arial,"Noto Naskh Arabic",sans-serif;
-    background:#050b18;
-    color:white;
-}
+*{box-sizing:border-box}
 
 body{
-    overflow-x:hidden;
+  margin:0;
+  background:#030914;
+  color:white;
+  font-family:Arial,"Noto Naskh Arabic",sans-serif;
 }
 
-.topbar{
-    text-align:center;
-    padding:18px 10px;
-    background:linear-gradient(135deg,#061329,#142e5d);
-    border-bottom:1px solid #315c91;
+header{
+  text-align:center;
+  padding:18px;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  border-bottom:1px solid #286896;
 }
 
 .logo{
-    font-size:clamp(28px,6vw,52px);
-    font-weight:900;
-    color:#ffd43b;
-    text-shadow:0 4px 18px #000;
+  font-size:clamp(30px,6vw,55px);
+  font-weight:900;
+  color:var(--gold);
 }
 
 .subtitle{
-    font-size:clamp(15px,3vw,23px);
-    margin-top:5px;
+  font-size:clamp(14px,3vw,22px);
 }
 
 .english{
-    color:#42d6ff;
-    font-weight:bold;
+  color:#50d8ff;
+  font-weight:bold;
 }
 
 .container{
-    width:min(1250px,96%);
-    margin:auto;
-    padding:15px 0 30px;
+  width:min(1250px,96%);
+  margin:auto;
+  padding:15px 0 30px;
 }
 
 .layout{
-    display:grid;
-    grid-template-columns:220px minmax(300px,1fr) 250px;
-    gap:14px;
+  display:grid;
+  grid-template-columns:210px minmax(300px,1fr) 250px;
+  gap:14px;
 }
 
 .panel{
-    background:rgba(11,29,59,.96);
-    border:1px solid #28578c;
-    border-radius:18px;
-    padding:14px;
-    box-shadow:0 10px 35px rgba(0,0,0,.45);
-}
-
-.panel h3{
-    margin-top:0;
+  background:#0b2142f5;
+  border:1px solid #286896;
+  border-radius:18px;
+  padding:13px;
+  box-shadow:0 10px 30px #0008;
 }
 
 button{
-    width:100%;
-    padding:12px;
-    margin:5px 0;
-    border:0;
-    border-radius:11px;
-    cursor:pointer;
-    background:#10477e;
-    color:white;
-    font-size:15px;
+  width:100%;
+  padding:11px;
+  margin:4px 0;
+  border:0;
+  border-radius:10px;
+  color:white;
+  background:#104a82;
+  cursor:pointer;
 }
 
 button:hover{
-    filter:brightness(1.25);
+  filter:brightness(1.2);
 }
 
-.blue{
-    background:#078cff;
-}
-
-.green{
-    background:#168d63;
-}
-
-.red{
-    background:#b52c39;
-}
-
-.gold{
-    background:#b8890a;
-}
-
-/* ================= FRAME ================= */
-
-.frame-wrapper{
-    width:100%;
-}
+.blue{background:#078cff}
+.green{background:#148a61}
+.red{background:#b52c3c}
+.gold{background:#a77d0b}
 
 .frame{
-    position:relative;
-    width:100%;
-    aspect-ratio:16/9;
-    overflow:hidden;
-    border-radius:22px;
-    border:3px solid #39c9ff;
-
-    background:
-    radial-gradient(circle at 50% 50%,rgba(0,180,255,.22),transparent 35%),
-    linear-gradient(135deg,#07152e,#102f62);
-
-    box-shadow:
-    0 0 0 2px #0b294d,
-    0 0 35px rgba(0,180,255,.35);
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border:3px solid var(--blue);
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
 #backgroundCanvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:0;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
 }
 
-.frameVideo{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:1;
-    display:none;
+#mainVideo{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
 }
 
-.frameOverlay{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    pointer-events:none;
+.overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
 }
 
-.productArea{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    width:38%;
-    aspect-ratio:1/1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    perspective:1000px;
+.brand{
+  position:absolute;
+  left:4%;
+  top:4%;
+  font-weight:bold;
+  font-size:clamp(14px,2vw,28px);
+  text-shadow:0 2px 8px black;
 }
 
-.productImage{
-    width:80%;
-    height:80%;
-    object-fit:contain;
-
-    animation:
-    rotateProduct 18s linear infinite;
-
-    filter:
-    drop-shadow(0 15px 18px rgba(0,0,0,.8));
+.badge{
+  position:absolute;
+  right:4%;
+  top:4%;
+  padding:7px 12px;
+  color:var(--gold);
+  border:2px solid var(--gold);
+  border-radius:10px;
+  background:#08275dcc;
+  font-weight:bold;
 }
 
-@keyframes rotateProduct{
+.product{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:38%;
+  aspect-ratio:1/1;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1000px;
+}
 
-    0%{
-        transform:rotateY(0deg);
-    }
+.product img{
+  width:85%;
+  height:85%;
+  object-fit:contain;
+  animation:planetSpin 18s linear infinite;
+  filter:drop-shadow(0 14px 18px black);
+}
 
-    50%{
-        transform:rotateY(180deg);
-    }
-
-    100%{
-        transform:rotateY(360deg);
-    }
-
+@keyframes planetSpin{
+  from{transform:rotateY(0deg)}
+  to{transform:rotateY(360deg)}
 }
 
 .placeholder{
-    font-size:80px;
-    opacity:.7;
+  font-size:80px;
+}
+
+.offers{
+  position:absolute;
+  left:4%;
+  right:4%;
+  bottom:4%;
+  display:flex;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
 }
 
 .offer{
-    position:absolute;
-    bottom:5%;
-    left:5%;
-    right:5%;
-    padding:10px;
-    text-align:center;
-    border-radius:15px;
-    background:linear-gradient(90deg,#9b1010,#ef3939,#9b1010);
-    font-size:clamp(14px,2.5vw,25px);
-    font-weight:bold;
-    z-index:5;
-    border:1px solid #ff8585;
-    text-shadow:0 2px 5px #000;
+  padding:7px 12px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#8d1010,var(--offer));
+  font-weight:bold;
+  font-size:clamp(11px,1.7vw,18px);
 }
 
-.discount{
-    position:absolute;
-    top:5%;
-    right:5%;
-    padding:8px 15px;
-    border-radius:12px;
-    background:#113d83;
-    border:2px solid #ffd43b;
-    color:#ffd43b;
-    font-weight:bold;
-    z-index:5;
+input[type=text],
+select{
+  width:100%;
+  padding:9px;
+  border-radius:8px;
+  border:1px solid #39668e;
+  background:#06172d;
+  color:white;
+  margin-top:4px;
 }
 
-.brandWatermark{
-    position:absolute;
-    top:5%;
-    left:5%;
-    font-weight:bold;
-    font-size:clamp(11px,2vw,18px);
-    color:#ffffff;
-    text-shadow:0 2px 7px #000;
-    z-index:5;
+input[type=color]{
+  width:100%;
+  height:38px;
 }
 
-/* ================= CONTROLS ================= */
+input[type=range]{
+  width:100%;
+}
 
 label{
-    display:block;
-    font-size:13px;
-    color:#a9d7f2;
-    margin-top:8px;
-}
-
-input[type="text"],
-input[type="number"],
-select{
-    width:100%;
-    padding:9px;
-    border-radius:8px;
-    border:1px solid #37628d;
-    background:#06172e;
-    color:white;
-    margin-top:4px;
-}
-
-input[type="color"]{
-    width:100%;
-    height:42px;
-    border:0;
-    background:none;
+  display:block;
+  color:#b8d8ed;
+  font-size:12px;
+  margin-top:8px;
 }
 
 .hidden{
-    display:none!important;
-}
-
-.admin{
-    margin-top:15px;
+  display:none!important;
 }
 
 .row{
-    display:flex;
-    gap:10px;
+  display:flex;
+  gap:8px;
 }
 
 .row>*{
-    flex:1;
+  flex:1;
 }
 
-.info{
-    color:#a9cce5;
-    font-size:12px;
-    line-height:1.7;
+.status{
+  font-size:12px;
+  color:#a9d9f5;
+  margin-top:7px;
 }
 
-/* ================= MOBILE ================= */
+.admin{
+  margin-top:15px;
+}
+
+/* CAPTURE WINDOW */
+
+.captureWindow{
+  position:fixed;
+  z-index:9999;
+  left:5vw;
+  top:5vh;
+  width:90vw;
+  height:90vh;
+  background:#071326f7;
+  border:2px solid #31caff;
+  border-radius:15px;
+  padding:10px;
+  display:none;
+}
+
+#screenPreview{
+  width:100%;
+  height:calc(100% - 55px);
+  object-fit:contain;
+  background:black;
+}
+
+.selectLayer{
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:10px;
+  bottom:55px;
+  cursor:crosshair;
+}
+
+.selection{
+  position:absolute;
+  border:3px dashed #ffd43b;
+  background:#ffd43b20;
+  display:none;
+  pointer-events:none;
+}
+
+.captureButtons{
+  position:absolute;
+  bottom:8px;
+  left:10px;
+  right:10px;
+  display:flex;
+  gap:8px;
+}
+
+.captureButtons button{
+  margin:0;
+}
 
 @media(max-width:900px){
 
-    .layout{
-        grid-template-columns:1fr;
-    }
+  .layout{
+    grid-template-columns:1fr;
+  }
 
-    .menu{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:5px;
-    }
-
-    .productArea{
-        width:42%;
-    }
+  .menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
 
 }
 
-@media(max-width:550px){
+@media(max-width:520px){
 
-    .container{
-        width:98%;
-    }
+  .row{
+    flex-direction:column;
+  }
 
-    .panel{
-        padding:10px;
-    }
-
-    .frame{
-        border-radius:13px;
-    }
-
-    .offer{
-        bottom:3%;
-    }
+  .menu{
+    grid-template-columns:1fr;
+  }
 
 }
 </style>
@@ -333,19 +319,18 @@ input[type="color"]{
 
 <body>
 
-<header class="topbar">
+<header>
 
-    <div class="logo" id="brandName">
-        ٹیپے جَنجوا
-    </div>
+<div class="logo" id="brandName">
+ٹیپے جَنجوا
+</div>
 
-    <div class="subtitle" id="platformName">
-        ڈیجیٹل مارکیٹنگ پلیٹ فارم
-        •
-        <span class="english">
-            TAPE JANJUA DIGITAL MARKETING PLATFORM
-        </span>
-    </div>
+<div class="subtitle" id="platformName">
+ڈیجیٹل مارکیٹنگ پلیٹ فارم •
+<span class="english">
+TAPE JANJUA DIGITAL MARKETING PLATFORM
+</span>
+</div>
 
 </header>
 
@@ -354,705 +339,704 @@ input[type="color"]{
 
 <div class="layout">
 
-<!-- ================= LEFT MENU ================= -->
 
-<div class="panel menu">
-
-    <button class="blue" onclick="openImage()">
-        🖼️ پروڈکٹ تصویر
-    </button>
-
-    <button class="blue" onclick="openVideo()">
-        🎬 ویڈیو شامل کریں
-    </button>
-
-    <button onclick="toggleAdmin()">
-        ⚙️ Admin Settings
-    </button>
-
-    <button class="green" onclick="downloadFrame()">
-        📸 Frame Screenshot
-    </button>
-
-    <button class="red" onclick="startRecording()">
-        🔴 Frame Recording
-    </button>
-
-    <button class="gold" onclick="stopRecording()">
-        ⏹️ Stop Recording
-    </button>
-
-    <input
-        id="imageInput"
-        type="file"
-        accept="image/*"
-        class="hidden"
-    >
-
-    <input
-        id="videoInput"
-        type="file"
-        accept="video/*"
-        class="hidden"
-    >
-
-</div>
-
-
-<!-- ================= MAIN FRAME ================= -->
-
-<div class="frame-wrapper">
-
-    <div
-        class="frame"
-        id="recordFrame"
-    >
-
-        <canvas id="backgroundCanvas"></canvas>
-
-        <video
-            id="frameVideo"
-            class="frameVideo"
-            controls
-            playsinline
-        ></video>
-
-        <div class="frameOverlay">
-
-            <div
-                class="brandWatermark"
-                id="watermark"
-            >
-                TAPE JANJUA
-            </div>
-
-            <div
-                class="discount"
-                id="discountText"
-            >
-                خصوصی رعایت
-            </div>
-
-            <div class="productArea">
-
-                <img
-                    id="productImage"
-                    class="productImage hidden"
-                >
-
-                <div
-                    id="placeholder"
-                    class="placeholder"
-                >
-                    🪐
-                </div>
-
-            </div>
-
-            <div
-                class="offer"
-                id="offerText"
-            >
-                ⭐ خصوصی آفر — محدود وقت کے لیے ⭐
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= RIGHT CONTROL ================= -->
+<!-- LEFT MENU -->
 
 <div class="panel">
 
-    <h3>
-        🎛️ Frame Control
-    </h3>
+<button class="blue" onclick="imageInput.click()">
+🖼️ پروڈکٹ تصویر
+</button>
 
-    <label>
-        360° Rotation Speed
-    </label>
+<button class="blue" onclick="videoInput.click()">
+🎬 ویڈیو شامل کریں
+</button>
 
-    <select
-        id="rotationSpeed"
-        onchange="changeSpeed()"
-    >
+<button onclick="adminPanel.classList.toggle('hidden')">
+⚙️ Admin Settings
+</button>
 
-        <option value="18">
-            بہت آہستہ
-        </option>
+<button class="green" onclick="downloadPNG()">
+📸 Frame PNG
+</button>
 
-        <option value="12">
-            آہستہ
-        </option>
+<button class="red" onclick="openCapture()">
+🎯 Capture Area
+</button>
 
-        <option value="8">
-            درمیانی
-        </option>
+<button class="gold" onclick="stopRecording()">
+⏹ Stop Recording
+</button>
 
-        <option value="4">
-            تیز
-        </option>
+<input
+id="imageInput"
+type="file"
+accept="image/*"
+class="hidden">
 
-    </select>
-
-
-    <button
-        onclick="playVideo()"
-        class="blue"
-    >
-        ▶️ Play Video
-    </button>
-
-
-    <button
-        onclick="pauseVideo()"
-    >
-        ⏸️ Pause Video
-    </button>
-
-
-    <button
-        onclick="downloadFrame()"
-        class="green"
-    >
-        📥 تصویر Download
-    </button>
-
-
-    <p class="info">
-
-        Screenshot صرف Frame Area کا بنے گا۔
-        پوری Screen کا Screenshot نہیں ہوگا۔
-
-        <br><br>
-
-        Recording بھی صرف Frame Area
-        کو record کرے گی۔
-
-    </p>
-
-</div>
+<input
+id="videoInput"
+type="file"
+accept="video/*"
+class="hidden">
 
 </div>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- CENTER FRAME -->
+
+<div>
+
+<div class="frame" id="mainFrame">
+
+<canvas id="backgroundCanvas"></canvas>
+
+<video
+id="mainVideo"
+playsinline
+controls>
+</video>
+
+<div class="overlay">
+
+<div class="brand" id="watermark">
+TAPE JANJUA
+</div>
+
+<div class="badge" id="badgeText">
+خصوصی رعایت
+</div>
+
+
+<div class="product" id="productArea">
+
+<img
+id="productImage"
+class="hidden">
 
 <div
-    id="adminPanel"
-    class="panel admin hidden"
->
-
-    <h2>
-        ⚙️ Admin Control Panel
-    </h2>
-
-    <div class="row">
-
-        <div>
-
-            <label>
-                برانڈ نام
-            </label>
-
-            <input
-                id="adminBrand"
-                type="text"
-                value="ٹیپے جَنجوا"
-            >
-
-        </div>
-
-        <div>
-
-            <label>
-                پلیٹ فارم نام
-            </label>
-
-            <input
-                id="adminPlatform"
-                type="text"
-                value="ڈیجیٹل مارکیٹنگ پلیٹ فارم"
-            >
-
-        </div>
-
-    </div>
-
-
-    <div class="row">
-
-        <div>
-
-            <label>
-                خصوصی آفر
-            </label>
-
-            <input
-                id="adminOffer"
-                type="text"
-                value="⭐ خصوصی آفر — محدود وقت کے لیے ⭐"
-            >
-
-        </div>
-
-        <div>
-
-            <label>
-                خصوصی رعایت / Discount
-            </label>
-
-            <input
-                id="adminDiscount"
-                type="text"
-                value="خصوصی رعایت"
-            >
-
-        </div>
-
-    </div>
-
-
-    <div class="row">
-
-        <div>
-
-            <label>
-                Background Color 1
-            </label>
-
-            <input
-                id="color1"
-                type="color"
-                value="#061329"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Background Color 2
-            </label>
-
-            <input
-                id="color2"
-                type="color"
-                value="#102b55"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label>
-                Offer Color
-            </label>
-
-            <input
-                id="offerColor"
-                type="color"
-                value="#e93636"
-            >
-
-        </div>
-
-    </div>
-
-
-    <div class="row">
-
-        <div>
-
-            <label>
-                Product Size %
-            </label>
-
-            <input
-                id="productSize"
-                type="number"
-                value="38"
-                min="10"
-                max="80"
-            >
-
-        </div>
-
-        <div>
-
-            <label>
-                Offer Position
-            </label>
-
-            <select id="offerPosition">
-
-                <option value="bottom">
-                    نیچے
-                </option>
-
-                <option value="top">
-                    اوپر
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <button
-        class="blue"
-        onclick="applyAdmin()"
-    >
-        💾 Save / Apply
-    </button>
-
-
-    <button
-        onclick="resetAdmin()"
-    >
-        ↺ Reset
-    </button>
-
-
-    <p class="info">
-
-        Admin کی یہ settings اسی browser میں محفوظ ہوں گی۔
-        کسی server یا database کی ضرورت نہیں۔
-
-    </p>
+id="placeholder"
+class="placeholder">
+🪐
+</div>
 
 </div>
 
+
+<div class="offers">
+
+<div class="offer" id="offer1">
+⭐ خصوصی آفر
+</div>
+
+<div class="offer" id="offer2">
+🎁 خصوصی رعایت
+</div>
+
+<div class="offer" id="offer3">
+🔥 محدود وقت
+</div>
+
+<div class="offer" id="offer4">
+💎 خاص ڈسکاؤنٹ
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="status" id="status">
+Offline Studio Ready
+</div>
+
+</div>
+
+
+<!-- RIGHT CONTROLS -->
+
+<div class="panel">
+
+<h3>🎛️ Controls</h3>
+
+<label>
+تصویر کا سائز
+</label>
+
+<input
+id="imageSize"
+type="range"
+min="15"
+max="75"
+value="38">
+
+
+<label>
+تصویر دائیں / بائیں
+</label>
+
+<input
+id="imageX"
+type="range"
+min="10"
+max="90"
+value="50">
+
+
+<label>
+تصویر اوپر / نیچے
+</label>
+
+<input
+id="imageY"
+type="range"
+min="10"
+max="90"
+value="50">
+
+
+<label>
+360° Rotation Speed
+</label>
+
+<select id="rotationSpeed">
+
+<option value="30">
+بہت آہستہ
+</option>
+
+<option value="18" selected>
+آہستہ
+</option>
+
+<option value="10">
+درمیانی
+</option>
+
+<option value="5">
+تیز
+</option>
+
+</select>
+
+
+<button onclick="mainVideo.play()">
+▶ Play
+</button>
+
+<button onclick="mainVideo.pause()">
+⏸ Pause
+</button>
+
+<p class="status">
+Capture Area کھول کر screen/window share کریں، پھر mouse یا finger سے مطلوبہ حصہ select کریں۔
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<section
+id="adminPanel"
+class="panel admin hidden">
+
+<h2>
+⚙️ Admin Text & Colors
+</h2>
+
+
+<div class="row">
+
+<div>
+
+<label>
+Brand Name
+</label>
+
+<input
+id="adminBrand"
+type="text"
+value="ٹیپے جَنجوا">
+
+</div>
+
+
+<div>
+
+<label>
+Platform Name
+</label>
+
+<input
+id="adminPlatform"
+type="text"
+value="ڈیجیٹل مارکیٹنگ پلیٹ فارم">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+Offer 1
+</label>
+
+<input
+id="adminOffer1"
+type="text"
+value="⭐ خصوصی آفر">
+
+</div>
+
+<div>
+
+<label>
+Offer 2
+</label>
+
+<input
+id="adminOffer2"
+type="text"
+value="🎁 خصوصی رعایت">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+Offer 3
+</label>
+
+<input
+id="adminOffer3"
+type="text"
+value="🔥 محدود وقت">
+
+</div>
+
+<div>
+
+<label>
+Offer 4
+</label>
+
+<input
+id="adminOffer4"
+type="text"
+value="💎 خاص ڈسکاؤنٹ">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+Badge
+</label>
+
+<input
+id="adminBadge"
+type="text"
+value="خصوصی رعایت">
+
+</div>
+
+
+<div>
+
+<label>
+Background Color 1
+</label>
+
+<input
+id="color1"
+type="color"
+value="#061329">
+
+</div>
+
+
+<div>
+
+<label>
+Background Color 2
+</label>
+
+<input
+id="color2"
+type="color"
+value="#123566">
+
+</div>
+
+
+<div>
+
+<label>
+Offer Color
+</label>
+
+<input
+id="offerColor"
+type="color"
+value="#e83b3b">
+
+</div>
+
+</div>
+
+
+<button
+class="blue"
+onclick="saveAdmin()">
+
+💾 Save Settings
+
+</button>
+
+
+<button
+onclick="resetSettings()">
+
+↺ Reset
+
+</button>
+
+</section>
+
+</div>
+
+
+<!-- CAPTURE WINDOW -->
+
+<div
+id="captureWindow"
+class="captureWindow">
+
+<video
+id="screenPreview"
+autoplay
+muted
+playsinline>
+</video>
+
+
+<div
+id="selectLayer"
+class="selectLayer">
+</div>
+
+
+<div
+id="selection"
+class="selection">
+</div>
+
+
+<div class="captureButtons">
+
+<button
+class="blue"
+onclick="useSelectedArea()">
+
+✅ Use Selected Area
+
+</button>
+
+<button
+onclick="resetSelection()">
+
+↺ Select Again
+
+</button>
+
+<button
+class="red"
+onclick="closeCapture()">
+
+✖ Close
+
+</button>
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   FILE INPUT
-===================================================== */
+/* =========================
+   BASIC VARIABLES
+========================= */
 
-const imageInput =
-    document.getElementById("imageInput");
+const $ = id => document.getElementById(id);
 
-const videoInput =
-    document.getElementById("videoInput");
+let imageURL = null;
+let videoURL = null;
 
-const productImage =
-    document.getElementById("productImage");
+let screenStream = null;
+let mediaRecorder = null;
+let recordingChunks = [];
 
-const placeholder =
-    document.getElementById("placeholder");
+let crop = {
+    x:0,
+    y:0,
+    w:1,
+    h:1
+};
 
-const frameVideo =
-    document.getElementById("frameVideo");
-
-
-function openImage(){
-
-    imageInput.click();
-
-}
+let selecting = false;
+let startX = 0;
+let startY = 0;
 
 
-function openVideo(){
-
-    videoInput.click();
-
-}
-
-
-/* =====================================================
+/* =========================
    IMAGE
-===================================================== */
+========================= */
 
-imageInput.addEventListener(
-    "change",
-    function(){
+$("imageInput").onchange = function(e){
 
-        const file =
-            this.files[0];
+    const file = e.target.files[0];
 
-        if(!file) return;
+    if(!file) return;
 
-        productImage.src =
-            URL.createObjectURL(file);
-
-        productImage.classList.remove("hidden");
-
-        placeholder.classList.add("hidden");
-
+    if(imageURL){
+        URL.revokeObjectURL(imageURL);
     }
-);
+
+    imageURL = URL.createObjectURL(file);
+
+    $("productImage").src = imageURL;
+
+    $("productImage").classList.remove("hidden");
+
+    $("placeholder").classList.add("hidden");
+};
 
 
-/* =====================================================
+/* =========================
    VIDEO
-===================================================== */
+========================= */
 
-videoInput.addEventListener(
-    "change",
-    function(){
+$("videoInput").onchange = function(e){
 
-        const file =
-            this.files[0];
+    const file = e.target.files[0];
 
-        if(!file) return;
+    if(!file) return;
 
-        frameVideo.src =
-            URL.createObjectURL(file);
-
-        frameVideo.style.display =
-            "block";
-
-        frameVideo.load();
-
+    if(videoURL){
+        URL.revokeObjectURL(videoURL);
     }
-);
+
+    videoURL = URL.createObjectURL(file);
+
+    $("mainVideo").src = videoURL;
+
+    $("mainVideo").style.display = "block";
+
+    $("mainVideo").load();
+
+};
 
 
-function playVideo(){
+/* =========================
+   IMAGE CONTROLS
+========================= */
 
-    frameVideo.play();
+$("imageSize").oninput = function(){
 
-}
+    $("productArea").style.width =
+        this.value + "%";
 
-
-function pauseVideo(){
-
-    frameVideo.pause();
-
-}
+};
 
 
-/* =====================================================
-   ROTATION
-===================================================== */
+$("imageX").oninput = function(){
 
-function changeSpeed(){
+    $("productArea").style.left =
+        this.value + "%";
 
-    const speed =
-        document.getElementById(
-            "rotationSpeed"
-        ).value;
-
-    productImage.style.animationDuration =
-        speed + "s";
-
-}
+};
 
 
-/* =====================================================
-   ADMIN
-===================================================== */
+$("imageY").oninput = function(){
 
-function toggleAdmin(){
+    $("productArea").style.top =
+        this.value + "%";
 
-    document
-        .getElementById("adminPanel")
-        .classList.toggle("hidden");
-
-}
+};
 
 
-function applyAdmin(){
+$("rotationSpeed").onchange = function(){
 
-    const brand =
-        document.getElementById("adminBrand").value;
+    $("productImage").style.animationDuration =
+        this.value + "s";
 
-    const platform =
-        document.getElementById("adminPlatform").value;
-
-    const offer =
-        document.getElementById("adminOffer").value;
-
-    const discount =
-        document.getElementById("adminDiscount").value;
-
-    const color1 =
-        document.getElementById("color1").value;
-
-    const color2 =
-        document.getElementById("color2").value;
-
-    const offerColor =
-        document.getElementById("offerColor").value;
-
-    const size =
-        document.getElementById("productSize").value;
-
-    const position =
-        document.getElementById("offerPosition").value;
+};
 
 
-    document.getElementById(
-        "brandName"
-    ).textContent = brand;
+/* =========================
+   ADMIN SETTINGS
+========================= */
+
+function saveAdmin(){
+
+    $("brandName").textContent =
+        $("adminBrand").value;
+
+    $("platformName").innerHTML =
+        $("adminPlatform").value +
+        ' • <span class="english">TAPE JANJUA DIGITAL MARKETING PLATFORM</span>';
+
+    $("watermark").textContent =
+        $("adminBrand").value;
+
+    $("offer1").textContent =
+        $("adminOffer1").value;
+
+    $("offer2").textContent =
+        $("adminOffer2").value;
+
+    $("offer3").textContent =
+        $("adminOffer3").value;
+
+    $("offer4").textContent =
+        $("adminOffer4").value;
+
+    $("badgeText").textContent =
+        $("adminBadge").value;
 
 
-    document.getElementById(
-        "platformName"
-    ).innerHTML =
-        platform +
-        ' • <span class="english">' +
-        'TAPE JANJUA DIGITAL MARKETING PLATFORM' +
-        '</span>';
+    document.documentElement.style.setProperty(
+        "--bg1",
+        $("color1").value
+    );
+
+    document.documentElement.style.setProperty(
+        "--bg2",
+        $("color2").value
+    );
+
+    document.documentElement.style.setProperty(
+        "--offer",
+        $("offerColor").value
+    );
 
 
-    document.getElementById(
-        "watermark"
-    ).textContent = brand;
+    const settings = {
 
+        brand:$("adminBrand").value,
 
-    document.getElementById(
-        "offerText"
-    ).textContent = offer;
+        platform:$("adminPlatform").value,
 
+        offer1:$("adminOffer1").value,
 
-    document.getElementById(
-        "discountText"
-    ).textContent = discount;
+        offer2:$("adminOffer2").value,
 
+        offer3:$("adminOffer3").value,
 
-    document.documentElement.style
-        .setProperty(
-            "--bg1",
-            color1
-        );
+        offer4:$("adminOffer4").value,
 
+        badge:$("adminBadge").value,
 
-    document.documentElement.style
-        .setProperty(
-            "--bg2",
-            color2
-        );
+        color1:$("color1").value,
 
+        color2:$("color2").value,
 
-    document.documentElement.style
-        .setProperty(
-            "--offer",
-            offerColor
-        );
+        offerColor:$("offerColor").value
 
-
-    document.querySelector(
-        ".productArea"
-    ).style.width =
-        size + "%";
-
-
-    const offerBox =
-        document.getElementById(
-            "offerText"
-        );
-
-
-    if(position === "top"){
-
-        offerBox.style.top = "5%";
-        offerBox.style.bottom = "auto";
-
-    }else{
-
-        offerBox.style.bottom = "5%";
-        offerBox.style.top = "auto";
-
-    }
+    };
 
 
     localStorage.setItem(
-        "tapeJanjuaSettings",
-        JSON.stringify({
-
-            brand,
-            platform,
-            offer,
-            discount,
-            color1,
-            color2,
-            offerColor,
-            size,
-            position
-
-        })
+        "TAPE_JANJUA_SETTINGS",
+        JSON.stringify(settings)
     );
 
-    alert(
-        "Admin Settings محفوظ ہوگئیں۔"
-    );
+
+    $("status").textContent =
+        "Settings محفوظ ہو گئی ہیں۔";
 
 }
 
 
-function loadAdmin(){
-
-    const data =
-        localStorage.getItem(
-            "tapeJanjuaSettings"
-        );
-
-    if(!data) return;
+function loadSettings(){
 
     try{
 
-        const s =
-            JSON.parse(data);
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "TAPE_JANJUA_SETTINGS"
+                )
+            );
 
-        document.getElementById(
-            "adminBrand"
-        ).value = s.brand;
+        if(!saved) return;
 
-        document.getElementById(
-            "adminPlatform"
-        ).value = s.platform;
 
-        document.getElementById(
-            "adminOffer"
-        ).value = s.offer;
+        $("adminBrand").value =
+            saved.brand;
 
-        document.getElementById(
-            "adminDiscount"
-        ).value = s.discount;
+        $("adminPlatform").value =
+            saved.platform;
 
-        document.getElementById(
-            "color1"
-        ).value = s.color1;
+        $("adminOffer1").value =
+            saved.offer1;
 
-        document.getElementById(
-            "color2"
-        ).value = s.color2;
+        $("adminOffer2").value =
+            saved.offer2;
 
-        document.getElementById(
-            "offerColor"
-        ).value = s.offerColor;
+        $("adminOffer3").value =
+            saved.offer3;
 
-        document.getElementById(
-            "productSize"
-        ).value = s.size;
+        $("adminOffer4").value =
+            saved.offer4;
 
-        document.getElementById(
-            "offerPosition"
-        ).value = s.position;
+        $("adminBadge").value =
+            saved.badge;
 
-        applyAdmin();
+        $("color1").value =
+            saved.color1;
 
-    }catch(e){}
+        $("color2").value =
+            saved.color2;
+
+        $("offerColor").value =
+            saved.offerColor;
+
+
+        saveAdmin();
+
+    }catch(error){
+
+        console.log(error);
+
+    }
 
 }
 
 
-function resetAdmin(){
+function resetSettings(){
 
     localStorage.removeItem(
-        "tapeJanjuaSettings"
+        "TAPE_JANJUA_SETTINGS"
     );
 
     location.reload();
@@ -1060,27 +1044,14 @@ function resetAdmin(){
 }
 
 
-/* =====================================================
-   FRAME SCREENSHOT
-===================================================== */
+/* =========================
+   PNG FRAME EXPORT
+========================= */
 
-/*
-   Important:
-   ہم پوری screen capture نہیں کرتے۔
-   Frame کو canvas میں draw کرتے ہیں۔
-*/
-
-async function downloadFrame(){
-
-    const frame =
-        document.getElementById(
-            "recordFrame"
-        );
+function downloadPNG(){
 
     const canvas =
-        document.createElement(
-            "canvas"
-        );
+        document.createElement("canvas");
 
     const width = 1280;
     const height = 720;
@@ -1091,60 +1062,42 @@ async function downloadFrame(){
     const ctx =
         canvas.getContext("2d");
 
-    /*
-       Background
-    */
 
     const gradient =
         ctx.createLinearGradient(
-            0,
-            0,
-            width,
-            height
+            0,0,width,height
         );
 
     gradient.addColorStop(
         0,
-        getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--bg1")
+        getComputedStyle(document.documentElement)
+        .getPropertyValue("--bg1")
     );
 
     gradient.addColorStop(
         1,
-        getComputedStyle(
-            document.documentElement
-        ).getPropertyValue("--bg2")
+        getComputedStyle(document.documentElement)
+        .getPropertyValue("--bg2")
     );
 
-    ctx.fillStyle =
-        gradient;
+
+    ctx.fillStyle = gradient;
 
     ctx.fillRect(
-        0,
-        0,
-        width,
-        height
+        0,0,width,height
     );
 
 
-    /*
-       Video
-    */
-
     if(
-        frameVideo.src &&
-        frameVideo.readyState >= 2
+        $("mainVideo").readyState >= 2 &&
+        $("mainVideo").style.display !== "none"
     ){
 
         try{
 
             ctx.drawImage(
-                frameVideo,
-                0,
-                0,
-                width,
-                height
+                $("mainVideo"),
+                0,0,width,height
             );
 
         }catch(e){}
@@ -1152,242 +1105,625 @@ async function downloadFrame(){
     }
 
 
-    /*
-       Product image
-    */
+    const img =
+        $("productImage");
+
 
     if(
-        productImage.src &&
-        !productImage.classList.contains(
-            "hidden"
-        )
+        !img.classList.contains("hidden") &&
+        img.complete
     ){
 
-        try{
-
-            const imgWidth =
-                width * 0.30;
-
-            const imgHeight =
-                height * 0.30;
-
-            const x =
-                (width - imgWidth) / 2;
-
-            const y =
-                (height - imgHeight) / 2;
-
-            ctx.drawImage(
-                productImage,
-                x,
-                y,
-                imgWidth,
-                imgHeight
+        const size =
+            width *
+            (
+                Number($("imageSize").value)
+                / 100
             );
 
-        }catch(e){}
+
+        const x =
+            width *
+            (
+                Number($("imageX").value)
+                / 100
+            ) -
+            size / 2;
+
+
+        const y =
+            height *
+            (
+                Number($("imageY").value)
+                / 100
+            ) -
+            size / 2;
+
+
+        ctx.drawImage(
+            img,
+            x,
+            y,
+            size,
+            size
+        );
 
     }
 
-
-    /*
-       Brand
-    */
 
     ctx.font =
-        "bold 32px Arial";
+        "bold 30px Arial";
 
     ctx.fillStyle =
-        "#ffffff";
+        "white";
 
     ctx.fillText(
-        document.getElementById(
-            "watermark"
-        ).textContent,
-        45,
-        55
+        $("watermark").textContent,
+        40,
+        50
     );
 
-
-    /*
-       Discount
-    */
-
-    ctx.font =
-        "bold 28px Arial";
 
     ctx.fillStyle =
         "#ffd43b";
 
     ctx.fillText(
-        document.getElementById(
-            "discountText"
-        ).textContent,
-        width - 300,
-        55
+        $("badgeText").textContent,
+        width - 270,
+        50
     );
 
 
-    /*
-       Offer
-    */
+    ctx.font =
+        "bold 22px Arial";
 
     ctx.fillStyle =
-        "#ffffff";
+        "white";
 
     ctx.fillText(
-        document.getElementById(
-            "offerText"
-        ).textContent,
-        80,
-        height - 45
+
+        [
+            $("offer1").textContent,
+            $("offer2").textContent,
+            $("offer3").textContent,
+            $("offer4").textContent
+
+        ].join(" | "),
+
+        45,
+        height - 35
     );
 
 
-    /*
-       Download PNG
-    */
+    canvas.toBlob(function(blob){
 
-    canvas.toBlob(
-        function(blob){
+        const url =
+            URL.createObjectURL(blob);
 
-            const url =
-                URL.createObjectURL(blob);
+        const a =
+            document.createElement("a");
 
-            const a =
-                document.createElement(
-                    "a"
-                );
+        a.href = url;
 
-            a.href = url;
+        a.download =
+            "TAPE-JANJUA-FRAME.png";
 
-            a.download =
-                "TAPE-JANJUA-FRAME.png";
+        a.click();
 
-            a.click();
+        setTimeout(
+            () => URL.revokeObjectURL(url),
+            3000
+        );
 
-            setTimeout(
-                ()=>URL.revokeObjectURL(url),
-                2000
-            );
-
-        },
-        "image/png"
-    );
+    },"image/png");
 
 }
 
 
-/* =====================================================
-   FRAME RECORDING
-===================================================== */
+/* =========================
+   SCREEN CAPTURE
+========================= */
 
-let recorder = null;
+async function openCapture(){
 
-let recordedChunks = [];
+    try{
+
+        screenStream =
+            await navigator.mediaDevices
+            .getDisplayMedia({
+
+                video:true,
+
+                audio:false
+
+            });
 
 
-function createRecordingCanvas(){
+        $("screenPreview").srcObject =
+            screenStream;
+
+
+        $("captureWindow").style.display =
+            "block";
+
+
+        resetSelection();
+
+
+        $("status").textContent =
+            "Screen capture شروع ہے۔ Area select کریں۔";
+
+
+        screenStream
+        .getVideoTracks()[0]
+        .addEventListener(
+            "ended",
+            closeCapture
+        );
+
+
+    }catch(error){
+
+        $("status").textContent =
+            "Screen capture cancel ہو گیا۔";
+
+    }
+
+}
+
+
+function closeCapture(){
+
+    if(
+        mediaRecorder &&
+        mediaRecorder.state === "recording"
+    ){
+
+        mediaRecorder.stop();
+
+    }
+
+
+    if(screenStream){
+
+        screenStream
+        .getTracks()
+        .forEach(
+            track => track.stop()
+        );
+
+    }
+
+
+    screenStream = null;
+
+    $("captureWindow").style.display =
+        "none";
+
+    $("screenPreview").srcObject =
+        null;
+
+}
+
+
+/* =========================
+   AREA SELECTION
+========================= */
+
+function getPointerPosition(event){
+
+    const rect =
+        $("selectLayer")
+        .getBoundingClientRect();
+
+
+    const pointer =
+        event.touches ?
+        event.touches[0] :
+        event;
+
+
+    return {
+
+        x:Math.max(
+            0,
+            Math.min(
+                rect.width,
+                pointer.clientX - rect.left
+            )
+        ),
+
+        y:Math.max(
+            0,
+            Math.min(
+                rect.height,
+                pointer.clientY - rect.top
+            )
+        ),
+
+        width:rect.width,
+
+        height:rect.height
+
+    };
+
+}
+
+
+function beginSelection(event){
+
+    event.preventDefault();
+
+    selecting = true;
+
+    const p =
+        getPointerPosition(event);
+
+    startX = p.x;
+    startY = p.y;
+
+
+    $("selection").style.display =
+        "block";
+
+    $("selection").style.left =
+        startX + "px";
+
+    $("selection").style.top =
+        startY + "px";
+
+    $("selection").style.width =
+        "0px";
+
+    $("selection").style.height =
+        "0px";
+
+}
+
+
+function moveSelection(event){
+
+    if(!selecting) return;
+
+    event.preventDefault();
+
+    const p =
+        getPointerPosition(event);
+
+
+    const x =
+        Math.min(
+            startX,
+            p.x
+        );
+
+    const y =
+        Math.min(
+            startY,
+            p.y
+        );
+
+    const width =
+        Math.abs(
+            p.x - startX
+        );
+
+    const height =
+        Math.abs(
+            p.y - startY
+        );
+
+
+    $("selection").style.left =
+        x + "px";
+
+    $("selection").style.top =
+        y + "px";
+
+    $("selection").style.width =
+        width + "px";
+
+    $("selection").style.height =
+        height + "px";
+
+
+    const rect =
+        $("selectLayer")
+        .getBoundingClientRect();
+
+
+    crop = {
+
+        x:x / rect.width,
+
+        y:y / rect.height,
+
+        w:width / rect.width,
+
+        h:height / rect.height
+
+    };
+
+}
+
+
+function endSelection(){
+
+    selecting = false;
+
+}
+
+
+$("selectLayer")
+.addEventListener(
+    "mousedown",
+    beginSelection
+);
+
+$("selectLayer")
+.addEventListener(
+    "mousemove",
+    moveSelection
+);
+
+window.addEventListener(
+    "mouseup",
+    endSelection
+);
+
+
+$("selectLayer")
+.addEventListener(
+    "touchstart",
+    beginSelection,
+    {passive:false}
+);
+
+$("selectLayer")
+.addEventListener(
+    "touchmove",
+    moveSelection,
+    {passive:false}
+);
+
+$("selectLayer")
+.addEventListener(
+    "touchend",
+    endSelection
+);
+
+
+function resetSelection(){
+
+    $("selection").style.display =
+        "none";
+
+    crop = {
+        x:0,
+        y:0,
+        w:1,
+        h:1
+    };
+
+}
+
+
+/* =========================
+   RECORDING
+========================= */
+
+function getBestMimeType(){
+
+    const types = [
+
+        "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+
+        "video/mp4",
+
+        "video/webm;codecs=vp9,opus",
+
+        "video/webm"
+
+    ];
+
+
+    for(
+        const type of types
+    ){
+
+        if(
+            window.MediaRecorder &&
+            MediaRecorder.isTypeSupported(type)
+        ){
+
+            return type;
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+async function useSelectedArea(){
+
+    if(!screenStream){
+
+        alert(
+            "پہلے Capture Area کھولیں۔"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        crop.w < 0.02 ||
+        crop.h < 0.02
+    ){
+
+        alert(
+            "پہلے screen پر recording area select کریں۔"
+        );
+
+        return;
+
+    }
+
+
+    const preview =
+        $("screenPreview");
+
+
+    await new Promise(
+        resolve => {
+
+            if(
+                preview.readyState >= 2
+            ){
+
+                resolve();
+
+            }else{
+
+                preview.addEventListener(
+                    "loadeddata",
+                    resolve,
+                    {once:true}
+                );
+
+            }
+
+        }
+    );
+
+
+    const track =
+        screenStream
+        .getVideoTracks()[0];
+
+
+    const settings =
+        track.getSettings();
+
+
+    const sourceWidth =
+        settings.width ||
+        preview.videoWidth ||
+        1920;
+
+
+    const sourceHeight =
+        settings.height ||
+        preview.videoHeight ||
+        1080;
+
 
     const canvas =
         document.createElement(
             "canvas"
         );
 
+
+    const outputWidth =
+        Math.max(
+            2,
+            Math.round(
+                sourceWidth * crop.w
+            )
+        );
+
+
+    const outputHeight =
+        Math.max(
+            2,
+            Math.round(
+                sourceHeight * crop.h
+            )
+        );
+
+
     canvas.width =
-        1280;
+        outputWidth;
 
     canvas.height =
-        720;
+        outputHeight;
 
-    return canvas;
-
-}
-
-
-function startRecording(){
-
-    if(
-        !window.MediaRecorder
-    ){
-
-        alert(
-            "اس browser میں recording support نہیں ہے۔ Chrome استعمال کریں۔"
-        );
-
-        return;
-
-    }
-
-
-    if(
-        recorder &&
-        recorder.state === "recording"
-    ){
-
-        alert(
-            "Recording پہلے سے چل رہی ہے۔"
-        );
-
-        return;
-
-    }
-
-
-    const canvas =
-        createRecordingCanvas();
 
     const ctx =
         canvas.getContext("2d");
 
 
-    /*
-       صرف Frame canvas کی stream
-       بنائی جا رہی ہے۔
-    */
-
-    const stream =
+    const recordingStream =
         canvas.captureStream(30);
 
 
-    recordedChunks = [];
+    const mime =
+        getBestMimeType();
 
 
-    recorder =
+    if(!mime){
+
+        alert(
+            "اس browser میں MediaRecorder support نہیں ہے۔ Chrome یا Edge استعمال کریں۔"
+        );
+
+        return;
+
+    }
+
+
+    recordingChunks = [];
+
+
+    mediaRecorder =
         new MediaRecorder(
-            stream,
+            recordingStream,
             {
-                mimeType:
-                    "video/webm"
+                mimeType:mime
             }
         );
 
 
-    recorder.ondataavailable =
+    mediaRecorder
+    .ondataavailable =
         function(event){
 
             if(
-                event.data.size > 0
+                event.data.size
             ){
 
-                recordedChunks.push(
-                    event.data
-                );
+                recordingChunks
+                .push(event.data);
 
             }
 
         };
 
 
-    recorder.onstop =
+    mediaRecorder
+    .onstop =
         function(){
+
+            const extension =
+                mime.startsWith(
+                    "video/mp4"
+                )
+                ?
+                "mp4"
+                :
+                "webm";
+
 
             const blob =
                 new Blob(
-                    recordedChunks,
+                    recordingChunks,
                     {
-                        type:
-                            "video/webm"
+                        type:mime
                     }
                 );
 
@@ -1403,38 +1739,43 @@ function startRecording(){
                     "a"
                 );
 
+
             a.href = url;
 
             a.download =
-                "TAPE-JANJUA-FRAME-RECORDING.webm";
+                "TAPE-JANJUA-CAPTURE." +
+                extension;
 
             a.click();
 
 
             setTimeout(
-                ()=>{
-                    URL.revokeObjectURL(
-                        url
-                    );
-                },
+                () =>
+                URL.revokeObjectURL(url),
                 5000
             );
+
+
+            $("status").textContent =
+                "Recording " +
+                extension.toUpperCase() +
+                " میں save ہو گئی۔";
 
         };
 
 
-    recorder.start();
+    mediaRecorder.start();
 
 
-    /*
-       Frame render loop
-    */
+    $("status").textContent =
+        "Selected area recording شروع ہو گئی۔ Stop Recording دبائیں۔";
 
-    function render(){
+
+    function drawFrame(){
 
         if(
-            !recorder ||
-            recorder.state !==
+            !mediaRecorder ||
+            mediaRecorder.state !==
             "recording"
         ){
 
@@ -1443,207 +1784,92 @@ function startRecording(){
         }
 
 
-        const w =
-            canvas.width;
+        try{
 
-        const h =
-            canvas.height;
+            ctx.drawImage(
 
+                preview,
 
-        /*
-           Background
-        */
+                sourceWidth * crop.x,
 
-        const gradient =
-            ctx.createLinearGradient(
+                sourceHeight * crop.y,
+
+                sourceWidth * crop.w,
+
+                sourceHeight * crop.h,
+
                 0,
+
                 0,
-                w,
-                h
+
+                outputWidth,
+
+                outputHeight
+
             );
 
-
-        gradient.addColorStop(
-            0,
-            getComputedStyle(
-                document.documentElement
-            ).getPropertyValue("--bg1")
-        );
-
-
-        gradient.addColorStop(
-            1,
-            getComputedStyle(
-                document.documentElement
-            ).getPropertyValue("--bg2")
-        );
-
-
-        ctx.fillStyle =
-            gradient;
-
-        ctx.fillRect(
-            0,
-            0,
-            w,
-            h
-        );
-
-
-        /*
-           Video
-        */
-
-        if(
-            frameVideo.src &&
-            frameVideo.readyState >= 2
-        ){
-
-            try{
-
-                ctx.drawImage(
-                    frameVideo,
-                    0,
-                    0,
-                    w,
-                    h
-                );
-
-            }catch(e){}
-
-        }
-
-
-        /*
-           Product image
-        */
-
-        if(
-            productImage.src &&
-            !productImage.classList.contains(
-                "hidden"
-            )
-        ){
-
-            try{
-
-                const size =
-                    w * 0.30;
-
-                ctx.drawImage(
-                    productImage,
-                    (w-size)/2,
-                    (h-size)/2,
-                    size,
-                    size
-                );
-
-            }catch(e){}
-
-        }
-
-
-        /*
-           Text
-        */
-
-        ctx.font =
-            "bold 32px Arial";
-
-        ctx.fillStyle =
-            "#ffffff";
-
-        ctx.fillText(
-            document.getElementById(
-                "watermark"
-            ).textContent,
-            45,
-            55
-        );
-
-
-        ctx.fillStyle =
-            "#ffd43b";
-
-        ctx.fillText(
-            document.getElementById(
-                "discountText"
-            ).textContent,
-            w - 300,
-            55
-        );
-
-
-        ctx.fillStyle =
-            "#ffffff";
-
-        ctx.fillText(
-            document.getElementById(
-                "offerText"
-            ).textContent,
-            80,
-            h - 45
-        );
+        }catch(error){}
 
 
         requestAnimationFrame(
-            render
+            drawFrame
         );
 
     }
 
 
-    render();
-
-
-    alert(
-        "Frame Recording شروع ہوگئی ہے۔ Stop Recording دبائیں۔"
-    );
+    drawFrame();
 
 }
 
+
+/* =========================
+   STOP
+========================= */
 
 function stopRecording(){
 
     if(
-        recorder &&
-        recorder.state === "recording"
+        mediaRecorder &&
+        mediaRecorder.state ===
+        "recording"
     ){
 
-        recorder.stop();
+        mediaRecorder.stop();
 
-        alert(
-            "Recording مکمل ہوگئی۔ WebM فائل Download ہوگی۔"
-        );
+        $("status").textContent =
+            "Recording stop ہو رہی ہے...";
 
     }
 
 }
 
 
-/* =====================================================
-   BACKGROUND ANIMATION
-===================================================== */
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
 
-const bgCanvas =
-    document.getElementById(
-        "backgroundCanvas"
-    );
+const backgroundCanvas =
+    $("backgroundCanvas");
 
-const bgCtx =
-    bgCanvas.getContext("2d");
+const bgContext =
+    backgroundCanvas.getContext("2d");
+
+let animationTime = 0;
 
 
 function resizeBackground(){
 
     const rect =
-        bgCanvas.parentElement
+        backgroundCanvas
+        .parentElement
         .getBoundingClientRect();
 
-    bgCanvas.width =
+
+    backgroundCanvas.width =
         rect.width;
 
-    bgCanvas.height =
+    backgroundCanvas.height =
         rect.height;
 
 }
@@ -1657,32 +1883,29 @@ window.addEventListener(
 resizeBackground();
 
 
-let starMove = 0;
-
-
 function animateBackground(){
 
-    bgCtx.clearRect(
+    bgContext.clearRect(
         0,
         0,
-        bgCanvas.width,
-        bgCanvas.height
+        backgroundCanvas.width,
+        backgroundCanvas.height
     );
 
 
     for(
         let i=0;
-        i<80;
+        i<90;
         i++
     ){
 
         const x =
             (
-                i * 91 +
-                starMove * .12
+                i * 83 +
+                animationTime * .12
             )
             %
-            bgCanvas.width;
+            backgroundCanvas.width;
 
 
         const y =
@@ -1690,28 +1913,24 @@ function animateBackground(){
                 i * 47
             )
             %
-            bgCanvas.height;
+            backgroundCanvas.height;
 
 
-        bgCtx.beginPath();
+        bgContext.fillStyle =
+            "rgba(255,255,255,.65)";
 
-        bgCtx.arc(
+
+        bgContext.fillRect(
             x,
             y,
-            1.2,
-            0,
-            Math.PI * 2
+            1.5,
+            1.5
         );
-
-        bgCtx.fillStyle =
-            "rgba(255,255,255,.7)";
-
-        bgCtx.fill();
 
     }
 
 
-    starMove++;
+    animationTime++;
 
     requestAnimationFrame(
         animateBackground
@@ -1723,11 +1942,9 @@ function animateBackground(){
 animateBackground();
 
 
-/* =====================================================
-   LOAD SETTINGS
-===================================================== */
+/* Load saved Admin settings */
 
-loadAdmin();
+loadSettings();
 
 </script>
 
