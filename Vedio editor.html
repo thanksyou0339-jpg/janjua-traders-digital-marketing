@@ -2,724 +2,1356 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>JANJUA Digital Marketing Platform</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Janjua Digital Marketing Platform Online</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+/* =====================================================
+   JANJUA DIGITAL MARKETING PLATFORM ONLINE
+   🎨 تمام اہم COLORS یہاں سے تبدیل کریں
+   ===================================================== */
 
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#020914;
-    font-family:Arial,"Noto Naskh Arabic",sans-serif;
+:root{
+  --main:#09284d;
+  --main2:#0c4168;
+  --gold:#f5c542;
+  --green:#20d6a2;
+  --red:#ef5350;
+  --dark:#06182d;
+  --panel:#0b2440;
+  --panel2:#103657;
+  --white:#ffffff;
+  --text:#f5f9ff;
+  --muted:#9eb6ce;
+  --border:rgba(255,255,255,.14);
+}
+
+/* بنیادی */
+*{
+  box-sizing:border-box;
 }
 
 body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  margin:0;
+  background:var(--dark);
+  color:var(--text);
+  font-family:
+    Tahoma,
+    "Noto Naskh Arabic",
+    Arial,
+    sans-serif;
 }
 
-#app{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-    color:#fff;
-    background:
-      radial-gradient(circle at 50% 45%,
-      #174d7d 0%,
-      #0b315b 38%,
-      #041b36 72%,
-      #010914 100%);
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
 }
 
-/* Background */
-#backgroundCanvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:1;
-    pointer-events:none;
+button{
+  cursor:pointer;
 }
 
-/* Top */
-.top{
-    position:absolute;
-    top:3%;
-    left:3%;
-    right:3%;
-    z-index:30;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
+/* =====================================================
+   TOP BAR
+   ===================================================== */
 
-.brand h1{
-    color:#ffd84a;
-    font-size:clamp(30px,6vw,68px);
-    font-weight:1000;
-    text-shadow:
-        0 3px 14px #000,
-        0 0 25px #ffd84a55;
-    animation:brandBubble 2.4s ease-in-out infinite alternate;
-}
+.topbar{
+  height:68px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 15px;
 
-.brand p{
-    color:#e9fbff;
-    font-size:clamp(12px,2.2vw,22px);
-    font-weight:bold;
-    animation:brandRun 4s ease-in-out infinite;
-}
-
-@keyframes brandBubble{
-    from{transform:scale(1)}
-    to{
-        transform:scale(1.06);
-        text-shadow:0 0 25px #ffd84a99;
-    }
-}
-
-@keyframes brandRun{
-    0%,100%{opacity:.7}
-    50%{opacity:1;letter-spacing:2px}
-}
-
-/* Special offer */
-.badge{
-    padding:9px 14px;
-    border:1px solid #ffd84a;
-    border-radius:13px;
-    background:#03182ddd;
-    color:#ffd84a;
-    font-weight:bold;
-    animation:badgePulse 1.7s infinite alternate;
-}
-
-@keyframes badgePulse{
-    to{
-        transform:scale(1.06);
-        box-shadow:0 0 25px #ffd84a66;
-    }
-}
-
-/* Sale */
-.sale{
-    position:absolute;
-    right:3%;
-    top:16%;
-    z-index:31;
-    padding:9px 15px;
-    border-radius:15px;
-    background:linear-gradient(135deg,#ffe36b,#ff9e00);
-    color:#071421;
-    font-weight:1000;
-    box-shadow:0 8px 25px #0008;
-    animation:saleFloat 1.7s infinite alternate;
-}
-
-.sale small{
-    display:block;
-    font-size:11px;
-}
-
-.sale strong{
-    font-size:clamp(18px,3vw,34px);
-}
-
-@keyframes saleFloat{
-    to{
-        transform:translateY(-5px) scale(1.04);
-    }
-}
-
-/* Main logo */
-.logoArea{
-    position:absolute;
-    left:50%;
-    top:48%;
-    width:min(64vw,540px);
-    height:min(64vw,540px);
-    transform:translate(-50%,-50%);
-    z-index:12;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.orbit{
-    position:absolute;
-    inset:1%;
-    border:2px solid #43e6ff88;
-    border-radius:50%;
-    transform:rotateX(66deg) rotateZ(-15deg);
-    box-shadow:0 0 22px #43e6ff55;
-}
-
-.orbit2{
-    position:absolute;
-    inset:9%;
-    border:1px solid #ffd84a77;
-    border-radius:50%;
-    transform:rotateX(66deg) rotateZ(25deg);
-}
-
-/*
-   No external image.
-   JANJUA logo is created directly with HTML/CSS.
-*/
-.logoPlate{
-    width:72%;
-    height:72%;
-    border-radius:50%;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    border:7px double #ffd84a;
-
-    background:
-      radial-gradient(circle,
-      #174e45,
-      #073529 58%,
-      #031b18);
-
-    box-shadow:
-      0 0 25px #ffd84a55,
-      inset 0 0 35px #000;
-
-    animation:logoAnimation 5s infinite alternate;
-}
-
-@keyframes logoAnimation{
-    to{
-        transform:scale(1.045) rotate(1deg);
-    }
-}
-
-.logoMoon{
-    font-size:clamp(30px,6vw,65px);
-}
-
-.logoName{
-    font-size:clamp(28px,6vw,64px);
-    font-weight:1000;
-    color:#ffd84a;
-    text-shadow:2px 3px 4px #000;
-}
-
-.logoTraders{
-    font-size:clamp(12px,2.2vw,24px);
-    font-weight:bold;
-    letter-spacing:4px;
-}
-
-.logoTag{
-    font-size:clamp(8px,1.5vw,15px);
-    margin-top:6px;
-    color:#ffe9a3;
-}
-
-/* =================================================
-   SATELLITE ONLY
-================================================= */
-
-.satelliteOrbit{
-    position:absolute;
-    inset:-4%;
-    animation:satelliteRotation 8s linear infinite;
-}
-
-@keyframes satelliteRotation{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.satellite{
-    position:absolute;
-    top:-5px;
-    left:50%;
-    transform:translateX(-50%);
-    width:78px;
-    height:48px;
-}
-
-.satelliteBody{
-    position:absolute;
-    left:25px;
-    top:11px;
-    width:30px;
-    height:22px;
-    border-radius:6px;
-
-    border:1px solid white;
-
-    background:
-      linear-gradient(
-      135deg,
-      white,
-      #44e6ff,
-      #145a81);
-
-    box-shadow:0 0 17px #44e6ff;
-}
-
-.satellitePanel{
-    position:absolute;
-    top:6px;
-    width:22px;
-    height:29px;
-
-    border:1px solid #baf7ff;
-
-    background:
-      repeating-linear-gradient(
+  background:
+    linear-gradient(
       90deg,
-      #44e6ff 0 4px,
-      #073e62 4px 7px);
+      var(--main),
+      var(--main2)
+    );
+
+  border-bottom:1px solid var(--border);
+
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
-.panelLeft{
-    left:0;
+.logo{
+  width:44px;
+  height:44px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff5ae,
+      var(--gold) 30%,
+      #7e5600 65%,
+      #17370f
+    );
+
+  color:#17370f;
+
+  font-size:22px;
+  font-weight:900;
 }
 
-.panelRight{
-    right:0;
+.titleArea{
+  flex:1;
 }
 
-.satelliteAntenna{
-    position:absolute;
-    left:38px;
-    top:-7px;
-    width:2px;
-    height:15px;
-    background:white;
+.title{
+  font-size:18px;
+  font-weight:bold;
 }
 
-.satelliteAntenna:after{
-    content:"";
-    position:absolute;
-    left:-3px;
-    top:-4px;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#ffd84a;
-    box-shadow:0 0 12px #ffd84a;
+.subtitle{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
 }
 
-/* =================================================
-   RAIN ONLY
-================================================= */
+/* =====================================================
+   BUTTONS
+   ===================================================== */
 
-#rain{
-    position:absolute;
-    inset:0;
-    z-index:7;
-    pointer-events:none;
-    overflow:hidden;
+.btn{
+  border:1px solid var(--border);
+  background:#123454;
+  color:white;
+
+  border-radius:10px;
+
+  padding:9px 12px;
+
+  transition:.2s;
 }
 
-.raindrop{
-    position:absolute;
-    top:-12%;
-    width:2px;
-    height:30px;
-
-    background:
-      linear-gradient(
-      transparent,
-      #8eeeff);
-
-    opacity:.55;
-
-    animation:
-      rainFall linear infinite;
+.btn:hover{
+  transform:translateY(-1px);
 }
 
-@keyframes rainFall{
-    to{
-        transform:
-        translateY(125vh)
-        translateX(-12vw);
-    }
+.btn.gold{
+  background:var(--gold);
+  color:#17230d;
+  border:none;
+  font-weight:bold;
 }
 
-/* =================================================
-   URDU TEXT BUTTONS
-================================================= */
-
-.bottomButtons{
-    position:absolute;
-    left:2%;
-    right:2%;
-    bottom:3%;
-    z-index:40;
-
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:8px;
+.btn.green{
+  background:var(--green);
+  color:#06251d;
+  border:none;
+  font-weight:bold;
 }
 
-.textButton{
-    min-width:105px;
-
-    padding:9px 11px;
-
-    border-radius:14px;
-
-    background:#04192eea;
-
-    border:1px solid #43e6ff66;
-
-    box-shadow:0 8px 20px #0008;
-
-    text-align:center;
-
-    color:white;
-
-    cursor:pointer;
-
-    animation:
-      textFloat 2.3s ease-in-out infinite alternate;
+.btn.red{
+  background:var(--red);
+  border:none;
 }
 
-.textButton:hover{
-    border-color:#ffd84a;
-    transform:translateY(-7px) scale(1.03);
+.btn.small{
+  padding:7px 10px;
+  font-size:12px;
 }
 
-.textButton b{
-    display:block;
-    font-size:clamp(11px,1.8vw,18px);
+/* =====================================================
+   MAIN LAYOUT
+   ===================================================== */
+
+.main{
+  display:grid;
+
+  grid-template-columns:
+    330px
+    minmax(0,1fr);
+
+  min-height:calc(100vh - 105px);
 }
 
-.textButton span{
-    display:block;
-    margin-top:2px;
-    font-size:9px;
-    color:#b8edff;
+.sidebar{
+  padding:12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a2440,
+      #06182d
+    );
+
+  border-left:1px solid var(--border);
+
+  overflow:auto;
 }
 
-@keyframes textFloat{
-    to{
-        transform:translateY(-5px);
-    }
+.editor{
+  padding:14px;
+
+  display:grid;
+
+  grid-template-rows:
+    minmax(400px,1fr)
+    auto;
+
+  gap:12px;
 }
 
-/* Popup */
-#popup{
-    position:absolute;
+/* =====================================================
+   CARDS
+   ===================================================== */
 
-    left:50%;
-    bottom:16%;
+.card{
+  background:
+    linear-gradient(
+      180deg,
+      var(--panel2),
+      var(--panel)
+    );
 
-    transform:
-      translateX(-50%)
-      translateY(20px);
+  border:1px solid var(--border);
 
-    width:min(90vw,650px);
+  border-radius:16px;
 
-    padding:17px 20px;
+  padding:12px;
 
-    border-radius:18px;
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.25);
 
-    background:#031427f2;
-
-    border:1px solid #ffd84a99;
-
-    box-shadow:0 12px 45px #000a;
-
-    text-align:center;
-
-    z-index:60;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:.3s;
+  margin-bottom:10px;
 }
 
-#popup.active{
-    opacity:1;
-    transform:
-      translateX(-50%)
-      translateY(0);
+.card h3{
+  margin:0 0 10px;
+
+  font-size:14px;
 }
 
-#popup h2{
-    color:#ffd84a;
-    margin-bottom:7px;
+/* =====================================================
+   TABS
+   ===================================================== */
+
+.tabs{
+  display:flex;
+  gap:6px;
+
+  margin-bottom:10px;
 }
 
-#popup p{
-    font-size:16px;
-    line-height:1.8;
+.tab{
+  flex:1;
+
+  padding:9px;
+
+  background:#09213a;
+
+  color:var(--muted);
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
 }
 
-/* Buttons */
-#fullscreen,
-#admin{
-    position:absolute;
-    z-index:80;
-
-    border:0;
-    border-radius:10px;
-
-    padding:9px 12px;
-
-    background:#06182be8;
-    color:white;
-
-    opacity:.45;
-
-    cursor:pointer;
+.tab.active{
+  background:var(--gold);
+  color:#17230d;
+  font-weight:bold;
 }
 
-#fullscreen{
-    left:12px;
-    top:12px;
-}
-
-#admin{
-    right:12px;
-    top:12px;
-}
-
-#fullscreen:hover,
-#admin:hover{
-    opacity:1;
-}
-
-/* Admin */
-#adminPanel{
-    position:absolute;
-
-    right:12px;
-    top:58px;
-
-    width:min(330px,90vw);
-    max-height:82vh;
-
-    overflow:auto;
-
-    z-index:90;
-
-    display:none;
-
-    background:#031427f7;
-
-    border:1px solid #43e6ff66;
-
-    border-radius:15px;
-
-    padding:14px;
-}
-
-#adminPanel.open{
-    display:block;
-}
-
-#adminPanel h3{
-    color:#ffd84a;
-    margin-bottom:9px;
-}
+/* =====================================================
+   FORM
+   ===================================================== */
 
 .field{
-    margin:7px 0;
+  margin:8px 0;
 }
 
 .field label{
-    display:block;
-    font-size:12px;
-    margin-bottom:4px;
+  display:block;
+
+  font-size:11px;
+
+  color:var(--muted);
+
+  margin-bottom:5px;
 }
 
 .field input,
+.field textarea,
 .field select{
-    width:100%;
-    padding:8px;
+  width:100%;
 
-    border-radius:7px;
+  background:#06182d;
 
-    border:1px solid #315777;
+  color:white;
 
-    background:#071c33;
-    color:white;
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  padding:9px;
+
+  outline:none;
 }
 
-.panelButton{
-    width:100%;
-    border:0;
-    border-radius:8px;
-    padding:9px;
-    margin-top:6px;
-
-    background:#08789e;
-    color:white;
-
-    font-weight:bold;
+.field textarea{
+  min-height:65px;
 }
 
-/* Music */
-.musicButtons{
+.grid2{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:7px;
+}
+
+/* =====================================================
+   FILE BUTTON
+   ===================================================== */
+
+.fileBox{
+  display:block;
+
+  border:1px dashed rgba(255,255,255,.3);
+
+  border-radius:11px;
+
+  padding:14px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  margin-bottom:8px;
+}
+
+.fileBox input{
+  display:none;
+}
+
+/* =====================================================
+   CHECKLIST
+   ===================================================== */
+
+.checklist{
+  display:grid;
+  gap:7px;
+}
+
+.check{
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:9px;
+
+  background:#071c33;
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  font-size:12px;
+}
+
+.check input{
+  accent-color:var(--gold);
+
+  width:17px;
+  height:17px;
+}
+
+/* =====================================================
+   VIDEO PREVIEW
+   ===================================================== */
+
+.preview{
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  background:#000;
+
+  border-radius:16px;
+
+  padding:0;
+}
+
+#stage{
+  position:relative;
+
+  width:min(100%,1000px);
+
+  aspect-ratio:16/9;
+
+  overflow:hidden;
+
+  background:#000;
+
+  box-shadow:
+    0 15px 50px #000;
+}
+
+#video{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:none;
+}
+
+#poster{
+  position:absolute;
+
+  inset:0;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  text-align:center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071b34,
+      #0c5277
+    );
+}
+
+.posterTitle{
+  color:var(--gold);
+
+  font-size:clamp(
+    25px,
+    5vw,
+    55px
+  );
+
+  font-weight:900;
+}
+
+.posterSub{
+  margin-top:10px;
+
+  font-size:clamp(
+    13px,
+    2vw,
+    22px
+  );
+}
+
+/* =====================================================
+   OVERLAY
+   ===================================================== */
+
+#overlay{
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+}
+
+.element{
+  position:absolute;
+
+  pointer-events:auto;
+
+  cursor:move;
+
+  user-select:none;
+
+  transform-origin:center;
+
+  white-space:pre-wrap;
+
+  text-shadow:
+    0 2px 8px #000;
+}
+
+.element.selected{
+  outline:
+    2px solid var(--gold);
+
+  outline-offset:4px;
+}
+
+.textElement{
+  font-size:34px;
+
+  font-weight:bold;
+
+  max-width:80%;
+
+  text-align:center;
+}
+
+.stickerElement{
+  font-size:70px;
+}
+
+.offerElement{
+  padding:10px 18px;
+
+  background:
+    rgba(6,25,43,.9);
+
+  border:
+    2px solid var(--gold);
+
+  border-radius:15px;
+
+  font-size:22px;
+
+  font-weight:bold;
+
+  box-shadow:
+    0 7px 25px #0008;
+}
+
+.badgeElement{
+  padding:8px 15px;
+
+  background:var(--gold);
+
+  color:#15230c;
+
+  border-radius:50px;
+
+  font-weight:bold;
+}
+
+.popElement{
+  padding:10px 15px;
+
+  background:
+    rgba(0,0,0,.78);
+
+  border-right:
+    5px solid var(--green);
+
+  border-radius:12px;
+
+  font-weight:bold;
+}
+
+/* =====================================================
+   RAIN ANIMATION
+   ===================================================== */
+
+#rain{
+  position:absolute;
+
+  inset:0;
+
+  overflow:hidden;
+
+  display:none;
+
+  pointer-events:none;
+}
+
+.raindrop{
+  position:absolute;
+
+  top:-50px;
+
+  width:1px;
+
+  height:45px;
+
+  background:
+    linear-gradient(
+      transparent,
+      #bcecff
+    );
+
+  opacity:.55;
+
+  animation:
+    rainfall linear infinite;
+}
+
+@keyframes rainfall{
+
+  from{
+    transform:translateY(0);
+  }
+
+  to{
+    transform:translateY(115vh);
+  }
+
+}
+
+/* =====================================================
+   SLIDE LIGHT
+   ===================================================== */
+
+#slideAnimation{
+  position:absolute;
+
+  inset:0;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.22),
+      transparent
+    );
+
+  animation:
+    slideLight 2.4s infinite;
+}
+
+@keyframes slideLight{
+
+  0%{
+    transform:translateX(-120%);
+    opacity:0;
+  }
+
+  30%{
+    opacity:1;
+  }
+
+  70%{
+    opacity:1;
+  }
+
+  100%{
+    transform:translateX(120%);
+    opacity:0;
+  }
+
+}
+
+/* =====================================================
+   PREVIEW BUTTONS
+   ===================================================== */
+
+.previewButtons{
+  position:absolute;
+
+  bottom:10px;
+  left:10px;
+
+  display:flex;
+
+  gap:6px;
+
+  z-index:10;
+}
+
+/* =====================================================
+   TIMELINE
+   ===================================================== */
+
+.timeline{
+  padding:12px;
+}
+
+.track{
+  height:75px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:#06182d;
+
+  border:1px solid var(--border);
+
+  border-radius:11px;
+}
+
+.clip{
+  position:absolute;
+
+  top:8px;
+  left:2%;
+
+  width:96%;
+  height:58px;
+
+  display:flex;
+
+  align-items:center;
+
+  padding:10px;
+
+  overflow:hidden;
+
+  border-radius:8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--main2),
+      #16758f
+    );
+
+  font-size:12px;
+}
+
+.playhead{
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  left:5%;
+
+  width:2px;
+
+  background:var(--gold);
+
+  z-index:5;
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer{
+  text-align:center;
+
+  padding:8px;
+
+  color:#7894ad;
+
+  background:#051426;
+
+  font-size:10px;
+
+  border-top:1px solid var(--border);
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media(max-width:900px){
+
+  .main{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    order:2;
+
+    border-left:0;
+
+    border-top:1px solid var(--border);
+  }
+
+  .editor{
+    order:1;
+  }
+
+  .topbar{
+    position:relative;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .topbar{
+    height:auto;
+
+    flex-wrap:wrap;
+  }
+
+  .title{
+    font-size:14px;
+  }
+
+  .main{
     display:flex;
-    gap:5px;
-}
+    flex-direction:column;
+  }
 
-.musicButtons button{
-    flex:1;
-    border:0;
-    border-radius:7px;
-    padding:7px;
-    background:#0a3154;
-    color:white;
-}
-
-@media(max-width:700px){
-
-    .brand h1{
-        font-size:35px;
-    }
-
-    .brand p{
-        display:none;
-    }
-
-    .logoArea{
-        width:82vw;
-        height:82vw;
-    }
-
-    .sale{
-        top:17%;
-        right:2%;
-    }
-
-    .textButton{
-        min-width:88px;
-        padding:7px;
-    }
-
-    .textButton b{
-        font-size:11px;
-    }
-
-    .textButton span{
-        font-size:8px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
-<canvas id="backgroundCanvas"></canvas>
+<!-- =====================================================
+     TOP BAR
+     ===================================================== -->
 
-<!-- TOP -->
-<div class="top">
+<header class="topbar">
 
-    <div class="brand">
+  <div class="logo">
+    J
+  </div>
 
-        <h1 id="brandName">
-            JANJUA
-        </h1>
+  <div class="titleArea">
 
-        <p id="brandSubtitle">
-            ڈیجیٹل مارکیٹنگ پلیٹ فارم
-        </p>
-
+    <div class="title">
+      Janjua Digital Marketing Platform Online
     </div>
 
-    <div
-        class="badge"
-        id="topBadge">
-        خصوصی رعایت
+    <div class="subtitle">
+      Video Editor • Text • Sticker • Animation • Voice
     </div>
+
+  </div>
+
+  <button
+    class="btn small"
+    id="fullscreenBtn">
+
+    ⛶ Full Screen
+
+  </button>
+
+  <button
+    class="btn small"
+    id="recordBtn">
+
+    ⏺ Record
+
+  </button>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
+
+
+<div class="tabs">
+
+  <button
+    class="tab active"
+    data-tab="design">
+
+    Design
+
+  </button>
+
+  <button
+    class="tab"
+    data-tab="voice">
+
+    Voice
+
+  </button>
+
+  <button
+    class="tab"
+    data-tab="save">
+
+    Save
+
+  </button>
 
 </div>
 
 
-<!-- SALE -->
-<div class="sale">
+<!-- DESIGN PANEL -->
 
-    <small>
-        خصوصی آفر
-    </small>
+<section id="designPanel">
 
-    <strong id="saleText">
-        50% OFF
-    </strong>
+
+<div class="card">
+
+<h3>
+🎬 ویڈیو / تصویر
+</h3>
+
+
+<label class="fileBox">
+
+📁 ویڈیو یا تصویر منتخب کریں
+
+<input
+  type="file"
+  id="mediaFile"
+  accept="video/*,image/*">
+
+</label>
+
+
+<div class="grid2">
+
+<button
+  class="btn"
+  id="playBtn">
+
+▶ Play
+
+</button>
+
+<button
+  class="btn"
+  id="pauseBtn">
+
+⏸ Pause
+
+</button>
+
+<button
+  class="btn"
+  id="rainBtn">
+
+🌧 Rain
+
+</button>
+
+<button
+  class="btn"
+  id="slideBtn">
+
+✨ Slide
+
+</button>
+
+</div>
 
 </div>
 
 
-<!-- MAIN -->
-<div class="logoArea">
+<!-- =====================================================
+     CHECKLIST
+     ===================================================== -->
 
-    <div class="orbit"></div>
+<div class="card">
 
-    <div class="orbit2"></div>
-
-
-    <!-- SATELLITE -->
-
-    <div class="satelliteOrbit">
-
-        <div class="satellite">
-
-            <div
-                class="satelliteAntenna">
-            </div>
-
-            <div
-                class="satellitePanel panelLeft">
-            </div>
-
-            <div
-                class="satelliteBody">
-            </div>
-
-            <div
-                class="satellitePanel panelRight">
-            </div>
-
-        </div>
-
-    </div>
+<h3>
+☑️ Ready Checklist
+</h3>
 
 
-    <!-- CSS LOGO -->
+<div class="checklist">
 
-    <div class="logoPlate">
 
-        <div class="logoMoon">
-            ☪︎
-        </div>
+<label class="check">
 
-        <div class="logoName">
-            JANJUA
-        </div>
+<input
+  type="checkbox"
+  data-ready="offer">
 
-        <div class="logoTraders">
-            TRADERS
-        </div>
+⭐ خصوصی آفر
 
-        <div class="logoTag">
-            WAQAR ALI JANJUA
-        </div>
+</label>
 
-    </div>
+
+<label class="check">
+
+<input
+  type="checkbox"
+  data-ready="discount">
+
+💰 خصوصی رعایت
+
+</label>
+
+
+<label class="check">
+
+<input
+  type="checkbox"
+  data-ready="contact">
+
+📞 ابھی رابطہ کریں
+
+</label>
+
+
+<label class="check">
+
+<input
+  type="checkbox"
+  data-ready="owner">
+
+💎 WAQAR ALI JANJUA
+
+</label>
+
+
+<label class="check">
+
+<input
+  type="checkbox"
+  data-ready="design">
+
+✨ خاص ڈیزائن
+
+</label>
+
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     TEXT / STICKER
+     ===================================================== -->
+
+<div class="card">
+
+<h3>
+✍ Text / Sticker
+</h3>
+
+
+<div class="field">
+
+<label>
+نیا Text
+</label>
+
+<input
+  id="newText"
+  value="Janjua Traders">
+
+</div>
+
+
+<div class="grid2">
+
+<button
+  class="btn gold"
+  id="addText">
+
+＋ Text
+
+</button>
+
+<button
+  class="btn"
+  id="addSticker">
+
+😀 Sticker
+
+</button>
+
+<button
+  class="btn"
+  id="addPopup">
+
+📣 Pop-up
+
+</button>
+
+<button
+  class="btn red"
+  id="deleteBtn">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ELEMENT SETTINGS
+     ===================================================== -->
+
+<div class="card">
+
+<h3>
+🎨 Selected Element
+</h3>
+
+
+<div class="field">
+
+<label>
+Text
+</label>
+
+<input id="editText">
+
+</div>
+
+
+<div class="grid2">
+
+<div class="field">
+
+<label>
+Size
+</label>
+
+<input
+  type="range"
+  id="editSize"
+  min="12"
+  max="100"
+  value="34">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Rotation
+</label>
+
+<input
+  type="range"
+  id="editRotation"
+  min="-180"
+  max="180"
+  value="0">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Left
+</label>
+
+<input
+  type="range"
+  id="editX"
+  min="0"
+  max="100"
+  value="50">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Top
+</label>
+
+<input
+  type="range"
+  id="editY"
+  min="0"
+  max="100"
+  value="50">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     VOICE PANEL
+     ===================================================== -->
+
+<section
+  id="voicePanel"
+  style="display:none">
+
+
+<div class="card">
+
+<h3>
+🔊 Background Voice
+</h3>
+
+
+<label class="fileBox">
+
+🎙 MP3 / WAV شامل کریں
+
+<input
+  type="file"
+  id="audioFile"
+  accept="audio/*">
+
+</label>
+
+
+<div class="field">
+
+<label>
+Pop-up Voice Text
+</label>
+
+<textarea id="voiceText">خصوصی رعایت! آج ہی رابطہ کریں۔</textarea>
+
+</div>
+
+
+<div class="grid2">
+
+<button
+  class="btn green"
+  id="speakBtn">
+
+🔊 Voice
+
+</button>
+
+<button
+  class="btn"
+  id="stopVoice">
+
+⏹ Stop
+
+</button>
+
+</div>
+
+
+<p id="audioStatus">
+Audio: None
+</p>
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SAVE PANEL
+     ===================================================== -->
+
+<section
+  id="savePanel"
+  style="display:none">
+
+
+<div class="card">
+
+<h3>
+💾 Project
+</h3>
+
+
+<button
+  class="btn gold"
+  id="saveProject"
+  style="width:100%;margin-bottom:8px">
+
+⬇ Save Project
+
+</button>
+
+
+<button
+  class="btn"
+  id="loadProjectBtn"
+  style="width:100%">
+
+📂 Load Project
+
+</button>
+
+
+<input
+  type="file"
+  id="loadProject"
+  accept=".json"
+  hidden>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+ℹ️ استعمال
+</h3>
+
+<p style="font-size:11px;color:#9eb6ce">
+
+یہ editor browser کے اندر کام کرتا ہے۔
+آپ ویڈیو، تصویر، Text، Sticker، Animation اور
+Voice شامل کر سکتے ہیں۔
+
+</p>
+
+</div>
+
+</section>
+
+
+</aside>
+
+
+<!-- =====================================================
+     EDITOR
+     ===================================================== -->
+
+<section class="editor">
+
+
+<div class="card preview">
+
+
+<div id="stage">
+
+
+<!-- VIDEO -->
+
+<video
+  id="video"
+  playsinline>
+</video>
+
+
+<!-- DEFAULT SCREEN -->
+
+<div id="poster">
+
+<div class="posterTitle">
+JANJUA DIGITAL
+</div>
+
+<div class="posterSub">
+Marketing Platform Online
+</div>
 
 </div>
 
@@ -729,313 +1361,87 @@ body{
 <div id="rain"></div>
 
 
-<!-- CLICKABLE URDU TEXT -->
+<!-- SLIDE -->
 
-<div class="bottomButtons">
-
-    <div
-        class="textButton"
-        data-title="خصوصی آفر"
-        data-text="آج کی خصوصی آفر — محدود مدت کے لیے بہترین قیمت حاصل کریں۔">
-
-        <b>
-            🎁 خصوصی آفر
-        </b>
-
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
+<div id="slideAnimation"></div>
 
 
-    <div
-        class="textButton"
-        data-title="خصوصی ڈسکاؤنٹ"
-        data-text="خاص ڈسکاؤنٹ — منتخب پروڈکٹس پر خصوصی رعایت حاصل کریں۔">
+<!-- OVERLAY -->
 
-        <b>
-            💎 ڈسکاؤنٹ
-        </b>
+<div id="overlay"></div>
 
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
-
-
-    <div
-        class="textButton"
-        data-title="فری ڈیلیوری"
-        data-text="منتخب آرڈرز کے لیے فری ڈیلیوری دستیاب ہے۔">
-
-        <b>
-            🚚 فری ڈیلیوری
-        </b>
-
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
-
-
-    <div
-        class="textButton"
-        data-title="پیمنٹ آن ڈیلیوری"
-        data-text="پروڈکٹ وصول کرتے وقت ادائیگی کریں۔">
-
-        <b>
-            💳 پیمنٹ ڈیلیوری
-        </b>
-
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
-
-
-    <div
-        class="textButton"
-        data-title="محدود مدت"
-        data-text="یہ خصوصی آفر محدود مدت کے لیے دستیاب ہے۔">
-
-        <b>
-            🔥 محدود مدت
-        </b>
-
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
-
-
-    <div
-        class="textButton"
-        data-title="بہترین قیمت"
-        data-text="بہترین قیمت اور خصوصی آفر ایک ہی جگہ۔">
-
-        <b>
-            ⭐ بہترین قیمت
-        </b>
-
-        <span>
-            کلک کریں
-        </span>
-
-    </div>
 
 </div>
 
 
-<!-- POPUP -->
+<div class="previewButtons">
 
-<div id="popup">
+<button
+  class="btn small"
+  id="muteBtn">
 
-    <h2></h2>
+🔇 Mute
 
-    <p></p>
-
-</div>
-
-
-<!-- FULL SCREEN -->
-
-<button id="fullscreen">
-    ⛶ Full Screen
 </button>
 
 
-<!-- ADMIN -->
+<button
+  class="btn small"
+  id="resetBtn">
 
-<button id="admin">
-    ⚙ ایڈمن
+↺ Reset
+
 </button>
 
+</div>
 
-<!-- ADMIN PANEL -->
-
-<div id="adminPanel">
-
-    <h3>
-        JANJUA Admin
-    </h3>
-
-
-    <div class="field">
-
-        <label>
-            اوپر کا نام
-        </label>
-
-        <input
-            id="editBrand"
-            value="JANJUA">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            ڈیجیٹل مارکیٹنگ پلیٹ فارم
-        </label>
-
-        <input
-            id="editSubtitle"
-            value="ڈیجیٹل مارکیٹنگ پلیٹ فارم">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            اوپر والی رعایت
-        </label>
-
-        <input
-            id="editBadge"
-            value="خصوصی رعایت">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            Sale / Discount
-        </label>
-
-        <input
-            id="editSale"
-            value="50% OFF">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            مرکزی رنگ
-        </label>
-
-        <input
-            id="editColor"
-            type="color"
-            value="#ffd84a">
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            Background
-        </label>
-
-        <select id="backgroundStyle">
-
-            <option value="blue">
-                Blue Technology
-            </option>
-
-            <option value="dark">
-                Dark Premium
-            </option>
-
-            <option value="purple">
-                Purple Digital
-            </option>
-
-            <option value="green">
-                Green Tech
-            </option>
-
-            <option value="gold">
-                Gold Luxury
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            Rain
-        </label>
-
-        <select id="rainMode">
-
-            <option value="on">
-                بارش ON
-            </option>
-
-            <option value="off">
-                بارش OFF
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>
-            Offline Background Sound
-        </label>
-
-        <select id="musicType">
-
-            <option value="off">
-                Off
-            </option>
-
-            <option value="soft">
-                Soft Ambient
-            </option>
-
-            <option value="beat">
-                Dhol Style Beat
-            </option>
-
-            <option value="digital">
-                Digital Pulse
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div class="musicButtons">
-
-        <button id="startMusic">
-            ▶ Start
-        </button>
-
-        <button id="stopMusic">
-            ■ Stop
-        </button>
-
-    </div>
-
-
-    <button
-        class="panelButton"
-        id="closePanel">
-
-        پینل بند کریں — Recording Ready
-
-    </button>
 
 </div>
+
+
+<!-- =====================================================
+     TIMELINE
+     ===================================================== -->
+
+<div class="card timeline">
+
+<h3>
+🎞 Timeline
+</h3>
+
+
+<div class="track">
+
+<div
+  class="clip"
+  id="clip">
+
+Janjua Digital Marketing Platform Online
+
+</div>
+
+
+<div
+  class="playhead"
+  id="playhead">
+
+</div>
+
+</div>
+
+</div>
+
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+Janjua Digital Marketing Platform Online
+
+</footer>
 
 </div>
 
@@ -1043,565 +1449,1438 @@ body{
 <script>
 
 /* =====================================================
-FULL SCREEN
-===================================================== */
+   JANJUA DIGITAL MARKETING PLATFORM
+   DEFAULT CONTENT
+   ===================================================== */
 
-const app =
-document.getElementById("app");
+const SETTINGS = {
 
-document
-.getElementById("fullscreen")
-.addEventListener("click", async () => {
+  projectName:
+    "Janjua Digital Marketing Platform Online",
 
-    try {
+  offer:
+    "خصوصی آفر",
 
-        if (!document.fullscreenElement) {
+  discount:
+    "خصوصی رعایت",
 
-            await app.requestFullscreen();
+  contact:
+    "ابھی رابطہ کریں",
 
-        } else {
+  owner:
+    "WAQAR ALI JANJUA"
 
-            await document.exitFullscreen();
-
-        }
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
-
-});
+};
 
 
 /* =====================================================
-CLICKABLE URDU TEXT
-===================================================== */
+   SHORTCUT
+   ===================================================== */
 
-const popup =
-document.getElementById("popup");
-
-document
-.querySelectorAll(".textButton")
-.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        popup.querySelector("h2")
-            .textContent =
-            button.dataset.title;
-
-        popup.querySelector("p")
-            .textContent =
-            button.dataset.text;
-
-        popup.classList.add("active");
-
-        clearTimeout(window.popupTimer);
-
-        window.popupTimer =
-            setTimeout(() => {
-
-                popup.classList.remove("active");
-
-            },4500);
-
-    });
-
-});
+const $ = id =>
+  document.getElementById(id);
 
 
 /* =====================================================
-ADMIN
-===================================================== */
+   GLOBAL VARIABLES
+   ===================================================== */
 
-const adminPanel =
-document.getElementById("adminPanel");
+let selected = null;
 
-document
-.getElementById("admin")
-.addEventListener("click", () => {
+let mediaURL = null;
 
-    adminPanel.classList.toggle("open");
+let audioURL = null;
 
-});
+let audio = null;
 
-document
-.getElementById("closePanel")
-.addEventListener("click", () => {
+let recorder = null;
 
-    adminPanel.classList.remove("open");
-
-});
+let recordingChunks = [];
 
 
 /* =====================================================
-EDIT TEXT
-===================================================== */
+   RAIN
+   ===================================================== */
 
-document
-.getElementById("editBrand")
-.addEventListener("input", e => {
+function createRain(){
 
-    document
-    .getElementById("brandName")
-    .textContent =
-    e.target.value;
+  const rain = $("rain");
 
-});
+  rain.innerHTML = "";
 
-
-document
-.getElementById("editSubtitle")
-.addEventListener("input", e => {
-
-    document
-    .getElementById("brandSubtitle")
-    .textContent =
-    e.target.value;
-
-});
-
-
-document
-.getElementById("editBadge")
-.addEventListener("input", e => {
-
-    document
-    .getElementById("topBadge")
-    .textContent =
-    e.target.value;
-
-});
-
-
-document
-.getElementById("editSale")
-.addEventListener("input", e => {
-
-    document
-    .getElementById("saleText")
-    .textContent =
-    e.target.value;
-
-});
-
-
-/* =====================================================
-COLOR
-===================================================== */
-
-document
-.getElementById("editColor")
-.addEventListener("input", e => {
-
-    const color =
-        e.target.value;
-
-    document
-    .getElementById("brandName")
-    .style.color =
-    color;
-
-    document
-    .getElementById("topBadge")
-    .style.color =
-    color;
-
-    document
-    .getElementById("topBadge")
-    .style.borderColor =
-    color;
-
-});
-
-
-/* =====================================================
-BACKGROUND COLOR PRESETS
-===================================================== */
-
-document
-.getElementById("backgroundStyle")
-.addEventListener("change", e => {
-
-    const backgrounds = {
-
-        blue:
-        "radial-gradient(circle at 50% 45%,#174d7d,#0b315b 40%,#041b36 72%,#010914)",
-
-        dark:
-        "radial-gradient(circle at 50% 45%,#202b38,#101722,#030609,#000)",
-
-        purple:
-        "radial-gradient(circle at 50% 45%,#533b91,#24164c,#0a061c,#000)",
-
-        green:
-        "radial-gradient(circle at 50% 45%,#17634c,#08372b,#021811,#000)",
-
-        gold:
-        "radial-gradient(circle at 50% 45%,#735a22,#392b0c,#100b02,#000)"
-
-    };
-
-    app.style.background =
-        backgrounds[e.target.value];
-
-});
-
-
-/* =====================================================
-RAIN
-===================================================== */
-
-const rain =
-document.getElementById("rain");
-
-for(let i=0;i<120;i++){
+  for(
+    let i = 0;
+    i < 100;
+    i++
+  ){
 
     const drop =
-        document.createElement("i");
+      document.createElement("div");
 
     drop.className =
-        "raindrop";
+      "raindrop";
 
     drop.style.left =
-        Math.random()*100 + "%";
-
-    drop.style.animationDelay =
-        Math.random()*1.5 + "s";
+      Math.random() * 100 + "%";
 
     drop.style.animationDuration =
-        (0.7 +
-        Math.random()*0.8) + "s";
+      (.35 + Math.random() * .7) + "s";
+
+    drop.style.animationDelay =
+      (-Math.random() * 2) + "s";
 
     rain.appendChild(drop);
 
+  }
+
 }
 
-document
-.getElementById("rainMode")
-.addEventListener("change", e => {
-
-    rain.style.display =
-        e.target.value === "on"
-        ? "block"
-        : "none";
-
-});
+createRain();
 
 
 /* =====================================================
-OFFLINE SOUND
-===================================================== */
+   ADD ELEMENT
+   ===================================================== */
 
-let audio = null;
-let timer = null;
-let noteIndex = 0;
+function addElement(
+  type,
+  text,
+  x = 50,
+  y = 50,
+  size = 34
+){
 
-function stopMusic(){
+  const el =
+    document.createElement("div");
 
-    if(timer){
+  el.className =
+    "element " + type + "Element";
 
-        clearTimeout(timer);
+  el.textContent = text;
+
+  el.dataset.type = type;
+
+  el.dataset.x = x;
+
+  el.dataset.y = y;
+
+  el.dataset.size = size;
+
+  el.dataset.rotation = 0;
+
+  el.style.left = x + "%";
+
+  el.style.top = y + "%";
+
+  el.style.fontSize = size + "px";
+
+  el.style.transform =
+    "translate(-50%,-50%)";
+
+
+  /* =================================================
+     DRAG
+     ================================================= */
+
+  el.addEventListener(
+    "pointerdown",
+    function(e){
+
+      e.stopPropagation();
+
+      selectElement(el);
+
+      const rect =
+        $("stage").getBoundingClientRect();
+
+
+      function move(ev){
+
+        const x =
+          Math.max(
+            0,
+            Math.min(
+              100,
+              ((ev.clientX - rect.left)
+              / rect.width) * 100
+            )
+          );
+
+
+        const y =
+          Math.max(
+            0,
+            Math.min(
+              100,
+              ((ev.clientY - rect.top)
+              / rect.height) * 100
+            )
+          );
+
+
+        el.dataset.x =
+          x.toFixed(1);
+
+        el.dataset.y =
+          y.toFixed(1);
+
+        el.style.left =
+          x + "%";
+
+        el.style.top =
+          y + "%";
+
+
+        $("editX").value = x;
+
+        $("editY").value = y;
+
+      }
+
+
+      function stop(){
+
+        window.removeEventListener(
+          "pointermove",
+          move
+        );
+
+        window.removeEventListener(
+          "pointerup",
+          stop
+        );
+
+      }
+
+
+      window.addEventListener(
+        "pointermove",
+        move
+      );
+
+      window.addEventListener(
+        "pointerup",
+        stop
+      );
 
     }
+  );
 
-    timer = null;
 
-    if(audio){
+  el.addEventListener(
+    "dblclick",
+    function(){
 
-        try{
+      const newText =
+        prompt(
+          "Text تبدیل کریں:",
+          el.textContent
+        );
 
-            audio.close();
+      if(
+        newText !== null
+      ){
 
-        }catch(error){}
+        el.textContent =
+          newText;
+
+        selectElement(el);
+
+      }
 
     }
+  );
 
-    audio = null;
+
+  $("overlay").appendChild(el);
+
+  selectElement(el);
+
+  return el;
 
 }
 
 
-function startMusic(type){
+/* =====================================================
+   SELECT ELEMENT
+   ===================================================== */
 
-    stopMusic();
+function selectElement(el){
 
-    if(type === "off"){
+  if(selected){
 
-        return;
-
-    }
-
-    const AudioContext =
-        window.AudioContext ||
-        window.webkitAudioContext;
-
-    if(!AudioContext){
-
-        alert(
-            "اس browser میں Offline Audio دستیاب نہیں۔"
-        );
-
-        return;
-
-    }
-
-    audio =
-        new AudioContext();
-
-    const master =
-        audio.createGain();
-
-    master.gain.value =
-        0.025;
-
-    master.connect(
-        audio.destination
+    selected.classList.remove(
+      "selected"
     );
 
-
-    let bpm = 72;
-
-    if(type === "beat"){
-
-        bpm = 92;
-
-    }
-
-    if(type === "digital"){
-
-        bpm = 118;
-
-    }
+  }
 
 
-    const interval =
-        60000 / bpm;
-
-    noteIndex = 0;
+  selected = el;
 
 
-    function playNote(){
+  if(!el){
 
-        if(!audio){
+    $("editText").value = "";
 
-            return;
+    return;
+
+  }
+
+
+  el.classList.add(
+    "selected"
+  );
+
+
+  $("editText").value =
+    el.textContent;
+
+  $("editSize").value =
+    el.dataset.size;
+
+  $("editRotation").value =
+    el.dataset.rotation;
+
+  $("editX").value =
+    el.dataset.x;
+
+  $("editY").value =
+    el.dataset.y;
+
+}
+
+
+/* =====================================================
+   TEXT
+   ===================================================== */
+
+$("addText").onclick =
+function(){
+
+  const text =
+    $("newText").value ||
+    "Janjua Traders";
+
+  addElement(
+    "text",
+    text,
+    50,
+    50,
+    34
+  );
+
+};
+
+
+/* =====================================================
+   STICKER
+   ===================================================== */
+
+$("addSticker").onclick =
+function(){
+
+  addElement(
+    "sticker",
+    "💎",
+    85,
+    20,
+    70
+  );
+
+};
+
+
+/* =====================================================
+   POPUP
+   ===================================================== */
+
+$("addPopup").onclick =
+function(){
+
+  addElement(
+    "pop",
+    "خصوصی آفر",
+    50,
+    78,
+    21
+  );
+
+};
+
+
+/* =====================================================
+   DELETE
+   ===================================================== */
+
+$("deleteBtn").onclick =
+function(){
+
+  if(selected){
+
+    selected.remove();
+
+    selected = null;
+
+  }
+
+};
+
+
+/* =====================================================
+   ELEMENT EDITOR
+   ===================================================== */
+
+$("editText").oninput =
+function(){
+
+  if(selected){
+
+    selected.textContent =
+      this.value;
+
+  }
+
+};
+
+
+$("editSize").oninput =
+function(){
+
+  if(selected){
+
+    selected.dataset.size =
+      this.value;
+
+    selected.style.fontSize =
+      this.value + "px";
+
+  }
+
+};
+
+
+$("editRotation").oninput =
+function(){
+
+  if(selected){
+
+    selected.dataset.rotation =
+      this.value;
+
+    selected.style.transform =
+      `translate(-50%,-50%)
+       rotate(${this.value}deg)`;
+
+  }
+
+};
+
+
+$("editX").oninput =
+function(){
+
+  if(selected){
+
+    selected.dataset.x =
+      this.value;
+
+    selected.style.left =
+      this.value + "%";
+
+  }
+
+};
+
+
+$("editY").oninput =
+function(){
+
+  if(selected){
+
+    selected.dataset.y =
+      this.value;
+
+    selected.style.top =
+      this.value + "%";
+
+  }
+
+};
+
+
+/* =====================================================
+   READY CHECKLIST
+   ===================================================== */
+
+const readyElements = {
+
+  offer:[
+    "offer",
+    SETTINGS.offer,
+    50,
+    15,
+    22
+  ],
+
+  discount:[
+    "badge",
+    SETTINGS.discount,
+    50,
+    29,
+    18
+  ],
+
+  contact:[
+    "pop",
+    SETTINGS.contact,
+    50,
+    80,
+    20
+  ],
+
+  owner:[
+    "text",
+    SETTINGS.owner,
+    50,
+    92,
+    18
+  ],
+
+  design:[
+    "sticker",
+    "💎",
+    88,
+    15,
+    65
+  ]
+
+};
+
+
+document
+.querySelectorAll(
+  ".check input"
+)
+.forEach(
+  checkbox => {
+
+    checkbox.addEventListener(
+      "change",
+      function(){
+
+        const key =
+          this.dataset.ready;
+
+        const existing =
+          document.querySelector(
+            `[data-ready="${key}"]`
+          );
+
+
+        if(
+          this.checked &&
+          !existing
+        ){
+
+          const data =
+            readyElements[key];
+
+
+          const el =
+            addElement(
+              data[0],
+              data[1],
+              data[2],
+              data[3],
+              data[4]
+            );
+
+
+          el.dataset.ready =
+            key;
 
         }
 
 
-        const now =
-            audio.currentTime;
+        if(
+          !this.checked &&
+          existing
+        ){
 
+          existing.remove();
 
-        const oscillator =
-            audio.createOscillator();
+        }
 
-        const gain =
-            audio.createGain();
-
-
-        const notes =
-
-            type === "beat"
-
-            ? [110,146,165,123]
-
-            : type === "digital"
-
-            ? [220,277,330,277]
-
-            : [196,220,247,220];
-
-
-        oscillator.type =
-            type === "digital"
-            ? "square"
-            : "sine";
-
-
-        oscillator.frequency.value =
-            notes[
-                noteIndex %
-                notes.length
-            ];
-
-
-        gain.gain.setValueAtTime(
-            0.0001,
-            now
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.16,
-            now + 0.02
-        );
-
-
-        gain.gain.exponentialRampToValueAtTime(
-            0.0001,
-            now + 0.20
-        );
-
-
-        oscillator.connect(gain);
-
-        gain.connect(master);
-
-
-        oscillator.start(now);
-
-        oscillator.stop(
-            now + 0.22
-        );
-
-
-        noteIndex++;
-
-
-        timer =
-            setTimeout(
-                playNote,
-                interval
-            );
-
-    }
-
-
-    playNote();
-
-}
-
-
-document
-.getElementById("startMusic")
-.addEventListener("click", () => {
-
-    startMusic(
-        document
-        .getElementById("musicType")
-        .value
+      }
     );
 
-});
-
-
-document
-.getElementById("stopMusic")
-.addEventListener(
-    "click",
-    stopMusic
+  }
 );
 
 
 /* =====================================================
-SUBTLE DIGITAL BACKGROUND
-===================================================== */
+   DEFAULT OFFER
+   ===================================================== */
 
-const canvas =
-document.getElementById(
-    "backgroundCanvas"
+const firstCheckbox =
+  document.querySelector(
+    '[data-ready="offer"]'
+  );
+
+firstCheckbox.checked = true;
+
+firstCheckbox.dispatchEvent(
+  new Event("change")
 );
 
-const ctx =
-canvas.getContext("2d");
 
-let W = 0;
-let H = 0;
-let frame = 0;
+/* =====================================================
+   MEDIA IMPORT
+   ===================================================== */
 
+$("mediaFile").onchange =
+function(e){
 
-function resizeCanvas(){
+  const file =
+    e.target.files[0];
 
-    W =
-        canvas.width =
-        window.innerWidth;
-
-    H =
-        canvas.height =
-        window.innerHeight;
-
-}
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-resizeCanvas();
+  if(!file)return;
 
 
-function drawBackground(){
+  if(mediaURL){
 
-    frame++;
-
-    ctx.clearRect(
-        0,
-        0,
-        W,
-        H
+    URL.revokeObjectURL(
+      mediaURL
     );
 
-
-    /*
-       صرف ہلکی digital grid۔
-       کوئی birds/cars/train/animals نہیں۔
-    */
-
-    ctx.strokeStyle =
-        "rgba(70,225,255,.08)";
+  }
 
 
-    for(
-        let x =
-        (frame * .3) % 55;
+  mediaURL =
+    URL.createObjectURL(file);
 
-        x < W;
 
-        x += 55
+  const video =
+    $("video");
+
+  const poster =
+    $("poster");
+
+
+  if(
+    file.type.startsWith(
+      "video/"
+    )
+  ){
+
+    video.src =
+      mediaURL;
+
+    video.style.display =
+      "block";
+
+    poster.style.display =
+      "none";
+
+    video.load();
+
+  }
+
+  else{
+
+    video.pause();
+
+    video.style.display =
+      "none";
+
+    poster.style.display =
+      "flex";
+
+    poster.style.backgroundImage =
+      `url(${mediaURL})`;
+
+    poster.style.backgroundSize =
+      "cover";
+
+    poster.style.backgroundPosition =
+      "center";
+
+  }
+
+
+  $("clip").textContent =
+    file.name;
+
+};
+
+
+/* =====================================================
+   VIDEO CONTROL
+   ===================================================== */
+
+$("playBtn").onclick =
+function(){
+
+  $("video")
+    .play()
+    .catch(()=>{});
+
+};
+
+
+$("pauseBtn").onclick =
+function(){
+
+  $("video").pause();
+
+};
+
+
+$("muteBtn").onclick =
+function(){
+
+  const video =
+    $("video");
+
+  video.muted =
+    !video.muted;
+
+
+  this.textContent =
+    video.muted
+    ? "🔊 Unmute"
+    : "🔇 Mute";
+
+};
+
+
+/* =====================================================
+   RAIN BUTTON
+   ===================================================== */
+
+$("rainBtn").onclick =
+function(){
+
+  const rain =
+    $("rain");
+
+  rain.style.display =
+    rain.style.display === "block"
+    ? "none"
+    : "block";
+
+};
+
+
+/* =====================================================
+   SLIDE BUTTON
+   ===================================================== */
+
+$("slideBtn").onclick =
+function(){
+
+  const slide =
+    $("slideAnimation");
+
+  slide.style.opacity =
+    slide.style.opacity === "1"
+    ? "0"
+    : "1";
+
+};
+
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+$("resetBtn").onclick =
+function(){
+
+  $("overlay").innerHTML =
+    "";
+
+  selected = null;
+
+  document
+  .querySelectorAll(
+    ".check input"
+  )
+  .forEach(
+    x => x.checked = false
+  );
+
+
+  firstCheckbox.checked =
+    true;
+
+  firstCheckbox.dispatchEvent(
+    new Event("change")
+  );
+
+
+  $("rain").style.display =
+    "none";
+
+  $("slideAnimation")
+    .style.opacity = "0";
+
+};
+
+
+/* =====================================================
+   FULL SCREEN
+   ===================================================== */
+
+$("fullscreenBtn").onclick =
+async function(){
+
+  const stage =
+    $("stage");
+
+
+  if(
+    !document.fullscreenElement
+  ){
+
+    if(
+      stage.requestFullscreen
     ){
 
-        ctx.beginPath();
+      await stage.requestFullscreen();
 
-        ctx.moveTo(x,0);
+    }
 
-        ctx.lineTo(x,H);
+  }
 
-        ctx.stroke();
+  else{
+
+    await document.exitFullscreen();
+
+  }
+
+};
+
+
+/* =====================================================
+   BACKGROUND AUDIO
+   ===================================================== */
+
+$("audioFile").onchange =
+function(e){
+
+  const file =
+    e.target.files[0];
+
+  if(!file)return;
+
+
+  if(audioURL){
+
+    URL.revokeObjectURL(
+      audioURL
+    );
+
+  }
+
+
+  audioURL =
+    URL.createObjectURL(file);
+
+
+  audio =
+    new Audio(audioURL);
+
+  audio.loop = true;
+
+  $("audioStatus")
+    .textContent =
+    "Audio: " + file.name;
+
+
+  audio.play()
+    .catch(()=>{});
+
+};
+
+
+/* =====================================================
+   TEXT TO SPEECH
+   ===================================================== */
+
+$("speakBtn").onclick =
+function(){
+
+  const text =
+    $("voiceText")
+      .value
+      .trim();
+
+
+  if(!text)return;
+
+
+  addElement(
+    "pop",
+    text,
+    50,
+    75,
+    20
+  );
+
+
+  if(
+    "speechSynthesis"
+    in window
+  ){
+
+    speechSynthesis.cancel();
+
+
+    const voice =
+      new SpeechSynthesisUtterance(
+        text
+      );
+
+
+    voice.lang =
+      "ur-PK";
+
+    voice.rate =
+      .9;
+
+    voice.pitch =
+      1;
+
+
+    speechSynthesis.speak(
+      voice
+    );
+
+  }
+
+};
+
+
+$("stopVoice").onclick =
+function(){
+
+  if(
+    "speechSynthesis"
+    in window
+  ){
+
+    speechSynthesis.cancel();
+
+  }
+
+
+  if(audio){
+
+    audio.pause();
+
+  }
+
+};
+
+
+/* =====================================================
+   SCREEN RECORDING
+   ===================================================== */
+
+$("recordBtn").onclick =
+async function(){
+
+  if(
+    recorder &&
+    recorder.state ===
+    "recording"
+  ){
+
+    recorder.stop();
+
+    return;
+
+  }
+
+
+  try{
+
+    const stream =
+      await navigator
+      .mediaDevices
+      .getDisplayMedia({
+
+        video:{
+          frameRate:30
+        },
+
+        audio:true
+
+      });
+
+
+    const options = {};
+
+
+    if(
+      MediaRecorder
+      .isTypeSupported(
+        "video/webm"
+      )
+    ){
+
+      options.mimeType =
+        "video/webm";
 
     }
 
 
-    for(
-        let y =
-        (frame * .2) % 55;
+    recorder =
+      new MediaRecorder(
+        stream,
+        options
+      );
 
-        y < H;
 
-        y += 55
-    ){
+    recordingChunks = [];
 
-        ctx.beginPath();
 
-        ctx.moveTo(0,y);
+    recorder.ondataavailable =
+    function(event){
 
-        ctx.lineTo(W,y);
+      if(
+        event.data.size
+      ){
 
-        ctx.stroke();
+        recordingChunks.push(
+          event.data
+        );
+
+      }
+
+    };
+
+
+    recorder.onstop =
+    function(){
+
+      stream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
+      );
+
+
+      const blob =
+        new Blob(
+          recordingChunks,
+          {
+            type:
+              "video/webm"
+          }
+        );
+
+
+      const url =
+        URL.createObjectURL(
+          blob
+        );
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.href = url;
+
+      link.download =
+        "Janjua-Digital-Marketing-Platform-Online.webm";
+
+      link.click();
+
+
+      URL.revokeObjectURL(
+        url
+      );
+
+
+      $("recordBtn")
+        .textContent =
+        "⏺ Record";
+
+    };
+
+
+    recorder.start();
+
+
+    $("recordBtn")
+      .textContent =
+      "⏹ Stop Recording";
+
+
+  }
+
+  catch(error){
+
+    alert(
+      "Screen Recording کے لیے browser permission Allow کریں۔"
+    );
+
+  }
+
+};
+
+
+/* =====================================================
+   VIDEO TIMELINE
+   ===================================================== */
+
+$("video")
+.addEventListener(
+  "timeupdate",
+  function(){
+
+    const duration =
+      this.duration || 30;
+
+    const percent =
+      (
+        this.currentTime /
+        duration
+      ) * 96 + 2;
+
+
+    $("playhead")
+      .style.left =
+      percent + "%";
+
+  }
+);
+
+
+/* =====================================================
+   TABS
+   ===================================================== */
+
+document
+.querySelectorAll(".tab")
+.forEach(
+  tab => {
+
+    tab.onclick =
+    function(){
+
+      document
+      .querySelectorAll(
+        ".tab"
+      )
+      .forEach(
+        x =>
+          x.classList.remove(
+            "active"
+          )
+      );
+
+
+      this.classList.add(
+        "active"
+      );
+
+
+      $("designPanel")
+        .style.display =
+        "none";
+
+      $("voicePanel")
+        .style.display =
+        "none";
+
+      $("savePanel")
+        .style.display =
+        "none";
+
+
+      if(
+        this.dataset.tab ===
+        "design"
+      ){
+
+        $("designPanel")
+          .style.display =
+          "block";
+
+      }
+
+
+      if(
+        this.dataset.tab ===
+        "voice"
+      ){
+
+        $("voicePanel")
+          .style.display =
+          "block";
+
+      }
+
+
+      if(
+        this.dataset.tab ===
+        "save"
+      ){
+
+        $("savePanel")
+          .style.display =
+          "block";
+
+      }
+
+    };
+
+  }
+);
+
+
+/* =====================================================
+   SAVE PROJECT
+   ===================================================== */
+
+function getProject(){
+
+  return {
+
+    projectName:
+      SETTINGS.projectName,
+
+    elements:
+      [
+        ...$("overlay").children
+      ]
+      .map(
+        el => ({
+
+          type:
+            el.dataset.type,
+
+          text:
+            el.textContent,
+
+          x:
+            el.dataset.x,
+
+          y:
+            el.dataset.y,
+
+          size:
+            el.dataset.size,
+
+          rotation:
+            el.dataset.rotation,
+
+          ready:
+            el.dataset.ready ||
+            null
+
+        })
+      ),
+
+    effects:{
+
+      rain:
+        $("rain")
+        .style
+        .display ===
+        "block",
+
+      slide:
+        $("slideAnimation")
+        .style
+        .opacity ===
+        "1"
 
     }
 
-
-    requestAnimationFrame(
-        drawBackground
-    );
+  };
 
 }
 
 
-drawBackground();
+$("saveProject").onclick =
+function(){
+
+  const data =
+    getProject();
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  link.href = url;
+
+  link.download =
+    "Janjua-Digital-Marketing-Platform-Online.json";
+
+  link.click();
+
+
+  URL.revokeObjectURL(
+    url
+  );
+
+};
+
+
+/* =====================================================
+   LOAD PROJECT
+   ===================================================== */
+
+$("loadProjectBtn").onclick =
+function(){
+
+  $("loadProject").click();
+
+};
+
+
+$("loadProject").onchange =
+function(e){
+
+  const file =
+    e.target.files[0];
+
+  if(!file)return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+  function(){
+
+    try{
+
+      const project =
+        JSON.parse(
+          reader.result
+        );
+
+
+      $("overlay")
+        .innerHTML = "";
+
+
+      (
+        project.elements ||
+        []
+      )
+      .forEach(
+        item => {
+
+          const el =
+            addElement(
+              item.type,
+              item.text,
+              Number(item.x),
+              Number(item.y),
+              Number(item.size)
+            );
+
+
+          el.dataset.rotation =
+            item.rotation || 0;
+
+
+          el.style.transform =
+            `translate(-50%,-50%)
+             rotate(${item.rotation || 0}deg)`;
+
+
+          if(item.ready){
+
+            el.dataset.ready =
+              item.ready;
+
+          }
+
+        }
+      );
+
+
+      $("rain")
+        .style.display =
+        project.effects?.rain
+        ? "block"
+        : "none";
+
+
+      $("slideAnimation")
+        .style.opacity =
+        project.effects?.slide
+        ? "1"
+        : "0";
+
+
+    }
+
+    catch(error){
+
+      alert(
+        "Project file درست نہیں ہے۔"
+      );
+
+    }
+
+  };
+
+
+  reader.readAsText(file);
+
+};
+
+
+/* =====================================================
+   DEFAULT TEXT
+   ===================================================== */
+
+addElement(
+  "text",
+  "Janjua Digital Marketing Platform Online",
+  50,
+  63,
+  24
+);
 
 </script>
 
