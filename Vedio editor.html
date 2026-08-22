@@ -2,316 +2,578 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TAPE JANJUA Digital Marketing Platform</title>
 
 <style>
 :root{
-  --bg1:#061329;
-  --bg2:#123566;
-  --offer:#e83b3b;
-  --gold:#ffd43b;
-  --blue:#20baff;
+ --bg1:#030817;
+ --bg2:#12335c;
+ --sat:#32d7ff;
+ --sat2:#ffffff;
+ --offer:#e63232;
+ --discount:#ffd52f;
+ --gold:#ffd52f;
+ --glow:#21cfff;
 }
 
 *{box-sizing:border-box}
 
+html,body{
+ margin:0;
+ padding:0;
+ width:100%;
+ min-height:100%;
+ background:#02050c;
+ color:#fff;
+ font-family:Arial,"Noto Naskh Arabic",sans-serif;
+}
+
 body{
-  margin:0;
-  background:#030914;
-  color:white;
-  font-family:Arial,"Noto Naskh Arabic",sans-serif;
+ overflow-x:hidden;
 }
 
 header{
-  text-align:center;
-  padding:18px;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  border-bottom:1px solid #286896;
+ text-align:center;
+ padding:15px;
+ background:
+ linear-gradient(135deg,var(--bg1),var(--bg2));
+ border-bottom:1px solid #2780ad;
 }
 
 .logo{
-  font-size:clamp(30px,6vw,55px);
-  font-weight:900;
-  color:var(--gold);
+ font-size:clamp(30px,6vw,55px);
+ font-weight:900;
+ color:var(--gold);
+ text-shadow:0 0 15px #000;
 }
 
 .subtitle{
-  font-size:clamp(14px,3vw,22px);
+ font-size:clamp(13px,2.8vw,22px);
+ color:#e2f6ff;
 }
 
 .english{
-  color:#50d8ff;
-  font-weight:bold;
+ color:#45d9ff;
+ font-weight:bold;
 }
 
 .container{
-  width:min(1250px,96%);
-  margin:auto;
-  padding:15px 0 30px;
+ width:min(1250px,96%);
+ margin:auto;
+ padding:12px 0 30px;
 }
 
-.layout{
-  display:grid;
-  grid-template-columns:210px minmax(300px,1fr) 250px;
-  gap:14px;
-}
-
-.panel{
-  background:#0b2142f5;
-  border:1px solid #286896;
-  border-radius:18px;
-  padding:13px;
-  box-shadow:0 10px 30px #0008;
+.topbar{
+ display:flex;
+ flex-wrap:wrap;
+ gap:7px;
+ margin-bottom:10px;
 }
 
 button{
-  width:100%;
-  padding:11px;
-  margin:4px 0;
-  border:0;
-  border-radius:10px;
-  color:white;
-  background:#104a82;
-  cursor:pointer;
+ border:0;
+ border-radius:9px;
+ padding:10px 14px;
+ background:#12548b;
+ color:#fff;
+ font-weight:bold;
+ cursor:pointer;
 }
 
 button:hover{
-  filter:brightness(1.2);
+ filter:brightness(1.2);
 }
 
-.blue{background:#078cff}
-.green{background:#148a61}
-.red{background:#b52c3c}
-.gold{background:#a77d0b}
+.blue{background:#087fc8}
+.green{background:#128c61}
+.red{background:#b82e3d}
+.yellow{
+ background:#9c7607;
+ color:#fff;
+}
 
-.frame{
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  overflow:hidden;
-  border:3px solid var(--blue);
-  border-radius:20px;
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+.topbar button{
+ min-width:115px;
+}
+
+.stage{
+ background:#07182f;
+ border:1px solid #286c96;
+ border-radius:16px;
+ padding:10px;
+ box-shadow:0 15px 45px #0009;
+}
+
+.viewer{
+ position:relative;
+ width:100%;
+ aspect-ratio:16/9;
+ overflow:hidden;
+ border:3px solid var(--glow);
+ border-radius:15px;
+ background:
+ linear-gradient(135deg,var(--bg1),var(--bg2));
 }
 
 #backgroundCanvas{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ z-index:0;
 }
 
 #mainVideo{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:none;
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ display:none;
+ z-index:1;
 }
 
-.overlay{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.scene{
+ position:absolute;
+ inset:0;
+ z-index:5;
+ pointer-events:none;
 }
 
 .brand{
-  position:absolute;
-  left:4%;
-  top:4%;
-  font-weight:bold;
-  font-size:clamp(14px,2vw,28px);
-  text-shadow:0 2px 8px black;
+ position:absolute;
+ top:3%;
+ left:3%;
+ font-size:clamp(14px,2.2vw,28px);
+ font-weight:900;
+ text-shadow:0 2px 8px #000;
 }
 
 .badge{
-  position:absolute;
-  right:4%;
-  top:4%;
-  padding:7px 12px;
-  color:var(--gold);
-  border:2px solid var(--gold);
-  border-radius:10px;
-  background:#08275dcc;
-  font-weight:bold;
+ position:absolute;
+ right:3%;
+ top:3%;
+ padding:7px 12px;
+ border:2px solid var(--gold);
+ border-radius:9px;
+ color:var(--gold);
+ background:#031b32dd;
+ font-weight:900;
 }
 
-.product{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:38%;
-  aspect-ratio:1/1;
-  transform:translate(-50%,-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  perspective:1000px;
+/* =========================
+   SATELLITE SYSTEM
+========================= */
+
+.solarSystem{
+ position:absolute;
+ left:50%;
+ top:50%;
+ width:44%;
+ max-width:460px;
+ aspect-ratio:1;
+ transform:translate(-50%,-50%);
 }
 
-.product img{
-  width:85%;
-  height:85%;
-  object-fit:contain;
-  animation:planetSpin 18s linear infinite;
-  filter:drop-shadow(0 14px 18px black);
+.orbit{
+ position:absolute;
+ inset:7%;
+ border:2px solid var(--sat);
+ border-radius:50%;
+ opacity:.55;
+ box-shadow:
+ 0 0 10px var(--sat),
+ inset 0 0 10px var(--sat);
+}
+
+.orbit2{
+ position:absolute;
+ inset:17%;
+ border:1px dashed var(--sat);
+ border-radius:50%;
+ opacity:.3;
+}
+
+.planet{
+ position:absolute;
+ left:50%;
+ top:50%;
+ width:31%;
+ aspect-ratio:1;
+ transform:translate(-50%,-50%);
+ border-radius:50%;
+
+ background:
+ radial-gradient(
+  circle at 30% 25%,
+  #fff 0%,
+  var(--sat2) 7%,
+  var(--sat) 30%,
+  #14608c 60%,
+  #021326 100%
+ );
+
+ box-shadow:
+ 0 0 25px var(--sat),
+ 0 0 60px var(--sat);
+
+ animation:
+ planetSpin 8s linear infinite;
+}
+
+.planetRing{
+ position:absolute;
+ left:-25%;
+ top:38%;
+ width:150%;
+ height:25%;
+ border:4px solid #bff8ff99;
+ border-radius:50%;
+ transform:rotate(-18deg);
+}
+
+.satelliteOrbit{
+ position:absolute;
+ inset:0;
+ animation:
+ satelliteRevolution 10s linear infinite;
+}
+
+.satellite{
+ position:absolute;
+ left:50%;
+ top:1%;
+ width:13%;
+ min-width:38px;
+ max-width:70px;
+ aspect-ratio:1.8;
+ transform:translateX(-50%);
+}
+
+.satelliteBody{
+ position:absolute;
+ left:27%;
+ top:25%;
+ width:46%;
+ height:48%;
+ border-radius:35%;
+ background:
+ linear-gradient(
+ 135deg,
+ #fff,
+ var(--sat),
+ #17709b
+ );
+ border:2px solid #fff;
+ box-shadow:0 0 15px var(--sat);
+}
+
+.solarPanelLeft,
+.solarPanelRight{
+ position:absolute;
+ top:24%;
+ width:30%;
+ height:50%;
+ background:
+ repeating-linear-gradient(
+ 90deg,
+ var(--sat),
+ var(--sat) 5px,
+ #063c62 6px,
+ #063c62 9px
+ );
+ border:1px solid #b9f5ff;
+}
+
+.solarPanelLeft{
+ left:0;
+}
+
+.solarPanelRight{
+ right:0;
+}
+
+.antenna{
+ position:absolute;
+ width:4px;
+ height:35%;
+ background:#fff;
+ left:48%;
+ top:-20%;
+}
+
+.antenna:after{
+ content:"";
+ position:absolute;
+ width:11px;
+ height:11px;
+ border-radius:50%;
+ background:var(--gold);
+ left:-3px;
+ top:-7px;
+ box-shadow:0 0 10px var(--gold);
+}
+
+@keyframes satelliteRevolution{
+ from{
+  transform:rotate(0deg);
+ }
+ to{
+  transform:rotate(360deg);
+ }
 }
 
 @keyframes planetSpin{
-  from{transform:rotateY(0deg)}
-  to{transform:rotateY(360deg)}
+ from{
+  filter:hue-rotate(0deg);
+ }
+ to{
+  filter:hue-rotate(360deg);
+ }
 }
 
-.placeholder{
-  font-size:80px;
+/* =========================
+   DISCOUNT / OFFERS
+========================= */
+
+.discount{
+ position:absolute;
+ right:3%;
+ bottom:14%;
+ color:var(--discount);
+ font-size:clamp(13px,2.4vw,28px);
+ font-weight:900;
+ text-shadow:0 2px 8px #000;
+ animation:
+ discountMove 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes discountMove{
+ from{
+  transform:translateX(0) scale(1);
+ }
+ to{
+  transform:translateX(-8px) scale(1.07);
+ }
 }
 
 .offers{
-  position:absolute;
-  left:4%;
-  right:4%;
-  bottom:4%;
-  display:flex;
-  justify-content:center;
-  gap:7px;
-  flex-wrap:wrap;
+ position:absolute;
+ left:3%;
+ right:3%;
+ bottom:3%;
+ display:flex;
+ justify-content:center;
+ gap:7px;
+ flex-wrap:wrap;
 }
 
 .offer{
-  padding:7px 12px;
-  border-radius:10px;
-  background:linear-gradient(90deg,#8d1010,var(--offer));
-  font-weight:bold;
-  font-size:clamp(11px,1.7vw,18px);
+ padding:7px 11px;
+ border-radius:10px;
+ background:
+ linear-gradient(
+ 90deg,
+ #7f1010,
+ var(--offer)
+ );
+
+ font-size:clamp(11px,1.7vw,18px);
+ font-weight:900;
+ box-shadow:0 3px 12px #0008;
+
+ animation:
+ offerFloat 2s ease-in-out infinite alternate;
+}
+
+.offer:nth-child(2){
+ animation-delay:.25s;
+}
+
+.offer:nth-child(3){
+ animation-delay:.5s;
+}
+
+.offer:nth-child(4){
+ animation-delay:.75s;
+}
+
+@keyframes offerFloat{
+ from{
+  transform:translateY(0);
+ }
+ to{
+  transform:translateY(-7px) scale(1.04);
+ }
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin{
+ margin-top:10px;
+ background:#091d37;
+ border:1px solid #28678f;
+ border-radius:14px;
+ padding:12px;
+}
+
+.hidden{
+ display:none!important;
+}
+
+.row{
+ display:flex;
+ gap:8px;
+ margin-bottom:5px;
+}
+
+.row>*{
+ flex:1;
+}
+
+label{
+ display:block;
+ margin-top:7px;
+ color:#b7d8eb;
+ font-size:12px;
 }
 
 input[type=text],
 select{
-  width:100%;
-  padding:9px;
-  border-radius:8px;
-  border:1px solid #39668e;
-  background:#06172d;
-  color:white;
-  margin-top:4px;
+ width:100%;
+ padding:8px;
+ background:#06162b;
+ border:1px solid #3a7095;
+ border-radius:7px;
+ color:#fff;
 }
 
 input[type=color]{
-  width:100%;
-  height:38px;
+ width:100%;
+ height:38px;
+ background:#06162b;
+ border:1px solid #3a7095;
+ border-radius:7px;
 }
 
-input[type=range]{
-  width:100%;
+.note{
+ color:#a9cce1;
+ font-size:12px;
+ margin-top:8px;
 }
 
-label{
-  display:block;
-  color:#b8d8ed;
-  font-size:12px;
-  margin-top:8px;
+/* =========================
+   FULLSCREEN
+========================= */
+
+.fullscreenMode .viewer{
+ position:fixed;
+ inset:0;
+ width:100vw;
+ height:100vh;
+ aspect-ratio:auto;
+ z-index:5000;
+ border:0;
+ border-radius:0;
 }
 
-.hidden{
-  display:none!important;
+.fullscreenMode .topbar{
+ display:none;
 }
 
-.row{
-  display:flex;
-  gap:8px;
+.fullscreenMode .admin{
+ display:none!important;
 }
 
-.row>*{
-  flex:1;
+/* =========================
+   CAPTURE
+========================= */
+
+.capture{
+ position:fixed;
+ inset:0;
+ z-index:10000;
+ display:none;
+ background:#000;
 }
 
-.status{
-  font-size:12px;
-  color:#a9d9f5;
-  margin-top:7px;
+.capture.show{
+ display:block;
 }
 
-.admin{
-  margin-top:15px;
+#captureVideo{
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ background:#000;
 }
 
-/* CAPTURE WINDOW */
-
-.captureWindow{
-  position:fixed;
-  z-index:9999;
-  left:5vw;
-  top:5vh;
-  width:90vw;
-  height:90vh;
-  background:#071326f7;
-  border:2px solid #31caff;
-  border-radius:15px;
-  padding:10px;
-  display:none;
-}
-
-#screenPreview{
-  width:100%;
-  height:calc(100% - 55px);
-  object-fit:contain;
-  background:black;
-}
-
-.selectLayer{
-  position:absolute;
-  left:10px;
-  right:10px;
-  top:10px;
-  bottom:55px;
-  cursor:crosshair;
-}
-
-.selection{
-  position:absolute;
-  border:3px dashed #ffd43b;
-  background:#ffd43b20;
-  display:none;
-  pointer-events:none;
+.selectBox{
+ position:absolute;
+ display:none;
+ border:3px dashed var(--gold);
+ background:#ffd52f22;
+ pointer-events:none;
 }
 
 .captureButtons{
-  position:absolute;
-  bottom:8px;
-  left:10px;
-  right:10px;
-  display:flex;
-  gap:8px;
+ position:absolute;
+ left:10px;
+ right:10px;
+ top:10px;
+ z-index:4;
+ display:flex;
+ justify-content:center;
+ flex-wrap:wrap;
+ gap:7px;
 }
 
 .captureButtons button{
-  margin:0;
+ width:auto;
+ min-width:120px;
 }
 
-@media(max-width:900px){
-
-  .layout{
-    grid-template-columns:1fr;
-  }
-
-  .menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-  }
-
+.recordingIndicator{
+ position:absolute;
+ left:12px;
+ bottom:12px;
+ display:none;
+ z-index:5;
+ padding:8px 12px;
+ background:#b4142a;
+ border-radius:8px;
+ font-weight:bold;
 }
 
-@media(max-width:520px){
+.recordingIndicator.show{
+ display:block;
+ animation:recordBlink 1s infinite alternate;
+}
 
-  .row{
-    flex-direction:column;
-  }
+@keyframes recordBlink{
+ to{
+  opacity:.45;
+ }
+}
 
-  .menu{
-    grid-template-columns:1fr;
-  }
+@media(max-width:700px){
+
+ .row{
+  flex-direction:column;
+ }
+
+ .topbar button{
+  flex:1;
+ }
+
+ .solarSystem{
+  width:52%;
+ }
 
 }
 </style>
@@ -321,125 +583,157 @@ label{
 
 <header>
 
-<div class="logo" id="brandName">
-ٹیپے جَنجوا
+<div class="logo" id="title">
+TAPE JANJUA
 </div>
 
-<div class="subtitle" id="platformName">
+<div class="subtitle" id="subtitle">
 ڈیجیٹل مارکیٹنگ پلیٹ فارم •
 <span class="english">
-TAPE JANJUA DIGITAL MARKETING PLATFORM
+DIGITAL MARKETING PLATFORM
 </span>
 </div>
 
 </header>
 
 
-<div class="container">
+<div class="container" id="app">
 
-<div class="layout">
+<div class="topbar">
 
-
-<!-- LEFT MENU -->
-
-<div class="panel">
-
-<button class="blue" onclick="imageInput.click()">
-🖼️ پروڈکٹ تصویر
+<button class="blue" id="videoButton">
+🎬 ویڈیو
 </button>
 
-<button class="blue" onclick="videoInput.click()">
-🎬 ویڈیو شامل کریں
+<button class="blue" id="imageButton">
+🖼️ تصویر
 </button>
 
-<button onclick="adminPanel.classList.toggle('hidden')">
-⚙️ Admin Settings
+<button class="green" id="downloadButton">
+⬇️ Download
 </button>
 
-<button class="green" onclick="downloadPNG()">
-📸 Frame PNG
+<button class="yellow" id="fullscreenButton">
+⛶ Full Screen
 </button>
 
-<button class="red" onclick="openCapture()">
-🎯 Capture Area
+<button id="adminButton">
+⚙️ Admin
 </button>
-
-<button class="gold" onclick="stopRecording()">
-⏹ Stop Recording
-</button>
-
-<input
-id="imageInput"
-type="file"
-accept="image/*"
-class="hidden">
 
 <input
 id="videoInput"
 type="file"
 accept="video/*"
-class="hidden">
+hidden>
+
+<input
+id="imageInput"
+type="file"
+accept="image/*"
+hidden>
 
 </div>
 
 
-<!-- CENTER FRAME -->
+<div class="stage">
 
-<div>
-
-<div class="frame" id="mainFrame">
+<div class="viewer" id="viewer">
 
 <canvas id="backgroundCanvas"></canvas>
 
 <video
 id="mainVideo"
-playsinline
-controls>
+playsinline>
 </video>
 
-<div class="overlay">
+
+<div class="scene">
 
 <div class="brand" id="watermark">
 TAPE JANJUA
 </div>
 
-<div class="badge" id="badgeText">
+
+<div class="badge" id="badge">
 خصوصی رعایت
 </div>
 
 
-<div class="product" id="productArea">
+<!-- SATELLITE SYSTEM -->
 
-<img
-id="productImage"
-class="hidden">
+<div class="solarSystem">
+
+<div class="orbit"></div>
+
+<div class="orbit2"></div>
+
+<div class="planet">
+
+<div class="planetRing"></div>
+
+</div>
+
+
+<div class="satelliteOrbit">
+
+<div class="satellite">
+
+<div class="antenna"></div>
+
+<div class="solarPanelLeft"></div>
+
+<div class="satelliteBody"></div>
+
+<div class="solarPanelRight"></div>
+
+</div>
+
+</div>
+
+</div>
+
 
 <div
-id="placeholder"
-class="placeholder">
-🪐
-</div>
+class="discount"
+id="discount">
+
+50% DISCOUNT • SPECIAL OFFER
 
 </div>
 
 
 <div class="offers">
 
-<div class="offer" id="offer1">
+<div
+class="offer"
+id="offer1">
+
 ⭐ خصوصی آفر
+
 </div>
 
-<div class="offer" id="offer2">
+<div
+class="offer"
+id="offer2">
+
 🎁 خصوصی رعایت
+
 </div>
 
-<div class="offer" id="offer3">
+<div
+class="offer"
+id="offer3">
+
 🔥 محدود وقت
+
 </div>
 
-<div class="offer" id="offer4">
+<div
+class="offer"
+id="offer4">
+
 💎 خاص ڈسکاؤنٹ
-</div>
 
 </div>
 
@@ -447,91 +741,50 @@ class="placeholder">
 
 </div>
 
-<div class="status" id="status">
-Offline Studio Ready
-</div>
-
 </div>
 
 
-<!-- RIGHT CONTROLS -->
+<div style="text-align:center;margin-top:8px">
 
-<div class="panel">
+<button
+class="blue"
+id="playButton">
 
-<h3>🎛️ Controls</h3>
+▶ Video Play
 
-<label>
-تصویر کا سائز
-</label>
-
-<input
-id="imageSize"
-type="range"
-min="15"
-max="75"
-value="38">
-
-
-<label>
-تصویر دائیں / بائیں
-</label>
-
-<input
-id="imageX"
-type="range"
-min="10"
-max="90"
-value="50">
-
-
-<label>
-تصویر اوپر / نیچے
-</label>
-
-<input
-id="imageY"
-type="range"
-min="10"
-max="90"
-value="50">
-
-
-<label>
-360° Rotation Speed
-</label>
-
-<select id="rotationSpeed">
-
-<option value="30">
-بہت آہستہ
-</option>
-
-<option value="18" selected>
-آہستہ
-</option>
-
-<option value="10">
-درمیانی
-</option>
-
-<option value="5">
-تیز
-</option>
-
-</select>
-
-
-<button onclick="mainVideo.play()">
-▶ Play
 </button>
 
-<button onclick="mainVideo.pause()">
+<button
+id="pauseButton">
+
 ⏸ Pause
+
 </button>
 
-<p class="status">
-Capture Area کھول کر screen/window share کریں، پھر mouse یا finger سے مطلوبہ حصہ select کریں۔
-</p>
+<button
+class="red"
+id="captureButton">
+
+🎯 Capture Video Area
+
+</button>
+
+<button
+class="red"
+id="stopButton">
+
+⏹ Stop Recording
+
+</button>
+
+</div>
+
+
+<div
+class="note"
+id="status">
+
+Offline Studio Ready — Download سے PNG محفوظ کریں۔
 
 </div>
 
@@ -541,12 +794,12 @@ Capture Area کھول کر screen/window share کریں، پھر mouse یا fing
 <!-- ADMIN -->
 
 <section
-id="adminPanel"
-class="panel admin hidden">
+class="admin hidden"
+id="admin">
 
-<h2>
-⚙️ Admin Text & Colors
-</h2>
+<h3>
+⚙️ Admin Settings
+</h3>
 
 
 <div class="row">
@@ -554,13 +807,13 @@ class="panel admin hidden">
 <div>
 
 <label>
-Brand Name
+نام
 </label>
 
 <input
-id="adminBrand"
+id="adminTitle"
 type="text"
-value="ٹیپے جَنجوا">
+value="TAPE JANJUA">
 
 </div>
 
@@ -568,11 +821,11 @@ value="ٹیپے جَنجوا">
 <div>
 
 <label>
-Platform Name
+Platform
 </label>
 
 <input
-id="adminPlatform"
+id="adminSubtitle"
 type="text"
 value="ڈیجیٹل مارکیٹنگ پلیٹ فارم">
 
@@ -584,60 +837,27 @@ value="ڈیجیٹل مارکیٹنگ پلیٹ فارم">
 <div class="row">
 
 <div>
-
-<label>
-Offer 1
-</label>
-
-<input
-id="adminOffer1"
-type="text"
+<label>Offer 1</label>
+<input id="adminOffer1" type="text"
 value="⭐ خصوصی آفر">
-
 </div>
 
 <div>
-
-<label>
-Offer 2
-</label>
-
-<input
-id="adminOffer2"
-type="text"
+<label>Offer 2</label>
+<input id="adminOffer2" type="text"
 value="🎁 خصوصی رعایت">
-
 </div>
-
-</div>
-
-
-<div class="row">
 
 <div>
-
-<label>
-Offer 3
-</label>
-
-<input
-id="adminOffer3"
-type="text"
+<label>Offer 3</label>
+<input id="adminOffer3" type="text"
 value="🔥 محدود وقت">
-
 </div>
 
 <div>
-
-<label>
-Offer 4
-</label>
-
-<input
-id="adminOffer4"
-type="text"
+<label>Offer 4</label>
+<input id="adminOffer4" type="text"
 value="💎 خاص ڈسکاؤنٹ">
-
 </div>
 
 </div>
@@ -662,13 +882,31 @@ value="خصوصی رعایت">
 <div>
 
 <label>
+Discount / Mobile Offer
+</label>
+
+<input
+id="adminDiscount"
+type="text"
+value="50% DISCOUNT • SPECIAL OFFER">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
 Background Color 1
 </label>
 
 <input
-id="color1"
+id="bg1"
 type="color"
-value="#061329">
+value="#030817">
 
 </div>
 
@@ -680,9 +918,9 @@ Background Color 2
 </label>
 
 <input
-id="color2"
+id="bg2"
 type="color"
-value="#123566">
+value="#12335c">
 
 </div>
 
@@ -690,13 +928,121 @@ value="#123566">
 <div>
 
 <label>
-Offer Color
+Satellite Color
+</label>
+
+<input
+id="satColor"
+type="color"
+value="#32d7ff">
+
+</div>
+
+
+<div>
+
+<label>
+Satellite Highlight
+</label>
+
+<input
+id="satHighlight"
+type="color"
+value="#ffffff">
+
+</div>
+
+
+<div>
+
+<label>
+Offers Color
 </label>
 
 <input
 id="offerColor"
 type="color"
-value="#e83b3b">
+value="#e63232">
+
+</div>
+
+
+<div>
+
+<label>
+Discount Color
+</label>
+
+<input
+id="discountColor"
+type="color"
+value="#ffd52f">
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+Satellite Speed
+</label>
+
+<select id="satelliteSpeed">
+
+<option value="25">
+بہت آہستہ
+</option>
+
+<option value="16" selected>
+آہستہ
+</option>
+
+<option value="9">
+درمیانی
+</option>
+
+<option value="4">
+تیز
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+Background Technology
+</label>
+
+<select id="backgroundType">
+
+<option value="space">
+Space / Stars
+</option>
+
+<option value="grid">
+Digital Grid
+</option>
+
+<option value="circuit">
+Circuit Technology
+</option>
+
+<option value="matrix">
+Matrix
+</option>
+
+<option value="waves">
+Tech Waves
+</option>
+
+</select>
 
 </div>
 
@@ -704,8 +1050,8 @@ value="#e83b3b">
 
 
 <button
-class="blue"
-onclick="saveAdmin()">
+class="green"
+id="saveAdmin">
 
 💾 Save Settings
 
@@ -713,25 +1059,26 @@ onclick="saveAdmin()">
 
 
 <button
-onclick="resetSettings()">
+id="resetAdmin">
 
 ↺ Reset
 
 </button>
+
 
 </section>
 
 </div>
 
 
-<!-- CAPTURE WINDOW -->
+<!-- CAPTURE SCREEN -->
 
 <div
-id="captureWindow"
-class="captureWindow">
+class="capture"
+id="capture">
 
 <video
-id="screenPreview"
+id="captureVideo"
 autoplay
 muted
 playsinline>
@@ -739,41 +1086,52 @@ playsinline>
 
 
 <div
-id="selectLayer"
-class="selectLayer">
-</div>
-
-
-<div
-id="selection"
-class="selection">
+class="selectBox"
+id="selectBox">
 </div>
 
 
 <div class="captureButtons">
 
 <button
-class="blue"
-onclick="useSelectedArea()">
+class="green"
+id="startRecording">
 
-✅ Use Selected Area
-
-</button>
-
-<button
-onclick="resetSelection()">
-
-↺ Select Again
+🔴 Start Recording
 
 </button>
 
 <button
 class="red"
-onclick="closeCapture()">
+id="stopCaptureRecording">
+
+⏹ Stop Recording
+
+</button>
+
+<button
+id="selectAgain">
+
+↺ دوبارہ Area
+
+</button>
+
+<button
+class="yellow"
+id="closeCapture">
 
 ✖ Close
 
 </button>
+
+</div>
+
+
+<div
+class="recordingIndicator"
+id="recordingIndicator">
+
+● RECORDING
 
 </div>
 
@@ -782,1169 +1140,1569 @@ onclick="closeCapture()">
 
 <script>
 
-/* =========================
-   BASIC VARIABLES
-========================= */
+/* ==========================================
+   VARIABLES
+========================================== */
 
 const $ = id => document.getElementById(id);
 
-let imageURL = null;
 let videoURL = null;
 
+let imageURL = null;
+
 let screenStream = null;
-let mediaRecorder = null;
-let recordingChunks = [];
+
+let recorder = null;
+
+let chunks = [];
 
 let crop = {
-    x:0,
-    y:0,
-    w:1,
-    h:1
+ x:0,
+ y:0,
+ w:1,
+ h:1
 };
 
 let selecting = false;
+
 let startX = 0;
+
 let startY = 0;
 
 
-/* =========================
-   IMAGE
-========================= */
-
-$("imageInput").onchange = function(e){
-
-    const file = e.target.files[0];
-
-    if(!file) return;
-
-    if(imageURL){
-        URL.revokeObjectURL(imageURL);
-    }
-
-    imageURL = URL.createObjectURL(file);
-
-    $("productImage").src = imageURL;
-
-    $("productImage").classList.remove("hidden");
-
-    $("placeholder").classList.add("hidden");
-};
-
-
-/* =========================
+/* ==========================================
    VIDEO
-========================= */
+========================================== */
 
-$("videoInput").onchange = function(e){
-
-    const file = e.target.files[0];
-
-    if(!file) return;
-
-    if(videoURL){
-        URL.revokeObjectURL(videoURL);
-    }
-
-    videoURL = URL.createObjectURL(file);
-
-    $("mainVideo").src = videoURL;
-
-    $("mainVideo").style.display = "block";
-
-    $("mainVideo").load();
-
-};
+$("videoButton").onclick =
+() => $("videoInput").click();
 
 
-/* =========================
-   IMAGE CONTROLS
-========================= */
+$("videoInput").onchange =
+function(event){
 
-$("imageSize").oninput = function(){
+ const file =
+ event.target.files[0];
 
-    $("productArea").style.width =
-        this.value + "%";
+ if(!file) return;
 
-};
+ if(videoURL)
+ URL.revokeObjectURL(videoURL);
 
+ videoURL =
+ URL.createObjectURL(file);
 
-$("imageX").oninput = function(){
+ $("mainVideo").src =
+ videoURL;
 
-    $("productArea").style.left =
-        this.value + "%";
+ $("mainVideo").style.display =
+ "block";
+
+ $("mainVideo").play().catch(()=>{});
+
+ $("status").textContent =
+ "Video loaded.";
 
 };
 
 
-$("imageY").oninput = function(){
+/* ==========================================
+   IMAGE
+========================================== */
 
-    $("productArea").style.top =
-        this.value + "%";
+$("imageButton").onclick =
+() => $("imageInput").click();
+
+
+$("imageInput").onchange =
+function(event){
+
+ const file =
+ event.target.files[0];
+
+ if(!file) return;
+
+ if(imageURL)
+ URL.revokeObjectURL(imageURL);
+
+ imageURL =
+ URL.createObjectURL(file);
+
+ /*
+   Uploaded picture becomes the
+   center planet/product.
+ */
+
+ const planet =
+ document.querySelector(".planet");
+
+ planet.style.background =
+ `url("${imageURL}") center/contain no-repeat`;
+
+ planet.style.boxShadow =
+ "none";
+
+ planet.style.borderRadius =
+ "0";
 
 };
 
 
-$("rotationSpeed").onchange = function(){
+/* ==========================================
+   PLAY / PAUSE
+========================================== */
 
-    $("productImage").style.animationDuration =
-        this.value + "s";
+$("playButton").onclick =
+() => $("mainVideo").play();
+
+
+$("pauseButton").onclick =
+() => $("mainVideo").pause();
+
+
+/* ==========================================
+   FULLSCREEN
+========================================== */
+
+$("fullscreenButton").onclick =
+async function(){
+
+ const app =
+ $("app");
+
+ if(!document.fullscreenElement){
+
+  try{
+   await document.documentElement.requestFullscreen();
+  }catch(e){}
+
+  app.classList.add(
+   "fullscreenMode"
+  );
+
+ }else{
+
+  try{
+   await document.exitFullscreen();
+  }catch(e){}
+
+  app.classList.remove(
+   "fullscreenMode"
+  );
+
+ }
 
 };
 
 
-/* =========================
-   ADMIN SETTINGS
-========================= */
+document.addEventListener(
+"fullscreenchange",
+function(){
 
-function saveAdmin(){
+ $("app").classList.toggle(
+  "fullscreenMode",
+  !!document.fullscreenElement
+ );
 
-    $("brandName").textContent =
-        $("adminBrand").value;
-
-    $("platformName").innerHTML =
-        $("adminPlatform").value +
-        ' • <span class="english">TAPE JANJUA DIGITAL MARKETING PLATFORM</span>';
-
-    $("watermark").textContent =
-        $("adminBrand").value;
-
-    $("offer1").textContent =
-        $("adminOffer1").value;
-
-    $("offer2").textContent =
-        $("adminOffer2").value;
-
-    $("offer3").textContent =
-        $("adminOffer3").value;
-
-    $("offer4").textContent =
-        $("adminOffer4").value;
-
-    $("badgeText").textContent =
-        $("adminBadge").value;
+});
 
 
-    document.documentElement.style.setProperty(
-        "--bg1",
-        $("color1").value
-    );
+/* ==========================================
+   ADMIN
+========================================== */
 
-    document.documentElement.style.setProperty(
-        "--bg2",
-        $("color2").value
-    );
+$("adminButton").onclick =
+function(){
 
-    document.documentElement.style.setProperty(
-        "--offer",
-        $("offerColor").value
-    );
+ $("admin").classList.toggle(
+  "hidden"
+ );
+
+};
 
 
-    const settings = {
+function applyAdmin(){
 
-        brand:$("adminBrand").value,
+ document.documentElement
+ .style.setProperty(
+  "--bg1",
+  $("bg1").value
+ );
 
-        platform:$("adminPlatform").value,
+ document.documentElement
+ .style.setProperty(
+  "--bg2",
+  $("bg2").value
+ );
 
-        offer1:$("adminOffer1").value,
+ document.documentElement
+ .style.setProperty(
+  "--sat",
+  $("satColor").value
+ );
 
-        offer2:$("adminOffer2").value,
+ document.documentElement
+ .style.setProperty(
+  "--sat2",
+  $("satHighlight").value
+ );
 
-        offer3:$("adminOffer3").value,
+ document.documentElement
+ .style.setProperty(
+  "--offer",
+  $("offerColor").value
+ );
 
-        offer4:$("adminOffer4").value,
-
-        badge:$("adminBadge").value,
-
-        color1:$("color1").value,
-
-        color2:$("color2").value,
-
-        offerColor:$("offerColor").value
-
-    };
-
-
-    localStorage.setItem(
-        "TAPE_JANJUA_SETTINGS",
-        JSON.stringify(settings)
-    );
+ document.documentElement
+ .style.setProperty(
+  "--discount",
+  $("discountColor").value
+ );
 
 
-    $("status").textContent =
-        "Settings محفوظ ہو گئی ہیں۔";
+ $("title").textContent =
+ $("adminTitle").value;
+
+
+ $("subtitle").innerHTML =
+ $("adminSubtitle").value +
+ ' • <span class="english">DIGITAL MARKETING PLATFORM</span>';
+
+
+ $("watermark").textContent =
+ $("adminTitle").value;
+
+
+ $("offer1").textContent =
+ $("adminOffer1").value;
+
+
+ $("offer2").textContent =
+ $("adminOffer2").value;
+
+
+ $("offer3").textContent =
+ $("adminOffer3").value;
+
+
+ $("offer4").textContent =
+ $("adminOffer4").value;
+
+
+ $("badge").textContent =
+ $("adminBadge").value;
+
+
+ $("discount").textContent =
+ $("adminDiscount").value;
+
+
+ document.querySelector(
+ ".satelliteOrbit"
+ ).style.animationDuration =
+ $("satelliteSpeed").value +
+ "s";
 
 }
 
+
+/* ==========================================
+   SAVE ADMIN
+========================================== */
+
+$("saveAdmin").onclick =
+function(){
+
+ applyAdmin();
+
+ const data = {
+
+  title:$("adminTitle").value,
+
+  subtitle:$("adminSubtitle").value,
+
+  offer1:$("adminOffer1").value,
+
+  offer2:$("adminOffer2").value,
+
+  offer3:$("adminOffer3").value,
+
+  offer4:$("adminOffer4").value,
+
+  badge:$("adminBadge").value,
+
+  discount:$("adminDiscount").value,
+
+  bg1:$("bg1").value,
+
+  bg2:$("bg2").value,
+
+  sat:$("satColor").value,
+
+  sat2:$("satHighlight").value,
+
+  offerColor:$("offerColor").value,
+
+  discountColor:$("discountColor").value,
+
+  speed:$("satelliteSpeed").value,
+
+  background:$("backgroundType").value
+
+ };
+
+
+ localStorage.setItem(
+  "TAPE_JANJUA_SETTINGS",
+  JSON.stringify(data)
+ );
+
+
+ $("status").textContent =
+ "Admin Settings محفوظ ہوگئیں۔";
+
+};
+
+
+/* ==========================================
+   LOAD SETTINGS
+========================================== */
 
 function loadSettings(){
 
-    try{
+ try{
 
-        const saved =
-            JSON.parse(
-                localStorage.getItem(
-                    "TAPE_JANJUA_SETTINGS"
-                )
-            );
+  const data =
+  JSON.parse(
+   localStorage.getItem(
+    "TAPE_JANJUA_SETTINGS"
+   )
+  );
 
-        if(!saved) return;
-
-
-        $("adminBrand").value =
-            saved.brand;
-
-        $("adminPlatform").value =
-            saved.platform;
-
-        $("adminOffer1").value =
-            saved.offer1;
-
-        $("adminOffer2").value =
-            saved.offer2;
-
-        $("adminOffer3").value =
-            saved.offer3;
-
-        $("adminOffer4").value =
-            saved.offer4;
-
-        $("adminBadge").value =
-            saved.badge;
-
-        $("color1").value =
-            saved.color1;
-
-        $("color2").value =
-            saved.color2;
-
-        $("offerColor").value =
-            saved.offerColor;
+  if(!data)
+  return;
 
 
-        saveAdmin();
+  $("adminTitle").value =
+  data.title;
 
-    }catch(error){
+  $("adminSubtitle").value =
+  data.subtitle;
 
-        console.log(error);
+  $("adminOffer1").value =
+  data.offer1;
 
-    }
+  $("adminOffer2").value =
+  data.offer2;
+
+  $("adminOffer3").value =
+  data.offer3;
+
+  $("adminOffer4").value =
+  data.offer4;
+
+  $("adminBadge").value =
+  data.badge;
+
+  $("adminDiscount").value =
+  data.discount;
+
+  $("bg1").value =
+  data.bg1;
+
+  $("bg2").value =
+  data.bg2;
+
+  $("satColor").value =
+  data.sat;
+
+  $("satHighlight").value =
+  data.sat2;
+
+  $("offerColor").value =
+  data.offerColor;
+
+  $("discountColor").value =
+  data.discountColor;
+
+  $("satelliteSpeed").value =
+  data.speed;
+
+  $("backgroundType").value =
+  data.background;
+
+  applyAdmin();
+
+ }catch(e){}
 
 }
 
 
-function resetSettings(){
+$("resetAdmin").onclick =
+function(){
 
-    localStorage.removeItem(
-        "TAPE_JANJUA_SETTINGS"
-    );
+ localStorage.removeItem(
+  "TAPE_JANJUA_SETTINGS"
+ );
 
-    location.reload();
+ location.reload();
 
-}
-
-
-/* =========================
-   PNG FRAME EXPORT
-========================= */
-
-function downloadPNG(){
-
-    const canvas =
-        document.createElement("canvas");
-
-    const width = 1280;
-    const height = 720;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx =
-        canvas.getContext("2d");
+};
 
 
-    const gradient =
-        ctx.createLinearGradient(
-            0,0,width,height
-        );
-
-    gradient.addColorStop(
-        0,
-        getComputedStyle(document.documentElement)
-        .getPropertyValue("--bg1")
-    );
-
-    gradient.addColorStop(
-        1,
-        getComputedStyle(document.documentElement)
-        .getPropertyValue("--bg2")
-    );
+loadSettings();
 
 
-    ctx.fillStyle = gradient;
+/* ==========================================
+   BACKGROUND TECHNOLOGY
+========================================== */
 
-    ctx.fillRect(
-        0,0,width,height
-    );
+const bgCanvas =
+$("backgroundCanvas");
 
+const bg =
+bgCanvas.getContext("2d");
 
-    if(
-        $("mainVideo").readyState >= 2 &&
-        $("mainVideo").style.display !== "none"
-    ){
-
-        try{
-
-            ctx.drawImage(
-                $("mainVideo"),
-                0,0,width,height
-            );
-
-        }catch(e){}
-
-    }
+let time = 0;
 
 
-    const img =
-        $("productImage");
+function resizeCanvas(){
 
+ const r =
+ $("viewer").getBoundingClientRect();
 
-    if(
-        !img.classList.contains("hidden") &&
-        img.complete
-    ){
+ bgCanvas.width =
+ r.width;
 
-        const size =
-            width *
-            (
-                Number($("imageSize").value)
-                / 100
-            );
-
-
-        const x =
-            width *
-            (
-                Number($("imageX").value)
-                / 100
-            ) -
-            size / 2;
-
-
-        const y =
-            height *
-            (
-                Number($("imageY").value)
-                / 100
-            ) -
-            size / 2;
-
-
-        ctx.drawImage(
-            img,
-            x,
-            y,
-            size,
-            size
-        );
-
-    }
-
-
-    ctx.font =
-        "bold 30px Arial";
-
-    ctx.fillStyle =
-        "white";
-
-    ctx.fillText(
-        $("watermark").textContent,
-        40,
-        50
-    );
-
-
-    ctx.fillStyle =
-        "#ffd43b";
-
-    ctx.fillText(
-        $("badgeText").textContent,
-        width - 270,
-        50
-    );
-
-
-    ctx.font =
-        "bold 22px Arial";
-
-    ctx.fillStyle =
-        "white";
-
-    ctx.fillText(
-
-        [
-            $("offer1").textContent,
-            $("offer2").textContent,
-            $("offer3").textContent,
-            $("offer4").textContent
-
-        ].join(" | "),
-
-        45,
-        height - 35
-    );
-
-
-    canvas.toBlob(function(blob){
-
-        const url =
-            URL.createObjectURL(blob);
-
-        const a =
-            document.createElement("a");
-
-        a.href = url;
-
-        a.download =
-            "TAPE-JANJUA-FRAME.png";
-
-        a.click();
-
-        setTimeout(
-            () => URL.revokeObjectURL(url),
-            3000
-        );
-
-    },"image/png");
+ bgCanvas.height =
+ r.height;
 
 }
 
 
-/* =========================
-   SCREEN CAPTURE
-========================= */
-
-async function openCapture(){
-
-    try{
-
-        screenStream =
-            await navigator.mediaDevices
-            .getDisplayMedia({
-
-                video:true,
-
-                audio:false
-
-            });
-
-
-        $("screenPreview").srcObject =
-            screenStream;
-
-
-        $("captureWindow").style.display =
-            "block";
-
-
-        resetSelection();
-
-
-        $("status").textContent =
-            "Screen capture شروع ہے۔ Area select کریں۔";
-
-
-        screenStream
-        .getVideoTracks()[0]
-        .addEventListener(
-            "ended",
-            closeCapture
-        );
-
-
-    }catch(error){
-
-        $("status").textContent =
-            "Screen capture cancel ہو گیا۔";
-
-    }
-
-}
-
-
-function closeCapture(){
-
-    if(
-        mediaRecorder &&
-        mediaRecorder.state === "recording"
-    ){
-
-        mediaRecorder.stop();
-
-    }
-
-
-    if(screenStream){
-
-        screenStream
-        .getTracks()
-        .forEach(
-            track => track.stop()
-        );
-
-    }
-
-
-    screenStream = null;
-
-    $("captureWindow").style.display =
-        "none";
-
-    $("screenPreview").srcObject =
-        null;
-
-}
-
-
-/* =========================
-   AREA SELECTION
-========================= */
-
-function getPointerPosition(event){
-
-    const rect =
-        $("selectLayer")
-        .getBoundingClientRect();
-
-
-    const pointer =
-        event.touches ?
-        event.touches[0] :
-        event;
-
-
-    return {
-
-        x:Math.max(
-            0,
-            Math.min(
-                rect.width,
-                pointer.clientX - rect.left
-            )
-        ),
-
-        y:Math.max(
-            0,
-            Math.min(
-                rect.height,
-                pointer.clientY - rect.top
-            )
-        ),
-
-        width:rect.width,
-
-        height:rect.height
-
-    };
-
-}
-
-
-function beginSelection(event){
-
-    event.preventDefault();
-
-    selecting = true;
-
-    const p =
-        getPointerPosition(event);
-
-    startX = p.x;
-    startY = p.y;
-
-
-    $("selection").style.display =
-        "block";
-
-    $("selection").style.left =
-        startX + "px";
-
-    $("selection").style.top =
-        startY + "px";
-
-    $("selection").style.width =
-        "0px";
-
-    $("selection").style.height =
-        "0px";
-
-}
-
-
-function moveSelection(event){
-
-    if(!selecting) return;
-
-    event.preventDefault();
-
-    const p =
-        getPointerPosition(event);
-
-
-    const x =
-        Math.min(
-            startX,
-            p.x
-        );
-
-    const y =
-        Math.min(
-            startY,
-            p.y
-        );
-
-    const width =
-        Math.abs(
-            p.x - startX
-        );
-
-    const height =
-        Math.abs(
-            p.y - startY
-        );
-
-
-    $("selection").style.left =
-        x + "px";
-
-    $("selection").style.top =
-        y + "px";
-
-    $("selection").style.width =
-        width + "px";
-
-    $("selection").style.height =
-        height + "px";
-
-
-    const rect =
-        $("selectLayer")
-        .getBoundingClientRect();
-
-
-    crop = {
-
-        x:x / rect.width,
-
-        y:y / rect.height,
-
-        w:width / rect.width,
-
-        h:height / rect.height
-
-    };
-
-}
-
-
-function endSelection(){
-
-    selecting = false;
-
-}
-
-
-$("selectLayer")
-.addEventListener(
-    "mousedown",
-    beginSelection
+window.addEventListener(
+"resize",
+resizeCanvas
 );
 
-$("selectLayer")
+resizeCanvas();
+
+
+function drawBackground(){
+
+ bg.clearRect(
+  0,
+  0,
+  bgCanvas.width,
+  bgCanvas.height
+ );
+
+
+ const type =
+ $("backgroundType").value;
+
+
+ const color =
+ $("satColor").value;
+
+
+ /* SPACE */
+
+ if(type === "space"){
+
+  for(
+   let i=0;
+   i<120;
+   i++
+  ){
+
+   const x =
+   (i*83 + time*.15)
+   % bgCanvas.width;
+
+   const y =
+   (i*47)
+   % bgCanvas.height;
+
+   bg.fillStyle =
+   "rgba(255,255,255,.7)";
+
+   bg.fillRect(
+    x,
+    y,
+    1.5,
+    1.5
+   );
+
+  }
+
+ }
+
+
+ /* DIGITAL GRID */
+
+ if(type === "grid"){
+
+  bg.strokeStyle =
+  color + "55";
+
+  bg.lineWidth = 1;
+
+
+  for(
+   let x=0;
+   x<bgCanvas.width;
+   x+=35
+  ){
+
+   bg.beginPath();
+
+   bg.moveTo(x,0);
+
+   bg.lineTo(
+    x,
+    bgCanvas.height
+   );
+
+   bg.stroke();
+
+  }
+
+
+  for(
+   let y=0;
+   y<bgCanvas.height;
+   y+=35
+  ){
+
+   bg.beginPath();
+
+   bg.moveTo(0,y);
+
+   bg.lineTo(
+    bgCanvas.width,
+    y
+   );
+
+   bg.stroke();
+
+  }
+
+ }
+
+
+ /* CIRCUIT */
+
+ if(type === "circuit"){
+
+  bg.strokeStyle =
+  color + "66";
+
+  bg.lineWidth = 2;
+
+
+  for(
+   let i=0;
+   i<18;
+   i++
+  ){
+
+   const y =
+   (i*53 + time*.3)
+   % bgCanvas.height;
+
+
+   bg.beginPath();
+
+   bg.moveTo(
+    0,
+    y
+   );
+
+   bg.lineTo(
+    bgCanvas.width*.22,
+    y
+   );
+
+   bg.lineTo(
+    bgCanvas.width*.35,
+    y-30
+   );
+
+   bg.lineTo(
+    bgCanvas.width,
+    y-30
+   );
+
+   bg.stroke();
+
+  }
+
+ }
+
+
+ /* MATRIX */
+
+ if(type === "matrix"){
+
+  bg.font =
+  "13px monospace";
+
+  bg.fillStyle =
+  color + "88";
+
+
+  for(
+   let i=0;
+   i<90;
+   i++
+  ){
+
+   const x =
+   (i*31)
+   % bgCanvas.width;
+
+   const y =
+   (i*51 + time*2)
+   % bgCanvas.height;
+
+   bg.fillText(
+    String(
+     Math.floor(
+      Math.random()*10
+     )
+    ),
+    x,
+    y
+   );
+
+  }
+
+ }
+
+
+ /* TECH WAVES */
+
+ if(type === "waves"){
+
+  bg.strokeStyle =
+  color + "77";
+
+  bg.lineWidth = 2;
+
+
+  for(
+   let n=0;
+   n<8;
+   n++
+  ){
+
+   bg.beginPath();
+
+
+   for(
+    let x=0;
+    x<bgCanvas.width;
+    x+=10
+   ){
+
+    const y =
+    bgCanvas.height/2 +
+    n*25 +
+    Math.sin(
+     x*.018 +
+     time*.025 +
+     n
+    )*20;
+
+
+    if(x===0)
+    bg.moveTo(x,y);
+    else
+    bg.lineTo(x,y);
+
+   }
+
+
+   bg.stroke();
+
+  }
+
+ }
+
+
+ time++;
+
+ requestAnimationFrame(
+  drawBackground
+ );
+
+}
+
+
+drawBackground();
+
+
+/* ==========================================
+   DOWNLOAD PNG
+========================================== */
+
+$("downloadButton").onclick =
+function(){
+
+ const canvas =
+ document.createElement(
+  "canvas"
+ );
+
+ const W = 1280;
+ const H = 720;
+
+ canvas.width = W;
+ canvas.height = H;
+
+ const ctx =
+ canvas.getContext("2d");
+
+
+ const gradient =
+ ctx.createLinearGradient(
+  0,
+  0,
+  W,
+  H
+ );
+
+ gradient.addColorStop(
+  0,
+  $("bg1").value
+ );
+
+ gradient.addColorStop(
+  1,
+  $("bg2").value
+ );
+
+ ctx.fillStyle =
+ gradient;
+
+ ctx.fillRect(
+  0,
+  0,
+  W,
+  H
+ );
+
+
+ if(
+  $("mainVideo").readyState >= 2 &&
+  $("mainVideo").style.display !== "none"
+ ){
+
+  try{
+
+   ctx.drawImage(
+    $("mainVideo"),
+    0,
+    0,
+    W,
+    H
+   );
+
+  }catch(e){}
+
+ }
+
+
+ ctx.fillStyle =
+ $("satColor").value;
+
+ ctx.globalAlpha =
+ .25;
+
+
+ for(
+  let i=0;
+  i<25;
+  i++
+ ){
+
+  const y =
+  i*30;
+
+  ctx.fillRect(
+   0,
+   y,
+   W,
+   1
+  );
+
+ }
+
+
+ ctx.globalAlpha =
+ 1;
+
+
+ ctx.fillStyle =
+ "#fff";
+
+ ctx.font =
+ "bold 35px Arial";
+
+ ctx.fillText(
+  $("watermark").textContent,
+  40,
+  55
+ );
+
+
+ ctx.fillStyle =
+ $("discountColor").value;
+
+ ctx.font =
+ "bold 30px Arial";
+
+ ctx.fillText(
+  $("discount").textContent,
+  W-500,
+  55
+ );
+
+
+ ctx.fillStyle =
+ "#fff";
+
+ ctx.font =
+ "bold 23px Arial";
+
+
+ ctx.fillText(
+  [
+   $("offer1").textContent,
+   $("offer2").textContent,
+   $("offer3").textContent,
+   $("offer4").textContent
+  ].join(" | "),
+  35,
+  H-30
+ );
+
+
+ canvas.toBlob(
+  function(blob){
+
+   const url =
+   URL.createObjectURL(
+    blob
+   );
+
+   const a =
+   document.createElement(
+    "a"
+   );
+
+   a.href =
+   url;
+
+   a.download =
+   "TAPE-JANJUA-DESIGN.png";
+
+   a.click();
+
+   setTimeout(
+    () =>
+    URL.revokeObjectURL(url),
+    3000
+   );
+
+  },
+  "image/png"
+ );
+
+};
+
+
+/* ==========================================
+   CAPTURE
+========================================== */
+
+$("captureButton").onclick =
+async function(){
+
+ try{
+
+  screenStream =
+  await navigator.mediaDevices
+  .getDisplayMedia({
+   video:true,
+   audio:false
+  });
+
+
+  $("captureVideo").srcObject =
+  screenStream;
+
+
+  $("capture").classList.add(
+   "show"
+  );
+
+
+  resetArea();
+
+
+  screenStream
+  .getVideoTracks()[0]
+  .addEventListener(
+   "ended",
+   closeCapture
+  );
+
+
+ }catch(e){
+
+  $("status").textContent =
+  "Capture cancel ہوگیا۔";
+
+ }
+
+};
+
+
+/* ==========================================
+   AREA SELECTION
+========================================== */
+
+function getPointer(e){
+
+ const rect =
+ $("captureVideo")
+ .getBoundingClientRect();
+
+
+ const p =
+ e.touches ?
+ e.touches[0] :
+ e;
+
+
+ return {
+
+  x:Math.max(
+   0,
+   Math.min(
+    rect.width,
+    p.clientX -
+    rect.left
+   )
+  ),
+
+  y:Math.max(
+   0,
+   Math.min(
+    rect.height,
+    p.clientY -
+    rect.top
+   )
+  ),
+
+  width:rect.width,
+
+  height:rect.height
+
+ };
+
+}
+
+
+function startArea(e){
+
+ e.preventDefault();
+
+ selecting = true;
+
+ const p =
+ getPointer(e);
+
+ startX =
+ p.x;
+
+ startY =
+ p.y;
+
+
+ $("selectBox").style.display =
+ "block";
+
+ $("selectBox").style.left =
+ startX + "px";
+
+ $("selectBox").style.top =
+ startY + "px";
+
+ $("selectBox").style.width =
+ "0px";
+
+ $("selectBox").style.height =
+ "0px";
+
+}
+
+
+function moveArea(e){
+
+ if(!selecting)
+ return;
+
+ e.preventDefault();
+
+ const p =
+ getPointer(e);
+
+
+ const x =
+ Math.min(
+  startX,
+  p.x
+ );
+
+ const y =
+ Math.min(
+  startY,
+  p.y
+ );
+
+ const w =
+ Math.abs(
+  p.x -
+  startX
+ );
+
+ const h =
+ Math.abs(
+  p.y -
+  startY
+ );
+
+
+ $("selectBox").style.left =
+ x + "px";
+
+ $("selectBox").style.top =
+ y + "px";
+
+ $("selectBox").style.width =
+ w + "px";
+
+ $("selectBox").style.height =
+ h + "px";
+
+
+ const rect =
+ $("captureVideo")
+ .getBoundingClientRect();
+
+
+ crop = {
+
+  x:x/rect.width,
+
+  y:y/rect.height,
+
+  w:w/rect.width,
+
+  h:h/rect.height
+
+ };
+
+}
+
+
+function endArea(){
+
+ selecting = false;
+
+}
+
+
+$("captureVideo")
 .addEventListener(
-    "mousemove",
-    moveSelection
+ "mousedown",
+ startArea
+);
+
+$("captureVideo")
+.addEventListener(
+ "mousemove",
+ moveArea
 );
 
 window.addEventListener(
-    "mouseup",
-    endSelection
+ "mouseup",
+ endArea
 );
 
 
-$("selectLayer")
+$("captureVideo")
 .addEventListener(
-    "touchstart",
-    beginSelection,
-    {passive:false}
+ "touchstart",
+ startArea,
+ {passive:false}
 );
 
-$("selectLayer")
+$("captureVideo")
 .addEventListener(
-    "touchmove",
-    moveSelection,
-    {passive:false}
+ "touchmove",
+ moveArea,
+ {passive:false}
 );
 
-$("selectLayer")
+$("captureVideo")
 .addEventListener(
-    "touchend",
-    endSelection
+ "touchend",
+ endArea
 );
 
 
-function resetSelection(){
+function resetArea(){
 
-    $("selection").style.display =
-        "none";
+ crop = {
+  x:0,
+  y:0,
+  w:1,
+  h:1
+ };
 
-    crop = {
-        x:0,
-        y:0,
-        w:1,
-        h:1
-    };
+ $("selectBox").style.display =
+ "none";
 
 }
 
 
-/* =========================
-   RECORDING
-========================= */
-
-function getBestMimeType(){
-
-    const types = [
-
-        "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
-
-        "video/mp4",
-
-        "video/webm;codecs=vp9,opus",
-
-        "video/webm"
-
-    ];
+$("selectAgain").onclick =
+resetArea;
 
 
-    for(
-        const type of types
-    ){
+/* ==========================================
+   MIME
+========================================== */
 
-        if(
-            window.MediaRecorder &&
-            MediaRecorder.isTypeSupported(type)
-        ){
+function bestMime(){
 
-            return type;
+ const types = [
 
-        }
+  "video/mp4;codecs=avc1.42E01E",
 
-    }
+  "video/mp4",
+
+  "video/webm;codecs=vp9",
+
+  "video/webm"
+
+ ];
 
 
-    return "";
+ for(
+  const type of types
+ ){
+
+  if(
+   window.MediaRecorder &&
+   MediaRecorder.isTypeSupported(
+    type
+   )
+  ){
+
+   return type;
+
+  }
+
+ }
+
+
+ return "";
 
 }
 
 
-async function useSelectedArea(){
+/* ==========================================
+   START RECORDING
+========================================== */
 
-    if(!screenStream){
+$("startRecording").onclick =
+async function(){
 
-        alert(
-            "پہلے Capture Area کھولیں۔"
-        );
+ if(!screenStream){
 
-        return;
+  alert(
+   "پہلے Capture Video کھولیں۔"
+  );
 
-    }
+  return;
 
+ }
 
-    if(
-        crop.w < 0.02 ||
-        crop.h < 0.02
-    ){
 
-        alert(
-            "پہلے screen پر recording area select کریں۔"
-        );
+ if(
+  crop.w < .02 ||
+  crop.h < .02
+ ){
 
-        return;
+  alert(
+   "پہلے video کا مطلوبہ area select کریں۔"
+  );
 
-    }
+  return;
 
+ }
 
-    const preview =
-        $("screenPreview");
 
+ const video =
+ $("captureVideo");
 
-    await new Promise(
-        resolve => {
 
-            if(
-                preview.readyState >= 2
-            ){
+ await new Promise(
+  resolve => {
 
-                resolve();
+   if(
+    video.readyState >= 2
+   ){
 
-            }else{
+    resolve();
 
-                preview.addEventListener(
-                    "loadeddata",
-                    resolve,
-                    {once:true}
-                );
+   }else{
 
-            }
+    video.onloadeddata =
+    resolve;
 
-        }
-    );
+   }
 
+  }
+ );
 
-    const track =
-        screenStream
-        .getVideoTracks()[0];
 
+ const track =
+ screenStream
+ .getVideoTracks()[0];
 
-    const settings =
-        track.getSettings();
 
+ const settings =
+ track.getSettings();
 
-    const sourceWidth =
-        settings.width ||
-        preview.videoWidth ||
-        1920;
 
+ const sourceW =
+ settings.width ||
+ video.videoWidth ||
+ 1920;
 
-    const sourceHeight =
-        settings.height ||
-        preview.videoHeight ||
-        1080;
 
+ const sourceH =
+ settings.height ||
+ video.videoHeight ||
+ 1080;
 
-    const canvas =
-        document.createElement(
-            "canvas"
-        );
 
+ const canvas =
+ document.createElement(
+  "canvas"
+ );
 
-    const outputWidth =
-        Math.max(
-            2,
-            Math.round(
-                sourceWidth * crop.w
-            )
-        );
 
+ const outputW =
+ Math.max(
+  2,
+  Math.round(
+   sourceW *
+   crop.w
+  )
+ );
 
-    const outputHeight =
-        Math.max(
-            2,
-            Math.round(
-                sourceHeight * crop.h
-            )
-        );
 
+ const outputH =
+ Math.max(
+  2,
+  Math.round(
+   sourceH *
+   crop.h
+  )
+ );
 
-    canvas.width =
-        outputWidth;
 
-    canvas.height =
-        outputHeight;
+ canvas.width =
+ outputW;
 
+ canvas.height =
+ outputH;
 
-    const ctx =
-        canvas.getContext("2d");
 
+ const context =
+ canvas.getContext(
+  "2d"
+ );
 
-    const recordingStream =
-        canvas.captureStream(30);
 
+ const recordingStream =
+ canvas.captureStream(
+  30
+ );
 
-    const mime =
-        getBestMimeType();
 
+ const mime =
+ bestMime();
 
-    if(!mime){
 
-        alert(
-            "اس browser میں MediaRecorder support نہیں ہے۔ Chrome یا Edge استعمال کریں۔"
-        );
+ if(!mime){
 
-        return;
+  alert(
+   "یہ browser recording support نہیں کرتا۔ Chrome یا Edge استعمال کریں۔"
+  );
 
-    }
+  return;
 
+ }
 
-    recordingChunks = [];
 
+ chunks = [];
 
-    mediaRecorder =
-        new MediaRecorder(
-            recordingStream,
-            {
-                mimeType:mime
-            }
-        );
 
+ recorder =
+ new MediaRecorder(
+  recordingStream,
+  {
+   mimeType:mime
+  }
+ );
 
-    mediaRecorder
-    .ondataavailable =
-        function(event){
 
-            if(
-                event.data.size
-            ){
+ recorder.ondataavailable =
+ function(event){
 
-                recordingChunks
-                .push(event.data);
+  if(
+   event.data.size
+  ){
 
-            }
+   chunks.push(
+    event.data
+   );
 
-        };
+  }
 
+ };
 
-    mediaRecorder
-    .onstop =
-        function(){
 
-            const extension =
-                mime.startsWith(
-                    "video/mp4"
-                )
-                ?
-                "mp4"
-                :
-                "webm";
+ recorder.onstop =
+ function(){
 
+  const extension =
+  mime.startsWith(
+   "video/mp4"
+  )
+  ?
+  "mp4"
+  :
+  "webm";
 
-            const blob =
-                new Blob(
-                    recordingChunks,
-                    {
-                        type:mime
-                    }
-                );
 
+  const blob =
+  new Blob(
+   chunks,
+   {
+    type:mime
+   }
+  );
 
-            const url =
-                URL.createObjectURL(
-                    blob
-                );
 
+  const url =
+  URL.createObjectURL(
+   blob
+  );
 
-            const a =
-                document.createElement(
-                    "a"
-                );
 
+  const a =
+  document.createElement(
+   "a"
+  );
 
-            a.href = url;
 
-            a.download =
-                "TAPE-JANJUA-CAPTURE." +
-                extension;
+  a.href =
+  url;
 
-            a.click();
+  a.download =
+  "TAPE-JANJUA-VIDEO." +
+  extension;
 
+  a.click();
 
-            setTimeout(
-                () =>
-                URL.revokeObjectURL(url),
-                5000
-            );
 
+  setTimeout(
+   () =>
+   URL.revokeObjectURL(url),
+   5000
+  );
 
-            $("status").textContent =
-                "Recording " +
-                extension.toUpperCase() +
-                " میں save ہو گئی۔";
 
-        };
+  $("recordingIndicator")
+  .classList.remove(
+   "show"
+  );
 
 
-    mediaRecorder.start();
+  $("status").textContent =
+  "Recording " +
+  extension.toUpperCase() +
+  " میں محفوظ ہوگئی۔";
 
+ };
 
-    $("status").textContent =
-        "Selected area recording شروع ہو گئی۔ Stop Recording دبائیں۔";
 
+ recorder.start();
 
-    function drawFrame(){
 
-        if(
-            !mediaRecorder ||
-            mediaRecorder.state !==
-            "recording"
-        ){
+ $("recordingIndicator")
+ .classList.add(
+  "show"
+ );
 
-            return;
 
-        }
+ $("status").textContent =
+ "صرف منتخب شدہ area record ہو رہا ہے۔";
 
 
-        try{
+ function draw(){
 
-            ctx.drawImage(
+  if(
+   !recorder ||
+   recorder.state !==
+   "recording"
+  ){
 
-                preview,
+   return;
 
-                sourceWidth * crop.x,
+  }
 
-                sourceHeight * crop.y,
 
-                sourceWidth * crop.w,
+  try{
 
-                sourceHeight * crop.h,
+   context.drawImage(
 
-                0,
+    video,
 
-                0,
+    sourceW *
+    crop.x,
 
-                outputWidth,
+    sourceH *
+    crop.y,
 
-                outputHeight
+    sourceW *
+    crop.w,
 
-            );
+    sourceH *
+    crop.h,
 
-        }catch(error){}
+    0,
+    0,
+    outputW,
+    outputH
 
+   );
 
-        requestAnimationFrame(
-            drawFrame
-        );
+  }catch(e){}
 
-    }
 
+  requestAnimationFrame(
+   draw
+  );
 
-    drawFrame();
+ }
 
-}
 
+ draw();
 
-/* =========================
+};
+
+
+/* ==========================================
    STOP
-========================= */
+========================================== */
 
 function stopRecording(){
 
-    if(
-        mediaRecorder &&
-        mediaRecorder.state ===
-        "recording"
-    ){
+ if(
+  recorder &&
+  recorder.state ===
+  "recording"
+ ){
 
-        mediaRecorder.stop();
+  recorder.stop();
 
-        $("status").textContent =
-            "Recording stop ہو رہی ہے...";
-
-    }
+ }
 
 }
 
 
-/* =========================
-   ANIMATED BACKGROUND
-========================= */
-
-const backgroundCanvas =
-    $("backgroundCanvas");
-
-const bgContext =
-    backgroundCanvas.getContext("2d");
-
-let animationTime = 0;
+$("stopButton").onclick =
+stopRecording;
 
 
-function resizeBackground(){
-
-    const rect =
-        backgroundCanvas
-        .parentElement
-        .getBoundingClientRect();
+$("stopCaptureRecording").onclick =
+stopRecording;
 
 
-    backgroundCanvas.width =
-        rect.width;
+/* ==========================================
+   CLOSE CAPTURE
+========================================== */
 
-    backgroundCanvas.height =
-        rect.height;
+function closeCapture(){
+
+ if(
+  recorder &&
+  recorder.state ===
+  "recording"
+ ){
+
+  recorder.stop();
+
+ }
+
+
+ if(screenStream){
+
+  screenStream
+  .getTracks()
+  .forEach(
+   track =>
+   track.stop()
+  );
+
+ }
+
+
+ screenStream = null;
+
+
+ $("capture")
+ .classList.remove(
+  "show"
+ );
+
+
+ $("captureVideo")
+ .srcObject =
+ null;
+
+
+ $("recordingIndicator")
+ .classList.remove(
+  "show"
+ );
+
 
 }
 
 
-window.addEventListener(
-    "resize",
-    resizeBackground
-);
-
-resizeBackground();
-
-
-function animateBackground(){
-
-    bgContext.clearRect(
-        0,
-        0,
-        backgroundCanvas.width,
-        backgroundCanvas.height
-    );
-
-
-    for(
-        let i=0;
-        i<90;
-        i++
-    ){
-
-        const x =
-            (
-                i * 83 +
-                animationTime * .12
-            )
-            %
-            backgroundCanvas.width;
-
-
-        const y =
-            (
-                i * 47
-            )
-            %
-            backgroundCanvas.height;
-
-
-        bgContext.fillStyle =
-            "rgba(255,255,255,.65)";
-
-
-        bgContext.fillRect(
-            x,
-            y,
-            1.5,
-            1.5
-        );
-
-    }
-
-
-    animationTime++;
-
-    requestAnimationFrame(
-        animateBackground
-    );
-
-}
-
-
-animateBackground();
-
-
-/* Load saved Admin settings */
-
-loadSettings();
+$("closeCapture").onclick =
+closeCapture;
 
 </script>
 
