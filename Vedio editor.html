@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
 content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>جنجو آ ٹریڈر — ڈیجیٹل مارکیٹنگ پلیٹ فارم</title>
+<title>جنجوا ٹریڈر — ڈیجیٹل مارکیٹنگ پلیٹ فارم</title>
 
 <style>
 
@@ -46,12 +48,14 @@ radial-gradient(circle at 50% 0,#214b78,#09172b 42%,#030812 100%);
 /* ================= HEADER ================= */
 
 header{
+position:relative;
 background:linear-gradient(145deg,#0b1d35,#071225);
 border:1px solid #46698e;
 border-radius:18px;
 padding:15px;
 text-align:center;
 box-shadow:0 15px 50px #000b;
+overflow:hidden;
 }
 
 header h1{
@@ -65,13 +69,83 @@ text-shadow:0 4px 20px #000;
 header p{
 margin:4px 0 0;
 font-size:clamp(15px,3vw,25px);
+font-weight:bold;
+}
+
+/* HEADER ANIMATIONS */
+
+.headerPulse{
+animation:headerPulse 2s ease-in-out infinite;
+}
+
+@keyframes headerPulse{
+0%,100%{
+transform:scale(1);
+text-shadow:0 4px 20px #000;
+}
+50%{
+transform:scale(1.04);
+text-shadow:0 0 25px currentColor;
+}
+}
+
+.headerGlow{
+animation:headerGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow{
+from{
+filter:brightness(1);
+}
+to{
+filter:brightness(1.5);
+}
+}
+
+.headerSlide{
+animation:headerSlide 3s ease-in-out infinite alternate;
+}
+
+@keyframes headerSlide{
+from{
+transform:translateX(-10px);
+}
+to{
+transform:translateX(10px);
+}
+}
+
+.headerBounce{
+animation:headerBounce 2s ease-in-out infinite;
+}
+
+@keyframes headerBounce{
+0%,100%{
+transform:translateY(0);
+}
+50%{
+transform:translateY(-8px);
+}
+}
+
+.headerRainbow{
+animation:headerRainbow 5s linear infinite;
+}
+
+@keyframes headerRainbow{
+0%{color:#ff3131;}
+20%{color:#ffd21f;}
+40%{color:#38ff67;}
+60%{color:#32d9ff;}
+80%{color:#b66cff;}
+100%{color:#ff3131;}
 }
 
 /* ================= LAYOUT ================= */
 
 .layout{
 display:grid;
-grid-template-columns:250px minmax(300px,1fr) 330px;
+grid-template-columns:250px minmax(300px,1fr) 350px;
 gap:12px;
 margin-top:12px;
 }
@@ -151,27 +225,13 @@ font-weight:bold;
 filter:brightness(1.25);
 }
 
-.green{
-background:#116b36;
-}
+.green{background:#116b36;}
+.red{background:#8a3030;}
+.blue{background:#15599f;}
+.gold{background:#8d660e;}
+.gray{background:#39495a;}
 
-.red{
-background:#8a3030;
-}
-
-.blue{
-background:#15599f;
-}
-
-.gold{
-background:#8d660e;
-}
-
-.gray{
-background:#39495a;
-}
-
-/* ================= TEXT SETTINGS ================= */
+/* ================= CONTROL BOX ================= */
 
 .textSetting{
 background:#061225;
@@ -230,7 +290,50 @@ font-weight:bold;
 outline:2px solid #ffc52e;
 }
 
-/* ================= MAIN AD CANVAS ================= */
+.positionGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+margin-top:7px;
+}
+
+.positionBtn{
+padding:7px 2px;
+border-radius:8px;
+border:1px solid #466987;
+background:#102742;
+color:white;
+font-size:11px;
+font-weight:bold;
+}
+
+.positionBtn.active{
+outline:2px solid #ffc52e;
+background:#315276;
+}
+
+.animationGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:5px;
+margin-top:7px;
+}
+
+.textAnimBtn{
+padding:7px 3px;
+border-radius:8px;
+border:1px solid #466987;
+background:#102742;
+color:white;
+font-size:11px;
+font-weight:bold;
+}
+
+.textAnimBtn.active{
+outline:2px solid #ffc52e;
+}
+
+/* ================= MAIN STAGE ================= */
 
 .stageWrap{
 display:flex;
@@ -240,12 +343,9 @@ align-items:flex-start;
 
 .stage{
 position:relative;
-
 width:min(100%,650px);
 aspect-ratio:4/5;
-
 overflow:hidden;
-
 border:3px solid #dcae36;
 border-radius:20px;
 
@@ -256,101 +356,65 @@ box-shadow:
 0 25px 70px #000d;
 }
 
-/* GOLD INNER FRAME */
-
 .stage:after{
 content:"";
-
 position:absolute;
-
 inset:12px;
-
 border:2px solid #e9bd45;
-
 border-radius:14px;
-
 pointer-events:none;
-
 z-index:100;
 }
 
-/* ================= BACKGROUND EFFECTS ================= */
+/* ================= BACKGROUND ================= */
 
 .backgroundEffects{
 position:absolute;
 inset:0;
-
 z-index:1;
-
 overflow:hidden;
-
 pointer-events:none;
 }
 
-/* ================= SATELLITE ================= */
-
 .satelliteOrbit{
 position:absolute;
-
 left:50%;
 top:35%;
-
 width:85%;
 height:55%;
-
 transform:translate(-50%,-50%);
-
 display:none;
-
 border:1px dashed #4fdcff33;
-
 border-radius:50%;
-
 animation:orbitRotate 12s linear infinite;
-
 z-index:2;
 }
 
 .satellite{
 position:absolute;
-
 top:-30px;
 left:50%;
-
 transform:translateX(-50%);
-
 font-size:48px;
-
 filter:drop-shadow(0 0 10px #32dfff);
 }
 
 @keyframes orbitRotate{
-
 from{
 transform:translate(-50%,-50%) rotate(0deg);
 }
-
 to{
 transform:translate(-50%,-50%) rotate(360deg);
 }
-
 }
-
-/* ================= CLOUD ================= */
 
 .cloudEffect{
 position:absolute;
-
 top:5%;
-
 right:-30%;
-
 font-size:65px;
-
 display:none;
-
 animation:cloudMove 13s linear infinite;
-
 z-index:4;
 }
 
@@ -361,23 +425,13 @@ animation-duration:18s;
 }
 
 @keyframes cloudMove{
-
-from{
-right:-30%;
+from{right:-30%;}
+to{right:120%;}
 }
-
-to{
-right:120%;
-}
-
-}
-
-/* ================= RAIN ================= */
 
 .rainEffect{
 position:absolute;
 inset:0;
-
 display:none;
 
 background:
@@ -389,24 +443,18 @@ transparent 22px 40px
 );
 
 animation:rainMove .5s linear infinite;
-
 z-index:5;
 }
 
 @keyframes rainMove{
-
 to{
 background-position:0 80px;
 }
-
 }
-
-/* ================= WIND ================= */
 
 .windEffect{
 position:absolute;
 inset:0;
-
 display:none;
 
 background:
@@ -418,187 +466,126 @@ transparent 34px 70px
 );
 
 animation:windMove 1.1s linear infinite;
-
 z-index:5;
 }
 
 @keyframes windMove{
-
 to{
 background-position:130px -80px;
 }
-
 }
-
-/* ================= STORM ================= */
 
 .stormEffect{
 position:absolute;
 inset:0;
-
 display:none;
-
 background:
 radial-gradient(circle,#ffffffcc 0 2%,transparent 3%);
-
 animation:stormFlash .7s steps(2) infinite;
-
 z-index:6;
 }
 
 @keyframes stormFlash{
-
-50%{
-opacity:.1;
+50%{opacity:.1;}
 }
-
-}
-
-/* ================= SIGNAL ================= */
 
 .signalEffect{
 position:absolute;
-
 left:10%;
 top:40%;
-
 width:90px;
 height:90px;
-
 display:none;
-
 border:4px solid #36e8ff;
-
 border-radius:50%;
-
 animation:signalPulse 1.5s ease-out infinite;
-
 z-index:6;
 }
 
 @keyframes signalPulse{
-
 to{
 transform:scale(2.2);
 opacity:0;
 }
-
 }
-
-/* ================= SPARK ================= */
 
 .sparkEffect{
 position:absolute;
 inset:0;
-
 display:none;
-
 background-image:
 radial-gradient(circle,#fff 0 2px,transparent 3px);
-
 background-size:55px 55px;
-
 animation:sparkMove 1.8s linear infinite;
-
 z-index:6;
 }
 
 @keyframes sparkMove{
-
 to{
 background-position:55px -55px;
 }
-
 }
-
-/* ================= SNOW ================= */
 
 .snowEffect{
 position:absolute;
 inset:0;
-
 display:none;
-
 background-image:
 radial-gradient(circle,#fff 0 4px,transparent 5px);
-
 background-size:45px 45px;
-
 animation:snowMove 2s linear infinite;
-
 z-index:6;
 }
 
 @keyframes snowMove{
-
 to{
 background-position:0 90px;
 }
-
 }
 
-/* ================= PRODUCT AREA ================= */
+/* ================= PRODUCT ================= */
 
 .product{
 position:absolute;
-
 left:9%;
 right:9%;
-
 top:10%;
-bottom:31%;
+bottom:34%;
 
 display:flex;
-
 align-items:center;
 justify-content:center;
 
 overflow:hidden;
-
 border-radius:13px;
-
 background:#0c2035aa;
-
 z-index:10;
 }
 
 .product img{
 max-width:100%;
 max-height:100%;
-
 object-fit:contain;
-
 position:relative;
-
 z-index:11;
 }
 
 .placeholder{
 padding:20px;
-
 text-align:center;
-
 color:#b8cadf;
-
 font-size:18px;
 }
 
-/* ================= PRODUCT ANIMATIONS ================= */
+/* PRODUCT ANIMATIONS */
 
 .product.rotate360 img{
 animation:rotate360 6s linear infinite;
 }
 
 @keyframes rotate360{
-
-from{
-transform:rotate(0deg);
-}
-
-to{
-transform:rotate(360deg);
-}
-
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
 }
 
 .product.bottomTop img{
@@ -606,15 +593,8 @@ animation:bottomTop 4s ease-in-out infinite alternate;
 }
 
 @keyframes bottomTop{
-
-from{
-transform:translateY(110%);
-}
-
-to{
-transform:translateY(-10%);
-}
-
+from{transform:translateY(110%);}
+to{transform:translateY(-10%);}
 }
 
 .product.topBottom img{
@@ -622,15 +602,8 @@ animation:topBottom 4s ease-in-out infinite alternate;
 }
 
 @keyframes topBottom{
-
-from{
-transform:translateY(-110%);
-}
-
-to{
-transform:translateY(10%);
-}
-
+from{transform:translateY(-110%);}
+to{transform:translateY(10%);}
 }
 
 .product.rightLeft img{
@@ -638,15 +611,8 @@ animation:rightLeft 4s ease-in-out infinite alternate;
 }
 
 @keyframes rightLeft{
-
-from{
-transform:translateX(110%);
-}
-
-to{
-transform:translateX(-10%);
-}
-
+from{transform:translateX(110%);}
+to{transform:translateX(-10%);}
 }
 
 .product.leftRight img{
@@ -654,15 +620,8 @@ animation:leftRight 4s ease-in-out infinite alternate;
 }
 
 @keyframes leftRight{
-
-from{
-transform:translateX(-110%);
-}
-
-to{
-transform:translateX(10%);
-}
-
+from{transform:translateX(-110%);}
+to{transform:translateX(10%);}
 }
 
 .product.zoomEffect img{
@@ -670,27 +629,11 @@ animation:zoomEffect 4s ease-in-out infinite alternate;
 }
 
 @keyframes zoomEffect{
-
-from{
-transform:scale(.75);
+from{transform:scale(.75);}
+to{transform:scale(1.15);}
 }
 
-to{
-transform:scale(1.15);
-}
-
-}
-
-/* ================= SPEED CLASSES ================= */
-
-/*
-Speed:
-slowest = 12 seconds
-slow = 8 seconds
-normal = original
-fast = 2.5 seconds
-fastest = 1.2 seconds
-*/
+/* SPEED */
 
 .product.speed1.rotate360 img{
 animation-duration:12s;
@@ -747,56 +690,188 @@ animation-duration:2.5s;
 .product.speed5.bottomTop img,
 .product.speed5.topBottom img,
 .product.speed5.rightLeft img,
-.product.speed5.leftRight img,
-.product.speed5.zoomEffect img{
+.product.speed5.zoomEffect img,
+.product.speed5.leftRight img{
 animation-duration:1.2s;
 }
 
-/* ================= OFFER ================= */
+/* ================= OFFER AREA ================= */
 
 .offer{
 position:absolute;
+left:5%;
+right:5%;
+bottom:4%;
 
-left:6%;
-right:6%;
-
-bottom:5%;
-
-padding:12px;
+padding:10px;
 
 background:#fff;
-
 color:#161616;
 
 border:3px solid #e7ba3d;
-
 border-radius:17px;
-
 text-align:center;
 
 z-index:30;
-
 box-shadow:0 8px 25px #0008;
+
+min-height:115px;
 }
 
-.offerTitle{
-font-size:clamp(23px,5vw,39px);
+/* Each text has independent positioning */
 
+.offerText{
+position:absolute;
+margin:0;
+transition:
+top .4s ease,
+bottom .4s ease,
+left .4s ease,
+right .4s ease,
+transform .4s ease;
+}
+
+#oTitle{
+font-size:30px;
 font-weight:900;
-
 color:#d92e25;
 }
 
-.price{
-font-size:clamp(19px,3vw,29px);
-
+#oPrice{
+font-size:24px;
 font-weight:900;
+color:#161616;
 }
 
-.delivery{
-font-size:clamp(14px,2.5vw,21px);
+#oDiscount{
+font-size:21px;
+font-weight:500;
+color:#161616;
+}
 
-font-weight:bold;
+#oDelivery{
+font-size:19px;
+font-weight:900;
+color:#161616;
+}
+
+/* DESCRIPTION */
+
+.descriptionBox{
+position:absolute;
+left:8%;
+right:8%;
+bottom:20%;
+z-index:25;
+
+background:#ffffffed;
+color:#161616;
+
+border:2px solid #e7ba3d;
+border-radius:13px;
+padding:9px;
+
+text-align:center;
+
+display:none;
+
+box-shadow:0 7px 20px #0008;
+
+transition:
+top .4s ease,
+bottom .4s ease,
+left .4s ease,
+right .4s ease,
+transform .4s ease;
+}
+
+.descriptionText{
+font-size:18px;
+font-weight:500;
+}
+
+/* ================= TEXT POSITION CLASSES ================= */
+
+.pos-top{
+top:4% !important;
+bottom:auto !important;
+}
+
+.pos-bottom{
+bottom:4% !important;
+top:auto !important;
+}
+
+.pos-left{
+left:4% !important;
+right:auto !important;
+}
+
+.pos-right{
+right:4% !important;
+left:auto !important;
+}
+
+.pos-center{
+left:50% !important;
+right:auto !important;
+transform:translateX(-50%) !important;
+}
+
+/* ================= TEXT ANIMATIONS ================= */
+
+.textAnimFade{
+animation:textFade 2s ease-in-out infinite alternate;
+}
+
+@keyframes textFade{
+from{opacity:.25;}
+to{opacity:1;}
+}
+
+.textAnimPulse{
+animation:textPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes textPulse{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.15);}
+}
+
+.textAnimSlide{
+animation:textSlide 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes textSlide{
+from{transform:translateX(-25px);}
+to{transform:translateX(25px);}
+}
+
+.textAnimUpDown{
+animation:textUpDown 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes textUpDown{
+from{transform:translateY(-15px);}
+to{transform:translateY(15px);}
+}
+
+.textAnimZoom{
+animation:textZoom 2s ease-in-out infinite alternate;
+}
+
+@keyframes textZoom{
+from{transform:scale(.75);}
+to{transform:scale(1.12);}
+}
+
+.textAnimBounce{
+animation:textBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes textBounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
 }
 
 /* ================= SHUFFLE ================= */
@@ -814,34 +889,28 @@ animation:shuffleText 3.2s ease-in-out infinite;
 }
 
 @keyframes shuffleText{
-
 0%{
 opacity:0;
 transform:translateY(35px) scale(.85);
 }
-
 15%{
 opacity:1;
 transform:translateY(0) scale(1);
 }
-
 45%{
 opacity:1;
 transform:scale(1.05);
 }
-
 60%{
 opacity:0;
 transform:translateY(-35px) scale(.85);
 }
-
 100%{
 opacity:0;
 }
-
 }
 
-/* ================= ANIMATION BUTTONS ================= */
+/* ================= BUTTONS ================= */
 
 .animGrid{
 display:grid;
@@ -852,15 +921,10 @@ gap:7px;
 .animBtn,
 .productAnimBtn{
 padding:10px 4px;
-
 border-radius:10px;
-
 border:1px solid #4c6d8c;
-
 background:#102742;
-
 color:white;
-
 font-weight:bold;
 }
 
@@ -870,8 +934,6 @@ outline:3px solid #ffc52e;
 box-shadow:0 0 15px #ffc52e55;
 }
 
-/* ================= SPEED ================= */
-
 .speedGrid{
 display:grid;
 grid-template-columns:repeat(5,1fr);
@@ -880,17 +942,11 @@ gap:5px;
 
 .speedBtn{
 padding:8px 2px;
-
 border-radius:8px;
-
 border:1px solid #466987;
-
 background:#102742;
-
 color:white;
-
 font-size:11px;
-
 font-weight:bold;
 }
 
@@ -898,29 +954,19 @@ font-weight:bold;
 outline:2px solid #ffc52e;
 }
 
-/* ================= MUSIC ================= */
-
 .musicGrid{
 display:grid;
-
 grid-template-columns:repeat(2,1fr);
-
 gap:7px;
 }
 
 .music{
 padding:9px 4px;
-
 border-radius:10px;
-
 border:1px solid #496987;
-
 background:#102742;
-
 color:white;
 }
-
-/* ================= SMALL TEXT ================= */
 
 .small{
 font-size:12px;
@@ -932,78 +978,58 @@ color:#aebfd2;
 
 .recordBar{
 position:fixed;
-
 top:10px;
 left:50%;
-
 transform:translateX(-50%);
 
 z-index:100000;
 
 display:none;
-
 align-items:center;
-
 gap:8px;
 
 padding:8px 14px;
 
 background:#050912ee;
-
 border:1px solid #7388a0;
-
 border-radius:50px;
 
 backdrop-filter:blur(10px);
-
 font-size:13px;
 }
 
 .recordDot{
 width:10px;
 height:10px;
-
 border-radius:50%;
-
 background:#ff2020;
-
 animation:recordBlink .8s infinite;
 }
 
 @keyframes recordBlink{
-
-50%{
-opacity:.25;
-}
-
+50%{opacity:.25;}
 }
 
 /* ================= FULL SCREEN ================= */
 
 .stage.fullscreen{
-
 position:fixed !important;
-
 inset:0 !important;
 
 width:100vw !important;
 height:100vh !important;
 
 max-width:none !important;
-
 aspect-ratio:auto !important;
 
 border:0 !important;
-
 border-radius:0 !important;
 
 z-index:99999;
 }
 
 .stage.fullscreen:after{
-
 inset:18px;
-
 border-radius:0;
 }
 
@@ -1066,30 +1092,18 @@ grid-template-columns:repeat(5,1fr);
 font-size:9px;
 }
 
+.positionGrid{
+grid-template-columns:repeat(4,1fr);
 }
 
-/* ================= TEXT WEIGHT CLASSES ================= */
-
-.normalWeight{
-font-weight:500 !important;
-}
-
-.boldWeight{
-font-weight:900 !important;
 }
 
 </style>
 </head>
 
-
 <body>
 
-
-<!-- ================= RECORD BAR ================= -->
-
-<div
-class="recordBar"
-id="recordBar">
+<div class="recordBar" id="recordBar">
 
 <span class="recordDot"></span>
 
@@ -1099,19 +1113,19 @@ id="recordBar">
 
 </div>
 
-
 <div class="app">
 
+<!-- =====================================================
+HEADER
+===================================================== -->
 
-<!-- ================= HEADER ================= -->
+<header id="mainHeader">
 
-<header>
-
-<h1>
-جنجو آ ٹریڈر
+<h1 id="headerTitle">
+جنجوا آ ٹریڈر
 </h1>
 
-<p>
+<p id="headerSubtitle">
 ڈیجیٹل مارکیٹنگ پلیٹ فارم
 </p>
 
@@ -1121,9 +1135,9 @@ id="recordBar">
 <div class="layout">
 
 
-<!-- =================================================
-LEFT ADMIN
-================================================= -->
+<!-- =====================================================
+LEFT PANEL
+===================================================== -->
 
 <aside class="panel">
 
@@ -1132,7 +1146,6 @@ LEFT ADMIN
 </h2>
 
 <div class="tools">
-
 
 <label>
 پروڈکٹ تصویر
@@ -1144,7 +1157,6 @@ type="file"
 accept="image/*"
 >
 
-
 <label>
 بیک گراؤنڈ تصویر
 </label>
@@ -1154,7 +1166,6 @@ id="bg"
 type="file"
 accept="image/*"
 >
-
 
 <label>
 خصوصی آفر
@@ -1166,7 +1177,6 @@ type="text"
 value="خصوصی آفر"
 >
 
-
 <label>
 قیمت / ریٹ
 </label>
@@ -1176,7 +1186,6 @@ id="price"
 type="text"
 value="Rs. 2,999"
 >
-
 
 <label>
 ڈسکاؤنٹ
@@ -1188,7 +1197,6 @@ type="text"
 value="20% ڈسکاؤنٹ"
 >
 
-
 <label>
 ڈلیوری
 </label>
@@ -1199,58 +1207,57 @@ type="text"
 value="فری ڈلیوری"
 >
 
+<label>
+پروڈکٹ ڈسکرپشن
+</label>
+
+<input
+id="description"
+type="text"
+value="اعلیٰ معیار کی بہترین پروڈکٹ"
+>
 
 <div class="row">
 
 <button
 class="btn blue"
-id="save"
->
+id="save">
 محفوظ کریں
 </button>
 
 <button
 class="btn green"
-id="new"
->
+id="new">
 نیا ڈیزائن
 </button>
 
 </div>
 
-
 <button
 class="btn gold"
-id="full"
->
+id="full">
 ⛶ فل اسکرین
 </button>
 
-
 <button
 class="btn red"
-id="recordMode"
->
+id="recordMode">
 🔴 ریکارڈنگ موڈ
 </button>
 
-
 <p class="small">
-
 فل اسکرین کریں اور موبائل کا Screen Recorder
 اوپر سے شروع کریں۔
-
 </p>
-
 
 </div>
 
 </aside>
 
 
-<!-- =================================================
-MAIN AD
-================================================= -->
+<!-- =====================================================
+MAIN STAGE
+===================================================== -->
 
 <main class="stageWrap">
 
@@ -1259,11 +1266,7 @@ class="stage"
 id="stage"
 >
 
-
-<!-- BACKGROUND -->
-
 <div class="backgroundEffects">
-
 
 <div
 class="satelliteOrbit"
@@ -1275,13 +1278,11 @@ id="satelliteOrbit">
 
 </div>
 
-
 <div
 class="cloudEffect"
 id="cloud1">
 ☁️
 </div>
-
 
 <div
 class="cloudEffect two"
@@ -1289,42 +1290,35 @@ id="cloud2">
 ☁️
 </div>
 
-
 <div
 class="rainEffect"
 id="rain">
 </div>
-
 
 <div
 class="windEffect"
 id="wind">
 </div>
 
-
 <div
 class="stormEffect"
 id="storm">
 </div>
-
 
 <div
 class="signalEffect"
 id="signal">
 </div>
 
-
 <div
 class="sparkEffect"
 id="spark">
 </div>
 
-
 <div
 class="snowEffect"
 id="snow">
 </div>
-
 
 </div>
 
@@ -1338,8 +1332,7 @@ id="product"
 
 <div
 class="placeholder"
-id="placeholder"
->
+id="placeholder">
 یہاں پروڈکٹ کی تصویر شامل کریں
 </div>
 
@@ -1351,146 +1344,195 @@ hidden
 </div>
 
 
-<!-- OFFER -->
-
-<div class="offer">
-
+<!-- DESCRIPTION -->
 
 <div
-id="normalOffer"
+class="descriptionBox"
+id="descriptionBox"
 >
-
 
 <div
-class="offerTitle"
-id="oTitle"
->
-خصوصی آفر
+class="descriptionText"
+id="oDescription">
+اعلیٰ معیار کی بہترین پروڈکٹ
+</div>
+
 </div>
 
 
+<!-- OFFER -->
+
 <div
-class="price"
-id="oPrice"
+class="offer"
+id="offer"
 >
+
+<div
+class="offerText"
+id="oTitle">
+خصوصی آفر
+</div>
+
+<div
+class="offerText"
+id="oPrice">
 Rs. 2,999
 </div>
 
-
 <div
-id="oDiscount"
->
+class="offerText"
+id="oDiscount">
 20% ڈسکاؤنٹ
 </div>
 
-
 <div
-class="delivery"
-id="oDelivery"
->
+class="offerText"
+id="oDelivery">
 فری ڈلیوری
 </div>
 
-
 </div>
-
-
-<div
-class="shuffleArea"
-id="shuffleArea"
->
-
-<div
-class="offerTitle shuffleItem"
-id="shuffleText"
->
-خصوصی آفر
-</div>
-
-</div>
-
-
-</div>
-
 
 </div>
 
 </main>
 
 
-<!-- =================================================
-RIGHT ADMIN
-================================================= -->
+<!-- =====================================================
+RIGHT PANEL
+===================================================== -->
 
 <aside class="panel">
-
 
 <h2>
 Text / Advertisement Control
 </h2>
 
 
-<!-- ================= OFFER SETTINGS ================= -->
+<!-- =====================================================
+HEADER CONTROL
+===================================================== -->
 
 <div class="textSetting">
 
 <div class="textSettingTitle">
-🔴 خصوصی آفر — سائز / بولڈ / کلر
+🏆 اوپر کا نام — Header Control
+</div>
+
+<label>
+Header Color
+</label>
+
+<input
+type="color"
+id="headerColor"
+value="#ffc72e"
+>
+
+<button
+class="btn gold"
+id="headerColorCycle"
+style="margin-top:7px;width:100%;">
+🌈 Color Cycle ON / OFF
+</button>
+
+<h3>
+Header Animation
+</h3>
+
+<div class="animationGrid">
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="none">
+OFF
+</button>
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="pulse">
+Pulse
+</button>
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="glow">
+Glow
+</button>
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="slide">
+Slide
+</button>
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="bounce">
+Bounce
+</button>
+
+<button
+class="textAnimBtn headerAnimBtn"
+data-header-animation="rainbow">
+Rainbow
+</button>
+
+</div>
+
 </div>
 
 
+<!-- =====================================================
+OFFER CONTROL
+===================================================== -->
+
+<div class="textSetting">
+
+<div class="textSettingTitle">
+🔴 خصوصی آفر — Size / Bold / Color
+</div>
+
 <div class="sizeButtons">
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="title"
-data-size="small"
->
+data-size="small">
 چھوٹا
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="title"
-data-size="medium"
->
+data-size="medium">
 درمیانہ
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="title"
-data-size="large"
->
+data-size="large">
 بڑا
 </button>
 
 </div>
 
-
 <div class="boldButtons">
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="title"
-data-weight="normal"
->
+data-weight="normal">
 Normal
 </button>
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="title"
-data-weight="bold"
->
+data-weight="bold">
 🔠 Bold
 </button>
 
 </div>
 
-
 <label>
-کلر تبدیل کریں
+کلر
 </label>
 
 <input
@@ -1499,70 +1541,135 @@ id="titleColor"
 value="#d92e25"
 >
 
+<h3>
+Position
+</h3>
+
+<div class="positionGrid">
+
+<button class="positionBtn"
+data-position-text="title"
+data-position="top">
+⬆ Top
+</button>
+
+<button class="positionBtn"
+data-position-text="title"
+data-position="bottom">
+⬇ Bottom
+</button>
+
+<button class="positionBtn"
+data-position-text="title"
+data-position="left">
+⬅ Left
+</button>
+
+<button class="positionBtn"
+data-position-text="title"
+data-position="right">
+➡ Right
+</button>
+
+</div>
+
+<h3>
+Animation
+</h3>
+
+<div class="animationGrid">
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="none">
+OFF
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="fade">
+Fade
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="pulse">
+Pulse
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="slide">
+Slide
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="updown">
+Up/Down
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="title"
+data-animation="zoom">
+Zoom
+</button>
+
+</div>
+
 </div>
 
 
-<!-- ================= PRICE SETTINGS ================= -->
+<!-- =====================================================
+PRICE CONTROL
+===================================================== -->
 
 <div class="textSetting">
 
 <div class="textSettingTitle">
-💰 ریٹ / قیمت — سائز / بولڈ / کلر
+💰 ریٹ / قیمت — Size / Bold / Color
 </div>
-
 
 <div class="sizeButtons">
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="price"
-data-size="small"
->
+data-size="small">
 چھوٹا
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="price"
-data-size="medium"
->
+data-size="medium">
 درمیانہ
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="price"
-data-size="large"
->
+data-size="large">
 بڑا
 </button>
 
 </div>
 
-
 <div class="boldButtons">
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="price"
-data-weight="normal"
->
+data-weight="normal">
 Normal
 </button>
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="price"
-data-weight="bold"
->
+data-weight="bold">
 🔠 Bold
 </button>
 
 </div>
 
-
 <label>
-کلر تبدیل کریں
+کلر
 </label>
 
 <input
@@ -1571,70 +1678,131 @@ id="priceColor"
 value="#161616"
 >
 
+<h3>Position</h3>
+
+<div class="positionGrid">
+
+<button class="positionBtn"
+data-position-text="price"
+data-position="top">
+⬆ Top
+</button>
+
+<button class="positionBtn"
+data-position-text="price"
+data-position="bottom">
+⬇ Bottom
+</button>
+
+<button class="positionBtn"
+data-position-text="price"
+data-position="left">
+⬅ Left
+</button>
+
+<button class="positionBtn"
+data-position-text="price"
+data-position="right">
+➡ Right
+</button>
+
+</div>
+
+<h3>Animation</h3>
+
+<div class="animationGrid">
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="none">
+OFF
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="fade">
+Fade
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="pulse">
+Pulse
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="slide">
+Slide
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="updown">
+Up/Down
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="price"
+data-animation="zoom">
+Zoom
+</button>
+
+</div>
+
 </div>
 
 
-<!-- ================= DISCOUNT SETTINGS ================= -->
+<!-- =====================================================
+DISCOUNT CONTROL
+===================================================== -->
 
 <div class="textSetting">
 
 <div class="textSettingTitle">
-🏷️ ڈسکاؤنٹ — سائز / بولڈ / کلر
+🏷️ ڈسکاؤنٹ — Size / Bold / Color
 </div>
-
 
 <div class="sizeButtons">
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="discount"
-data-size="small"
->
+data-size="small">
 چھوٹا
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="discount"
-data-size="medium"
->
+data-size="medium">
 درمیانہ
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="discount"
-data-size="large"
->
+data-size="large">
 بڑا
 </button>
 
 </div>
 
-
 <div class="boldButtons">
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="discount"
-data-weight="normal"
->
+data-weight="normal">
 Normal
 </button>
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="discount"
-data-weight="bold"
->
+data-weight="bold">
 🔠 Bold
 </button>
 
 </div>
 
-
 <label>
-کلر تبدیل کریں
+کلر
 </label>
 
 <input
@@ -1643,70 +1811,131 @@ id="discountColor"
 value="#161616"
 >
 
+<h3>Position</h3>
+
+<div class="positionGrid">
+
+<button class="positionBtn"
+data-position-text="discount"
+data-position="top">
+⬆ Top
+</button>
+
+<button class="positionBtn"
+data-position-text="discount"
+data-position="bottom">
+⬇ Bottom
+</button>
+
+<button class="positionBtn"
+data-position-text="discount"
+data-position="left">
+⬅ Left
+</button>
+
+<button class="positionBtn"
+data-position-text="discount"
+data-position="right">
+➡ Right
+</button>
+
+</div>
+
+<h3>Animation</h3>
+
+<div class="animationGrid">
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="none">
+OFF
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="fade">
+Fade
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="pulse">
+Pulse
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="slide">
+Slide
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="updown">
+Up/Down
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="discount"
+data-animation="zoom">
+Zoom
+</button>
+
+</div>
+
 </div>
 
 
-<!-- ================= DELIVERY SETTINGS ================= -->
+<!-- =====================================================
+DELIVERY CONTROL
+===================================================== -->
 
 <div class="textSetting">
 
 <div class="textSettingTitle">
-🚚 ڈلیوری — سائز / بولڈ / کلر
+🚚 ڈلیوری — Size / Bold / Color
 </div>
-
 
 <div class="sizeButtons">
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="delivery"
-data-size="small"
->
+data-size="small">
 چھوٹا
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="delivery"
-data-size="medium"
->
+data-size="medium">
 درمیانہ
 </button>
 
-<button
-class="sizeBtn"
+<button class="sizeBtn"
 data-text="delivery"
-data-size="large"
->
+data-size="large">
 بڑا
 </button>
 
 </div>
 
-
 <div class="boldButtons">
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="delivery"
-data-weight="normal"
->
+data-weight="normal">
 Normal
 </button>
 
-<button
-class="boldBtn"
+<button class="boldBtn"
 data-text="delivery"
-data-weight="bold"
->
+data-weight="bold">
 🔠 Bold
 </button>
 
 </div>
 
-
 <label>
-کلر تبدیل کریں
+کلر
 </label>
 
 <input
@@ -1715,373 +1944,492 @@ id="deliveryColor"
 value="#161616"
 >
 
+<h3>Position</h3>
+
+<div class="positionGrid">
+
+<button class="positionBtn"
+data-position-text="delivery"
+data-position="top">
+⬆ Top
+</button>
+
+<button class="positionBtn"
+data-position-text="delivery"
+data-position="bottom">
+⬇ Bottom
+</button>
+
+<button class="positionBtn"
+data-position-text="delivery"
+data-position="left">
+⬅ Left
+</button>
+
+<button class="positionBtn"
+data-position-text="delivery"
+data-position="right">
+➡ Right
+</button>
+
+</div>
+
+<h3>Animation</h3>
+
+<div class="animationGrid">
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="none">
+OFF
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="fade">
+Fade
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="pulse">
+Pulse
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="slide">
+Slide
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="updown">
+Up/Down
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="delivery"
+data-animation="zoom">
+Zoom
+</button>
+
+</div>
+
 </div>
 
 
-<!-- ================= BACKGROUND ANIMATION ================= -->
+<!-- =====================================================
+DESCRIPTION CONTROL
+===================================================== -->
+
+<div class="textSetting">
+
+<div class="textSettingTitle">
+📝 Product Description — مکمل الگ Control
+</div>
+
+<div class="sizeButtons">
+
+<button class="sizeBtn"
+data-text="description"
+data-size="small">
+چھوٹا
+</button>
+
+<button class="sizeBtn"
+data-text="description"
+data-size="medium">
+درمیانہ
+</button>
+
+<button class="sizeBtn"
+data-text="description"
+data-size="large">
+بڑا
+</button>
+
+</div>
+
+<div class="boldButtons">
+
+<button class="boldBtn"
+data-text="description"
+data-weight="normal">
+Normal
+</button>
+
+<button class="boldBtn"
+data-text="description"
+data-weight="bold">
+🔠 Bold
+</button>
+
+</div>
+
+<label>
+Description Color
+</label>
+
+<input
+type="color"
+id="descriptionColor"
+value="#161616"
+>
+
+<h3>
+Description Position
+</h3>
+
+<div class="positionGrid">
+
+<button class="positionBtn"
+data-position-text="description"
+data-position="top">
+⬆ Top
+</button>
+
+<button class="positionBtn"
+data-position-text="description"
+data-position="bottom">
+⬇ Bottom
+</button>
+
+<button class="positionBtn"
+data-position-text="description"
+data-position="left">
+⬅ Left
+</button>
+
+<button class="positionBtn"
+data-position-text="description"
+data-position="right">
+➡ Right
+</button>
+
+</div>
+
+<h3>
+Description Animation
+</h3>
+
+<div class="animationGrid">
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="none">
+OFF
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="fade">
+Fade
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="pulse">
+Pulse
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="slide">
+Slide
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="updown">
+Up/Down
+</button>
+
+<button class="textAnimBtn"
+data-text-animation="description"
+data-animation="zoom">
+Zoom
+</button>
+
+</div>
+
+<button
+class="btn green"
+id="descriptionToggle"
+style="margin-top:8px;width:100%;">
+👁 Description ON / OFF
+</button>
+
+</div>
+
+
+<!-- =====================================================
+BACKGROUND ANIMATION
+===================================================== -->
 
 <h2>
 Background Animations
 </h2>
 
 <p class="small">
-
 تمام Effects شروع میں بند ہیں۔
 جس کی ضرورت ہو اسے Select کرکے Add کریں۔
-
 </p>
-
 
 <div class="animGrid">
 
-
-<button
-class="animBtn"
-data-bg="cloud"
->
+<button class="animBtn" data-bg="cloud">
 ☁️ بادل
 </button>
 
-
-<button
-class="animBtn"
-data-bg="rain"
->
+<button class="animBtn" data-bg="rain">
 🌧️ بارش
 </button>
 
-
-<button
-class="animBtn"
-data-bg="wind"
->
+<button class="animBtn" data-bg="wind">
 💨 آندھی
 </button>
 
-
-<button
-class="animBtn"
-data-bg="storm"
->
+<button class="animBtn" data-bg="storm">
 ⚡ طوفان
 </button>
 
-
-<button
-class="animBtn"
-data-bg="satellite"
->
+<button class="animBtn" data-bg="satellite">
 🛰️ سیٹلائٹ
 </button>
 
-
-<button
-class="animBtn"
-data-bg="signal"
->
+<button class="animBtn" data-bg="signal">
 📡 سگنل
 </button>
 
-
-<button
-class="animBtn"
-data-bg="spark"
->
+<button class="animBtn" data-bg="spark">
 ✨ چمک
 </button>
 
-
-<button
-class="animBtn"
-data-bg="snow"
->
+<button class="animBtn" data-bg="snow">
 ❄️ برف
 </button>
 
-
 </div>
-
 
 <div class="row">
 
 <button
 class="btn green"
-id="addBackground"
->
+id="addBackground">
 + Add
 </button>
 
 <button
 class="btn red"
-id="deleteBackground"
->
+id="deleteBackground">
 Delete
 </button>
 
 </div>
 
 
-<!-- ================= SHUFFLE ================= -->
+<!-- =====================================================
+SHUFFLE
+===================================================== -->
 
 <h2>
 Advertisement Text Animation
 </h2>
 
-
 <div class="row">
 
 <button
 class="animBtn"
-id="shuffleOn"
->
+id="shuffleOn">
 🔀 Shuffle ON
 </button>
 
 <button
 class="animBtn"
-id="shuffleOff"
->
+id="shuffleOff">
 ⛔ Shuffle OFF
 </button>
 
 </div>
 
 
-<!-- ================= PRODUCT ANIMATION ================= -->
+<!-- =====================================================
+PRODUCT ANIMATION
+===================================================== -->
 
 <h2>
 Product Image Animation
 </h2>
 
-
 <div class="animGrid">
-
 
 <button
 class="productAnimBtn"
-data-product="rotate"
->
+data-product="rotate">
 🔄 360°
 </button>
 
-
 <button
 class="productAnimBtn"
-data-product="bottomTop"
->
+data-product="bottomTop">
 ⬆️ نیچے ↑
 </button>
 
-
 <button
 class="productAnimBtn"
-data-product="topBottom"
->
+data-product="topBottom">
 ⬇️ اوپر ↓
 </button>
 
-
 <button
 class="productAnimBtn"
-data-product="rightLeft"
->
+data-product="rightLeft">
 ➡️ دائیں ←
 </button>
 
-
 <button
 class="productAnimBtn"
-data-product="leftRight"
->
+data-product="leftRight">
 ⬅️ بائیں →
 </button>
 
-
 <button
 class="productAnimBtn"
-data-product="zoom"
->
+data-product="zoom">
 🔍 Zoom
 </button>
 
-
 </div>
-
 
 <div class="row">
 
 <button
 class="btn green"
-id="addProductAnimation"
->
+id="addProductAnimation">
 + Add
 </button>
 
 <button
 class="btn red"
-id="deleteProductAnimation"
->
+id="deleteProductAnimation">
 Delete
 </button>
 
 </div>
 
 
-<!-- ================= SPEED ================= -->
+<!-- =====================================================
+SPEED
+===================================================== -->
 
 <h2>
 ⚡ تصویر کی Animation Speed
 </h2>
 
-
 <div class="speedGrid">
-
 
 <button
 class="speedBtn"
-data-speed="1"
->
+data-speed="1">
 بہت آہستہ
 </button>
 
-
 <button
 class="speedBtn"
-data-speed="2"
->
+data-speed="2">
 آہستہ
 </button>
 
-
 <button
 class="speedBtn"
-data-speed="3"
->
+data-speed="3">
 نارمل
 </button>
 
-
 <button
 class="speedBtn"
-data-speed="4"
->
+data-speed="4">
 تیز
 </button>
 
-
 <button
 class="speedBtn"
-data-speed="5"
->
+data-speed="5">
 بہت تیز
 </button>
-
 
 </div>
 
 
-<p class="small">
-
-پہلے تصویر کی Animation منتخب کریں،
-پھر Add کریں، پھر اپنی پسند کی Speed منتخب کریں۔
-
-</p>
-
-
-<!-- ================= MUSIC ================= -->
+<!-- =====================================================
+MUSIC
+===================================================== -->
 
 <h2>
 Background Music
 </h2>
 
-
 <div class="musicGrid">
 
-
-<button
-class="music"
-data-track="0">
+<button class="music" data-track="0">
 🎵 Track 01
 </button>
 
-
-<button
-class="music"
-data-track="1">
+<button class="music" data-track="1">
 🎵 Track 02
 </button>
 
-
-<button
-class="music"
-data-track="2">
+<button class="music" data-track="2">
 🎵 Track 03
 </button>
 
-
-<button
-class="music"
-data-track="3">
+<button class="music" data-track="3">
 🎵 Track 04
 </button>
 
-
-<button
-class="music"
-data-track="4">
+<button class="music" data-track="4">
 🎵 Track 05
 </button>
 
-
-<button
-class="music"
-data-track="5">
+<button class="music" data-track="5">
 🎵 Track 06
 </button>
 
-
-<button
-class="music"
-data-track="6">
+<button class="music" data-track="6">
 🎵 Track 07
 </button>
 
-
-<button
-class="music"
-data-track="7">
+<button class="music" data-track="7">
 🎵 Track 08
 </button>
 
-
 </div>
-
 
 <div class="row">
 
 <button
 class="btn green"
-id="playMusic"
->
+id="playMusic">
 ▶ Play
 </button>
 
 <button
 class="btn red"
-id="stopMusic"
->
+id="stopMusic">
 ■ Stop
 </button>
 
 </div>
-
 
 </aside>
 
 </div>
 
 
-<!-- ================= BOTTOM ================= -->
+<!-- =====================================================
+BOTTOM CONTROL
+===================================================== -->
 
 <div class="panel">
 
@@ -2089,36 +2437,28 @@ id="stopMusic"
 ایکسپورٹ / کنٹرول
 </h2>
 
-
 <div class="row">
 
 <button
 class="btn green"
-id="saveDesign"
->
+id="saveDesign">
 💾 محفوظ کریں
 </button>
 
-
 <button
 class="btn blue"
-id="shareDesign"
->
+id="shareDesign">
 ↗ Share
 </button>
 
 </div>
 
-
 <p class="small">
-
-تمام Text Settings، Animation، Speed اور Shuffle
-آپ کے ڈیزائن کے ساتھ محفوظ کیے جا سکتے ہیں۔
-
+تمام Text Settings، Position، Animation، Speed،
+Description اور Header Settings محفوظ کیے جا سکتے ہیں۔
 </p>
 
 </div>
-
 
 </div>
 
@@ -2129,8 +2469,8 @@ id="shareDesign"
 HELPER
 ===================================================== */
 
-const $ =
-id => document.getElementById(id);
+const $ = id =>
+document.getElementById(id);
 
 
 /* =====================================================
@@ -2140,18 +2480,16 @@ TEXT ELEMENTS
 const textElements = {
 
 title:$("oTitle"),
-
 price:$("oPrice"),
-
 discount:$("oDiscount"),
-
-delivery:$("oDelivery")
+delivery:$("oDelivery"),
+description:$("oDescription")
 
 };
 
 
 /* =====================================================
-LIVE TEXT EDIT
+LIVE TEXT
 ===================================================== */
 
 $("title").addEventListener(
@@ -2162,7 +2500,6 @@ $("title").value;
 }
 );
 
-
 $("price").addEventListener(
 "input",
 ()=>{
@@ -2170,7 +2507,6 @@ $("oPrice").textContent =
 $("price").value;
 }
 );
-
 
 $("discount").addEventListener(
 "input",
@@ -2180,12 +2516,19 @@ $("discount").value;
 }
 );
 
-
 $("delivery").addEventListener(
 "input",
 ()=>{
 $("oDelivery").textContent =
 $("delivery").value;
+}
+);
+
+$("description").addEventListener(
+"input",
+()=>{
+$("oDescription").textContent =
+$("description").value;
 }
 );
 
@@ -2200,21 +2543,24 @@ small:{
 title:"20px",
 price:"17px",
 discount:"15px",
-delivery:"14px"
+delivery:"14px",
+description:"14px"
 },
 
 medium:{
 title:"30px",
 price:"24px",
 discount:"21px",
-delivery:"19px"
+delivery:"19px",
+description:"19px"
 },
 
 large:{
 title:"42px",
 price:"34px",
 discount:"29px",
-delivery:"26px"
+delivery:"26px",
+description:"27px"
 }
 
 };
@@ -2232,23 +2578,16 @@ button.dataset.text;
 const size =
 button.dataset.size;
 
-const element =
-textElements[type];
-
-element.style.fontSize =
+textElements[type].style.fontSize =
 sizes[size][type];
-
 
 document
 .querySelectorAll(
 `.sizeBtn[data-text="${type}"]`
 )
 .forEach(b=>{
-
 b.classList.remove("active");
-
 });
-
 
 button.classList.add("active");
 
@@ -2258,7 +2597,7 @@ button.classList.add("active");
 
 
 /* =====================================================
-TEXT BOLD
+BOLD
 ===================================================== */
 
 document
@@ -2273,33 +2612,18 @@ button.dataset.text;
 const weight =
 button.dataset.weight;
 
-const element =
-textElements[type];
-
-
-if(weight === "bold"){
-
-element.style.fontWeight =
-"900";
-
-}else{
-
-element.style.fontWeight =
-"500";
-
-}
-
+textElements[type].style.fontWeight =
+weight === "bold"
+? "900"
+: "500";
 
 document
 .querySelectorAll(
 `.boldBtn[data-text="${type}"]`
 )
 .forEach(b=>{
-
 b.classList.remove("active");
-
 });
-
 
 button.classList.add("active");
 
@@ -2309,51 +2633,205 @@ button.classList.add("active");
 
 
 /* =====================================================
-TEXT COLORS
+COLORS
 ===================================================== */
 
 $("titleColor").addEventListener(
 "input",
-event=>{
-
+e=>{
 $("oTitle").style.color =
-event.target.value;
-
+e.target.value;
 }
 );
-
 
 $("priceColor").addEventListener(
 "input",
-event=>{
-
+e=>{
 $("oPrice").style.color =
-event.target.value;
-
+e.target.value;
 }
 );
-
 
 $("discountColor").addEventListener(
 "input",
-event=>{
-
+e=>{
 $("oDiscount").style.color =
-event.target.value;
-
+e.target.value;
 }
 );
-
 
 $("deliveryColor").addEventListener(
 "input",
-event=>{
-
+e=>{
 $("oDelivery").style.color =
-event.target.value;
-
+e.target.value;
 }
 );
+
+$("descriptionColor").addEventListener(
+"input",
+e=>{
+$("oDescription").style.color =
+e.target.value;
+}
+);
+
+
+/* =====================================================
+POSITION
+===================================================== */
+
+const textPositions = {
+
+title:"bottom",
+price:"bottom",
+discount:"bottom",
+delivery:"bottom",
+description:"bottom"
+
+};
+
+
+function applyPosition(
+type,
+position
+){
+
+const element =
+textElements[type];
+
+element.classList.remove(
+"pos-top",
+"pos-bottom",
+"pos-left",
+"pos-right",
+"pos-center"
+);
+
+element.classList.add(
+"pos-" + position
+);
+
+textPositions[type] =
+position;
+
+document
+.querySelectorAll(
+`[data-position-text="${type}"]`
+)
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.position === position
+);
+
+});
+
+}
+
+
+document
+.querySelectorAll("[data-position-text]")
+.forEach(button=>{
+
+button.onclick = ()=>{
+
+applyPosition(
+button.dataset.positionText,
+button.dataset.position
+);
+
+};
+
+});
+
+
+/* =====================================================
+TEXT ANIMATION
+===================================================== */
+
+const animationClasses = {
+
+none:"",
+fade:"textAnimFade",
+pulse:"textAnimPulse",
+slide:"textAnimSlide",
+updown:"textAnimUpDown",
+zoom:"textAnimZoom",
+bounce:"textAnimBounce"
+
+};
+
+
+const textAnimations = {
+
+title:"none",
+price:"none",
+discount:"none",
+delivery:"none",
+description:"none"
+
+};
+
+
+function applyTextAnimation(
+type,
+animation
+){
+
+const element =
+textElements[type];
+
+Object.values(animationClasses)
+.forEach(cls=>{
+
+if(cls){
+element.classList.remove(cls);
+}
+
+});
+
+const cls =
+animationClasses[animation];
+
+if(cls){
+element.classList.add(cls);
+}
+
+textAnimations[type] =
+animation;
+
+document
+.querySelectorAll(
+`[data-text-animation="${type}"]`
+)
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.animation === animation
+);
+
+});
+
+}
+
+
+document
+.querySelectorAll("[data-text-animation]")
+.forEach(button=>{
+
+button.onclick = ()=>{
+
+applyTextAnimation(
+button.dataset.textAnimation,
+button.dataset.animation
+);
+
+};
+
+});
 
 
 /* =====================================================
@@ -2407,71 +2885,53 @@ $("stage").style.backgroundImage =
 
 
 /* =====================================================
+DESCRIPTION
+===================================================== */
+
+let descriptionEnabled =
+false;
+
+$("descriptionToggle").onclick =
+()=>{
+
+descriptionEnabled =
+!descriptionEnabled;
+
+$("descriptionBox").style.display =
+descriptionEnabled
+? "block"
+: "none";
+
+$("descriptionToggle").textContent =
+descriptionEnabled
+? "👁 Description OFF"
+: "👁 Description ON";
+
+};
+
+
+/* =====================================================
 BACKGROUND ANIMATIONS
 ===================================================== */
 
 const backgroundMap = {
 
-cloud:[
-"cloud1",
-"cloud2"
-],
-
-rain:[
-"rain"
-],
-
-wind:[
-"wind"
-],
-
-storm:[
-"storm"
-],
-
-satellite:[
-"satelliteOrbit"
-],
-
-signal:[
-"signal"
-],
-
-spark:[
-"spark"
-],
-
-snow:[
-"snow"
-]
+cloud:["cloud1","cloud2"],
+rain:["rain"],
+wind:["wind"],
+storm:["storm"],
+satellite:["satelliteOrbit"],
+signal:["signal"],
+spark:["spark"],
+snow:["snow"]
 
 };
-
 
 let selectedBackground =
 null;
 
 let activeBackgrounds =
 new Set();
-
-
-function selectBackground(name){
-
-selectedBackground =
-name;
-
-document
-.querySelectorAll("[data-bg]")
-.forEach(button=>{
-
-button.classList.toggle(
-"active",
-button.dataset.bg === name
-);
-
-});
-
-}
 
 
 function setBackground(
@@ -2501,9 +2961,16 @@ document
 button.onclick =
 ()=>{
 
-selectBackground(
-button.dataset.bg
-);
+selectedBackground =
+button.dataset.bg;
+
+document
+.querySelectorAll("[data-bg]")
+.forEach(b=>{
+b.classList.remove("active");
+});
+
+button.classList.add("active");
 
 };
 
@@ -2584,16 +3051,10 @@ button.dataset.product;
 document
 .querySelectorAll("[data-product]")
 .forEach(b=>{
-
-b.classList.remove(
-"active"
-);
-
+b.classList.remove("active");
 });
 
-button.classList.add(
-"active"
-);
+button.classList.add("active");
 
 };
 
@@ -2602,10 +3063,8 @@ button.classList.add(
 
 function clearProductAnimation(){
 
-const product =
-$("product");
-
-product.classList.remove(
+$("product")
+.classList.remove(
 "rotate360",
 "bottomTop",
 "topBottom",
@@ -2623,76 +3082,31 @@ name
 
 clearProductAnimation();
 
-if(name === "rotate"){
+if(name === "rotate")
+$("product").classList.add("rotate360");
 
-$("product")
-.classList.add(
-"rotate360"
-);
+if(name === "bottomTop")
+$("product").classList.add("bottomTop");
 
-}
+if(name === "topBottom")
+$("product").classList.add("topBottom");
 
-if(name === "bottomTop"){
+if(name === "rightLeft")
+$("product").classList.add("rightLeft");
 
-$("product")
-.classList.add(
-"bottomTop"
-);
+if(name === "leftRight")
+$("product").classList.add("leftRight");
 
-}
-
-if(name === "topBottom"){
-
-$("product")
-.classList.add(
-"topBottom"
-);
-
-}
-
-if(name === "rightLeft"){
-
-$("product")
-.classList.add(
-"rightLeft"
-);
-
-}
-
-if(name === "leftRight"){
-
-$("product")
-.classList.add(
-"leftRight"
-);
-
-}
-
-if(name === "zoom"){
-
-$("product")
-.classList.add(
-"zoomEffect"
-);
-
-}
+if(name === "zoom")
+$("product").classList.add("zoomEffect");
 
 activeProductAnimation =
 name;
 
-
-/* APPLY CURRENT SPEED */
-
-applySpeed(
-currentSpeed
-);
+applySpeed(currentSpeed);
 
 }
 
-
-/* =====================================================
-ADD / DELETE PRODUCT ANIMATION
-===================================================== */
 
 $("addProductAnimation").onclick =
 ()=>{
@@ -2725,22 +3139,17 @@ null;
 document
 .querySelectorAll("[data-product]")
 .forEach(b=>{
-
-b.classList.remove(
-"active"
-);
-
+b.classList.remove("active");
 });
 
 };
 
 
 /* =====================================================
-ANIMATION SPEED
+SPEED
 ===================================================== */
 
-let currentSpeed =
-3;
+let currentSpeed = 3;
 
 
 function applySpeed(speed){
@@ -2751,7 +3160,6 @@ speed;
 const product =
 $("product");
 
-
 product.classList.remove(
 "speed1",
 "speed2",
@@ -2759,7 +3167,6 @@ product.classList.remove(
 "speed4",
 "speed5"
 );
-
 
 if(activeProductAnimation){
 
@@ -2769,24 +3176,19 @@ product.classList.add(
 
 }
 
-
 document
 .querySelectorAll(".speedBtn")
 .forEach(button=>{
 
 button.classList.toggle(
 "active",
-Number(button.dataset.speed)
-===
-speed
+Number(button.dataset.speed) === speed
 );
 
 });
 
 }
 
-
-/* SPEED BUTTONS */
 
 document
 .querySelectorAll(".speedBtn")
@@ -2805,7 +3207,185 @@ Number(button.dataset.speed)
 
 
 /* =====================================================
-TEXT SHUFFLE
+HEADER
+===================================================== */
+
+let headerAnimation =
+"none";
+
+let headerColorCycle =
+false;
+
+let headerColorTimer =
+null;
+
+
+const headerAnimationClasses = {
+
+none:"",
+pulse:"headerPulse",
+glow:"headerGlow",
+slide:"headerSlide",
+bounce:"headerBounce",
+rainbow:"headerRainbow"
+
+};
+
+
+function applyHeaderAnimation(
+animation
+){
+
+const header =
+$("mainHeader");
+
+Object.values(
+headerAnimationClasses
+)
+.forEach(cls=>{
+
+if(cls)
+header.classList.remove(cls);
+
+});
+
+const cls =
+headerAnimationClasses[animation];
+
+if(cls)
+header.classList.add(cls);
+
+headerAnimation =
+animation;
+
+document
+.querySelectorAll(".headerAnimBtn")
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.headerAnimation === animation
+);
+
+});
+
+}
+
+
+document
+.querySelectorAll(".headerAnimBtn")
+.forEach(button=>{
+
+button.onclick =
+()=>{
+
+applyHeaderAnimation(
+button.dataset.headerAnimation
+);
+
+};
+
+});
+
+
+$("headerColor").addEventListener(
+"input",
+e=>{
+
+$("headerTitle").style.color =
+e.target.value;
+
+});
+
+
+const headerColors = [
+
+"#ffc72e",
+"#ff3b30",
+"#34c759",
+"#00c7ff",
+"#af52de",
+"#ff9500",
+"#ffffff"
+
+];
+
+let headerColorIndex = 0;
+
+
+function startHeaderColorCycle(){
+
+if(headerColorTimer)
+clearInterval(headerColorTimer);
+
+headerColorTimer =
+setInterval(()=>{
+
+headerColorIndex++;
+
+if(
+headerColorIndex >=
+headerColors.length
+)
+headerColorIndex = 0;
+
+const color =
+headerColors[headerColorIndex];
+
+$("headerTitle").style.color =
+color;
+
+$("headerColor").value =
+color;
+
+},1200);
+
+}
+
+
+function stopHeaderColorCycle(){
+
+if(headerColorTimer){
+
+clearInterval(
+headerColorTimer
+);
+
+headerColorTimer =
+null;
+
+}
+
+}
+
+
+$("headerColorCycle").onclick =
+()=>{
+
+headerColorCycle =
+!headerColorCycle;
+
+if(headerColorCycle){
+
+startHeaderColorCycle();
+
+$("headerColorCycle").textContent =
+"🌈 Color Cycle OFF";
+
+}else{
+
+stopHeaderColorCycle();
+
+$("headerColorCycle").textContent =
+"🌈 Color Cycle ON / OFF";
+
+}
+
+};
+
+
+/* =====================================================
+SHUFFLE
 ===================================================== */
 
 let shuffleEnabled =
@@ -2821,41 +3401,26 @@ let shuffleIndex =
 function startShuffle(){
 
 if(shuffleTimer)
-clearInterval(
-shuffleTimer
-);
+clearInterval(shuffleTimer);
 
 shuffleEnabled =
 true;
 
-$("normalOffer").style.display =
-"none";
-
-$("shuffleArea")
-.classList
-.add("active");
-
-
 const values = [
 
 $("title").value,
-
 $("discount").value,
-
 $("price").value,
-
-$("delivery").value
+$("delivery").value,
+$("description").value
 
 ];
 
-
-shuffleIndex =
-0;
-
+shuffleIndex = 0;
 
 function next(){
 
-$("shuffleText").textContent =
+$("oTitle").textContent =
 values[shuffleIndex];
 
 shuffleIndex++;
@@ -2863,17 +3428,12 @@ shuffleIndex++;
 if(
 shuffleIndex >=
 values.length
-){
-
+)
 shuffleIndex = 0;
 
 }
 
-}
-
-
 next();
-
 
 shuffleTimer =
 setInterval(
@@ -2900,12 +3460,8 @@ null;
 
 }
 
-$("shuffleArea")
-.classList
-.remove("active");
-
-$("normalOffer").style.display =
-"block";
+$("oTitle").textContent =
+$("title").value;
 
 }
 
@@ -2981,7 +3537,6 @@ await document.exitFullscreen();
 
 }catch(error){}
 
-
 $("stage")
 .classList
 .remove("fullscreen");
@@ -3010,10 +3565,6 @@ await enterFullScreen();
 
 };
 
-
-/* =====================================================
-RECORD MODE
-===================================================== */
 
 $("recordMode").onclick =
 async()=>{
@@ -3047,19 +3598,12 @@ let oscillators =
 const tracks = [
 
 [261.63,329.63,392,523.25],
-
 [220,277.18,329.63,440],
-
 [196,246.94,293.66,392],
-
 [293.66,349.23,440,587.33],
-
 [174.61,220,261.63,349.23],
-
 [261.63,311.13,392,466.16],
-
 [196,233.08,293.66,369.99],
-
 [329.63,392,493.88,659.25]
 
 ];
@@ -3162,9 +3706,7 @@ start+i*.35+.3
 
 osc.connect(gain);
 
-gain.connect(
-masterGain
-);
+gain.connect(masterGain);
 
 osc.start(
 start+i*.35
@@ -3174,9 +3716,7 @@ osc.stop(
 start+i*.35+.32
 );
 
-oscillators.push(
-osc
-);
+oscillators.push(osc);
 
 }
 
@@ -3191,9 +3731,7 @@ button.onclick =
 ()=>{
 
 playAudio(
-Number(
-button.dataset.track
-)
+Number(button.dataset.track)
 );
 
 };
@@ -3216,32 +3754,21 @@ function getData(){
 
 return {
 
-title:
-$("title").value,
+title:$("title").value,
+price:$("price").value,
+discount:$("discount").value,
+delivery:$("delivery").value,
+description:$("description").value,
 
-price:
-$("price").value,
+titleColor:$("titleColor").value,
+priceColor:$("priceColor").value,
+discountColor:$("discountColor").value,
+deliveryColor:$("deliveryColor").value,
+descriptionColor:$("descriptionColor").value,
 
-discount:
-$("discount").value,
+descriptionEnabled,
 
-delivery:
-$("delivery").value,
-
-titleColor:
-$("titleColor").value,
-
-priceColor:
-$("priceColor").value,
-
-discountColor:
-$("discountColor").value,
-
-deliveryColor:
-$("deliveryColor").value,
-
-backgroundAnimations:
-[
+backgroundAnimations:[
 ...activeBackgrounds
 ],
 
@@ -3252,7 +3779,14 @@ speed:
 currentSpeed,
 
 shuffle:
-shuffleEnabled
+shuffleEnabled,
+
+textPositions,
+textAnimations,
+
+headerAnimation,
+headerColor:$("headerColor").value,
+headerColorCycle
 
 };
 
@@ -3269,7 +3803,7 @@ getData()
 );
 
 alert(
-"ڈیزائن اور تمام Settings محفوظ ہوگئیں"
+"ڈیزائن، Description، Position، Animation اور تمام Settings محفوظ ہوگئیں"
 );
 
 }
@@ -3313,7 +3847,7 @@ if(navigator.share){
 await navigator.share({
 
 title:
-"جنجو آ ٹریڈر",
+"جنجوا آ ٹریڈر",
 
 text:
 data
@@ -3348,85 +3882,118 @@ localStorage.getItem(
 if(saved){
 
 if(saved.title){
-
 $("title").value =
 saved.title;
-
 $("oTitle").textContent =
 saved.title;
-
 }
 
 if(saved.price){
-
 $("price").value =
 saved.price;
-
 $("oPrice").textContent =
 saved.price;
-
 }
 
 if(saved.discount){
-
 $("discount").value =
 saved.discount;
-
 $("oDiscount").textContent =
 saved.discount;
-
 }
 
 if(saved.delivery){
-
 $("delivery").value =
 saved.delivery;
-
 $("oDelivery").textContent =
 saved.delivery;
+}
 
+if(saved.description){
+$("description").value =
+saved.description;
+$("oDescription").textContent =
+saved.description;
 }
 
 
 /* COLORS */
 
-if(saved.titleColor){
+const colors = [
+["titleColor","oTitle","titleColor"],
+["priceColor","oPrice","priceColor"],
+["discountColor","oDiscount","discountColor"],
+["deliveryColor","oDelivery","deliveryColor"],
+["descriptionColor","oDescription","descriptionColor"]
+];
 
-$("titleColor").value =
-saved.titleColor;
+colors.forEach(item=>{
 
-$("oTitle").style.color =
-saved.titleColor;
+const input =
+saved[item[2]];
 
-}
+if(input){
 
-if(saved.priceColor){
+$(item[0]).value =
+input;
 
-$("priceColor").value =
-saved.priceColor;
-
-$("oPrice").style.color =
-saved.priceColor;
-
-}
-
-if(saved.discountColor){
-
-$("discountColor").value =
-saved.discountColor;
-
-$("oDiscount").style.color =
-saved.discountColor;
+$(item[1]).style.color =
+input;
 
 }
 
-if(saved.deliveryColor){
+});
 
-$("deliveryColor").value =
-saved.deliveryColor;
 
-$("oDelivery").style.color =
-saved.deliveryColor;
+/* DESCRIPTION */
+
+if(saved.descriptionEnabled){
+
+descriptionEnabled = true;
+
+$("descriptionBox").style.display =
+"block";
+
+$("descriptionToggle").textContent =
+"👁 Description OFF";
+
+}
+
+
+/* POSITIONS */
+
+if(saved.textPositions){
+
+Object.keys(
+saved.textPositions
+)
+.forEach(type=>{
+
+applyPosition(
+type,
+saved.textPositions[type]
+);
+
+});
+
+}
+
+
+/* TEXT ANIMATIONS */
+
+if(saved.textAnimations){
+
+Object.keys(
+saved.textAnimations
+)
+.forEach(type=>{
+
+applyTextAnimation(
+type,
+saved.textAnimations[type]
+);
+
+});
 
 }
 
@@ -3463,9 +4030,6 @@ saved.productAnimation
 
 if(saved.speed){
 
-currentSpeed =
-saved.speed;
-
 applySpeed(
 saved.speed
 );
@@ -3478,6 +4042,38 @@ saved.speed
 if(saved.shuffle){
 
 startShuffle();
+
+}
+
+
+/* HEADER */
+
+if(saved.headerColor){
+
+$("headerColor").value =
+saved.headerColor;
+
+$("headerTitle").style.color =
+saved.headerColor;
+
+}
+
+if(saved.headerAnimation){
+
+applyHeaderAnimation(
+saved.headerAnimation
+);
+
+}
+
+if(saved.headerColorCycle){
+
+headerColorCycle = true;
+
+startHeaderColorCycle();
+
+$("headerColorCycle").textContent =
+"🌈 Color Cycle OFF";
 
 }
 
@@ -3495,6 +4091,60 @@ DEFAULT SETTINGS
 ===================================================== */
 
 applySpeed(3);
+
+applyPosition(
+"title",
+"bottom"
+);
+
+applyPosition(
+"price",
+"bottom"
+);
+
+applyPosition(
+"discount",
+"bottom"
+);
+
+applyPosition(
+"delivery",
+"bottom"
+);
+
+applyPosition(
+"description",
+"bottom"
+);
+
+applyTextAnimation(
+"title",
+"none"
+);
+
+applyTextAnimation(
+"price",
+"none"
+);
+
+applyTextAnimation(
+"discount",
+"none"
+);
+
+applyTextAnimation(
+"delivery",
+"none"
+);
+
+applyTextAnimation(
+"description",
+"none"
+);
+
+applyHeaderAnimation(
+"none"
+);
 
 </script>
 
