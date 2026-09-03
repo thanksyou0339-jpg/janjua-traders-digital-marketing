@@ -1,335 +1,220 @@
-/*
-========================================
-JANJUA TRADERS SHOP
-SHOP SCRIPT
-========================================
-*/
+// JANJUA TRADERS - SHOP SCRIPT
 
+const ORDER_FORM = "order-form.html";
 
-const productGrid =
-    document.getElementById("productGrid");
+const productGrid = document.getElementById("productGrid");
+const searchBox = document.getElementById("searchBox");
 
+function rupees(value) {
+    return "Rs. " + Number(value || 0).toLocaleString("en-PK");
+}
 
-const searchBox =
-    document.getElementById("searchBox");
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
+function showProducts(productList) {
 
+    if (!productGrid) return;
 
-/*
-========================================
-SHOW PRODUCTS
-========================================
-*/
-
-function showProducts(productList){
-
-    productGrid.innerHTML = "";
-
-
-    if(productList.length === 0){
-
+    if (!productList.length) {
         productGrid.innerHTML = `
-
-            <div class="no-product">
-
+            <p style="text-align:center;padding:30px;">
                 Product نہیں ملا۔
-
-            </div>
-
+            </p>
         `;
-
         return;
     }
 
+    productGrid.innerHTML = productList.map(product => `
 
+        <div class="product-card">
 
-    productList.forEach(product => {
-
-
-        const card =
-            document.createElement("article");
-
-
-        card.className =
-            "product-card";
-
-
-
-        card.innerHTML = `
-
-            <div class="product-image-frame">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    loading="lazy"
-                    onerror="
-                        this.style.display='none';
-                    "
-                >
-
-            </div>
-
+            <img
+                src="${escapeHTML(product.image)}"
+                alt="${escapeHTML(product.name)}"
+                loading="lazy"
+                onerror="this.style.display='none'"
+            >
 
             <div class="product-info">
 
+                <h3>${escapeHTML(product.name)}</h3>
 
-                <div class="product-name">
+                <p>
+                    ${escapeHTML(product.description || "")}
+                </p>
 
-                    ${product.name}
+                <div class="price-row">
 
-                </div>
+                    <strong>
+                        ${rupees(product.price)}
+                    </strong>
 
-
-
-                <div class="product-description">
-
-                    ${product.description}
-
-                </div>
-
-
-
-                <div class="product-price">
-
-                    Rs. ${product.price}
-
-                    <span class="old-price">
-
-                        Rs. ${product.oldPrice}
-
-                    </span>
+                    ${
+                        product.oldPrice
+                        ? `<del>${rupees(product.oldPrice)}</del>`
+                        : ""
+                    }
 
                 </div>
-
-
 
                 <button
-                    class="order-button"
-                    onclick="
-                        orderProduct('${product.id}')
-                    "
+                    class="order-btn"
+                    onclick="orderProduct('${escapeHTML(product.id)}')"
                 >
-
                     ORDER NOW
-
                 </button>
-
 
             </div>
 
-        `;
+        </div>
 
-
-        productGrid.appendChild(card);
-
-    });
-
+    `).join("");
 }
 
 
+// ===============================
+// ORDER NOW
+// ===============================
 
-/*
-========================================
-ORDER PRODUCT
-========================================
-*/
+function orderProduct(productId) {
 
-function orderProduct(productId){
-
-
-    const product =
-        products.find(
-            item => item.id === productId
-        );
-
-
-    if(!product){
-
-        alert("Product نہیں ملا۔");
-
-        return;
-
-    }
-
-
-
-    /*
-    ------------------------------------
-    آپ کے موجودہ Order Form کا لنک
-    ------------------------------------
-
-    ابھی یہاں اپنا اصل Form Link لگائیں۔
-
-    مثال:
-
-    https://your-form-link.com
-
-    ------------------------------------
-    */
-
-    const formLink =
-        "FORM_LINK";
-
-
-
-    /*
-    ------------------------------------
-    PRODUCT DATA
-    ------------------------------------
-    */
-
-
-    const params =
-        new URLSearchParams();
-
-
-    params.set(
-        "Product",
-        product.name
+    const product = products.find(
+        p => String(p.id) === String(productId)
     );
 
+    if (!product) {
+        alert("Product نہیں ملا۔");
+        return;
+    }
+
+    const params = new URLSearchParams();
+
+    params.set("Product", product.name);
+
+    params.set(
+        "Product_Description",
+        product.description || ""
+    );
 
     params.set(
         "Product_Price",
-        product.price
+        product.price || 0
     );
 
+    params.set(
+        "Old_Price",
+        product.oldPrice || ""
+    );
 
+    // یہ customer کو نظر نہیں آئے گا
     params.set(
         "Supplier",
-        product.supplier
+        product.supplier || ""
     );
 
-
+    // یہ بھی customer کو نظر نہیں آئے گا
     params.set(
         "Product_ID",
-        product.id
+        product.id || ""
     );
 
-
+    // اصل supplier product link
     params.set(
         "Product_Link",
-        product.productLink
+        product.productLink || ""
     );
 
-
-
-    /*
-    ------------------------------------
-    OPEN ORDER FORM
-    ------------------------------------
-    */
-
+    params.set(
+        "Product_Image",
+        product.image || ""
+    );
 
     window.location.href =
-        formLink
-        + "?"
-        + params.toString();
-
+        ORDER_FORM + "?" + params.toString();
 }
 
 
+// ===============================
+// CATEGORY
+// ===============================
 
-/*
-========================================
-CATEGORY
-========================================
-*/
+function showCategory(category) {
 
-function showCategory(category){
-
-
-    if(category === "All"){
+    if (category === "All") {
 
         showProducts(products);
 
         return;
-
     }
 
+    const filtered = products.filter(product =>
 
+        String(product.category).toLowerCase()
+        ===
+        String(category).toLowerCase()
 
-    const filtered =
-        products.filter(
-            product =>
-                product.category === category
-        );
-
+    );
 
     showProducts(filtered);
-
 }
 
 
+// ===============================
+// SEARCH
+// ===============================
 
-/*
-========================================
-SEARCH
-========================================
-*/
+if (searchBox) {
 
-searchBox.addEventListener(
-    "input",
-    function(){
+    searchBox.addEventListener(
+        "input",
+        function () {
 
+            const text =
+                this.value.trim().toLowerCase();
 
-        const searchText =
-            this.value
-                .toLowerCase()
-                .trim();
+            if (!text) {
 
+                showProducts(products);
 
+                return;
+            }
 
-        if(searchText === ""){
+            const filtered = products.filter(product =>
 
-            showProducts(products);
+                String(product.name)
+                    .toLowerCase()
+                    .includes(text)
 
-            return;
+                ||
+
+                String(product.description || "")
+                    .toLowerCase()
+                    .includes(text)
+
+                ||
+
+                String(product.category || "")
+                    .toLowerCase()
+                    .includes(text)
+
+            );
+
+            showProducts(filtered);
 
         }
+    );
+}
 
 
-
-        const filtered =
-            products.filter(product => {
-
-
-                return (
-
-                    product.name
-                        .toLowerCase()
-                        .includes(searchText)
-
-                    ||
-
-                    product.description
-                        .toLowerCase()
-                        .includes(searchText)
-
-                    ||
-
-                    product.category
-                        .toLowerCase()
-                        .includes(searchText)
-
-                );
-
-            });
-
-
-
-        showProducts(filtered);
-
-    }
-);
-
-
-
-/*
-========================================
-START SHOP
-========================================
-*/
+// ===============================
+// START
+// ===============================
 
 showProducts(products);
