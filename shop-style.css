@@ -1,0 +1,448 @@
+/* =========================
+   BASIC
+========================= */
+
+*{
+    box-sizing:border-box;
+}
+
+
+body{
+
+    margin:0;
+
+    background:#f3f6fb;
+
+    color:#171717;
+
+    font-family:
+        Arial,
+        "Noto Naskh Arabic",
+        sans-serif;
+
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+.shop-header{
+
+    background:#ffffff;
+
+    padding:18px 12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+}
+
+
+.shop-logo{
+
+    font-size:28px;
+
+    font-weight:900;
+
+    direction:ltr;
+
+}
+
+
+.shop-subtitle{
+
+    margin-top:5px;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+
+.search-box{
+
+    margin:13px auto 0;
+
+    max-width:600px;
+
+}
+
+
+#searchBox{
+
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #ccd3dc;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+
+#searchBox:focus{
+
+    border-color:#176fc4;
+
+}
+
+
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.category-bar{
+
+    background:#ffffff;
+
+    padding:10px;
+
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    position:sticky;
+
+    top:108px;
+
+    z-index:90;
+
+}
+
+
+.category-bar button{
+
+    border:1px solid #ccd3dc;
+
+    background:#ffffff;
+
+    padding:9px 17px;
+
+    border-radius:22px;
+
+    white-space:nowrap;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+.category-bar button:hover{
+
+    background:#176fc4;
+
+    color:#ffffff;
+
+}
+
+
+
+/* =========================
+   SHOP CONTAINER
+========================= */
+
+.shop-container{
+
+    width:min(1100px,96%);
+
+    margin:auto;
+
+    padding:16px 0 35px;
+
+}
+
+
+
+/* =========================
+   PRODUCT GRID
+========================= */
+
+.product-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+
+}
+
+
+
+/* =========================
+   PRODUCT CARD
+========================= */
+
+.product-card{
+
+    background:#ffffff;
+
+    border:1px solid #dce2ea;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 2px 9px
+        rgba(0,0,0,.06);
+
+}
+
+
+
+/* =========================
+   FIXED IMAGE FRAME
+========================= */
+
+.product-image-frame{
+
+    width:100%;
+
+    height:185px;
+
+    background:#f7f8fa;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    overflow:hidden;
+
+}
+
+
+.product-image-frame img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+
+/* =========================
+   PRODUCT INFORMATION
+========================= */
+
+.product-info{
+
+    padding:12px;
+
+}
+
+
+.product-name{
+
+    font-size:17px;
+
+    font-weight:800;
+
+    line-height:1.4;
+
+}
+
+
+.product-description{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    margin-top:5px;
+
+    min-height:38px;
+
+}
+
+
+.product-price{
+
+    margin-top:8px;
+
+    font-size:19px;
+
+    font-weight:900;
+
+}
+
+
+.old-price{
+
+    color:#999;
+
+    text-decoration:line-through;
+
+    font-size:13px;
+
+    margin-right:5px;
+
+}
+
+
+
+/* =========================
+   ORDER BUTTON
+========================= */
+
+.order-button{
+
+    width:100%;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#176fc4;
+
+    color:#ffffff;
+
+    padding:12px;
+
+    margin-top:10px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+}
+
+
+.order-button:hover{
+
+    background:#0d579f;
+
+}
+
+
+
+/* =========================
+   NO PRODUCT
+========================= */
+
+.no-product{
+
+    grid-column:1/-1;
+
+    background:#ffffff;
+
+    padding:35px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    color:#777;
+
+}
+
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.shop-footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#666;
+
+    background:#ffffff;
+
+}
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+    .shop-logo{
+
+        font-size:24px;
+
+    }
+
+
+    .product-image-frame{
+
+        height:160px;
+
+    }
+
+
+    .product-name{
+
+        font-size:15px;
+
+    }
+
+
+    .product-price{
+
+        font-size:17px;
+
+    }
+
+}
+
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:800px){
+
+    .product-grid{
+
+        grid-template-columns:
+            repeat(4,1fr);
+
+        gap:16px;
+
+    }
+
+
+    .product-image-frame{
+
+        height:220px;
+
+    }
+
+}
