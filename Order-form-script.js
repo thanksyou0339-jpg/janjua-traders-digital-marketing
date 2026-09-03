@@ -1,193 +1,384 @@
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const productName =
+        params.get("Product") || "Product";
+
+    const description =
+        params.get("Product_Description") || "";
+
+    const price =
+        Number(params.get("Product_Price") || 0);
+
+    const oldPrice =
+        Number(params.get("Old_Price") || 0);
+
+    const supplier =
+        params.get("Supplier") || "";
+
+    const productId =
+        params.get("Product_ID") || "";
+
+    const productLink =
+        params.get("Product_Link") || "";
+
+    const productImage =
+        params.get("Product_Image") || "";
 
 
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+    // PRODUCT DISPLAY
+
+    const productNameEl =
+        document.getElementById("productName");
+
+    const productPriceEl =
+        document.getElementById("productPrice");
+
+    const oldPriceEl =
+        document.getElementById("oldPrice");
+
+    const productImageEl =
+        document.getElementById("productImage");
 
 
-        const productName =
-            params.get("Product") || "Product";
+    if (productNameEl) {
+        productNameEl.textContent = productName;
+    }
+
+    if (productPriceEl) {
+        productPriceEl.textContent = rupees(price);
+    }
+
+    if (oldPriceEl && oldPrice > 0) {
+        oldPriceEl.textContent = rupees(oldPrice);
+    }
+
+    if (productImageEl && productImage) {
+        productImageEl.src = productImage;
+    }
 
 
-        const description =
-            params.get(
-                "Product_Description"
-            ) || "";
+    // HIDDEN INFORMATION
+
+    setValue("formProduct", productName);
+    setValue("formDescription", description);
+    setValue("formProductPrice", price);
+    setValue("formOldPrice", oldPrice);
+    setValue("formSupplier", supplier);
+    setValue("formProductId", productId);
+    setValue("formProductLink", productLink);
+    setValue("formProductImage", productImage);
+    setValue("formDeliveryPrice", 0);
 
 
-        const price =
-            Number(
-                params.get(
-                    "Product_Price"
-                ) || 0
-            );
+    // CURRENT PAGE URL
+
+    setValue(
+        "formUrl",
+        window.location.href
+    );
 
 
-        const oldPrice =
-            Number(
-                params.get(
-                    "Old_Price"
-                ) || 0
-            );
+    // ORDER ID
+
+    const orderId = createOrderId();
+
+    setValue(
+        "orderId",
+        orderId
+    );
+
+    setValue(
+        "emailSubject",
+        "New Janjua Traders Order - " + orderId
+    );
 
 
-        const supplier =
-            params.get(
-                "Supplier"
-            ) || "";
+    // TOTAL
+
+    updateTotal(price);
 
 
-        const productId =
-            params.get(
-                "Product_ID"
-            ) || "";
+    // QUANTITY CHANGE
 
+    const quantityInput =
+        document.getElementById("quantity");
 
-        const productLink =
-            params.get(
-                "Product_Link"
-            ) || "";
+    if (quantityInput) {
 
+        quantityInput.addEventListener(
+            "input",
+            function () {
 
-        const productImage =
-            params.get(
-                "Product_Image"
-            ) || "";
+                updateTotal(price);
 
-
-        // =========================
-        // PRODUCT SHOW
-        // =========================
-
-        document.getElementById(
-            "productName"
-        ).textContent =
-            productName;
-
-
-        document.getElementById(
-            "productPrice"
-        ).textContent =
-            rupees(price);
-
-
-        if (oldPrice > 0) {
-
-            document.getElementById(
-                "oldPrice"
-            ).textContent =
-                rupees(oldPrice);
-
-        }
-
-
-        if (productImage) {
-
-            document.getElementById(
-                "productImage"
-            ).src =
-                productImage;
-
-        }
-
-
-        // =========================
-        // HIDDEN DATA
-        // =========================
-
-        document.getElementById(
-            "formProduct"
-        ).value =
-            productName;
-
-
-        document.getElementById(
-            "formDescription"
-        ).value =
-            description;
-
-
-        document.getElementById(
-            "formProductPrice"
-        ).value =
-            price;
-
-
-        document.getElementById(
-            "formOldPrice"
-        ).value =
-            oldPrice;
-
-
-        // Supplier
-        document.getElementById(
-            "formSupplier"
-        ).value =
-            supplier;
-
-
-        // Product ID
-        document.getElementById(
-            "formProductId"
-        ).value =
-            productId;
-
-
-        // Original Product Link
-        document.getElementById(
-            "formProductLink"
-        ).value =
-            productLink;
-
-
-        document.getElementById(
-            "formProductImage"
-        ).value =
-            productImage;
-
-
-        document.getElementById(
-            "formUrl"
-        ).value =
-            window.location.href;
-
-
-        // =========================
-        // ORDER ID
-        // =========================
-
-        const orderId =
-            createOrderId();
-
-
-        document.getElementById(
-            "orderId"
-        ).value =
-            orderId;
-
-
-        document.getElementById(
-            "emailSubject"
-        ).value =
-            "New Janjua Traders Order - "
-            + orderId;
-
-
-        // TOTAL
-
-        updateTotal(price);
+            }
+        );
 
     }
-);
 
 
-// =========================
+    // FORM SUBMIT
+
+    const orderForm =
+        document.getElementById("orderForm");
+
+    if (orderForm) {
+
+        orderForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const submitBtn =
+                    document.getElementById("submitBtn");
+
+                const successMessage =
+                    document.getElementById("successMessage");
+
+                const errorMessage =
+                    document.getElementById("errorMessage");
+
+
+                if (successMessage) {
+                    successMessage.style.display = "none";
+                }
+
+                if (errorMessage) {
+                    errorMessage.style.display = "none";
+                }
+
+
+                // CHECK REQUIRED FIELDS
+
+                const customerName =
+                    document.getElementById("customerName");
+
+                const mobile =
+                    document.getElementById("mobile");
+
+                const address =
+                    document.getElementById("address");
+
+
+                if (
+                    !customerName ||
+                    !customerName.value.trim() ||
+                    !mobile ||
+                    !mobile.value.trim() ||
+                    !address ||
+                    !address.value.trim()
+                ) {
+
+                    if (errorMessage) {
+
+                        errorMessage.textContent =
+                            "براہِ کرم نام، موبائل اور مکمل Delivery Address درج کریں۔";
+
+                        errorMessage.style.display = "block";
+
+                    }
+
+                    return;
+                }
+
+
+                // UPDATE TOTAL BEFORE SUBMIT
+
+                updateTotal(price);
+
+
+                // BUTTON
+
+                if (submitBtn) {
+
+                    submitBtn.disabled = true;
+
+                    submitBtn.textContent =
+                        "Order Submit ہو رہا ہے...";
+
+                }
+
+
+                try {
+
+                    const formData =
+                        new FormData(orderForm);
+
+
+                    const response =
+                        await fetch(
+                            "https://formsubmit.co/ajax/thanksyou0339@gmail.com",
+                            {
+                                method: "POST",
+                                body: formData,
+                                headers: {
+                                    "Accept":
+                                        "application/json"
+                                }
+                            }
+                        );
+
+
+                    const result =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        if (successMessage) {
+
+                            successMessage.textContent =
+                                "آپ کا Order کامیابی سے submit ہو گیا ہے۔ شکریہ!";
+
+                            successMessage.style.display =
+                                "block";
+
+                        }
+
+
+                        orderForm.reset();
+
+
+                        // PRODUCT INFORMATION دوبارہ SET
+
+                        setValue(
+                            "formProduct",
+                            productName
+                        );
+
+                        setValue(
+                            "formDescription",
+                            description
+                        );
+
+                        setValue(
+                            "formProductPrice",
+                            price
+                        );
+
+                        setValue(
+                            "formOldPrice",
+                            oldPrice
+                        );
+
+                        setValue(
+                            "formSupplier",
+                            supplier
+                        );
+
+                        setValue(
+                            "formProductId",
+                            productId
+                        );
+
+                        setValue(
+                            "formProductLink",
+                            productLink
+                        );
+
+                        setValue(
+                            "formProductImage",
+                            productImage
+                        );
+
+                        setValue(
+                            "formDeliveryPrice",
+                            0
+                        );
+
+                        setValue(
+                            "formTotalPrice",
+                            price
+                        );
+
+                        setValue(
+                            "orderId",
+                            createOrderId()
+                        );
+
+
+                        if (quantityInput) {
+                            quantityInput.value = 1;
+                        }
+
+                        updateTotal(price);
+
+
+                    } else {
+
+                        throw new Error(
+                            result.message ||
+                            "FormSubmit error"
+                        );
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "ORDER ERROR:",
+                        error
+                    );
+
+
+                    if (errorMessage) {
+
+                        errorMessage.textContent =
+                            "Order submit نہیں ہو سکا۔ براہِ کرم دوبارہ کوشش کریں۔";
+
+                        errorMessage.style.display =
+                            "block";
+
+                    }
+
+                } finally {
+
+                    if (submitBtn) {
+
+                        submitBtn.disabled = false;
+
+                        submitBtn.textContent =
+                            "ORDER CONFIRM کریں";
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+});
+
+
+// ===============================
+// HELPER
+// ===============================
+
+function setValue(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.value =
+            value == null ? "" : value;
+
+    }
+
+}
+
+
+// ===============================
 // RUPEES
-// =========================
+// ===============================
 
 function rupees(value) {
 
@@ -198,9 +389,9 @@ function rupees(value) {
 }
 
 
-// =========================
+// ===============================
 // ORDER ID
-// =========================
+// ===============================
 
 function createOrderId() {
 
@@ -212,29 +403,14 @@ function createOrderId() {
         new Intl.DateTimeFormat(
             "en-CA",
             {
-                timeZone:
-                    "Asia/Karachi",
-
-                year:
-                    "numeric",
-
-                month:
-                    "2-digit",
-
-                day:
-                    "2-digit",
-
-                hour:
-                    "2-digit",
-
-                minute:
-                    "2-digit",
-
-                second:
-                    "2-digit",
-
-                hour12:
-                    false
+                timeZone: "Asia/Karachi",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
             }
         )
         .formatToParts(now);
@@ -256,113 +432,90 @@ function createOrderId() {
 
     return (
         "JT-" +
-
         get("year") +
-
         get("month") +
-
         get("day") +
-
         "-" +
-
         get("hour") +
-
         get("minute") +
-
         get("second")
     );
 
 }
 
 
-// =========================
+// ===============================
 // TOTAL
-// =========================
+// ===============================
 
 function updateTotal(price) {
 
     const quantityInput =
-        document.getElementById(
-            "quantity"
-        );
+        document.getElementById("quantity");
 
 
-    let quantity =
-        parseInt(
-            quantityInput.value,
-            10
-        );
+    let quantity = 1;
 
 
-    if (!quantity) {
+    if (quantityInput) {
 
-        quantity = 1;
-
-    }
-
-
-    if (quantity < 1) {
-
-        quantity = 1;
-
-    }
+        quantity =
+            parseInt(
+                quantityInput.value,
+                10
+            ) || 1;
 
 
-    if (quantity > 10) {
+        if (quantity < 1) {
+            quantity = 1;
+        }
 
-        quantity = 10;
+        if (quantity > 10) {
+            quantity = 10;
+        }
+
+
+        quantityInput.value =
+            quantity;
 
     }
-
-
-    quantityInput.value =
-        quantity;
 
 
     const total =
-        Number(price) *
+        Number(price || 0) *
         quantity;
 
 
-    document.getElementById(
-        "visibleProductTotal"
-    ).textContent =
-        rupees(total);
+    const productTotal =
+        document.getElementById(
+            "visibleProductTotal"
+        );
+
+    const visibleTotal =
+        document.getElementById(
+            "visibleTotal"
+        );
 
 
-    document.getElementById(
-        "visibleTotal"
-    ).textContent =
-        rupees(total);
+    if (productTotal) {
+
+        productTotal.textContent =
+            rupees(total);
+
+    }
 
 
-    document.getElementById(
-        "formTotalPrice"
-    ).value =
-        total;
+    if (visibleTotal) {
+
+        visibleTotal.textContent =
+            rupees(total);
+
+    }
+
+
+    setValue(
+        "formTotalPrice",
+        total
+    );
 
 }
-
-
-// =========================
-// QUANTITY CHANGE
-// =========================
-
-document
-    .getElementById("quantity")
-    .addEventListener(
-        "input",
-        function () {
-
-            const price =
-                Number(
-                    document.getElementById(
-                        "formProductPrice"
-                    ).value || 0
-                );
-
-
-            updateTotal(price);
-
-        }
-    );
