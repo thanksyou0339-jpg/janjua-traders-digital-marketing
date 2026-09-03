@@ -1,28 +1,7 @@
-// ==========================================
-// JANJUA TRADERS - ORDER FORM
-// ==========================================
-
-// آپ کی موجودہ Gmail
-const GMAIL_EMAIL =
-    "thanksyou0339@gmail.com";
-
-
-// FormSubmit AJAX
-const FORM_SUBMIT_URL =
-    "https://formsubmit.co/ajax/" +
-    GMAIL_EMAIL;
-
-
-// Delivery charges
-const DELIVERY_CHARGES = 0;
-
-
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-
-        // URL سے Product information لینا
 
         const params =
             new URLSearchParams(
@@ -30,190 +9,198 @@ document.addEventListener(
             );
 
 
-        const product = {
+        const productName =
+            params.get("Product") || "Product";
 
-            name:
-                params.get("Product")
-                || "Product",
 
-            description:
+        const description =
+            params.get(
+                "Product_Description"
+            ) || "";
+
+
+        const price =
+            Number(
                 params.get(
-                    "Product_Description"
-                )
-                || "",
+                    "Product_Price"
+                ) || 0
+            );
 
-            price:
-                Number(
-                    params.get(
-                        "Product_Price"
-                    )
-                    || 0
-                ),
 
-            oldPrice:
-                Number(
-                    params.get(
-                        "Old_Price"
-                    )
-                    || 0
-                ),
-
-            supplier:
+        const oldPrice =
+            Number(
                 params.get(
-                    "Supplier"
-                )
-                || "",
-
-            id:
-                params.get(
-                    "Product_ID"
-                )
-                || "",
-
-            link:
-                params.get(
-                    "Product_Link"
-                )
-                || "",
-
-            image:
-                params.get(
-                    "Product_Image"
-                )
-                || ""
-
-        };
+                    "Old_Price"
+                ) || 0
+            );
 
 
-        const $ = id =>
-            document.getElementById(id);
+        const supplier =
+            params.get(
+                "Supplier"
+            ) || "";
 
 
-        // ==================================
+        const productId =
+            params.get(
+                "Product_ID"
+            ) || "";
+
+
+        const productLink =
+            params.get(
+                "Product_Link"
+            ) || "";
+
+
+        const productImage =
+            params.get(
+                "Product_Image"
+            ) || "";
+
+
+        // =========================
         // PRODUCT SHOW
-        // ==================================
+        // =========================
 
-        $("productName").textContent =
-            product.name;
-
-
-        $("productPrice").textContent =
-            rupees(product.price);
+        document.getElementById(
+            "productName"
+        ).textContent =
+            productName;
 
 
-        if (product.oldPrice > 0) {
-
-            $("oldPrice").textContent =
-                rupees(product.oldPrice);
-
-        }
+        document.getElementById(
+            "productPrice"
+        ).textContent =
+            rupees(price);
 
 
-        if (product.image) {
+        if (oldPrice > 0) {
 
-            $("productImage").src =
-                product.image;
-
-        }
-        else {
-
-            $("productImage")
-                .style.display =
-                "none";
+            document.getElementById(
+                "oldPrice"
+            ).textContent =
+                rupees(oldPrice);
 
         }
 
 
-        // ==================================
-        // HIDDEN FIELDS
-        // ==================================
+        if (productImage) {
 
-        $("formProduct").value =
-            product.name;
+            document.getElementById(
+                "productImage"
+            ).src =
+                productImage;
 
-
-        $("formDescription").value =
-            product.description;
+        }
 
 
-        $("formProductPrice").value =
-            product.price;
+        // =========================
+        // HIDDEN DATA
+        // =========================
+
+        document.getElementById(
+            "formProduct"
+        ).value =
+            productName;
 
 
-        $("formOldPrice").value =
-            product.oldPrice;
+        document.getElementById(
+            "formDescription"
+        ).value =
+            description;
 
 
-        // Supplier صرف Gmail میں جائے گا
-        $("formSupplier").value =
-            product.supplier;
+        document.getElementById(
+            "formProductPrice"
+        ).value =
+            price;
 
 
-        // Product ID صرف Gmail میں جائے گا
-        $("formProductId").value =
-            product.id;
+        document.getElementById(
+            "formOldPrice"
+        ).value =
+            oldPrice;
 
 
-        // Original supplier link
-        $("formProductLink").value =
-            product.link;
+        // Supplier
+        document.getElementById(
+            "formSupplier"
+        ).value =
+            supplier;
 
 
-        $("formProductImage").value =
-            product.image;
+        // Product ID
+        document.getElementById(
+            "formProductId"
+        ).value =
+            productId;
 
 
-        $("formDeliveryPrice").value =
-            DELIVERY_CHARGES;
+        // Original Product Link
+        document.getElementById(
+            "formProductLink"
+        ).value =
+            productLink;
 
 
-        $("formUrl").value =
+        document.getElementById(
+            "formProductImage"
+        ).value =
+            productImage;
+
+
+        document.getElementById(
+            "formUrl"
+        ).value =
             window.location.href;
 
 
-        // ==================================
+        // =========================
         // ORDER ID
-        // ==================================
+        // =========================
 
         const orderId =
             createOrderId();
 
 
-        $("orderId").value =
+        document.getElementById(
+            "orderId"
+        ).value =
             orderId;
 
 
-        $("emailSubject").value =
+        document.getElementById(
+            "emailSubject"
+        ).value =
             "New Janjua Traders Order - "
             + orderId;
 
 
-        // Total
-        updateTotal(
-            product.price
-        );
+        // TOTAL
+
+        updateTotal(price);
 
     }
 );
 
 
-// ==========================================
+// =========================
 // RUPEES
-// ==========================================
+// =========================
 
 function rupees(value) {
 
     return "Rs. " +
-        Number(
-            value || 0
-        ).toLocaleString("en-PK");
+        Number(value || 0)
+            .toLocaleString("en-PK");
 
 }
 
 
-// ==========================================
+// =========================
 // ORDER ID
-// ==========================================
+// =========================
 
 function createOrderId() {
 
@@ -225,7 +212,6 @@ function createOrderId() {
         new Intl.DateTimeFormat(
             "en-CA",
             {
-
                 timeZone:
                     "Asia/Karachi",
 
@@ -249,12 +235,12 @@ function createOrderId() {
 
                 hour12:
                     false
-
             }
-        ).formatToParts(now);
+        )
+        .formatToParts(now);
 
 
-    const get = type => {
+    function get(type) {
 
         const item =
             parts.find(
@@ -265,7 +251,7 @@ function createOrderId() {
             ? item.value
             : "00";
 
-    };
+    }
 
 
     return (
@@ -289,74 +275,59 @@ function createOrderId() {
 }
 
 
-// ==========================================
-// QUANTITY
-// ==========================================
+// =========================
+// TOTAL
+// =========================
 
-function getQuantity() {
+function updateTotal(price) {
 
-    const input =
+    const quantityInput =
         document.getElementById(
             "quantity"
         );
 
 
-    let qty =
+    let quantity =
         parseInt(
-            input.value,
+            quantityInput.value,
             10
         );
 
 
-    if (!Number.isFinite(qty)) {
+    if (!quantity) {
 
-        qty = 1;
+        quantity = 1;
 
     }
 
 
-    qty =
-        Math.max(
-            1,
-            Math.min(
-                10,
-                qty
-            )
-        );
+    if (quantity < 1) {
+
+        quantity = 1;
+
+    }
 
 
-    input.value =
-        qty;
+    if (quantity > 10) {
+
+        quantity = 10;
+
+    }
 
 
-    return qty;
-
-}
-
-
-// ==========================================
-// TOTAL
-// ==========================================
-
-function updateTotal(price) {
-
-    const qty =
-        getQuantity();
-
-
-    const productTotal =
-        Number(price) * qty;
+    quantityInput.value =
+        quantity;
 
 
     const total =
-        productTotal +
-        DELIVERY_CHARGES;
+        Number(price) *
+        quantity;
 
 
     document.getElementById(
         "visibleProductTotal"
     ).textContent =
-        rupees(productTotal);
+        rupees(total);
 
 
     document.getElementById(
@@ -373,9 +344,9 @@ function updateTotal(price) {
 }
 
 
-// ==========================================
+// =========================
 // QUANTITY CHANGE
-// ==========================================
+// =========================
 
 document
     .getElementById("quantity")
@@ -392,219 +363,6 @@ document
 
 
             updateTotal(price);
-
-        }
-    );
-
-
-// ==========================================
-// SUBMIT ORDER
-// ==========================================
-
-document
-    .getElementById("orderForm")
-    .addEventListener(
-        "submit",
-        async function (event) {
-
-
-            event.preventDefault();
-
-
-            const form =
-                this;
-
-
-            const button =
-                document.getElementById(
-                    "submitBtn"
-                );
-
-
-            const success =
-                document.getElementById(
-                    "successMessage"
-                );
-
-
-            const error =
-                document.getElementById(
-                    "errorMessage"
-                );
-
-
-            success.style.display =
-                "none";
-
-
-            error.style.display =
-                "none";
-
-
-            // Validation
-
-            if (!form.checkValidity()) {
-
-                form.reportValidity();
-
-                return;
-
-            }
-
-
-            // Total دوبارہ calculate
-
-            const qty =
-                getQuantity();
-
-
-            const price =
-                Number(
-                    document.getElementById(
-                        "formProductPrice"
-                    ).value || 0
-                );
-
-
-            const total =
-                (price * qty) +
-                DELIVERY_CHARGES;
-
-
-            document.getElementById(
-                "formTotalPrice"
-            ).value =
-                total;
-
-
-            // Form Data
-
-            const formData =
-                new FormData(form);
-
-
-            button.disabled =
-                true;
-
-
-            button.textContent =
-                "Submitting...";
-
-
-            try {
-
-
-                const response =
-                    await fetch(
-                        FORM_SUBMIT_URL,
-                        {
-
-                            method:
-                                "POST",
-
-                            body:
-                                formData,
-
-                            headers:
-                                {
-                                    "Accept":
-                                        "application/json"
-                                }
-
-                        }
-                    );
-
-
-                const result =
-                    await response
-                        .json()
-                        .catch(
-                            () => ({})
-                        );
-
-
-                if (
-                    response.ok &&
-                    (
-                        result.success ===
-                            "true"
-                        ||
-                        result.success ===
-                            true
-                        ||
-                        !result.error
-                    )
-                ) {
-
-
-                    success.style.display =
-                        "block";
-
-
-                    button.textContent =
-                        "Order Submitted";
-
-
-                    // Customer fields صاف
-                    document.getElementById(
-                        "customerName"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "mobile"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "address"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "color"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "size"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "quantity"
-                    ).value = 1;
-
-
-                }
-                else {
-
-                    throw new Error(
-                        "FormSubmit error"
-                    );
-
-                }
-
-
-            }
-            catch (err) {
-
-
-                console.error(err);
-
-
-                error.style.display =
-                    "block";
-
-
-                button.disabled =
-                    false;
-
-
-                button.textContent =
-                    "ORDER CONFIRM کریں";
-
-            }
 
         }
     );
