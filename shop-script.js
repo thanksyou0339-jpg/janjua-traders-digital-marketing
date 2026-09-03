@@ -1,17 +1,36 @@
-const ORDER_FORM = "order-form.html";
+const ORDER_FORM = "./order-form.html";
 
-const productGrid = document.getElementById("productGrid");
-const searchBox = document.getElementById("searchBox");
+const productGrid =
+    document.getElementById("productGrid");
+
+const searchBox =
+    document.getElementById("searchBox");
+
+
+// ===============================
+// RUPEES
+// ===============================
 
 function rupees(value) {
-    return "Rs. " + Number(value || 0).toLocaleString("en-PK");
+
+    return "Rs. " +
+        Number(value || 0)
+            .toLocaleString("en-PK");
+
 }
+
+
+// ===============================
+// SHOW PRODUCTS
+// ===============================
 
 function showProducts(productList) {
 
     if (!productGrid) return;
 
-    productGrid.innerHTML = productList.map(product => `
+    productGrid.innerHTML =
+        productList.map(product => `
+
         <div class="product-card">
 
             <img
@@ -21,22 +40,35 @@ function showProducts(productList) {
 
             <div class="product-info">
 
-                <h3>${product.name}</h3>
+                <h3>
+                    ${product.name}
+                </h3>
 
-                <p>${product.description || ""}</p>
+                <p>
+                    ${product.description || ""}
+                </p>
 
                 <div class="price-row">
-                    <strong>${rupees(product.price)}</strong>
+
+                    <strong>
+                        ${rupees(product.price)}
+                    </strong>
 
                     ${
                         product.oldPrice
-                        ? `<del>${rupees(product.oldPrice)}</del>`
+                        ? `
+                        <del>
+                            ${rupees(product.oldPrice)}
+                        </del>
+                        `
                         : ""
                     }
+
                 </div>
 
                 <button
                     class="order-btn"
+                    type="button"
                     onclick="orderProduct('${product.id}')"
                 >
                     ORDER NOW
@@ -45,81 +77,204 @@ function showProducts(productList) {
             </div>
 
         </div>
+
     `).join("");
+
 }
 
+
+// ===============================
+// ORDER PRODUCT
+// ===============================
 
 function orderProduct(productId) {
 
-    const product = products.find(
-        p => String(p.id) === String(productId)
-    );
+    const product =
+        products.find(
+            p =>
+                String(p.id) ===
+                String(productId)
+        );
+
 
     if (!product) {
+
         alert("Product نہیں ملا");
+
         return;
+
     }
 
-    const params = new URLSearchParams();
 
-    params.set("Product", product.name);
-    params.set("Product_Description", product.description || "");
-    params.set("Product_Price", product.price || 0);
-    params.set("Old_Price", product.oldPrice || "");
+    const params =
+        new URLSearchParams();
 
-    // Hidden information
-    params.set("Supplier", product.supplier || "");
-    params.set("Product_ID", product.id || "");
-    params.set("Product_Link", product.productLink || "");
-    params.set("Product_Image", product.image || "");
+
+    params.set(
+        "Product",
+        product.name || ""
+    );
+
+
+    params.set(
+        "Product_Description",
+        product.description || ""
+    );
+
+
+    params.set(
+        "Product_Price",
+        product.price || 0
+    );
+
+
+    params.set(
+        "Old_Price",
+        product.oldPrice || ""
+    );
+
+
+    // ===============================
+    // HIDDEN INFORMATION
+    // ===============================
+
+    params.set(
+        "Supplier",
+        product.supplier || ""
+    );
+
+
+    params.set(
+        "Product_ID",
+        product.id || ""
+    );
+
+
+    params.set(
+        "Product_Link",
+        product.productLink || ""
+    );
+
+
+    params.set(
+        "Product_Image",
+        product.image || ""
+    );
+
+
+    // ===============================
+    // OPEN ORDER FORM
+    // ===============================
+
+    const orderUrl =
+        new URL(
+            ORDER_FORM,
+            window.location.href
+        );
+
+
+    orderUrl.search =
+        params.toString();
+
 
     window.location.href =
-        ORDER_FORM + "?" + params.toString();
+        orderUrl.href;
+
 }
 
+
+// ===============================
+// CATEGORY
+// ===============================
 
 function showCategory(category) {
 
     if (category === "All") {
+
         showProducts(products);
+
         return;
+
     }
 
-    const filtered = products.filter(product =>
-        product.category.toLowerCase() ===
-        category.toLowerCase()
-    );
+
+    const filtered =
+        products.filter(product =>
+
+            String(product.category)
+                .toLowerCase() ===
+            String(category)
+                .toLowerCase()
+
+        );
+
 
     showProducts(filtered);
+
 }
 
+
+// ===============================
+// SEARCH
+// ===============================
 
 if (searchBox) {
 
-    searchBox.addEventListener("input", function () {
+    searchBox.addEventListener(
+        "input",
+        function () {
 
-        const text =
-            this.value.trim().toLowerCase();
+            const text =
+                this.value
+                    .trim()
+                    .toLowerCase();
 
-        if (!text) {
-            showProducts(products);
-            return;
+
+            if (!text) {
+
+                showProducts(products);
+
+                return;
+
+            }
+
+
+            const filtered =
+                products.filter(product =>
+
+                    String(product.name)
+                        .toLowerCase()
+                        .includes(text)
+
+                    ||
+
+                    String(
+                        product.description || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
+
+                    ||
+
+                    String(
+                        product.category || ""
+                    )
+                    .toLowerCase()
+                    .includes(text)
+
+                );
+
+
+            showProducts(filtered);
+
         }
+    );
 
-        const filtered = products.filter(product =>
-            product.name.toLowerCase().includes(text) ||
-            (product.description || "")
-                .toLowerCase()
-                .includes(text) ||
-            product.category
-                .toLowerCase()
-                .includes(text)
-        );
-
-        showProducts(filtered);
-
-    });
 }
 
+
+// ===============================
+// INITIAL PRODUCTS
+// ===============================
 
 showProducts(products);
